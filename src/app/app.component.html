@@ -1,15 +1,15 @@
 <mat-drawer-container class="menu-container" autosize>
     <mat-drawer #drawer class="sidenav" mode="side" [opened]="true">
         <div class="logo-container">
-            <img [routerLink]="['dashboard']" src="assets/icons/crm.png" alt="">
+            <img [routerLink]="['']" src="assets/icons/crm.png" alt="">
             <span>Simple CRM</span>
         </div>
         <ul class="menu">
-            <li [routerLink]="['dashboard']"><mat-icon>space_dashboard</mat-icon>Dashboard</li>
+            <li [routerLink]="['']"><mat-icon>space_dashboard</mat-icon>Dashboard</li>
             <li [routerLink]="['contacts']"><mat-icon>group</mat-icon>Contacts</li>
-            <li><mat-icon>apartment</mat-icon>Organisations</li>
-            <li><mat-icon>confirmation_number</mat-icon>Tickets</li>
-            <li><mat-icon>quiz</mat-icon>FAQ</li>
+            <li [routerLink]="['organisations']"><mat-icon>apartment</mat-icon>Organisations</li>
+            <li [routerLink]="['tickets']"><mat-icon>confirmation_number</mat-icon>Tickets</li>
+            <li [routerLink]="['faq']"><mat-icon>quiz</mat-icon>FAQ</li>
         </ul>
     </mat-drawer>
 
