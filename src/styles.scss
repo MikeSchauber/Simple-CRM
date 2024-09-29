@@ -1,1 +1,19 @@
-/* You can add global styles to this file, and also import other style files */
+@use "./mixins.scss";
+
+* {
+  margin: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+}
+
+body {
+  height: 100vh;
+}
+
+.d-none {
+  display: none;
+}
