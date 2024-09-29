@@ -19,10 +19,15 @@
   padding: 0px 16px;
   height: 64px;
   border-bottom: 1px solid rgb(226, 226, 226);
-  @include dFlex($jc: flex-start, $fd: row, $g: 16px);	
-  >img {
+  @include dFlex($jc: flex-start, $fd: row, $g: 16px);
+  > img {
     height: 48px;
     width: 48px;
+    cursor: pointer;
+    transition: 125ms;
+    &:hover {
+      transform: scale(1.05);
+    }
   }
 }
 
@@ -35,7 +40,7 @@
 }
 
 .menu {
-    padding: 0;
+  padding: 0;
   > li {
     padding: 0px 16px;
     height: 54px;
@@ -51,4 +56,9 @@
       background-color: rgba(226, 226, 226, 0.505);
     }
   }
+}
+
+.router-container {
+  padding-left: 56px;
+  padding-top: 16px;
 }
