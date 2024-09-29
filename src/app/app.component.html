@@ -2,34 +2,25 @@
     <mat-drawer #drawer class="sidenav" mode="side" [opened]="true">
         <div class="logo-container">
             <img [routerLink]="['']" src="assets/icons/crm.png" alt="">
-            <span>Simple CRM</span>
+            <span>Blacklight Records</span>
         </div>
         <ul class="menu">
             <li [routerLink]="['']"><mat-icon>space_dashboard</mat-icon>Dashboard</li>
             <li [routerLink]="['contacts']"><mat-icon>group</mat-icon>Contacts</li>
-            <li [routerLink]="['organisations']"><mat-icon>apartment</mat-icon>Organisations</li>
-            <li [routerLink]="['tickets']"><mat-icon>confirmation_number</mat-icon>Tickets</li>
-            <li [routerLink]="['faq']"><mat-icon>quiz</mat-icon>FAQ</li>
+            <li [routerLink]="['deals']"><mat-icon>paid</mat-icon>Deals</li>
+            <li [routerLink]="['customers']"><mat-icon>support_agent</mat-icon>Customers</li>
+            <li [routerLink]="['schedule']"><mat-icon>date_range</mat-icon>Schedule</li>
         </ul>
     </mat-drawer>
 
     <div class="example-sidenav-content">
         <mat-toolbar class="toolbar">
             <div>
-                <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon"
+                <button mat-icon-button class="menu-button" aria-label="Example icon-button with menu icon"
                     (click)="drawer.toggle()">
                     <mat-icon>menu</mat-icon>
                 </button>
-                <span>Simple CRM</span>
-            </div>
-            <div>
-                <button mat-icon-button class="example-icon favorite-icon"
-                    aria-label="Example icon-button with heart icon">
-                    <mat-icon>favorite</mat-icon>
-                </button>
-                <button mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
-                    <mat-icon>share</mat-icon>
-                </button>
+                <span>Simple Musiclabel CRM</span>
             </div>
         </mat-toolbar>
         <div class="router-container">

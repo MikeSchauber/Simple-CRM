@@ -3,6 +3,8 @@
 * {
   margin: 0;
   box-sizing: border-box;
+  font-family: "segoe UI";
+  font-weight: 600;
 }
 
 html {
@@ -12,8 +14,43 @@ html {
 
 body {
   height: 100vh;
+  color: white;
 }
 
 .d-none {
   display: none;
+}
+
+@font-face {
+  src: url("../src/assets/fonts/Khand-Light.ttf") format("ttf");
+  font-family: "Khand", sans-serif;
+  font-weight: 300;
+  font-style: light;
+}
+
+@font-face {
+  src: url("../src/assets/fonts/Khand-Regular.ttf");
+  font-family: "Khand";
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  src: url("../src/assets/fonts/Khand-Medium.ttf");
+  font-family: "Khand", sans-serif;
+  font-weight: 500;
+  font-style: medium;
+}
+
+@font-face {
+  src: url("../src/assets/fonts/Khand-SemiBold.ttf");
+  font-family: "Khand", sans-serif;
+  font-weight: 600;
+}
+
+@font-face {
+  src: url("../src/assets/fonts/Khand-Bold.ttf");
+  font-family: "Khand", sans-serif;
+  font-weight: 700;
+  font-style: bold;
 }
