@@ -1,6 +1,8 @@
 import { Routes } from '@angular/router';
-import { MainPageComponent } from './main-page/main-page/main-page.component';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { ContactsComponent } from './components/contacts/contacts.component';
 
 export const routes: Routes = [
-    { path: '', component: MainPageComponent }
+    { path: '', component: DashboardComponent },
+    { path: 'contacts', component: ContactsComponent }
 ];
