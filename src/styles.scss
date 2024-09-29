@@ -22,35 +22,36 @@ body {
 }
 
 @font-face {
-  src: url("../src/assets/fonts/Khand-Light.ttf") format("ttf");
-  font-family: "Khand", sans-serif;
+  src: url("../src/assets/fonts/Khand-Light.ttf") format("truetype");
+  font-family: "Khand";
   font-weight: 300;
-  font-style: light;
+  font-style: normal;
 }
 
 @font-face {
-  src: url("../src/assets/fonts/Khand-Regular.ttf");
+  src: url("../src/assets/fonts/Khand-Regular.ttf") format("truetype");
   font-family: "Khand";
   font-weight: 400;
   font-style: normal;
 }
 
 @font-face {
-  src: url("../src/assets/fonts/Khand-Medium.ttf");
-  font-family: "Khand", sans-serif;
+  src: url("../src/assets/fonts/Khand-Medium.ttf") format("truetype");
+  font-family: "Khand";
   font-weight: 500;
-  font-style: medium;
+  font-style: normal;
 }
 
 @font-face {
-  src: url("../src/assets/fonts/Khand-SemiBold.ttf");
-  font-family: "Khand", sans-serif;
+  src: url("../src/assets/fonts/Khand-SemiBold.ttf") format("truetype");
+  font-family: "Khand";
   font-weight: 600;
+  font-style: normal;
 }
 
 @font-face {
-  src: url("../src/assets/fonts/Khand-Bold.ttf");
-  font-family: "Khand", sans-serif;
+  src: url("../src/assets/fonts/Khand-Bold.ttf") format("truetype");
+  font-family: "Khand";
   font-weight: 700;
-  font-style: bold;
+  font-style: normal;
 }

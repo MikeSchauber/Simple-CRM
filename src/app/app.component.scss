@@ -25,16 +25,20 @@
   padding: 0px 16px;
   height: 64px;
   border-bottom: 1px solid rgb(197, 197, 197);
-  font-family: "Khand";
+
   @include dFlex($jc: flex-start, $fd: row, $g: 16px);
   > img {
-    height: 48px;
-    width: 48px;
+    width: auto;
+    height: 42px;
     cursor: pointer;
     transition: 125ms;
     &:hover {
       transform: scale(1.05);
     }
+  }
+  > span {
+    font-family: "Khand";
+    font-size: 28px;
   }
 }
 
