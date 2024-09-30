@@ -28,7 +28,7 @@ export class TableComponent {
       role: 'Dj',
       tel: '0151319023',
       email: 'mike.schauber@gmx.de',
-    }
+    },
   ];
   displayedColumns: string[] = ['checked', 'name', 'role', 'telefon'];
   allChecked: boolean = false;
@@ -38,7 +38,7 @@ export class TableComponent {
     role: '',
     tel: '',
     email: '',
-  }
+  };
 
   constructor() {}
 
@@ -56,19 +56,40 @@ export class TableComponent {
     }
   }
 
-  addContact($event: KeyboardEvent) {
+  keyboardAddContact($event: KeyboardEvent) {
     console.log($event.keyCode);
-    if ($event.keyCode === 13) {
-      this.contactsData.push(
-        {
-          checked: false,
-          name: this.newContact.name,
-          role: this.newContact.role,
-          tel: this.newContact.tel,
-          email: this.newContact.email,
-        }
-      );	
+    if ($event.keyCode === 13 && this.newContact.name.length !== 0) {
+      this.contactsData.push({
+        checked: false,
+        name: this.newContact.name,
+        role: this.newContact.role,
+        tel: this.newContact.tel,
+        email: this.newContact.email,
+      });
+      this.clearNewContactValues() 
     }
-    
+  }
+
+  mouseAddContact() {
+    if (this.newContact.name.length > 1) {
+      this.contactsData.push({
+        checked: false,
+        name: this.newContact.name,
+        role: this.newContact.role,
+        tel: this.newContact.tel,
+        email: this.newContact.email,
+      });
+      this. clearNewContactValues() 
+    }
+  }
+
+  clearNewContactValues() {
+    this.newContact = {
+      checked: false,
+      name: '',
+      role: '',
+      tel: '',
+      email: '',
+    };
   }
 }

@@ -1,4 +1,9 @@
 
+$lightcolor: #e1eff2;
+$lightcolorHover: #b8e0e9;
+$darkcolor: rgb(0, 118, 145);
+$darkcolorHover: rgb(0, 89, 109);
+
 @mixin dFlex($jc: center, $ai: center, $fd: column, $g: 0px) {
   display: flex;
   justify-content: $jc;

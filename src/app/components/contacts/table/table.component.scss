@@ -31,13 +31,19 @@ input {
 .button-container {
   @include dFlex($fd: row, $g: 16px);
   button {
-    color: rgb(68, 71, 78);
+    color: $lightcolor;
+    background-color: $darkcolor;
+    &:hover {
+      background-color: $darkcolorHover;
+    }
+    &:active {
+      &:hover {
+        background-color: $darkcolor;
+      }
+    }
   }
   mat-icon {
-    color: rgb(68, 71, 78);
-    &:hover {
-      color: rgba(68, 71, 78, 0.507);
-    }
+    color: $lightcolor;
   }
 }
 
@@ -64,6 +70,7 @@ input {
 }
 
 #customers td:hover {
+  transition: all 125ms ease-in-out;
   background-color: #dddddd8a;
 }
 
@@ -78,12 +85,21 @@ input {
 .add-contact-row {
   padding-left: 61px;
   .add {
-    @include dFlex($fd: row, $g: 8px);
+    @include dFlex($fd: row, $g: 8px, $jc: flex-end);
     height: 100%;
+    > input {
+      text-align: end;
+    }
     mat-icon {
       display: flex;
       align-items: center;
       justify-content: center;
+      cursor: pointer;
+      color: $darkcolor;
+      transition: all 100ms ease-in-out;
+      &:hover {
+        color: $darkcolorHover;
+      }
     }
   }
 }
