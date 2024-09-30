@@ -1,8 +1,7 @@
 <div class="table-container">
   <table mat-table class="mat-elevation-z8 demo-table">
-    <!-- Tabellenkopf -->
-    <thead>
-      <tr>
+    <tbody>
+      <tr class="table-head">
         <!-- Checkbox für "Alle auswählen" -->
         <th>
           <section (click)="checkAllContacts()" class="example-section">
@@ -11,32 +10,27 @@
         </th>
         <!-- Spaltenüberschriften -->
         <th>Name</th>
-        <th>Role</th>
+        <th>Typ</th>
         <th>Tel</th>
+        <th>Email</th>
       </tr>
-    </thead>
-
-    <!-- Tabellenkörper -->
-    <tbody>
       @for (item of this.contactsData; track item; let i = $index) {
-      <tr>
+      <tr class="content-row" >
         <!-- Checkbox für einzelne Zeilen -->
         <td>
           <section class="example-section">
             <mat-checkbox [(ngModel)]="item.checked" class="example-margin"></mat-checkbox>
           </section>
         </td>
-
-        <!-- Name Spalte -->
         <td>{{item.name}}</td>
-
-        <!-- Role Spalte -->
         <td>{{item.role}}</td>
-
-        <!-- Telefon Spalte -->
         <td>{{item.tel}}</td>
+        <td>{{item.email}}</td>
       </tr>
       }
+      <tr>
+        <td>add contact</td>
+      </tr>
     </tbody>
   </table>
 

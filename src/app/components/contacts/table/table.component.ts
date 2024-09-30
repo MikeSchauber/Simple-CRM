@@ -15,14 +15,15 @@ import { MatIconModule } from '@angular/material/icon';
 })
 export class TableComponent {
   contactsData: ContactsTable[] = [
-    { checked: false, name: 'Hydrogen', role: 'Dj', tel: '0151319023' },
-    { checked: false, name: 'Hydrogen', role: 'Dj', tel: '0151319023' },
-    { checked: false, name: 'Hydrogen', role: 'Dj', tel: '0151319023' },
-    { checked: false, name: 'Hydrogen', role: 'Dj', tel: '0151319023' },
-    { checked: false, name: 'Hydrogen', role: 'Dj', tel: '0151319023' },
-    { checked: false, name: 'Hydrogen', role: 'Dj', tel: '0151319023' },
-    { checked: false, name: 'Hydrogen', role: 'Dj', tel: '0151319023' },
-    { checked: false, name: 'Hydrogen', role: 'Dj', tel: '0151319023' },
+    {checked: false, name: 'Hydrogen', role: 'Dj', tel: '0151319023', email: "mike.schauber@gmx.de"},
+    {checked: false, name: 'Hydrogen', role: 'Dj', tel: '0151319023', email: "mike.schauber@gmx.de"},
+    {checked: false, name: 'Hydrogen', role: 'Dj', tel: '0151319023', email: "mike.schauber@gmx.de"},
+    {checked: false, name: 'Hydrogen', role: 'Dj', tel: '0151319023', email: "mike.schauber@gmx.de"},
+    {checked: false, name: 'Hydrogen', role: 'Dj', tel: '0151319023', email: "mike.schauber@gmx.de"},
+    {checked: false, name: 'Hydrogen', role: 'Dj', tel: '0151319023', email: "mike.schauber@gmx.de"},
+    {checked: false, name: 'Hydrogen', role: 'Dj', tel: '0151319023', email: "mike.schauber@gmx.de"},
+    {checked: false, name: 'Hydrogen', role: 'Dj', tel: '0151319023', email: "mike.schauber@gmx.de"},
+    
   ];
   displayedColumns: string[] = ['checked', 'name', 'role', 'telefon'];
   allChecked: boolean = false;
