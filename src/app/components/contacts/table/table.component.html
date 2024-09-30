@@ -21,15 +21,16 @@
           <mat-checkbox [(ngModel)]="item.checked" class="example-margin"></mat-checkbox>
         </section>
       </td>
-      <td><input type="text" [value]="item.name"></td>
-      <td><input type="text" [value]="item.role"></td>
-      <td><input type="text" [value]="item.tel"></td>
-      <td><input type="text" [value]="item.email"></td>
+      <td><input type="text" (input)="item.name=getValue($event)" [value]="item.name"></td>
+      <td><input type="text" (input)="item.role=getValue($event)" [value]="item.role"></td>
+      <td><input type="text" (input)="item.tel=getValue($event)" [value]="item.tel"></td>
+      <td><input type="text" (input)="item.email=getValue($event)" [value]="item.email"></td>
     </tr>
     }
     <tr (keydown)="keyboardAddContact($event)" class="content-row add-contact-row">
       <td></td>
-      <td class="add"><input [(ngModel)]="newContact.name" type="text" placeholder="Add contact"><mat-icon (click)="mouseAddContact()">add_circle</mat-icon></td>
+      <td class="add"><input [(ngModel)]="newContact.name" type="text" placeholder="Add contact"><mat-icon
+          (click)="mouseAddContact()">add_circle</mat-icon></td>
       <td><input [(ngModel)]="newContact.role" type="text" placeholder="Role"></td>
       <td><input [(ngModel)]="newContact.tel" type="text" placeholder="Phonenumber"></td>
       <td><input [(ngModel)]="newContact.email" type="text" placeholder="Email"></td>

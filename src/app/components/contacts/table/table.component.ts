@@ -24,16 +24,17 @@ export class TableComponent {
   contactsData: ContactsTable[] = [
     {
       checked: false,
+      status: 'active',
       name: 'Hydrogen',
       role: 'Dj',
       tel: '0151319023',
       email: 'mike.schauber@gmx.de',
     },
   ];
-  displayedColumns: string[] = ['checked', 'name', 'role', 'telefon'];
   allChecked: boolean = false;
   newContact: ContactsTable = {
     checked: false,
+    status: 'active',
     name: '',
     role: '',
     tel: '',
@@ -54,6 +55,7 @@ export class TableComponent {
         e.checked = false;
       });
     }
+    console.log(this.contactsData);
   }
 
   keyboardAddContact($event: KeyboardEvent) {
@@ -62,11 +64,12 @@ export class TableComponent {
       this.contactsData.push({
         checked: false,
         name: this.newContact.name,
+        status: this.newContact.status,
         role: this.newContact.role,
         tel: this.newContact.tel,
         email: this.newContact.email,
       });
-      this.clearNewContactValues() 
+      this.clearNewContactValues();
     }
   }
 
@@ -75,21 +78,27 @@ export class TableComponent {
       this.contactsData.push({
         checked: false,
         name: this.newContact.name,
+        status: this.newContact.status,
         role: this.newContact.role,
         tel: this.newContact.tel,
         email: this.newContact.email,
       });
-      this. clearNewContactValues() 
+      this.clearNewContactValues();
     }
   }
 
   clearNewContactValues() {
     this.newContact = {
       checked: false,
+      status: 'active',
       name: '',
       role: '',
       tel: '',
       email: '',
     };
+  }
+
+  getValue(event: Event): string {
+    return (event.target as HTMLInputElement).value;
   }
 }

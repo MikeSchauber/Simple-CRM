@@ -1,10 +1,12 @@
 @import "../../../../mixins.scss";
 
 input {
+  width: 100%;
   appearance: none;
   -webkit-appearance: none;
   -moz-appearance: none;
-  border: none;
+  border: 1px solid rgb(184, 184, 184);
+  border-color: transparent;
   background: none;
   padding: 0;
   padding: 5px;
@@ -16,7 +18,7 @@ input {
   -moz-box-sizing: border-box;
   transition: all 125ms ease-in-out;
   &:hover {
-    border: 1px solid rgb(184, 184, 184);
+    border-color: rgb(184, 184, 184);
   }
   &:focus {
     border: 1px solid grey;
