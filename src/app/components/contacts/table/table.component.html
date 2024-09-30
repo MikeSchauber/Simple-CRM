@@ -1,6 +1,5 @@
 <div class="table-container">
   <table mat-table class="mat-elevation-z8 demo-table">
-    <tbody>
       <tr class="table-head">
         <!-- Checkbox für "Alle auswählen" -->
         <th>
@@ -15,7 +14,7 @@
         <th>Email</th>
       </tr>
       @for (item of this.contactsData; track item; let i = $index) {
-      <tr class="content-row" >
+      <tr class="content-row">
         <!-- Checkbox für einzelne Zeilen -->
         <td>
           <section class="example-section">
@@ -31,7 +30,6 @@
       <tr>
         <td>add contact</td>
       </tr>
-    </tbody>
   </table>
 
 </div>

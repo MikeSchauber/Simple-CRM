@@ -5,11 +5,12 @@ import { ContactsTable } from '../../../interfaces/contactsTable';
 import { FormsModule } from '@angular/forms';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatIconModule } from '@angular/material/icon';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-table',
   standalone: true,
-  imports: [MatButtonModule, MatCheckboxModule, FormsModule, MatIconModule],
+  imports: [MatButtonModule, MatCheckboxModule, FormsModule, MatIconModule, CommonModule],
   templateUrl: './table.component.html',
   styleUrl: './table.component.scss',
 })

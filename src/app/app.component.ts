@@ -24,7 +24,5 @@ import { CommonModule } from '@angular/common';
 export class AppComponent {
   title = 'Simple-CRM';
 
-  constructor() {
-
-  }
+  constructor() {}
 }
