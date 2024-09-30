@@ -7,12 +7,20 @@ input {
   border: none;
   background: none;
   padding: 0;
+  padding: 5px;
   margin: 0;
   font: inherit;
   color: inherit;
   box-shadow: none;
   outline: none;
   -moz-box-sizing: border-box;
+  transition: all 125ms ease-in-out;
+  &:hover {
+    border: 1px solid rgb(184, 184, 184);
+  }
+  &:focus {
+    border: 1px solid grey;
+  }
 }
 
 .table-container {
@@ -27,6 +35,9 @@ input {
   }
   mat-icon {
     color: rgb(68, 71, 78);
+    &:hover {
+      color: rgba(68, 71, 78, 0.507);
+    }
   }
 }
 
@@ -66,15 +77,13 @@ input {
 
 .add-contact-row {
   padding-left: 61px;
-  > .add {
-    text-align: end;
-    display: flex;
-    gap: 4px;
-    justify-content: flex-end;
-    border: none;
+  .add {
+    @include dFlex($fd: row, $g: 8px);
+    height: 100%;
     mat-icon {
-      font-size: 22px;
-      @include dFlex();
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
   }
 }

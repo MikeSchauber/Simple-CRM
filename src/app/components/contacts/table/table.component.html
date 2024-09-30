@@ -27,9 +27,9 @@
       <td><input type="text" [value]="item.email"></td>
     </tr>
     }
-    <tr class="content-row add-contact-row">
+    <tr (keydown)="addContact($event)" class="content-row add-contact-row">
       <td></td>
-      <td class="add"><mat-icon>add_circle</mat-icon><input type="text" placeholder="add contact"></td>
+      <td class="add"><mat-icon>add_circle</mat-icon><input [(ngModel)]="newContact.name" type="text" placeholder="add contact"></td>
       <td></td>
       <td></td>
       <td></td>
