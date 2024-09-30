@@ -1,35 +1,39 @@
 <div class="table-container">
-  <table mat-table class="mat-elevation-z8 demo-table">
-      <tr class="table-head">
-        <!-- Checkbox für "Alle auswählen" -->
-        <th>
-          <section (click)="checkAllContacts()" class="example-section">
-            <mat-checkbox [checked]="allChecked" class="example-margin"></mat-checkbox>
-          </section>
-        </th>
-        <!-- Spaltenüberschriften -->
-        <th>Name</th>
-        <th>Typ</th>
-        <th>Tel</th>
-        <th>Email</th>
-      </tr>
-      @for (item of this.contactsData; track item; let i = $index) {
-      <tr class="content-row">
-        <!-- Checkbox für einzelne Zeilen -->
-        <td>
-          <section class="example-section">
-            <mat-checkbox [(ngModel)]="item.checked" class="example-margin"></mat-checkbox>
-          </section>
-        </td>
-        <td>{{item.name}}</td>
-        <td>{{item.role}}</td>
-        <td>{{item.tel}}</td>
-        <td>{{item.email}}</td>
-      </tr>
-      }
-      <tr>
-        <td>add contact</td>
-      </tr>
+  <div class="button-container">
+    <button mat-raised-button><mat-icon>exit_to_app</mat-icon>Inactive</button>
+  </div>
+  <table id="customers">
+    <tr class="table-head">
+      <th>
+        <section (click)="checkAllContacts()" class="example-section">
+          <mat-checkbox [checked]="allChecked" class="example-margin"></mat-checkbox>
+        </section>
+      </th>
+      <th>Name</th>
+      <th>Typ</th>
+      <th>Tel</th>
+      <th>Email</th>
+    </tr>
+    @for (item of this.contactsData; track item; let i = $index) {
+    <tr class="content-row">
+      <td>
+        <section class="example-section">
+          <mat-checkbox [(ngModel)]="item.checked" class="example-margin"></mat-checkbox>
+        </section>
+      </td>
+      <td><input type="text" [value]="item.name"></td>
+      <td><input type="text" [value]="item.role"></td>
+      <td><input type="text" [value]="item.tel"></td>
+      <td><input type="text" [value]="item.email"></td>
+    </tr>
+    }
+    <tr class="content-row add-contact-row">
+      <td></td>
+      <td class="add"><mat-icon>add_circle</mat-icon><input type="text" placeholder="add contact"></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
   </table>
 
 </div>
