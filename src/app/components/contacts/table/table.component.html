@@ -1,38 +1,43 @@
 <div class="table-container">
-  <table mat-tabl class="mat-elevation-z8 demo-table">
-    <!-- Checkbox Column -->
-    <ng-container matColumnDef="checked">
-      <th mat-header-cell *matHeaderCellDef>
-        <section (click)="checkAllContacts()" class="example-section">
-          <mat-checkbox [checked]="allChecked" class="example-margin"></mat-checkbox>
-        </section>
-      </th>
-      <td mat-cell *matCellDef="let element">
-        <section class="example-section">
-          <mat-checkbox [checked]="element.checked" class="example-margin"></mat-checkbox>
-        </section>
-      </td>
-    </ng-container>
+  <table mat-table class="mat-elevation-z8 demo-table">
+    <!-- Tabellenkopf -->
+    <thead>
+      <tr>
+        <!-- Checkbox für "Alle auswählen" -->
+        <th>
+          <section (click)="checkAllContacts()" class="example-section">
+            <mat-checkbox [checked]="allChecked" class="example-margin"></mat-checkbox>
+          </section>
+        </th>
+        <!-- Spaltenüberschriften -->
+        <th>Name</th>
+        <th>Role</th>
+        <th>Tel</th>
+      </tr>
+    </thead>
 
-    <!-- Name Column -->
-    <ng-container matColumnDef="name">
-      <th mat-header-cell *matHeaderCellDef>Name</th>
-      <td mat-cell *matCellDef="let element">{{element.name}}</td>
-    </ng-container>
+    <!-- Tabellenkörper -->
+    <tbody>
+      @for (item of this.contactsData; track item; let i = $index) {
+      <tr>
+        <!-- Checkbox für einzelne Zeilen -->
+        <td>
+          <section class="example-section">
+            <mat-checkbox [(ngModel)]="item.checked" class="example-margin"></mat-checkbox>
+          </section>
+        </td>
 
-    <!-- Weight Column -->
-    <ng-container matColumnDef="role">
-      <th mat-header-cell *matHeaderCellDef>Role</th>
-      <td mat-cell *matCellDef="let element">{{element.role}}</td>
-    </ng-container>
+        <!-- Name Spalte -->
+        <td>{{item.name}}</td>
 
-    <!-- Symbol Column -->
-    <ng-container matColumnDef="symbol">
-      <th mat-header-cell *matHeaderCellDef>Symbol</th>
-      <td mat-cell *matCellDef="let element">{{element.tel}}</td>
-    </ng-container>
+        <!-- Role Spalte -->
+        <td>{{item.role}}</td>
 
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        <!-- Telefon Spalte -->
+        <td>{{item.tel}}</td>
+      </tr>
+      }
+    </tbody>
   </table>
+
 </div>

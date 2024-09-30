@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { MatTableModule } from '@angular/material/table';
 import { MatButtonModule } from '@angular/material/button';
 import { ContactsTable } from '../../../interfaces/contactsTable';
 
@@ -10,12 +9,19 @@ import { MatIconModule } from '@angular/material/icon';
 @Component({
   selector: 'app-table',
   standalone: true,
-  imports: [MatButtonModule, MatTableModule, MatCheckboxModule, FormsModule, MatIconModule],
+  imports: [MatButtonModule, MatCheckboxModule, FormsModule, MatIconModule],
   templateUrl: './table.component.html',
   styleUrl: './table.component.scss',
 })
 export class TableComponent {
   contactsData: ContactsTable[] = [
+    { checked: false, name: 'Hydrogen', role: 'Dj', tel: '0151319023' },
+    { checked: false, name: 'Hydrogen', role: 'Dj', tel: '0151319023' },
+    { checked: false, name: 'Hydrogen', role: 'Dj', tel: '0151319023' },
+    { checked: false, name: 'Hydrogen', role: 'Dj', tel: '0151319023' },
+    { checked: false, name: 'Hydrogen', role: 'Dj', tel: '0151319023' },
+    { checked: false, name: 'Hydrogen', role: 'Dj', tel: '0151319023' },
+    { checked: false, name: 'Hydrogen', role: 'Dj', tel: '0151319023' },
     { checked: false, name: 'Hydrogen', role: 'Dj', tel: '0151319023' },
   ];
   displayedColumns: string[] = ['checked', 'name', 'role', 'telefon'];
