@@ -1,6 +1,7 @@
 <div class="table-container">
   <div class="button-container">
-    <button mat-raised-button><mat-icon>exit_to_app</mat-icon>Inactive</button>
+    <button mat-button><mat-icon>exit_to_app</mat-icon>Inactive</button>
+    <button mat-button><mat-icon>delete</mat-icon>Trash</button>
   </div>
   <table id="customers">
     <tr class="table-head">
@@ -30,7 +31,9 @@
       <td><input type="text" (input)="item.role=getValue($event)" [value]="item.role"></td>
       <td><input type="text" (input)="item.tel=getValue($event)" [value]="item.tel"></td>
       <td><input type="text" (input)="item.email=getValue($event)" [value]="item.email"></td>
-      <td></td>
+      @for (item of addedColumns; track $index) {
+      <td><input type="text" (input)="this.columns[this.columns.length - 1]=getValue($event)" [value]="this.columns[this.columns.length - 1]"></td>
+      }
     </tr>
     }
     <tr (keydown)="keyboardAddContact($event)" class="content-row add-contact-row">

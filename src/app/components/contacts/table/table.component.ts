@@ -5,7 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
-import {MatTooltipModule} from '@angular/material/tooltip';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @Component({
   selector: 'app-table',
@@ -23,6 +23,7 @@ import {MatTooltipModule} from '@angular/material/tooltip';
 })
 export class TableComponent {
   columns = ['Contact', 'Typ', 'Tel', 'Email'];
+  addedColumns = [0];
   contactsData = [
     {
       checked: false,

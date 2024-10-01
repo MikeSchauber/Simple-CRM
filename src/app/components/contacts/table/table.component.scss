@@ -31,10 +31,12 @@ width: 1920px;
 }
 
 .button-container {
+
   mat-icon {
     margin: 0;
   }
   button {
+    margin-right: 8px;
     color: $lightcolor;
     background-color: $darkcolor;
     &:hover {
