@@ -9,10 +9,15 @@
           <mat-checkbox [checked]="allChecked" class="example-margin"></mat-checkbox>
         </section>
       </th>
-      <th>Name</th>
-      <th>Typ</th>
-      <th>Tel</th>
-      <th>Email</th>
+      @for(item of this.columns; track item; let i = $index) {
+      <th [class]="item"><input type="text" (input)="this.columns[i]=getValue($event)" [value]="item"></th>
+      }
+      <th class="button-container">
+        <button (click)="addNewColumn()" mat-raised-button matTooltip="Add a new Column"
+          aria-label="Button that displays a tooltip when focused or hovered over">
+          <mat-icon>add</mat-icon>
+        </button>
+      </th>
     </tr>
     @for (item of this.contactsData; track item; let i = $index) {
     <tr class="content-row">
@@ -25,15 +30,17 @@
       <td><input type="text" (input)="item.role=getValue($event)" [value]="item.role"></td>
       <td><input type="text" (input)="item.tel=getValue($event)" [value]="item.tel"></td>
       <td><input type="text" (input)="item.email=getValue($event)" [value]="item.email"></td>
+      <td></td>
     </tr>
     }
     <tr (keydown)="keyboardAddContact($event)" class="content-row add-contact-row">
-      <td></td>
+      <td class="empty-field"></td>
       <td class="add"><input [(ngModel)]="newContact.name" type="text" placeholder="Add contact"><mat-icon
           (click)="mouseAddContact()">add_circle</mat-icon></td>
-      <td><input [(ngModel)]="newContact.role" type="text" placeholder="Role"></td>
-      <td><input [(ngModel)]="newContact.tel" type="text" placeholder="Phonenumber"></td>
-      <td><input [(ngModel)]="newContact.email" type="text" placeholder="Email"></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
     </tr>
   </table>
 

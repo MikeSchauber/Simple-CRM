@@ -5,7 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
-import { BrowserModule } from '@angular/platform-browser';
+import {MatTooltipModule} from '@angular/material/tooltip';
 
 @Component({
   selector: 'app-table',
@@ -16,12 +16,14 @@ import { BrowserModule } from '@angular/platform-browser';
     FormsModule,
     MatIconModule,
     CommonModule,
+    MatTooltipModule,
   ],
   templateUrl: './table.component.html',
   styleUrl: './table.component.scss',
 })
 export class TableComponent {
-  contactsData: ContactsTable[] = [
+  columns = ['Contact', 'Typ', 'Tel', 'Email'];
+  contactsData = [
     {
       checked: false,
       status: 'active',
@@ -29,6 +31,14 @@ export class TableComponent {
       role: 'Dj',
       tel: '0151319023',
       email: 'mike.schauber@gmx.de',
+    },
+    {
+      checked: false,
+      status: 'active',
+      name: 'Astral',
+      role: 'Live Act',
+      tel: '0151332023',
+      email: 'mike.schuner@gmx.de',
     },
   ];
   allChecked: boolean = false;
@@ -59,7 +69,6 @@ export class TableComponent {
   }
 
   keyboardAddContact($event: KeyboardEvent) {
-    console.log($event.keyCode);
     if ($event.keyCode === 13 && this.newContact.name.length !== 0) {
       this.contactsData.push({
         checked: false,
@@ -100,5 +109,9 @@ export class TableComponent {
 
   getValue(event: Event): string {
     return (event.target as HTMLInputElement).value;
+  }
+
+  addNewColumn() {
+    this.columns.push('Set Category');
   }
 }

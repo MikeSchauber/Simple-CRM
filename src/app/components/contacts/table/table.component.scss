@@ -27,11 +27,13 @@ input {
 
 .table-container {
   @include dFlex($g: 16px, $ai: flex-start);
-  width: 100%;
+width: 1920px;
 }
 
 .button-container {
-  @include dFlex($fd: row, $g: 16px);
+  mat-icon {
+    margin: 0;
+  }
   button {
     color: $lightcolor;
     background-color: $darkcolor;
@@ -50,9 +52,7 @@ input {
 }
 
 #customers {
-  font-family: Arial, Helvetica, sans-serif;
   border-collapse: collapse;
-  width: 100%;
 }
 
 .table-head {
@@ -84,24 +84,51 @@ input {
   color: rgb(68, 71, 78);
 }
 
+#customers th:last-of-type {
+  padding: 0px 40px;
+}
+
+.add-container {
+  mat-icon {
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 100ms ease-in-out;
+    &:hover {
+      background-color: $lightcolorHover;
+    }
+    &:active {
+      background-color: $lightcolor;
+    }
+  }
+}
+
 .add-contact-row {
   padding-left: 61px;
-  .add {
-    @include dFlex($fd: row, $g: 8px, $jc: flex-end);
-    height: 100%;
-    > input {
-      text-align: end;
+  border-bottom: 1px solid #ddd;
+}
+.add {
+  width: 100% !important;
+  height: 100% !important;
+  @include dFlex($fd: row, $g: 8px);
+  border: 0 !important;
+  > input {
+    text-align: end;
+  }
+  mat-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: $darkcolor;
+    transition: all 100ms ease-in-out;
+    &:hover {
+      color: $darkcolorHover;
     }
-    mat-icon {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      color: $darkcolor;
-      transition: all 100ms ease-in-out;
-      &:hover {
-        color: $darkcolorHover;
-      }
-    }
+  }
+}
+
+.empty-field {
+  &:hover {
+    background-color: #ffffff00 !important;
   }
 }
