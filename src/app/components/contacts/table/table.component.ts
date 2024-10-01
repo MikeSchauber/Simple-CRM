@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
-import { ContactsTable } from '../../../interfaces/contactsTable';
 import { FormsModule } from '@angular/forms';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatIconModule } from '@angular/material/icon';
@@ -22,8 +21,25 @@ import { MatTooltipModule } from '@angular/material/tooltip';
   styleUrl: './table.component.scss',
 })
 export class TableComponent {
-  columns = ['Contact', 'Typ', 'Tel', 'Email'];
-  addedColumns = [0];
+  tableData = [
+    {
+      column: 'Contacts',
+      position: 0,
+    },
+    {
+      column: 'Typ',
+      position: 1,
+    },
+    {
+      column: 'Phone',
+      position: 2,
+    },
+    {
+      column: 'Email',
+      position: 3,
+    },
+  ];
+
   contactsData = [
     {
       checked: false,
@@ -43,7 +59,7 @@ export class TableComponent {
     },
   ];
   allChecked: boolean = false;
-  newContact: ContactsTable = {
+  newContact = {
     checked: false,
     status: 'active',
     name: '',
@@ -113,6 +129,11 @@ export class TableComponent {
   }
 
   addNewColumn() {
-    this.columns.push('Set Category');
+    this.tableData.push({
+      column: 'New Column',
+      position: this.tableData.length,
+    });
+    console.log(this.tableData);
+    
   }
 }

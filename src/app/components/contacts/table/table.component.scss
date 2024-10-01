@@ -7,6 +7,7 @@ input {
   -moz-appearance: none;
   border: 1px solid rgb(184, 184, 184);
   border-color: transparent;
+  border-radius: 5px;
   background: none;
   padding: 0;
   padding: 5px;
@@ -15,7 +16,6 @@ input {
   color: inherit;
   box-shadow: none;
   outline: none;
-  -moz-box-sizing: border-box;
   transition: all 125ms ease-in-out;
   &:hover {
     border-color: rgb(184, 184, 184);
@@ -27,11 +27,10 @@ input {
 
 .table-container {
   @include dFlex($g: 16px, $ai: flex-start);
-width: 1920px;
+  overflow-x: scroll;
 }
 
 .button-container {
-
   mat-icon {
     margin: 0;
   }
@@ -67,6 +66,25 @@ width: 1920px;
 #customers th {
   border: 1px solid #ddd;
   padding: 8px;
+  width: 190px;
+}
+
+#customers th {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+#customers td {
+  font-size: 15px;
+  font-weight: normal;
+}
+
+#customers td:first-of-type,
+#customers th:first-of-type {
+  border: 1px solid #ddd;
+  padding: 8px;
+  width: 60px;
+  position: sticky;
 }
 
 #customers tr:nth-child(even) {
@@ -81,9 +99,13 @@ width: 1920px;
 #customers th {
   padding-top: 12px;
   padding-bottom: 12px;
-  text-align: left;
+  text-align: center;
   background-color: rgb(225, 239, 242);
   color: rgb(68, 71, 78);
+}
+
+#customers td {
+  text-align: center;
 }
 
 #customers th:last-of-type {

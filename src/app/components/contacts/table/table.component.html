@@ -10,8 +10,8 @@
           <mat-checkbox [checked]="allChecked" class="example-margin"></mat-checkbox>
         </section>
       </th>
-      @for(item of this.columns; track item; let i = $index) {
-      <th [class]="item"><input type="text" (input)="this.columns[i]=getValue($event)" [value]="item"></th>
+      @for(item of this.tableData; track item; let i = $index) {
+      <th [class]="item"><input type="text" (input)="item.column=getValue($event)" [value]="item.column"></th>
       }
       <th class="button-container">
         <button (click)="addNewColumn()" mat-raised-button matTooltip="Add a new Column"
@@ -31,9 +31,7 @@
       <td><input type="text" (input)="item.role=getValue($event)" [value]="item.role"></td>
       <td><input type="text" (input)="item.tel=getValue($event)" [value]="item.tel"></td>
       <td><input type="text" (input)="item.email=getValue($event)" [value]="item.email"></td>
-      @for (item of addedColumns; track $index) {
-      <td><input type="text" (input)="this.columns[this.columns.length - 1]=getValue($event)" [value]="this.columns[this.columns.length - 1]"></td>
-      }
+      <td></td>
     </tr>
     }
     <tr (keydown)="keyboardAddContact($event)" class="content-row add-contact-row">
