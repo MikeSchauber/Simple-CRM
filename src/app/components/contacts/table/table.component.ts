@@ -148,5 +148,13 @@ export class TableComponent {
       class: 'new-column-cell',
     });
     console.log(this.tableData);
+    let newData = "new-column";
+    this.contactsData.forEach(contact => {
+      contact = {
+        ...contact,
+        [newData]: 'new-data'
+      }
+      console.log(contact);
+    });
   }
 }

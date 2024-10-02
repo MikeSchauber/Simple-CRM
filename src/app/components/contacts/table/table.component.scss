@@ -9,7 +9,6 @@ input {
   border-color: transparent;
   border-radius: 5px;
   background: none;
-  padding: 0;
   padding: 5px;
   margin: 0;
   font: inherit;
@@ -27,6 +26,13 @@ input {
 
 .table-container {
   @include dFlex($g: 16px, $ai: flex-start);
+}
+
+.table {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  overflow-x: auto;
 }
 
 .button-container {
@@ -86,11 +92,6 @@ input {
   }
 }
 
-.table {
-  display: flex;
-  flex-direction: column;
-}
-
 .row {
   display: flex;
 }
@@ -98,6 +99,7 @@ input {
 .cell {
   padding: 0px 8px;
   min-height: 50px;
+  min-width: 210px;
   @include dFlex($fd: row);
   flex: 1;
   border: 1px solid #ddd;
