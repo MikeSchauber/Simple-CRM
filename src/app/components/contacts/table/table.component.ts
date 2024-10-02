@@ -5,7 +5,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { BehaviorSubject } from 'rxjs';
+import { MatMenuModule } from '@angular/material/menu';
 
 @Component({
   selector: 'app-table',
@@ -17,6 +17,7 @@ import { BehaviorSubject } from 'rxjs';
     MatIconModule,
     CommonModule,
     MatTooltipModule,
+    MatMenuModule,
   ],
   templateUrl: './table.component.html',
   styleUrl: './table.component.scss',
@@ -24,15 +25,17 @@ import { BehaviorSubject } from 'rxjs';
 export class TableComponent {
   emailHovered: boolean = false;
   phoneHovered: boolean = false;
+  allChecked: boolean = false;
+  newContact: string = '';
 
   availableColumnTypes = {
-    textfield: {
+    note: {
       name: 'Note',
       typ: 'text',
-      value: '',
+      availableDropdowns: [{}],
     },
-    role: {
-      name: 'Typ',
+    type: {
+      name: 'Type',
       typ: 'dropdown',
       availableDropdowns: [
         { name: 'Artist', color: '#ff5722' },
@@ -64,16 +67,19 @@ export class TableComponent {
 
   tableData = [
     {
-      column: 'Contacts',
-      class: 'contacts-headcell',
+      name: 'Contacts',
+      typ: 'text',
+      availableDropdowns: [{}],
     },
     {
-      column: 'Phone',
-      class: 'phone-headcell',
+      name: 'Tel.',
+      typ: 'href',
+      availableDropdowns: [{}],
     },
     {
-      column: 'Email',
-      class: 'email-headcell',
+      name: 'Email',
+      typ: 'href',
+      availableDropdowns: [{}],
     },
   ];
 
@@ -86,7 +92,9 @@ export class TableComponent {
       email: 'mike.schauber@gmx.de',
       newColumns: [
         {
-          name: 'Spacer',
+          name: 'Name',
+          typ: 'text',
+          availableDropdowns: [{}],
         },
       ],
     },
@@ -98,24 +106,13 @@ export class TableComponent {
       email: 'mike.schuner@gmx.de',
       newColumns: [
         {
-          name: 'Spacer',
+          name: 'Name',
+          typ: 'text',
+          availableDropdowns: [{}],
         },
       ],
     },
   ];
-  allChecked: boolean = false;
-  newContact = {
-    checked: false,
-    status: 'active',
-    name: '',
-    tel: '',
-    email: '',
-    newColumns: [
-      {
-        name: 'Spacer',
-      },
-    ],
-  };
 
   constructor() {}
 
@@ -147,51 +144,37 @@ export class TableComponent {
   }
 
   keyboardAddContact($event: KeyboardEvent) {
-    if ($event.keyCode === 13 && this.newContact.name.length != 0) {
-      this.contactsData.push({
-        checked: false,
-        name: this.newContact.name,
-        status: this.newContact.status,
-        tel: this.newContact.tel,
-        email: this.newContact.email,
-        newColumns: this.newContact.newColumns,
-      });
+    if ($event.keyCode === 13 && this.newContact.length != 0) {
       this.clearNewContactValues();
     }
   }
 
   mouseAddContact() {
-    if (this.newContact.name.length != 0) {
-      this.contactsData.push({
-        checked: false,
-        name: this.newContact.name,
-        status: this.newContact.status,
-        tel: this.newContact.tel,
-        email: this.newContact.email,
-        newColumns: this.newContact.newColumns,
-      });
-      this.clearNewContactValues();
+    if (this.newContact.length != 0) {
     }
+    this.clearNewContactValues();
   }
 
-  clearNewContactValues() {
-    this.newContact = {
-      checked: false,
-      status: 'active',
-      name: '',
-      tel: '',
-      email: '',
-      newColumns: [
-        {
-          name: 'Spacer',
-        },
-      ],
-    };
-  }
+  clearNewContactValues() {}
 
   getValue(event: Event): string {
     return (event.target as HTMLInputElement).value;
   }
 
-  openColumnMenu() {}
+  addColumn(type: string) {
+    let newColumn;
+    if (type == 'note') {
+      newColumn = this.availableColumnTypes.note;
+    } else if (type == 'type') {
+      newColumn = this.availableColumnTypes.type;
+    } else if (type == 'status') {
+      newColumn = this.availableColumnTypes.status;
+    } else {
+      newColumn = this.availableColumnTypes.priority;
+    }
+    this.tableData.push(newColumn);
+    this.contactsData.forEach((contact) => {
+      contact.newColumns.push(newColumn);
+    });
+  }
 }
