@@ -13,7 +13,7 @@
       </div>
       @for(item of this.tableData; track item; let i = $index) {
       <div [class]="item.class" class="cell">
-        <input type="text" (input)="item.column=getValue($event)" [value]="item.column">
+        <span>{{item.column}}</span>
       </div>
       }
       <div class="cell button-container">
@@ -33,10 +33,11 @@
         </section>
       </div>
       <div class="cell"><input type="text" (input)="item.name=getValue($event)" [value]="item.name"></div>
-      <div class="cell typ-cell"><input type="text" (input)="item.role=getValue($event)" [value]="item.role"></div>
-      <div class="cell"><input type="text" (input)="item.tel=getValue($event)" [value]="item.tel"></div>
-      <div (mouseover)="hoverAction()" (mouseout)="mouseOutAction();" class="cell email-cell"><a
-          [href]="'mailto:' + item.email">{{item.email}}</a><mat-icon [ngClass]="{'d-none': !hovered}">close</mat-icon>
+      <div (mouseover)="hoverAction('tel')" (mouseout)="mouseOutAction();" class="cell email-cell"><a
+        [href]="'tel:' + item.email">{{item.tel}}</a><mat-icon [ngClass]="{'d-none': !phoneHovered}">close</mat-icon>
+    </div>
+      <div (mouseover)="hoverAction('email')" (mouseout)="mouseOutAction();" class="cell email-cell"><a
+          [href]="'mailto:' + item.email">{{item.email}}</a><mat-icon [ngClass]="{'d-none': !emailHovered}">close</mat-icon>
       </div>
       @for (item of item.newColumns; track $index) {
       <div class="cell"></div>
@@ -52,7 +53,6 @@
         <input [(ngModel)]="newContact.name" type="text" placeholder="Add contact">
       </div>
       <div class="cell typ-cell"></div>
-      <div class="cell"></div>
       <div class="cell"></div>
       @for (item of contactsData[0].newColumns; track $index) {
         <div class="cell"></div>

@@ -25,7 +25,7 @@ input {
 }
 
 .table-container {
-  @include dFlex($g: 16px, $ai: flex-start);
+  @include dFlex($g: 32px, $ai: flex-start);
 }
 
 .table {

@@ -5,6 +5,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'app-table',
@@ -21,26 +22,41 @@ import { MatTooltipModule } from '@angular/material/tooltip';
   styleUrl: './table.component.scss',
 })
 export class TableComponent {
-  hovered: boolean = false;
+  emailHovered: boolean = false;
+  phoneHovered: boolean = false;
+  availableColumnTypes = {
+    role: {
+      name: 'Typ',
+      typ: 'dropdown',
+      availableDropdowns: ['Artist', 'Manager', 'Lead', 'Partner', 'Customer'],
+    },
+    textfield: {
+      name: "Text",
+      typ: "text",
+      value: '',
+    },
+    status: {
+      name: 'Status',
+      typ: 'dropdown',
+      availableDropdowns: ['active', 'inactive', 'suspended'],
+    },
+    priority: {
+      name: "Priority",
+      typ: "dropdown",
+      availableDropdowns: ['low', 'medium', 'high'],
+    }
+  };
   tableData = [
     {
       column: 'Contacts',
-      position: 0,
       class: 'contacts-headcell',
     },
     {
-      column: 'Typ',
-      position: 1,
-      class: 'typ-headcell',
-    },
-    {
       column: 'Phone',
-      position: 2,
       class: 'phone-headcell',
     },
     {
       column: 'Email',
-      position: 3,
       class: 'email-headcell',
     },
   ];
@@ -49,7 +65,6 @@ export class TableComponent {
       checked: false,
       status: 'active',
       name: 'Hydrogen',
-      role: 'Dj',
       tel: '0151319023',
       email: 'mike.schauber@gmx.de',
       newColumns: [
@@ -64,7 +79,6 @@ export class TableComponent {
       checked: false,
       status: 'active',
       name: 'Astral',
-      role: 'Live Act',
       tel: '0151332023',
       email: 'mike.schuner@gmx.de',
       newColumns: [
@@ -81,7 +95,6 @@ export class TableComponent {
     checked: false,
     status: 'active',
     name: '',
-    role: '',
     tel: '',
     email: '',
     newColumns: [],
@@ -89,12 +102,17 @@ export class TableComponent {
 
   constructor() {}
 
-  hoverAction() {
-    this.hovered = true;
+  hoverAction(action: string) {
+    if (action == "email") {
+      this.emailHovered = true;
+    } else if (action == "tel") {
+      this.phoneHovered = true;
+    }
   }
 
   mouseOutAction() {
-    this.hovered = false;
+    this.emailHovered = false;
+    this.phoneHovered = false;
   }
 
   checkAllContacts() {
@@ -113,12 +131,11 @@ export class TableComponent {
   }
 
   keyboardAddContact($event: KeyboardEvent) {
-    if ($event.keyCode === 13 && this.newContact.name.length !== 0) {
+    if ($event.keyCode === 13 && this.newContact.name.length != 0) {
       this.contactsData.push({
         checked: false,
         name: this.newContact.name,
         status: this.newContact.status,
-        role: this.newContact.role,
         tel: this.newContact.tel,
         email: this.newContact.email,
         newColumns: this.newContact.newColumns,
@@ -128,12 +145,11 @@ export class TableComponent {
   }
 
   mouseAddContact() {
-    if (this.newContact.name.length > 1) {
+    if (this.newContact.name.length != 0) {
       this.contactsData.push({
         checked: false,
         name: this.newContact.name,
         status: this.newContact.status,
-        role: this.newContact.role,
         tel: this.newContact.tel,
         email: this.newContact.email,
         newColumns: this.newContact.newColumns,
@@ -147,7 +163,6 @@ export class TableComponent {
       checked: false,
       status: 'active',
       name: '',
-      role: '',
       tel: '',
       email: '',
       newColumns: [],
@@ -161,11 +176,9 @@ export class TableComponent {
   addNewColumn() {
     this.tableData.push({
       column: 'New Column',
-      position: this.tableData.length,
       class: 'new-column-cell',
     });
     console.log(this.tableData);
-    let newData = 'new-column';
     this.contactsData.forEach((contact, index) => {
       contact.newColumns.push({
         column: 'New Column 1',
