@@ -24,28 +24,44 @@ import { BehaviorSubject } from 'rxjs';
 export class TableComponent {
   emailHovered: boolean = false;
   phoneHovered: boolean = false;
+
   availableColumnTypes = {
+    textfield: {
+      name: 'Note',
+      typ: 'text',
+      value: '',
+    },
     role: {
       name: 'Typ',
       typ: 'dropdown',
-      availableDropdowns: ['Artist', 'Manager', 'Lead', 'Partner', 'Customer'],
-    },
-    textfield: {
-      name: "Text",
-      typ: "text",
-      value: '',
+      availableDropdowns: [
+        { name: 'Artist', color: '#ff5722' },
+        { name: 'Manager', color: '#2196f3' },
+        { name: 'Lead', color: '#4caf50' },
+        { name: 'Partner', color: '#9c27b0' },
+        { name: 'Customer', color: '#ffeb3b' },
+      ],
     },
     status: {
       name: 'Status',
       typ: 'dropdown',
-      availableDropdowns: ['active', 'inactive', 'suspended'],
+      availableDropdowns: [
+        { name: 'active', color: '#4caf50' },
+        { name: 'inactive', color: '#f44336' },
+        { name: 'suspended', color: '#ff9800' },
+      ],
     },
     priority: {
-      name: "Priority",
-      typ: "dropdown",
-      availableDropdowns: ['low', 'medium', 'high'],
-    }
+      name: 'Priority',
+      typ: 'dropdown',
+      availableDropdowns: [
+        { name: 'low', color: '#8bc34a' },
+        { name: 'medium', color: '#ffc107' },
+        { name: 'high', color: '#f44336' },
+      ],
+    },
   };
+
   tableData = [
     {
       column: 'Contacts',
@@ -60,6 +76,7 @@ export class TableComponent {
       class: 'email-headcell',
     },
   ];
+
   contactsData = [
     {
       checked: false,
@@ -69,9 +86,7 @@ export class TableComponent {
       email: 'mike.schauber@gmx.de',
       newColumns: [
         {
-          column: 'New Column 1',
-          position: 0,
-          class: 'new-column-1-headcell',
+          name: 'Spacer',
         },
       ],
     },
@@ -83,9 +98,7 @@ export class TableComponent {
       email: 'mike.schuner@gmx.de',
       newColumns: [
         {
-          column: 'New Column 1',
-          position: 0,
-          class: 'new-column-1-headcell',
+          name: 'Spacer',
         },
       ],
     },
@@ -97,15 +110,19 @@ export class TableComponent {
     name: '',
     tel: '',
     email: '',
-    newColumns: [],
+    newColumns: [
+      {
+        name: 'Spacer',
+      },
+    ],
   };
 
   constructor() {}
 
   hoverAction(action: string) {
-    if (action == "email") {
+    if (action == 'email') {
       this.emailHovered = true;
-    } else if (action == "tel") {
+    } else if (action == 'tel') {
       this.phoneHovered = true;
     }
   }
@@ -127,7 +144,6 @@ export class TableComponent {
         e.checked = false;
       });
     }
-    console.log(this.contactsData);
   }
 
   keyboardAddContact($event: KeyboardEvent) {
@@ -165,7 +181,11 @@ export class TableComponent {
       name: '',
       tel: '',
       email: '',
-      newColumns: [],
+      newColumns: [
+        {
+          name: 'Spacer',
+        },
+      ],
     };
   }
 
@@ -173,19 +193,5 @@ export class TableComponent {
     return (event.target as HTMLInputElement).value;
   }
 
-  addNewColumn() {
-    this.tableData.push({
-      column: 'New Column',
-      class: 'new-column-cell',
-    });
-    console.log(this.tableData);
-    this.contactsData.forEach((contact, index) => {
-      contact.newColumns.push({
-        column: 'New Column 1',
-        position: 0,
-        class: 'new-column-1-headcell',
-      });
-      console.log(contact);
-    });
-  }
+  openColumnMenu() {}
 }
