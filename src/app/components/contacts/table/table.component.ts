@@ -67,6 +67,7 @@ export class TableComponent {
 
   tableData = [
     {
+      class: "contacts-cell",
       name: 'Contacts',
       typ: 'text',
       availableDropdowns: [{}],

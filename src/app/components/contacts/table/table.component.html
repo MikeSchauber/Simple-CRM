@@ -12,7 +12,7 @@
         </section>
       </div>
       @for(item of this.tableData; track $index; let i = $index) {
-      <div [class]="item.typ" class="cell">
+      <div [class]="item.class" class="cell">
         <span>{{item.name}}</span>
       </div>
       }
@@ -38,7 +38,7 @@
           <mat-checkbox [(ngModel)]="item.checked" class="example-margin"></mat-checkbox>
         </section>
       </div>
-      <div class="cell"><input type="text" (input)="item.name=getValue($event)" [value]="item.name"></div>
+      <div class="cell contacts-cell"><input type="text" (input)="item.name=getValue($event)" [value]="item.name"></div>
       <div (mouseover)="hoverAction('tel')" (mouseout)="mouseOutAction();" class="cell email-cell"><a
           [href]="'tel:' + item.email">{{item.tel}}</a><mat-icon [ngClass]="{'d-none': !phoneHovered}">close</mat-icon>
       </div>
@@ -55,7 +55,7 @@
     <!-- Add New Contact Row -->
     <div class="row content-row add-contact-row" (keydown)="keyboardAddContact($event)">
       <div class="cell empty-field checkbox-cell"></div>
-      <div class="cell add">
+      <div class="cell add contacts-cell">
         <mat-icon (click)="mouseAddContact()">add_circle</mat-icon>
         <input [(ngModel)]="newContact" type="text" placeholder="Add contact">
       </div>

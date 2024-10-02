@@ -88,6 +88,7 @@ input {
 }
 
 .empty-field {
+  background-color: white;
   &:hover {
     background-color: #ffffff00 !important;
   }
@@ -109,6 +110,13 @@ input {
 .checkbox-cell {
   min-width: 50px;
   flex: 0;
+  padding: 0;
+  position: fixed;
+  background-color: white;
+}
+
+.contacts-cell {
+  padding-left: 50px;
 }
 
 .typ-headcell .typ-cell {
