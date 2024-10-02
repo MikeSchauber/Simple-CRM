@@ -38,7 +38,9 @@
       <div (mouseover)="hoverAction()" (mouseout)="mouseOutAction();" class="cell email-cell"><a
           [href]="'mailto:' + item.email">{{item.email}}</a><mat-icon [ngClass]="{'d-none': !hovered}">close</mat-icon>
       </div>
+      @for (item of item.newColumns; track $index) {
       <div class="cell"></div>
+      }
     </div>
     }
 

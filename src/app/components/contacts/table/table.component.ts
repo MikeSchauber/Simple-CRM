@@ -44,7 +44,6 @@ export class TableComponent {
       class: 'email-headcell',
     },
   ];
-
   contactsData = [
     {
       checked: false,
@@ -53,6 +52,13 @@ export class TableComponent {
       role: 'Dj',
       tel: '0151319023',
       email: 'mike.schauber@gmx.de',
+      newColumns: [
+        {
+          column: 'New Column 1',
+          position: 0,
+          class: 'new-column-1-headcell',
+        },
+      ],
     },
     {
       checked: false,
@@ -61,6 +67,13 @@ export class TableComponent {
       role: 'Live Act',
       tel: '0151332023',
       email: 'mike.schuner@gmx.de',
+      newColumns: [
+        {
+          column: 'New Column 1',
+          position: 0,
+          class: 'new-column-1-headcell',
+        },
+      ],
     },
   ];
   allChecked: boolean = false;
@@ -71,6 +84,7 @@ export class TableComponent {
     role: '',
     tel: '',
     email: '',
+    newColumns: [],
   };
 
   constructor() {}
@@ -107,6 +121,7 @@ export class TableComponent {
         role: this.newContact.role,
         tel: this.newContact.tel,
         email: this.newContact.email,
+        newColumns: this.newContact.newColumns,
       });
       this.clearNewContactValues();
     }
@@ -121,6 +136,7 @@ export class TableComponent {
         role: this.newContact.role,
         tel: this.newContact.tel,
         email: this.newContact.email,
+        newColumns: this.newContact.newColumns,
       });
       this.clearNewContactValues();
     }
@@ -134,6 +150,7 @@ export class TableComponent {
       role: '',
       tel: '',
       email: '',
+      newColumns: [],
     };
   }
 
@@ -148,12 +165,12 @@ export class TableComponent {
       class: 'new-column-cell',
     });
     console.log(this.tableData);
-    let newData = "new-column";
-    this.contactsData.forEach(contact => {
+    let newData = 'new-column';
+    this.contactsData.forEach((contact) => {
       contact = {
         ...contact,
-        [newData]: 'new-data'
-      }
+        [newData]: 'new-data',
+      };
       console.log(contact);
     });
   }
