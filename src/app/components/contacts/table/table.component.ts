@@ -166,11 +166,12 @@ export class TableComponent {
     });
     console.log(this.tableData);
     let newData = 'new-column';
-    this.contactsData.forEach((contact) => {
-      contact = {
-        ...contact,
-        [newData]: 'new-data',
-      };
+    this.contactsData.forEach((contact, index) => {
+      contact.newColumns.push({
+        column: 'New Column 1',
+        position: 0,
+        class: 'new-column-1-headcell',
+      });
       console.log(contact);
     });
   }

@@ -54,7 +54,9 @@
       <div class="cell typ-cell"></div>
       <div class="cell"></div>
       <div class="cell"></div>
-      <div class="cell"></div>
+      @for (item of contactsData[0].newColumns; track $index) {
+        <div class="cell"></div>
+        }
     </div>
   </div>
 </div>
