@@ -87,27 +87,13 @@ export class TableComponent {
     {
       checked: false,
       status: 'active',
-      name: 'Hydrogen',
-      tel: '0151319023',
-      email: 'mike.schauber@gmx.de',
-      newColumns: [
-        {
-          name: 'Name',
-          typ: 'text',
-          availableDropdowns: [{}],
-        },
-      ],
-    },
-    {
-      checked: false,
-      status: 'active',
       name: 'Astral',
       tel: '0151332023',
       email: 'mike.schuner@gmx.de',
       newColumns: [
         {
-          name: 'Name',
-          typ: 'text',
+          name: '',
+          typ: '',
           availableDropdowns: [{}],
         },
       ],
@@ -175,6 +161,11 @@ export class TableComponent {
     this.tableData.push(newColumn);
     this.contactsData.forEach((contact) => {
       contact.newColumns.push(newColumn);
+      console.log(contact.newColumns);
+      console.log(newColumn.name)
+      
     });
+
+    
   }
 }
