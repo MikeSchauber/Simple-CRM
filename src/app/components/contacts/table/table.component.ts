@@ -21,22 +21,27 @@ import { MatTooltipModule } from '@angular/material/tooltip';
   styleUrl: './table.component.scss',
 })
 export class TableComponent {
+  hovered: boolean = false;
   tableData = [
     {
       column: 'Contacts',
       position: 0,
+      class: 'contacts-headcell',
     },
     {
       column: 'Typ',
       position: 1,
+      class: 'typ-headcell',
     },
     {
       column: 'Phone',
       position: 2,
+      class: 'phone-headcell',
     },
     {
       column: 'Email',
       position: 3,
+      class: 'email-headcell',
     },
   ];
 
@@ -69,6 +74,14 @@ export class TableComponent {
   };
 
   constructor() {}
+
+  hoverAction() {
+    this.hovered = true;
+  }
+
+  mouseOutAction() {
+    this.hovered = false;
+  }
 
   checkAllContacts() {
     if (!this.allChecked) {
@@ -132,8 +145,8 @@ export class TableComponent {
     this.tableData.push({
       column: 'New Column',
       position: this.tableData.length,
+      class: 'new-column-cell',
     });
     console.log(this.tableData);
-    
   }
 }

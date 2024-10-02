@@ -27,7 +27,6 @@ input {
 
 .table-container {
   @include dFlex($g: 16px, $ai: flex-start);
-  overflow-x: scroll;
 }
 
 .button-container {
@@ -52,66 +51,6 @@ input {
   }
 }
 
-#customers {
-  border-collapse: collapse;
-}
-
-.table-head {
-  th:first-of-type {
-    width: 60px;
-  }
-}
-
-#customers td,
-#customers th {
-  border: 1px solid #ddd;
-  padding: 8px;
-  width: 190px;
-}
-
-#customers th {
-  font-size: 16px;
-  font-weight: bold;
-}
-
-#customers td {
-  font-size: 15px;
-  font-weight: normal;
-}
-
-#customers td:first-of-type,
-#customers th:first-of-type {
-  border: 1px solid #ddd;
-  padding: 8px;
-  width: 60px;
-  position: sticky;
-}
-
-#customers tr:nth-child(even) {
-  background-color: #f2f2f2;
-}
-
-#customers td:hover {
-  transition: all 125ms ease-in-out;
-  background-color: #dddddd8a;
-}
-
-#customers th {
-  padding-top: 12px;
-  padding-bottom: 12px;
-  text-align: center;
-  background-color: rgb(225, 239, 242);
-  color: rgb(68, 71, 78);
-}
-
-#customers td {
-  text-align: center;
-}
-
-#customers th:last-of-type {
-  padding: 0px 40px;
-}
-
 .add-container {
   mat-icon {
     border-radius: 50%;
@@ -126,22 +65,12 @@ input {
   }
 }
 
-.add-contact-row {
-  padding-left: 61px;
-  border-bottom: 1px solid #ddd;
-}
 .add {
-  width: 100% !important;
-  height: 100% !important;
   @include dFlex($fd: row, $g: 8px);
-  border: 0 !important;
-  > input {
-    text-align: end;
-  }
+  width: 26px;
+  height: 26px;
   mat-icon {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    @include dFlex();
     cursor: pointer;
     color: $darkcolor;
     transition: all 100ms ease-in-out;
@@ -155,4 +84,59 @@ input {
   &:hover {
     background-color: #ffffff00 !important;
   }
+}
+
+.table {
+  display: flex;
+  flex-direction: column;
+}
+
+.row {
+  display: flex;
+}
+
+.cell {
+  padding: 0px 8px;
+  min-height: 50px;
+  @include dFlex($fd: row);
+  flex: 1;
+  border: 1px solid #ddd;
+}
+
+.checkbox-cell {
+  min-width: 50px;
+  flex: 0;
+}
+
+.typ-headcell .typ-cell {
+  flex: 0;
+  min-width: 120px;
+}
+
+.email-cell {
+  @include dFlex($fd: row, $g: 4px, $jc: space-between);
+  font-size: 12px;
+  mat-icon {
+    @include dFlex();
+    width: 18px;
+    height: 18px;
+    font-size: 14px;
+    background-color: lightgrey;
+    cursor: pointer;
+    border-radius: 50%;
+    &:hover {
+      background-color: rgb(165, 165, 165);
+    }
+  }
+}
+
+.button-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.add-contact-row .add {
+  display: flex;
+  align-items: center;
 }
