@@ -182,6 +182,7 @@ input {
 .default-icon {
   color: grey;
   background-color: transparent !important;
+  cursor:auto !important;;
   &:hover {
     background-color: transparent !important;
   }

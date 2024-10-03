@@ -5,6 +5,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { CommonModule } from '@angular/common';
+import { TableControlService } from './services/table-control.service';
 
 @Component({
   selector: 'app-root',
@@ -24,5 +25,5 @@ import { CommonModule } from '@angular/common';
 export class AppComponent {
   title = 'Simple-CRM';
 
-  constructor() {}
+  constructor(public tableControl: TableControlService) {}
 }

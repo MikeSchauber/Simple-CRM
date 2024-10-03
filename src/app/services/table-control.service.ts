@@ -12,11 +12,10 @@ export class TableControlService {
   emailDialog: boolean = false;
   newContact: string = '';
 
-
   constructor(private contactsData: ContactsService) {}
 
-  stopPropagation($event: MouseEvent) {
-    $event.preventDefault();
+  preventDefault($event: MouseEvent) {
+    $event.stopPropagation();
   }
 
   checkAllContacts(status: string) {
@@ -142,5 +141,12 @@ export class TableControlService {
 
   openEmailDialog(i: number, status: string) {
     this.emailDialog = true;
+    console.log('hello');
+  }
+
+  closeDialog() {
+    this.emailDialog = false;
+    console.log("bye");
+    
   }
 }

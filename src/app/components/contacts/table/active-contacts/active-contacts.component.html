@@ -59,8 +59,8 @@
       @if (item.email.length == 0) {
       <div class="cell email-cell add-button">
         <mat-icon (click)="tableControl.openEmailDialog(i, 'active')">add_box</mat-icon><mat-icon class="default-icon">mail</mat-icon>
-        <div class="input-dialog" [ngClass]="{'d-none': !tableControl.emailDialog}" (click)="tableControl.stopPropagation($event)">
-          <div>
+        <div (click)="tableControl.closeDialog()" class="input-dialog" [ngClass]="{'d-none': !tableControl.emailDialog}" >
+          <div (click)="tableControl.preventDefault($event)">
             <span>Add a new email-adress</span>
             <input class="dialog-input" placeholder="Add email">
             <span>Displayed text</span>
