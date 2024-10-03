@@ -7,6 +7,7 @@ import { CommonModule } from '@angular/common';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatMenuModule } from '@angular/material/menu';
 import { Contact } from '../../../../models/contact.class';
+import { ContactsService } from '../../../../services/contacts.service';
 
 @Component({
   selector: 'app-active-contacts',
@@ -29,80 +30,11 @@ export class ActiveContactsComponent {
   allChecked: boolean = false;
   newContact: string = '';
 
-  availableColumnTypes = {
-    note: {
-      name: 'Note',
-      typ: 'text',
-      availableDropdowns: [{}],
-    },
-    type: {
-      name: 'Type',
-      typ: 'dropdown',
-      availableDropdowns: [
-        { name: 'Artist', color: '#ff5722' },
-        { name: 'Manager', color: '#2196f3' },
-        { name: 'Lead', color: '#4caf50' },
-        { name: 'Partner', color: '#9c27b0' },
-        { name: 'Customer', color: '#ffeb3b' },
-      ],
-    },
-    status: {
-      name: 'Status',
-      typ: 'dropdown',
-      availableDropdowns: [
-        { name: 'active', color: '#4caf50' },
-        { name: 'inactive', color: '#f44336' },
-        { name: 'suspended', color: '#ff9800' },
-      ],
-    },
-    priority: {
-      name: 'Priority',
-      typ: 'dropdown',
-      availableDropdowns: [
-        { name: 'low', color: '#8bc34a' },
-        { name: 'medium', color: '#ffc107' },
-        { name: 'high', color: '#f44336' },
-      ],
-    },
-  };
+ 
 
-  tableData = [
-    {
-      class: 'contacts-cell',
-      name: 'Contacts',
-      typ: 'text',
-      availableDropdowns: [{}],
-    },
-    {
-      name: 'Tel.',
-      typ: 'href',
-      availableDropdowns: [{}],
-    },
-    {
-      name: 'Email',
-      typ: 'href',
-      availableDropdowns: [{}],
-    },
-  ];
 
-  contactsData = [
-    {
-      checked: false,
-      status: 'active',
-      name: 'Astral',
-      tel: '0151332023',
-      email: 'mike.schuner@gmx.de',
-      newColumns: [
-        {
-          name: '',
-          typ: '',
-          availableDropdowns: [{}],
-        },
-      ],
-    },
-  ];
 
-  constructor() {}
+  constructor(public contactsData: ContactsService) {}
 
   hoverAction(action: string) {
     if (action == 'email') {
@@ -120,12 +52,12 @@ export class ActiveContactsComponent {
   checkAllContacts() {
     if (!this.allChecked) {
       this.allChecked = true;
-      this.contactsData.forEach((e) => {
+      this.contactsData.activeContacts.forEach((e) => {
         e.checked = true;
       });
     } else {
       this.allChecked = false;
-      this.contactsData.forEach((e) => {
+      this.contactsData.activeContacts.forEach((e) => {
         e.checked = false;
       });
     }
@@ -134,25 +66,25 @@ export class ActiveContactsComponent {
   keyboardAddContact($event: KeyboardEvent) {
     if ($event.keyCode === 13 && this.newContact.length != 0) {
       let user = new Contact(this.newContact);
-      this.contactsData.push(user);
+      this.contactsData.activeContacts.push(user);
       this.clearAllInputs();
-      console.log(this.contactsData);
+      console.log(this.contactsData.activeContacts);
     }
   }
 
   mouseAddContact() {
     if (this.newContact.length != 0) {
       let user = new Contact(this.newContact);
-      this.contactsData.push(user);
+      this.contactsData.activeContacts.push(user);
       this.clearAllInputs();
     }
   }
 
   deleteContacts() {
-    for (let i = 0; i < this.contactsData.length; i++) {
-      const contact = this.contactsData[i];
+    for (let i = 0; i < this.contactsData.activeContacts.length; i++) {
+      const contact = this.contactsData.activeContacts[i];
       if (contact.checked === true) {
-        this.contactsData.splice(i, 1);
+        this.contactsData.activeContacts.splice(i, 1);
         i--;
       }
     }
@@ -170,16 +102,16 @@ export class ActiveContactsComponent {
   addColumn(type: string) {
     let newColumn;
     if (type == 'note') {
-      newColumn = this.availableColumnTypes.note;
+      newColumn = this.contactsData.availableColumnTypes.note;
     } else if (type == 'type') {
-      newColumn = this.availableColumnTypes.type;
+      newColumn = this.contactsData.availableColumnTypes.type;
     } else if (type == 'status') {
-      newColumn = this.availableColumnTypes.status;
+      newColumn = this.contactsData.availableColumnTypes.status;
     } else {
-      newColumn = this.availableColumnTypes.priority;
+      newColumn = this.contactsData.availableColumnTypes.priority;
     }
-    this.tableData.push(newColumn);
-    this.contactsData.forEach((contact) => {
+    this.contactsData.activeTableColumns.push(newColumn);
+    this.contactsData.activeContacts.forEach((contact) => {
       contact.newColumns.push(newColumn);
       console.log(contact.newColumns);
       console.log(newColumn.name);
