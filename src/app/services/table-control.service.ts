@@ -10,6 +10,7 @@ export class TableControlService {
   allCheckedActive: boolean = false;
   allCheckedInactive: boolean = false;
   emailDialog: boolean = false;
+  emailDialogPosition: string = "";
   newContact: string = '';
 
   constructor(private contactsData: ContactsService) {}
@@ -139,14 +140,11 @@ export class TableControlService {
     this.contactsData.activeContacts[i].email = '';
   }
 
-  openEmailDialog(i: number, status: string) {
+  openEmailDialog() {
     this.emailDialog = true;
-    console.log('hello');
   }
 
-  closeDialog() {
+  closeEmailDialog() {
     this.emailDialog = false;
-    console.log("bye");
-    
   }
 }
