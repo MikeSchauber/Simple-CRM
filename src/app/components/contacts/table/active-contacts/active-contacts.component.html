@@ -56,6 +56,7 @@
       <div (mouseover)="hoverAction('tel')" (mouseout)="mouseOutAction();" class="cell email-cell"><a
           [href]="'tel:' + item.email">{{item.tel}}</a><mat-icon [ngClass]="{'d-none': !phoneHovered}">close</mat-icon>
       </div>
+      <!-- Email Dialog Menu -->
       @if (item.email.length == 0) {
       <div class="cell email-cell add-button">
         <mat-icon (click)="tableControl.openEmailDialog($event)">add_box</mat-icon><mat-icon
@@ -64,17 +65,24 @@
           [ngClass]="{'d-none': !tableControl.emailDialog}">
           <div (click)="tableControl.preventDefault($event)" [ngStyle]="{'top': tableControl.dialogPositionY + 'px'}">
             <span>Add a new email-adress</span>
-            <input class="dialog-input" placeholder="Add email"
-              (keydown)="tableControl.onInputChange($event, i, 'email')">
+            <input class="dialog-input" placeholder="Add email" #emailInput
+              (keydown)="tableControl.onInputChange($event, i, emailInput.value)">
             <span>Displayed text</span>
-            <input class="dialog-input" placeholder="(optional)" [value]="item.visibleEmail">
+            <input class="dialog-input" id="visible" placeholder="(optional)"
+             (keyup)="tableControl.visibleEmail($event, i, emailInput.value)">
           </div>
         </div>
       </div>
-
+      <!-- Email Data -->
       } @else {
       <div (mouseover)="hoverAction('email')" (mouseout)="mouseOutAction();" class="cell email-cell"><a
-          [href]="'mailto:' + item.email">{{item.visibleEmail}}</a><mat-icon [ngClass]="{'d-none': !emailHovered}"
+          [href]="'mailto:' + item.email">
+          @if (item.visibleEmail.length > 0) {
+          {{item.visibleEmail}}
+          } @else {
+          {{item.email}}
+          }
+        </a><mat-icon [ngClass]="{'d-none': !emailHovered}"
           (click)="tableControl.deleteEmail(i, 'active');">close</mat-icon>
       </div>
       }

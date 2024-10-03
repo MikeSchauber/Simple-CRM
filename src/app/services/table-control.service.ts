@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { ContactsService } from './contacts.service';
 import { Contact } from '../models/contact.class';
 import { Column } from '../models/column.class';
-import { FormControl, FormGroup } from '@angular/forms';
 
 @Injectable({
   providedIn: 'root',
@@ -13,6 +12,7 @@ export class TableControlService {
   emailDialog: boolean = false;
   dialogPositionY: string = '';
   newContact: string = '';
+  newVisibleMail: string = '';
 
   constructor(private contactsData: ContactsService) {}
 
@@ -139,29 +139,33 @@ export class TableControlService {
 
   deleteEmail(i: number, status: string) {
     this.contactsData.activeContacts[i].email = '';
+    this.contactsData.activeContacts[i].visibleEmail = '';
   }
 
   openEmailDialog(event: MouseEvent) {
     this.dialogPositionY = (14 + event.clientY).toString();
     this.emailDialog = true;
-    console.log(this.contactsData.activeContacts);
   }
 
   closeEmailDialog() {
     this.emailDialog = false;
   }
 
-  closeDialogWidthKeyboard(event: KeyboardEvent, status: string) {
-    console.log(this.contactsData.activeContacts);
-  }
-
-  onInputChange(event: any, i: number, type: string) {
+  onInputChange(event: any, i: number, emailValue: string) {
     if (event.keyCode == 13) {
-      type == 'email'
-        ? (this.contactsData.activeContacts[i].email = event.target.value)
-        : (this.contactsData.activeContacts[i].visibleEmail =
-            event.target.value);
+      if (event.target.id !== 'visible') {
+        this.contactsData.activeContacts[i].email = event.target.value;
+      } else {
+        this.contactsData.activeContacts[i].email = emailValue;
+      }
+      console.log(this.contactsData.activeContacts[i]);
       this.closeEmailDialog();
     }
+  }
+
+  visibleEmail(event: any, i: number, emailValue: string) {
+    this.newVisibleMail = event.target.value;
+    this.contactsData.activeContacts[i].visibleEmail = event.target.value;
+    this.onInputChange(event, i, emailValue);
   }
 }
