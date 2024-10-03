@@ -62,12 +62,12 @@
           class="default-icon">mail</mat-icon>
         <div (click)="tableControl.closeEmailDialog()" class="input-dialog"
           [ngClass]="{'d-none': !tableControl.emailDialog}">
-          <div (click)="tableControl.preventDefault($event)"
-            [ngStyle]="{'top': tableControl.dialogPositionY + 'px'}">
+          <div (click)="tableControl.preventDefault($event)" [ngStyle]="{'top': tableControl.dialogPositionY + 'px'}">
             <span>Add a new email-adress</span>
-            <input class="dialog-input" placeholder="Add email">
+            <input class="dialog-input" placeholder="Add email"
+              (keydown)="tableControl.onInputChange($event, i, 'email')">
             <span>Displayed text</span>
-            <input class="dialog-input" placeholder="(optional)">
+            <input class="dialog-input" placeholder="(optional)" [value]="item.visibleEmail">
           </div>
         </div>
       </div>

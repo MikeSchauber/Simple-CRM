@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { ContactsService } from './contacts.service';
 import { Contact } from '../models/contact.class';
 import { Column } from '../models/column.class';
+import { FormControl, FormGroup } from '@angular/forms';
 
 @Injectable({
   providedIn: 'root',
@@ -10,14 +11,13 @@ export class TableControlService {
   allCheckedActive: boolean = false;
   allCheckedInactive: boolean = false;
   emailDialog: boolean = false;
-  dialogPositionX: string = '';
   dialogPositionY: string = '';
   newContact: string = '';
 
   constructor(private contactsData: ContactsService) {}
 
-  preventDefault($event: MouseEvent) {
-    $event.stopPropagation();
+  preventDefault(event: MouseEvent) {
+    event.stopPropagation();
   }
 
   checkAllContacts(status: string) {
@@ -52,8 +52,8 @@ export class TableControlService {
     }
   }
 
-  keyboardAddContact($event: KeyboardEvent, status: string) {
-    if ($event.keyCode === 13 && this.newContact.length != 0) {
+  keyboardAddContact(event: KeyboardEvent, status: string) {
+    if (event.keyCode === 13 && this.newContact.length != 0) {
       let user = new Contact(this.newContact);
       status == 'active'
         ? this.contactsData.activeContacts.push(user)
@@ -141,12 +141,27 @@ export class TableControlService {
     this.contactsData.activeContacts[i].email = '';
   }
 
-  openEmailDialog($event: MouseEvent) {
-    this.dialogPositionY = $event.clientY.toString();
+  openEmailDialog(event: MouseEvent) {
+    this.dialogPositionY = (14 + event.clientY).toString();
     this.emailDialog = true;
+    console.log(this.contactsData.activeContacts);
   }
 
   closeEmailDialog() {
     this.emailDialog = false;
+  }
+
+  closeDialogWidthKeyboard(event: KeyboardEvent, status: string) {
+    console.log(this.contactsData.activeContacts);
+  }
+
+  onInputChange(event: any, i: number, type: string) {
+    if (event.keyCode == 13) {
+      type == 'email'
+        ? (this.contactsData.activeContacts[i].email = event.target.value)
+        : (this.contactsData.activeContacts[i].visibleEmail =
+            event.target.value);
+      this.closeEmailDialog();
+    }
   }
 }
