@@ -1,4 +1,3 @@
-import { Column } from '../interfaces/column';
 
 export class Contact {
   checked: boolean = false;
@@ -6,7 +5,7 @@ export class Contact {
   name: string = '';
   tel: string = '';
   email: string = '';
-  newColumns: Column[] = [
+  newColumns: any = [
     {
       name: '',
       typ: '',

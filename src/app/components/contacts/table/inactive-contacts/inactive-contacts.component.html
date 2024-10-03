@@ -1,78 +1,84 @@
 <div class="table-container">
-    <div class="button-container">
-      <button mat-button><mat-icon>exit_to_app</mat-icon>Inactive</button>
-      <button mat-button (click)="deleteContacts()"><mat-icon>delete</mat-icon>Trash</button>
+  <div class="button-container">
+    <button mat-button><mat-icon>unarchive</mat-icon>Active</button>
+    <button mat-button (click)="deleteContacts()"><mat-icon>delete</mat-icon>Trash</button>
+  </div>
+  <div id="customers" class="table">
+    <!-- Table Header -->
+    <div class="table-head row">
+      <div class="cell checkbox-cell">
+        <section (click)="checkAllContacts()" class="example-section">
+          <mat-checkbox [checked]="allChecked" class="example-margin"></mat-checkbox>
+        </section>
+      </div>
+      @for(item of this.contactsData.inactiveTableColumns; track $index; let i = $index) {
+      @if (item.name == "Contacts") {
+      <div class="cell Contacts">
+        <span>{{item.name}}</span>
+      </div>
+      } @else {
+      <div class="cell">
+        <span>{{item.name}}</span>
+      </div>
+      }
+      }
+      <div class="cell button-container">
+        <button [matMenuTriggerFor]="menu" mat-raised-button matTooltip="Add a new Column"
+          aria-label="Button that displays a tooltip when focused or hovered over">
+          <mat-icon>add</mat-icon>
+        </button>
+        <mat-menu #menu="matMenu">
+          <button (click)="addColumn('note')" mat-menu-item><mat-icon class="note">history_edu</mat-icon> Note</button>
+          <button (click)="addColumn('type')" mat-menu-item><mat-icon class="type">supervised_user_circle</mat-icon>
+            Type</button>
+          <button (click)="addColumn('status')" mat-menu-item><mat-icon class="status">bolt</mat-icon> Status</button>
+          <button (click)="addColumn('prio')" mat-menu-item><mat-icon class="prio">priority_high</mat-icon>
+            Priority</button>
+        </mat-menu>
+      </div>
     </div>
-    <div id="customers" class="table">
-      <!-- Table Header -->
-      <div class="table-head row">
-        <div class="cell checkbox-cell">
-          <section (click)="checkAllContacts()" class="example-section">
-            <mat-checkbox [checked]="allChecked" class="example-margin"></mat-checkbox>
-          </section>
-        </div>
-        @for(item of this.contactsData.inactiveTableColumns; track $index; let i = $index) {
-        <div [class]="item.class" class="cell">
-          <span>{{item.name}}</span>
-        </div>
-        }
-        <div class="cell button-container">
-          <button [matMenuTriggerFor]="menu" mat-raised-button matTooltip="Add a new Column"
-            aria-label="Button that displays a tooltip when focused or hovered over">
-            <mat-icon>add</mat-icon>
-          </button>
-          <mat-menu #menu="matMenu">
-            <button (click)="addColumn('note')" mat-menu-item><mat-icon class="note">history_edu</mat-icon> Note</button>
-            <button (click)="addColumn('type')" mat-menu-item><mat-icon class="type">supervised_user_circle</mat-icon>
-              Type</button>
-            <button (click)="addColumn('status')" mat-menu-item><mat-icon class="status">bolt</mat-icon> Status</button>
-            <button (click)="addColumn('prio')" mat-menu-item><mat-icon class="prio">priority_high</mat-icon>
-              Priority</button>
-          </mat-menu>
-        </div>
+
+    <!-- Table Content Rows -->
+    @if (contactsData.inactiveContacts.length > 0) {
+    @for (item of this.contactsData.inactiveContacts; track $index; let i = $index) {
+    <div class="row content-row">
+      <div class="cell checkbox-cell">
+        <section class="example-section">
+          <mat-checkbox [(ngModel)]="item.checked" class="example-margin"></mat-checkbox>
+        </section>
       </div>
-  
-      <!-- Table Content Rows -->
-      @if (contactsData.inactiveContacts.length > 0) {
-      @for (item of this.contactsData.inactiveContacts; track $index; let i = $index) {
-      <div class="row content-row">
-        <div class="cell checkbox-cell">
-          <section class="example-section">
-            <mat-checkbox [(ngModel)]="item.checked" class="example-margin"></mat-checkbox>
-          </section>
-        </div>
-        <div class="cell contacts-cell"><input type="text" (input)="item.name=getValue($event)" [value]="item.name"></div>
-        <div (mouseover)="hoverAction('tel')" (mouseout)="mouseOutAction();" class="cell email-cell"><a
-            [href]="'tel:' + item.email">{{item.tel}}</a><mat-icon [ngClass]="{'d-none': !phoneHovered}">close</mat-icon>
-        </div>
-        <div (mouseover)="hoverAction('email')" (mouseout)="mouseOutAction();" class="cell email-cell"><a
-            [href]="'mailto:' + item.email">{{item.email}}</a><mat-icon
-            [ngClass]="{'d-none': !emailHovered}">close</mat-icon>
-        </div>
-        @for (item of item.newColumns; track $index) {
-        <div class="cell"></div>
-        }
+      <div class="cell Contacts"><input type="text" (input)="item.name=getValue($event)" [value]="item.name"></div>
+      <div (mouseover)="hoverAction('tel')" (mouseout)="mouseOutAction();" class="cell email-cell"><a
+          [href]="'tel:' + item.email">{{item.tel}}</a><mat-icon [ngClass]="{'d-none': !phoneHovered}">close</mat-icon>
       </div>
+      <div (mouseover)="hoverAction('email')" (mouseout)="mouseOutAction();" class="cell email-cell"><a
+          [href]="'mailto:' + item.email">{{item.email}}</a><mat-icon
+          [ngClass]="{'d-none': !emailHovered}">close</mat-icon>
+      </div>
+      @for (item of item.newColumns; track $index) {
+      <div class="cell"></div>
       }
-      }
-  
-      <!-- Add New Contact Row -->
-      <div class="row content-row add-contact-row" (keydown)="keyboardAddContact($event)">
-        <div class="cell empty-field checkbox-cell"></div>
-        <div class="cell add contacts-cell">
-          <mat-icon (click)="mouseAddContact()">add_circle</mat-icon>
-          <input [(ngModel)]="newContact" type="text" placeholder="Add contact">
-        </div>
-        <div class="cell typ-cell"></div>
-        <div class="cell"></div>
-        @if (contactsData.inactiveContacts[0]) {
-        @for (item of contactsData.inactiveContacts[0].newColumns; track $index) {
-        <div class="cell"></div>
-        }
-        } @else {
-        <div class="cell"></div>
-        }
-  
+    </div>
+    }
+    }
+
+    <!-- Add New Contact Row -->
+    <div class="row content-row add-contact-row" (keydown)="keyboardAddContact($event)">
+      <div class="cell empty-field checkbox-cell"></div>
+      <div class="cell add Contacts">
+        <mat-icon (click)="mouseAddContact()">add_circle</mat-icon>
+        <input [(ngModel)]="newContact" type="text" placeholder="Add contact">
       </div>
+      <div class="cell typ-cell"></div>
+      <div class="cell"></div>
+      @if (contactsData.inactiveContacts[0]) {
+      @for (item of contactsData.inactiveContacts[0].newColumns; track $index) {
+      <div class="cell"></div>
+      }
+      } @else {
+      <div class="cell"></div>
+      }
+
     </div>
   </div>
+</div>
