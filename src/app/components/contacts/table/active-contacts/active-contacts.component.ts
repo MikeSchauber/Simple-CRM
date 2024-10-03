@@ -6,7 +6,6 @@ import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatMenuModule } from '@angular/material/menu';
-import { Contact } from '../../../../models/contact.class';
 import { ContactsService } from '../../../../services/contacts.service';
 import { TableControlService } from '../../../../services/table-control.service';
 

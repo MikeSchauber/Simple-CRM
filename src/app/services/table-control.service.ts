@@ -7,7 +7,8 @@ import { Column } from '../models/column.class';
   providedIn: 'root',
 })
 export class TableControlService {
-  allChecked: boolean = false;
+  allCheckedActive: boolean = false;
+  allCheckedInactive: boolean = false;
   newContact: string = '';
 
   constructor(private contactsData: ContactsService) {}
@@ -17,13 +18,13 @@ export class TableControlService {
   }
 
   checkAllActives() {
-    if (!this.allChecked) {
-      this.allChecked = true;
+    if (!this.allCheckedActive) {
+      this.allCheckedActive = true;
       this.contactsData.activeContacts.forEach((e) => {
         e.checked = true;
       });
     } else {
-      this.allChecked = false;
+      this.allCheckedActive = false;
       this.contactsData.activeContacts.forEach((e) => {
         e.checked = false;
       });
@@ -31,13 +32,13 @@ export class TableControlService {
   }
 
   checkAllInactives() {
-    if (!this.allChecked) {
-      this.allChecked = true;
+    if (!this.allCheckedInactive) {
+      this.allCheckedInactive = true;
       this.contactsData.inactiveContacts.forEach((e) => {
         e.checked = true;
       });
     } else {
-      this.allChecked = false;
+      this.allCheckedInactive = false;
       this.contactsData.inactiveContacts.forEach((e) => {
         e.checked = false;
       });
@@ -67,7 +68,8 @@ export class TableControlService {
 
   clearAllInputs() {
     this.newContact = '';
-    this.allChecked = false;
+    this.allCheckedActive = false;
+    this.allCheckedInactive = false;
   }
 
   deleteContacts(status: string) {
@@ -101,26 +103,28 @@ export class TableControlService {
     if (type == 'note') {
       newColumn = new Column(this.contactsData.availableColumnTypes.note);
     } else if (type == 'type') {
-      newColumn = this.contactsData.availableColumnTypes.type;
+      newColumn = new Column(this.contactsData.availableColumnTypes.type);
     } else if (type == 'status') {
-      newColumn = this.contactsData.availableColumnTypes.status;
+      newColumn = new Column(this.contactsData.availableColumnTypes.status);
     } else {
-      newColumn = this.contactsData.availableColumnTypes.priority;
+      newColumn = new Column(this.contactsData.availableColumnTypes.priority);
     }
-    this.handleNewColumn(newColumn, status);
-    console.log(newColumn);
-    
-
+    status == 'active'
+      ? this.pushIntoActiveContacts(newColumn)
+      : this.pushIntoInactiveContacts(newColumn);
   }
 
-  handleNewColumn(newColumn: Column , status: string) {
+  pushIntoActiveContacts(newColumn: Column) {
     this.contactsData.activeTableColumns.push(newColumn);
     this.contactsData.activeContacts.forEach((contact) => {
       contact.newColumns.push(newColumn);
     });
   }
 
-  buildNoteColumn() {
-    return 
+  pushIntoInactiveContacts(newColumn: Column) {
+    this.contactsData.inactiveTableColumns.push(newColumn);
+    this.contactsData.inactiveContacts.forEach((contact) => {
+      contact.newColumns.push(newColumn);
+    });
   }
 }

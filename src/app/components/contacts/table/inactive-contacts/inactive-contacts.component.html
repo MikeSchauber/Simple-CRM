@@ -1,14 +1,14 @@
 <div class="table-container">
   <div class="button-container">
     <button mat-button><mat-icon>unarchive</mat-icon>Active</button>
-    <button mat-button (click)="deleteContacts()"><mat-icon>delete</mat-icon>Trash</button>
+    <button mat-button (click)="tableControl.deleteContacts('inactive')"><mat-icon>delete</mat-icon>Trash</button>
   </div>
   <div id="customers" class="table">
     <!-- Table Header -->
     <div class="table-head row">
       <div class="cell checkbox-cell">
-        <section (click)="checkAllContacts()" class="example-section">
-          <mat-checkbox [checked]="allChecked" class="example-margin"></mat-checkbox>
+        <section (click)="tableControl.checkAllContacts('inactive')" class="example-section">
+          <mat-checkbox [checked]="tableControl.allCheckedInactive" class="example-margin"></mat-checkbox>
         </section>
       </div>
       @for(item of this.contactsData.inactiveTableColumns; track $index; let i = $index) {
@@ -28,11 +28,11 @@
           <mat-icon>add</mat-icon>
         </button>
         <mat-menu #menu="matMenu">
-          <button (click)="addColumn('note')" mat-menu-item><mat-icon class="note">history_edu</mat-icon> Note</button>
-          <button (click)="addColumn('type')" mat-menu-item><mat-icon class="type">supervised_user_circle</mat-icon>
+          <button (click)="tableControl.addColumn('note', 'inactive')" mat-menu-item><mat-icon class="note">history_edu</mat-icon> Note</button>
+          <button (click)="tableControl.addColumn('type', 'inactive')" mat-menu-item><mat-icon class="type">supervised_user_circle</mat-icon>
             Type</button>
-          <button (click)="addColumn('status')" mat-menu-item><mat-icon class="status">bolt</mat-icon> Status</button>
-          <button (click)="addColumn('prio')" mat-menu-item><mat-icon class="prio">priority_high</mat-icon>
+          <button (click)="tableControl.addColumn('status', 'inactive')" mat-menu-item><mat-icon class="status">bolt</mat-icon> Status</button>
+          <button (click)="tableControl.addColumn('prio', 'inactive')" mat-menu-item><mat-icon class="prio">priority_high</mat-icon>
             Priority</button>
         </mat-menu>
       </div>
@@ -63,11 +63,11 @@
     }
 
     <!-- Add New Contact Row -->
-    <div class="row content-row add-contact-row" (keydown)="keyboardAddContact($event)">
+    <div class="row content-row add-contact-row" (keydown)="tableControl.keyboardAddContact($event, 'inactive')">
       <div class="cell empty-field checkbox-cell"></div>
       <div class="cell add Contacts">
-        <mat-icon (click)="mouseAddContact()">add_circle</mat-icon>
-        <input [(ngModel)]="newContact" type="text" placeholder="Add contact">
+        <mat-icon (click)="tableControl.mouseAddContact('inactive')">add_circle</mat-icon>
+        <input [(ngModel)]="tableControl.newContact" type="text" placeholder="Add contact">
       </div>
       <div class="cell typ-cell"></div>
       <div class="cell"></div>

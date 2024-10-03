@@ -8,7 +8,7 @@
     <div class="table-head row">
       <div class="cell checkbox-cell">
         <section (click)="tableControl.checkAllContacts('active')" class="example-section">
-          <mat-checkbox [checked]="tableControl.allChecked" class="example-margin"></mat-checkbox>
+          <mat-checkbox [checked]="tableControl.allCheckedActive" class="example-margin"></mat-checkbox>
         </section>
       </div>
       @for(item of this.contactsData.activeTableColumns; track $index; let i = $index) {
@@ -28,14 +28,14 @@
           <mat-icon>add</mat-icon>
         </button>
         <mat-menu #menu="matMenu">
-          <button (click)="tableControl.addColumn('note', 'status')" mat-menu-item><mat-icon
+          <button (click)="tableControl.addColumn('note', 'active')" mat-menu-item><mat-icon
               class="note">history_edu</mat-icon> Note</button>
-          <button (click)="tableControl.addColumn('type', 'status')" mat-menu-item><mat-icon
+          <button (click)="tableControl.addColumn('type', 'active')" mat-menu-item><mat-icon
               class="type">supervised_user_circle</mat-icon>
             Type</button>
-          <button (click)="tableControl.addColumn('status', 'status')" mat-menu-item><mat-icon
+          <button (click)="tableControl.addColumn('status', 'active')" mat-menu-item><mat-icon
               class="status">bolt</mat-icon> Status</button>
-          <button (click)="tableControl.addColumn('prio', 'status')" mat-menu-item><mat-icon
+          <button (click)="tableControl.addColumn('prio', 'active')" mat-menu-item><mat-icon
               class="prio">priority_high</mat-icon>
             Priority</button>
         </mat-menu>
