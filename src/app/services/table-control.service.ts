@@ -59,7 +59,6 @@ export class TableControlService {
         ? this.contactsData.activeContacts.push(user)
         : this.contactsData.inactiveContacts.push(user);
       this.clearAllInputs();
-      console.log(this.contactsData.activeContacts);
     }
   }
 
@@ -158,7 +157,6 @@ export class TableControlService {
       } else {
         this.contactsData.activeContacts[i].email = emailValue;
       }
-      console.log(this.contactsData.activeContacts[i]);
       this.closeEmailDialog();
     }
   }
