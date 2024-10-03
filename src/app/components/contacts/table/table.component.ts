@@ -6,6 +6,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatMenuModule } from '@angular/material/menu';
+import { Contact } from '../../../models/contact.class';
 
 @Component({
   selector: 'app-table',
@@ -67,7 +68,7 @@ export class TableComponent {
 
   tableData = [
     {
-      class: "contacts-cell",
+      class: 'contacts-cell',
       name: 'Contacts',
       typ: 'text',
       availableDropdowns: [{}],
@@ -132,14 +133,19 @@ export class TableComponent {
 
   keyboardAddContact($event: KeyboardEvent) {
     if ($event.keyCode === 13 && this.newContact.length != 0) {
-      this.clearNewContactValues();
+      let user = new Contact(this.newContact);
+      this.contactsData.push(user);
+      this.newContact = '';
+      console.log(this.contactsData);
     }
   }
 
   mouseAddContact() {
     if (this.newContact.length != 0) {
+      let user = new Contact(this.newContact);
+      this.contactsData.push(user);
+      this.newContact = '';
     }
-    this.clearNewContactValues();
   }
 
   clearNewContactValues() {}
@@ -163,10 +169,7 @@ export class TableComponent {
     this.contactsData.forEach((contact) => {
       contact.newColumns.push(newColumn);
       console.log(contact.newColumns);
-      console.log(newColumn.name)
-      
+      console.log(newColumn.name);
     });
-
-    
   }
 }
