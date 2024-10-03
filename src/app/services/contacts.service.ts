@@ -85,6 +85,7 @@ export class ContactsService {
       name: 'Active',
       tel: '0151332023',
       email: 'mike.schuner@gmx.de',
+      visibleEmail: "Mike Schuner",
       newColumns: [
         {
           name: '',
@@ -102,6 +103,7 @@ export class ContactsService {
       name: 'Inactive',
       tel: '0151332023',
       email: 'mike.schuner@gmx.de',
+      visibleEmail: "Mike Schauber",
       newColumns: [
         {
           name: '',

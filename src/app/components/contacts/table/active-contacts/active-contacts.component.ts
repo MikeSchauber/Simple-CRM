@@ -1,11 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { FormsModule } from '@angular/forms';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { MatMenuModule } from '@angular/material/menu';
+import { MatMenuModule, MenuPositionX } from '@angular/material/menu';
 import { ContactsService } from '../../../../services/contacts.service';
 import { TableControlService } from '../../../../services/table-control.service';
 
@@ -27,7 +27,7 @@ import { TableControlService } from '../../../../services/table-control.service'
 export class ActiveContactsComponent {
   emailHovered: boolean = false;
   phoneHovered: boolean = false;
-
+  
   constructor(public contactsData: ContactsService, public tableControl: TableControlService) {}
 
   hoverAction(action: string) {

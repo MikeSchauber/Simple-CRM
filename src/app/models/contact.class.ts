@@ -5,6 +5,7 @@ export class Contact {
   name: string = '';
   tel: string = '';
   email: string = '';
+  visibleEmail: string = '';
   newColumns: any = [
     {
       name: '',

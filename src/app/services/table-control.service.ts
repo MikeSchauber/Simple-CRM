@@ -9,9 +9,15 @@ import { Column } from '../models/column.class';
 export class TableControlService {
   allCheckedActive: boolean = false;
   allCheckedInactive: boolean = false;
+  emailDialog: boolean = false;
   newContact: string = '';
 
+
   constructor(private contactsData: ContactsService) {}
+
+  stopPropagation($event: MouseEvent) {
+    $event.preventDefault();
+  }
 
   checkAllContacts(status: string) {
     status == 'active' ? this.checkAllActives() : this.checkAllInactives();
@@ -76,6 +82,8 @@ export class TableControlService {
     status == 'active'
       ? this.handleActiveContacts()
       : this.handleInactiveContacts();
+    this.allCheckedActive = false;
+    this.allCheckedInactive = false;
   }
 
   handleActiveContacts() {
@@ -126,5 +134,13 @@ export class TableControlService {
     this.contactsData.inactiveContacts.forEach((contact) => {
       contact.newColumns.push(newColumn);
     });
+  }
+
+  deleteEmail(i: number, status: string) {
+    this.contactsData.activeContacts[i].email = '';
+  }
+
+  openEmailDialog(i: number, status: string) {
+    this.emailDialog = true;
   }
 }

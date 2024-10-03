@@ -133,10 +133,11 @@ input {
     height: 18px;
     font-size: 14px;
     background-color: lightgrey;
+    transition: all 125ms ease-in-out;
     cursor: pointer;
     border-radius: 50%;
     &:hover {
-      background-color: rgb(165, 165, 165);
+      background-color: rgb(194, 194, 194);
     }
   }
 }
@@ -166,4 +167,47 @@ input {
 
 .prio {
   color: #f44336 !important;
+}
+
+.add-button {
+  @include dFlex($fd: row, $g: 8px);
+  color: $darkcolor;
+  mat-icon {
+    height: 28px;
+    width: 28px;
+    font-size: 20px;
+  }
+}
+
+.default-icon {
+  color: grey;
+  background-color: transparent !important;
+  &:hover {
+    background-color: transparent !important;
+  }
+}
+
+.input-dialog {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 999;
+  height: 100vh;
+  width: 100vw;
+  background-color: rgba(255, 255, 255, 0);
+  @include dFlex();
+  > div {
+    position: relative;
+    top: -150px;
+    width: max-content;
+    @include dFlex($g: 8px);
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 15px;
+    padding: 16px;
+  }
+}
+
+.dialog-input {
+  border: 1px solid $darkcolor;
 }
