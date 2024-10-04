@@ -9,11 +9,15 @@ import { Column } from '../models/column.class';
 export class TableControlService {
   allCheckedActive: boolean = false;
   allCheckedInactive: boolean = false;
-  emailDialog: boolean = false;
-  telEdit: boolean = false;
+  emailDialogActive: boolean = false;
+  telEditActive: boolean = false;
+  emailDialogInactive: boolean = false;
+  telEditInactive: boolean = false;
   dialogPositionY: string = '';
-  newContact: string = '';
-  newVisibleMail: string = '';
+  newContactActive: string = '';
+  newContactInactive: string = '';
+  newVisibleMailActive: string = '';
+  newVisibleMailInactive: string = '';
 
   constructor(private contactsData: ContactsService) {}
 
@@ -54,27 +58,39 @@ export class TableControlService {
   }
 
   keyboardAddContact(event: KeyboardEvent, status: string) {
-    if (event.keyCode === 13 && this.newContact.length != 0) {
-      let user = new Contact(this.newContact);
-      status == 'active'
-        ? this.contactsData.activeContacts.push(user)
-        : this.contactsData.inactiveContacts.push(user);
+    if (
+      status == 'active' &&
+      event.keyCode === 13 &&
+      this.newContactActive.length != 0
+    ) {
+      let user = new Contact(this.newContactActive);
+      this.contactsData.activeContacts.push(user);
+      this.clearAllInputs();
+    } else if (
+      status == 'inactive' &&
+      event.keyCode === 13 &&
+      this.newContactInactive.length != 0
+    ) {
+      let user = new Contact(this.newContactInactive);
+      this.contactsData.inactiveContacts.push(user);
       this.clearAllInputs();
     }
   }
 
   mouseAddContact(status: string) {
-    if (this.newContact.length != 0) {
-      let user = new Contact(this.newContact);
-      status == 'active'
-        ? this.contactsData.activeContacts.push(user)
-        : this.contactsData.inactiveContacts.push(user);
-      this.clearAllInputs();
+    if (status == 'active' && this.newContactActive.length != 0) {
+      let user = new Contact(this.newContactActive);
+      this.contactsData.activeContacts.push(user);
+    } else if (status == 'inactive' && this.newContactInactive.length != 0) {
+      let user = new Contact(this.newContactInactive);
+      this.contactsData.inactiveContacts.push(user);
     }
+    this.clearAllInputs();
   }
 
   clearAllInputs() {
-    this.newContact = '';
+    this.newContactActive = '';
+    this.newContactInactive = '';
     this.allCheckedActive = false;
     this.allCheckedInactive = false;
   }
@@ -138,47 +154,72 @@ export class TableControlService {
   }
 
   deleteTel(i: number, status: string) {
-    this.contactsData.activeContacts[i].tel = '';
+    status == 'active'
+      ? (this.contactsData.activeContacts[i].tel = '')
+      : (this.contactsData.inactiveContacts[i].tel = '');
   }
 
-  openTelInput() {
-    this.telEdit = true;
+  openTelInput(status: string) {
+    status == 'active'
+      ? (this.telEditActive = true)
+      : (this.telEditInactive = true);
   }
 
-  saveTelData(event: any, i: number) {
+  saveTelData(event: any, i: number, status: string) {
     if (event.keyCode === 13) {
-      this.contactsData.activeContacts[i].tel = event.target.value;
+      status == 'active'
+        ? (this.contactsData.activeContacts[i].tel = event.target.value)
+        : (this.contactsData.inactiveContacts[i].tel = event.target.value);
     }
   }
 
   deleteEmail(i: number, status: string) {
-    this.contactsData.activeContacts[i].email = '';
-    this.contactsData.activeContacts[i].visibleEmail = '';
-  }
-
-  openEmailDialog(event: MouseEvent) {
-    this.dialogPositionY = (14 + event.clientY).toString();
-    this.emailDialog = true;
-  }
-
-  closeEmailDialog() {
-    this.emailDialog = false;
-  }
-
-  onInputChange(event: any, i: number, emailValue: string) {
-    if (event.keyCode == 13) {
-      if (event.target.id !== 'visible') {
-        this.contactsData.activeContacts[i].email = event.target.value;
-      } else {
-        this.contactsData.activeContacts[i].email = emailValue;
-      }
-      this.closeEmailDialog();
+    if (status == 'active') {
+      this.contactsData.activeContacts[i].email = '';
+      this.contactsData.activeContacts[i].visibleEmail = '';
+    } else {
+      this.contactsData.inactiveContacts[i].email = '';
+      this.contactsData.inactiveContacts[i].visibleEmail = '';
     }
   }
 
-  visibleEmail(event: any, i: number, emailValue: string) {
-    this.newVisibleMail = event.target.value;
-    this.contactsData.activeContacts[i].visibleEmail = event.target.value;
-    this.onInputChange(event, i, emailValue);
+  openEmailDialog(event: MouseEvent, status: string) {
+    this.dialogPositionY = (14 + event.clientY).toString();
+    status == 'active'
+      ? (this.emailDialogActive = true)
+      : (this.emailDialogInactive = true);
+  }
+
+  closeEmailDialog(status: string) {
+    status == 'active'
+      ? (this.emailDialogActive = false)
+      : (this.emailDialogInactive = false);
+  }
+
+  onInputChange(event: any, i: number, emailValue: string, status: string) {
+    if (event.keyCode == 13) {
+      if (event.target.id !== 'visible') {
+        status == 'active'
+          ? (this.contactsData.activeContacts[i].email = event.target.value)
+          : (this.contactsData.inactiveContacts[i].email = event.target.value);
+      } else {
+        status == 'active'
+          ? (this.contactsData.activeContacts[i].email = emailValue)
+          : (this.contactsData.inactiveContacts[i].email = emailValue);
+      }
+      this.closeEmailDialog(status);
+    }
+  }
+
+  visibleEmail(event: any, i: number, emailValue: string, status: string) {
+    if (status === 'active') {
+      this.newVisibleMailActive = event.target.value;
+      this.contactsData.activeContacts[i].visibleEmail = event.target.value;
+      this.onInputChange(event, i, emailValue, status);
+    } else {
+      this.newVisibleMailInactive = event.target.value;
+      this.contactsData.inactiveContacts[i].visibleEmail = event.target.value;
+      this.onInputChange(event, i, emailValue, status);
+    }
   }
 }
