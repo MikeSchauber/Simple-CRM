@@ -53,10 +53,25 @@
         </section>
       </div>
       <div class="cell Contacts"><input type="text" (input)="item.name=getValue($event)" [value]="item.name"></div>
+      <!-- Tel Edit Menu -->
+      @if (item.tel.length > 0) {
       <div (mouseover)="hoverAction('tel')" (mouseout)="mouseOutAction();" class="cell email-cell"><a
-          [href]="'tel:' + item.email">{{item.tel}}</a><mat-icon [ngClass]="{'d-none': !phoneHovered}">close</mat-icon>
+          [href]="'tel:' + item.email">{{item.tel}}</a><mat-icon (click)="tableControl.deleteTel(i, 'active')"
+          [ngClass]="{'d-none': !phoneHovered}">close</mat-icon>
       </div>
-      <!-- Email Dialog Menu -->
+      } @else {
+      @if (!tableControl.telEdit) {
+      <div class="cell email-cell add-button">
+        <mat-icon (click)="tableControl.openTelInput()">add_box</mat-icon><mat-icon
+          class="default-icon">phone_iphone</mat-icon>
+      </div>
+      } @else {
+      <div class="cell">
+        <input class="dialog-input" type="text" (keydown)="tableControl.saveTelData($event, i)" placeholder="0 (123) 123 45690">
+      </div>
+      }
+      }
+      <!-- Email Edit Menu -->
       @if (item.email.length == 0) {
       <div class="cell email-cell add-button">
         <mat-icon (click)="tableControl.openEmailDialog($event)">add_box</mat-icon><mat-icon
@@ -69,7 +84,7 @@
               (keydown)="tableControl.onInputChange($event, i, emailInput.value)">
             <span>Displayed text</span>
             <input class="dialog-input" id="visible" placeholder="(optional)"
-             (keyup)="tableControl.visibleEmail($event, i, emailInput.value)">
+              (keyup)="tableControl.visibleEmail($event, i, emailInput.value)">
           </div>
         </div>
       </div>

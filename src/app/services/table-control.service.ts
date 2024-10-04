@@ -10,6 +10,7 @@ export class TableControlService {
   allCheckedActive: boolean = false;
   allCheckedInactive: boolean = false;
   emailDialog: boolean = false;
+  telEdit: boolean = false;
   dialogPositionY: string = '';
   newContact: string = '';
   newVisibleMail: string = '';
@@ -134,6 +135,20 @@ export class TableControlService {
     this.contactsData.inactiveContacts.forEach((contact) => {
       contact.newColumns.push(newColumn);
     });
+  }
+
+  deleteTel(i: number, status: string) {
+    this.contactsData.activeContacts[i].tel = '';
+  }
+
+  openTelInput() {
+    this.telEdit = true;
+  }
+
+  saveTelData(event: any, i: number) {
+    if (event.keyCode === 13) {
+      this.contactsData.activeContacts[i].tel = event.target.value;
+    }
   }
 
   deleteEmail(i: number, status: string) {
