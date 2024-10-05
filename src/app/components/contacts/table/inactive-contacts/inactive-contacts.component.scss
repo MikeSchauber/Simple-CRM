@@ -24,10 +24,6 @@ input {
   }
 }
 
-.table-container {
-  @include dFlex($g: 32px, $ai: flex-start);
-}
-
 .table {
   display: flex;
   flex-direction: column;

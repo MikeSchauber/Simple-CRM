@@ -1,4 +1,4 @@
-@use "./mixins.scss";
+@import "./mixins.scss";
 
 * {
   margin: 0;
@@ -19,6 +19,11 @@ body {
 
 .d-none {
   display: none !important;
+}
+
+.table-container {
+  @include dFlex($g: 32px, $ai: flex-start);
+  max-width: 1220px;
 }
 
 @font-face {

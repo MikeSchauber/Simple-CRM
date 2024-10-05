@@ -24,10 +24,6 @@ input {
   }
 }
 
-.table-container {
-  @include dFlex($g: 32px, $ai: flex-start);
-}
-
 .table {
   display: flex;
   flex-direction: column;
@@ -50,19 +46,22 @@ input {
   border: 1px solid #ddd;
   min-height: 50px;
   overflow-x: hidden;
+  min-width: 210px;
 }
 
 .checkbox-cell {
-  min-width: 50px; /* Feste Breite für die Checkbox-Zelle */
-  max-width: 50px; /* Stellt sicher, dass sie nicht größer wird */
+  min-width: 50px;
+  max-width: 50px; 
   display: flex;
   justify-content: center;
   align-items: center;
   border-right: 1px solid #ddd;
+  position: fixed;
+  background-color: white;
 }
 
 .Contacts {
-  padding-left: 8px;
+  padding-left: 58px;
   display: flex;
   align-items: center;
 }

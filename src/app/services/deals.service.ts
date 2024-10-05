@@ -17,7 +17,7 @@ export class DealsService {
       ],
     },
     {
-      name: 'Phase.',
+      name: 'Phase',
       type: 'dropdown',
       availableDropdowns: [{}],
     },
