@@ -1,0 +1,55 @@
+{
+  "tableColumns": [
+    {
+      "name": "Deal",
+      "type": "text",
+      "availableDropdowns": [{}]
+    },
+    {
+      "name": "Phase",
+      "type": "dropdown",
+      "availableDropdowns": [{}]
+    },
+    {
+      "name": "Deal-Wert",
+      "type": "href",
+      "availableDropdowns": [{}]
+    },
+    {
+      "name": "Verantwortlicher",
+      "type": "dropdown",
+      "availableDropdowns": [{}]
+    },
+    {
+      "name": "Erwartetes Abschlussdatum",
+      "type": "date",
+      "availableDropdowns": [{}]
+    }
+  ],
+  "deals": [
+    {
+      "checked": false,
+      "name": "Deal 1",
+      "phase": 2,
+      "dealValue": "14000",
+      "responsible": 1,
+      "closingDate": "2024-10-31T00:00:00.000Z"
+    },
+    {
+      "checked": false,
+      "name": "Deal 2",
+      "phase": 4,
+      "dealValue": "8000",
+      "responsible": 1,
+      "closingDate": "2024-11-15T00:00:00.000Z"
+    },
+    {
+      "checked": false,
+      "name": "Deal 3",
+      "phase": 2,
+      "dealValue": "10000",
+      "responsible": 1,
+      "closingDate": "2024-12-22T00:00:00.000Z"
+    }
+  ]
+}

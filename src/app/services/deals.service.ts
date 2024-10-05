@@ -26,7 +26,7 @@ export class DealsService {
       type: 'href',
       availableDropdowns: [
         {
-          // Jeder Wert ist bezieht sich auf den index eines Deals
+          // Jeder Wert bezieht sich auf den index eines Deals
         },
       ],
     },
