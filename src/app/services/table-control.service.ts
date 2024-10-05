@@ -1,7 +1,10 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { ContactsService } from './contacts.service';
 import { Contact } from '../models/contact.class';
 import { Column } from '../models/column.class';
+import { collectionData, Firestore } from '@angular/fire/firestore';
+import { Observable } from 'rxjs';
+import { addDoc, collection } from 'firebase/firestore';
 
 @Injectable({
   providedIn: 'root',
@@ -19,7 +22,18 @@ export class TableControlService {
   newVisibleMailActive: string = '';
   newVisibleMailInactive: string = '';
 
-  constructor(private contactsData: ContactsService) {}
+  item$: Observable<any>;
+  firestore: Firestore = inject(Firestore);
+
+  constructor(private contactsData: ContactsService) {
+    const itemCollection = collection(this.firestore, 'items');
+    this.item$ = collectionData<any>(itemCollection);
+  }
+
+  
+getContactsRef() {
+  return collection(this.firestore, 'contacts');
+}
 
   preventDefault(event: MouseEvent) {
     event.stopPropagation();
@@ -57,7 +71,7 @@ export class TableControlService {
     }
   }
 
-  keyboardAddContact(event: KeyboardEvent, status: string) {
+  async keyboardAddContact(event: KeyboardEvent, status: string) {
     if (
       status == 'active' &&
       event.keyCode === 13 &&
@@ -73,8 +87,19 @@ export class TableControlService {
     ) {
       let user = new Contact(this.newContactInactive);
       this.contactsData.inactiveContacts.push(user);
+      await this.addContact(user);
       this.clearAllInputs();
     }
+  }
+
+  async addContact(contact: Contact) {
+    await addDoc(this.getContactsRef(), contact.toJSON())
+      .catch((err) => {
+        console.error(err);
+      })
+      .then((docRef) => {
+        console.log('Document written with ID: ', docRef?.id);
+      });
   }
 
   mouseAddContact(status: string) {

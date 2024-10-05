@@ -1,9 +1,14 @@
 import { Injectable } from '@angular/core';
 
+
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ContactsService {
+
+  constructor() {
+
+  }
 
   activeTableColumns = [
     {
@@ -46,9 +51,11 @@ export class ContactsService {
     note: {
       name: 'Deals',
       type: 'dropdown',
-      availableDropdowns: [{
-        // Hier Deals implementieren aus DealsService
-      }],
+      availableDropdowns: [
+        {
+          // Hier Deals implementieren aus DealsService
+        },
+      ],
     },
     type: {
       name: 'Type',
@@ -87,7 +94,7 @@ export class ContactsService {
       name: 'Active',
       tel: '0151332023',
       email: 'mike.schuner@gmx.de',
-      visibleEmail: "Mike Schuner",
+      visibleEmail: 'Mike Schuner',
       newColumns: [
         {
           name: '',
@@ -105,7 +112,7 @@ export class ContactsService {
       name: 'Inactive',
       tel: '0151332023',
       email: 'mike.schuner@gmx.de',
-      visibleEmail: "Mike Schauber",
+      visibleEmail: 'Mike Schauber',
       newColumns: [
         {
           name: '',
@@ -115,6 +122,4 @@ export class ContactsService {
       ],
     },
   ];
-
-  constructor() { }
 }

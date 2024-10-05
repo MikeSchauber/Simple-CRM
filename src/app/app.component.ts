@@ -6,6 +6,8 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { CommonModule } from '@angular/common';
 import { TableControlService } from './services/table-control.service';
+import { Firestore } from '@angular/fire/firestore';
+
 
 @Component({
   selector: 'app-root',
@@ -23,7 +25,7 @@ import { TableControlService } from './services/table-control.service';
   styleUrl: './app.component.scss',
 })
 export class AppComponent {
-  title = 'Simple-CRM';
+  title = 'simple-crm';
 
   constructor(public tableControl: TableControlService) {}
 }

@@ -1,10 +1,12 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
+import { Firestore, collection, collectionData } from '@angular/fire/firestore';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class DealsService {
-  constructor() {}
+
 
   tableColumns = [
     {
@@ -49,7 +51,7 @@ export class DealsService {
   deals = [
     {
       checked: false,
-      name: "Deal 1",
+      name: 'Deal 1',
       phase: 2,
       dealValue: '14000',
       responsible: 1,
@@ -57,7 +59,7 @@ export class DealsService {
     },
     {
       checked: false,
-      name: "Deal 2",
+      name: 'Deal 2',
       phase: 4,
       dealValue: '8000',
       responsible: 1,
@@ -65,7 +67,7 @@ export class DealsService {
     },
     {
       checked: false,
-      name: "Deal 3",
+      name: 'Deal 3',
       phase: 2,
       dealValue: '10000',
       responsible: 1,

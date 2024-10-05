@@ -5,7 +5,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { MatMenuModule, MenuPositionX } from '@angular/material/menu';
+import { MatMenuModule } from '@angular/material/menu';
 import { DealsService } from '../../services/deals.service';
 
 @Component({
