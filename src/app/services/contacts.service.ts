@@ -44,9 +44,11 @@ export class ContactsService {
 
   availableColumnTypes = {
     note: {
-      name: 'Note',
-      type: 'text',
-      availableDropdowns: [{}],
+      name: 'Deals',
+      type: 'dropdown',
+      availableDropdowns: [{
+        // Hier Deals implementieren aus DealsService
+      }],
     },
     type: {
       name: 'Type',

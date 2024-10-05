@@ -1,0 +1,215 @@
+@import "../../../mixins.scss";
+
+input {
+  width: 100%;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  border: 1px solid rgb(184, 184, 184);
+  border-color: transparent;
+  border-radius: 5px;
+  background: none;
+  padding: 5px;
+  margin: 0;
+  font: inherit;
+  color: inherit;
+  box-shadow: none;
+  outline: none;
+  transition: all 125ms ease-in-out;
+  &:hover {
+    border-color: rgb(184, 184, 184);
+  }
+  &:focus {
+    border: 1px solid grey;
+  }
+}
+
+.table-container {
+  @include dFlex($g: 32px, $ai: flex-start);
+}
+
+.table {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  overflow-x: auto;
+  border: 1px solid #ddd;
+}
+
+.row {
+  display: flex;
+  height: 50px;
+}
+
+.cell {
+  padding: 0 8px;
+  display: flex;
+  align-items: center;
+  flex: 1;
+  flex-basis: 0;
+  border: 1px solid #ddd;
+  min-height: 50px;
+  overflow-x: hidden;
+}
+
+.checkbox-cell {
+  min-width: 50px; /* Feste Breite für die Checkbox-Zelle */
+  max-width: 50px; /* Stellt sicher, dass sie nicht größer wird */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-right: 1px solid #ddd;
+}
+
+.Contacts {
+  padding-left: 8px;
+  display: flex;
+  align-items: center;
+}
+
+.button-container {
+  mat-icon {
+    margin: 0;
+  }
+  button {
+    margin-right: 8px;
+    color: $lightcolor;
+    background-color: $darkcolor;
+    &:hover {
+      background-color: $darkcolorHover;
+    }
+    &:active {
+      &:hover {
+        background-color: $darkcolor;
+      }
+    }
+  }
+  mat-icon {
+    color: $lightcolor;
+  }
+}
+
+.add-container {
+  mat-icon {
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 100ms ease-in-out;
+    &:hover {
+      background-color: $lightcolorHover;
+    }
+    &:active {
+      background-color: $lightcolor;
+    }
+  }
+}
+
+.add {
+  @include dFlex($fd: row, $g: 8px);
+  width: 26px;
+  height: 26px;
+  mat-icon {
+    @include dFlex();
+    cursor: pointer;
+    color: $darkcolor;
+    transition: all 100ms ease-in-out;
+    &:hover {
+      color: $darkcolorHover;
+    }
+  }
+}
+
+.empty-field {
+  background-color: white;
+  &:hover {
+    background-color: #ffffff00 !important;
+  }
+}
+
+.typ-headcell .typ-cell {
+  flex: 0;
+  min-width: 120px;
+}
+
+.email-cell {
+  @include dFlex($fd: row, $g: 4px, $jc: space-between);
+  font-size: 12px;
+  mat-icon {
+    @include dFlex();
+    width: 18px;
+    height: 18px;
+    font-size: 14px;
+    background-color: lightgrey;
+    transition: all 125ms ease-in-out;
+    cursor: pointer;
+    border-radius: 50%;
+    &:hover {
+      background-color: rgb(194, 194, 194);
+    }
+  }
+}
+
+.add-contact-row .add {
+  display: flex;
+  align-items: center;
+}
+
+.note {
+  color: #ff9800 !important;
+}
+
+.type {
+  color: #2196f3 !important;
+}
+
+.status {
+  color: #4caf50 !important;
+}
+
+.prio {
+  color: #f44336 !important;
+}
+
+.add-button {
+  @include dFlex($fd: row, $g: 8px);
+  color: $darkcolor;
+  mat-icon {
+    height: 28px;
+    width: 28px;
+    font-size: 20px;
+  }
+}
+
+.default-icon {
+  color: grey;
+  background-color: transparent !important;
+  cursor: auto !important;
+  &:hover {
+    background-color: transparent !important;
+  }
+}
+
+.input-dialog {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 999;
+  height: 100vh;
+  width: 100vw;
+  background-color: rgba(255, 255, 255, 0);
+  @include dFlex();
+  overflow: hidden;
+  > div {
+    position: absolute;
+    top: 28px;
+    width: max-content;
+    @include dFlex($g: 8px);
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 15px;
+    padding: 16px;
+  }
+}
+
+.dialog-input {
+  border: 1px solid $darkcolor;
+}

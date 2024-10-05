@@ -1,0 +1,61 @@
+<div class="table-container">
+    <div class="button-container">
+        <button mat-button><mat-icon>delete</mat-icon>Trash</button>
+    </div>
+    <div id="customers" class="table">
+        <!-- Table Header -->
+        <div class="table-head row">
+            <div class="cell checkbox-cell">
+                <section class="example-section">
+                    <mat-checkbox (click)="checkAllDeals()" class="example-margin"></mat-checkbox>
+                </section>
+            </div>
+            @for(item of this.dealsData.tableColumns; track $index; let i = $index) {
+            @if (item.name == "Deals") {
+            <div class="cell Contacts">
+                <span>{{item.name}}</span>
+            </div>
+            } @else {
+            <div class="cell">
+                <span>{{item.name}}</span>
+            </div>
+            }
+            }
+        </div>
+
+        <!-- Table Content Rows -->
+        @if (dealsData.deals.length > 0) {
+        @for (item of this.dealsData.deals; track $index; let i = $index) {
+        <div class="row content-row">
+            <div class="cell checkbox-cell">
+                <section class="example-section">
+                    <mat-checkbox [(ngModel)]="item.checked" class="example-margin"></mat-checkbox>
+                </section>
+            </div>
+            <div class="cell Contacts">
+                <input type="text" (input)="item.name=getValue($event)" [value]="item.name">
+            </div>
+            <!-- Phase Dropdown Menu -->
+            <div class="cell">
+                {{item.phase}}
+            </div>
+
+            <!-- Deal Value -->
+            <div class="cell">
+                {{item.dealValue}}
+            </div>
+
+            <!-- Responsible Person -->
+            <div class="cell">
+                {{item.responsible}}
+            </div>
+
+            <!-- Closing Date -->
+            <div class="cell" (click)="openDatePicker()">
+                {{returnPrettierDate(item.closingDate)}}
+            </div>
+        </div>
+        }
+        }
+    </div>
+</div>
