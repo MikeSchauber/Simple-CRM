@@ -25,7 +25,6 @@ export class DataBackupService {
 
   inactiveTableColumns = [
     {
-      class: 'contacts-cell',
       name: 'Contacts',
       type: 'text',
       availableDropdowns: [{}],
@@ -53,8 +52,8 @@ activeContacts = [
     newColumns: [
       {
         name: 'Position',
-        type: 'String',
-        availableDropdowns: [{ label: 'Manager' }, { label: 'Developer' }],
+        type: 'dropdown',
+        availableDropdowns: [{}],
       },
     ],
   },
@@ -68,8 +67,8 @@ activeContacts = [
     newColumns: [
       {
         name: 'Position',
-        type: 'String',
-        availableDropdowns: [{ label: 'Designer' }, { label: 'Product Owner' }],
+        type: 'dropdown',
+        availableDropdowns: [{}],
       },
     ],
   },
@@ -83,8 +82,8 @@ activeContacts = [
     newColumns: [
       {
         name: 'Position',
-        type: 'String',
-        availableDropdowns: [{ label: 'Consultant' }, { label: 'Lead' }],
+        type: 'dropdown',
+        availableDropdowns: [{} ],
       },
     ],
   },
@@ -98,8 +97,8 @@ activeContacts = [
     newColumns: [
       {
         name: 'Position',
-        type: 'String',
-        availableDropdowns: [{ label: 'Analyst' }, { label: 'Manager' }],
+        type: 'dropdown',
+        availableDropdowns: [{}],
       },
     ],
   },
@@ -113,8 +112,8 @@ activeContacts = [
     newColumns: [
       {
         name: 'Position',
-        type: 'String',
-        availableDropdowns: [{ label: 'Assistant' }, { label: 'HR' }],
+        type: 'dropdown',
+        availableDropdowns: [{}],
       },
     ],
   },
@@ -131,8 +130,8 @@ inactiveContacts = [
     newColumns: [
       {
         name: 'Position',
-        type: 'String',
-        availableDropdowns: [{ label: 'Manager' }, { label: 'Consultant' }],
+        type: 'dropdown',
+        availableDropdowns: [{}],
       },
     ],
   },
@@ -146,8 +145,8 @@ inactiveContacts = [
     newColumns: [
       {
         name: 'Position',
-        type: 'String',
-        availableDropdowns: [{ label: 'HR' }, { label: 'Designer' }],
+        type: 'dropdown',
+        availableDropdowns: [{}],
       },
     ],
   },
@@ -161,8 +160,8 @@ inactiveContacts = [
     newColumns: [
       {
         name: 'Position',
-        type: 'String',
-        availableDropdowns: [{ label: 'Lead' }, { label: 'Analyst' }],
+        type: 'dropdown',
+        availableDropdowns: [{}],
       },
     ],
   },

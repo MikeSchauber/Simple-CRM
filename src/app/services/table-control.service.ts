@@ -1,8 +1,9 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { ContactsService } from './contacts.service';
 import { Contact } from '../models/contact.class';
 import { Column } from '../models/column.class';
 import { DataBackupService } from './data-backup.service';
+import { Firestore } from '@angular/fire/firestore';
 
 @Injectable({
   providedIn: 'root',
@@ -19,6 +20,8 @@ export class TableControlService {
   newContactInactive: string = '';
   newVisibleMailActive: string = '';
   newVisibleMailInactive: string = '';
+
+  firestore: Firestore = inject(Firestore);
 
   constructor(private contactsData: ContactsService, private dataBackup: DataBackupService) {}
 
@@ -74,20 +77,9 @@ export class TableControlService {
     ) {
       let user = new Contact(this.newContactInactive);
       this.dataBackup.inactiveContacts.push(user);
-      // await this.addContact(user);
       this.clearAllInputs();
     }
   }
-
-  // async addContact(contact: Contact) {
-  //   await addDoc(this.getContactsRef(), contact.toJSON())
-  //     .catch((err) => {
-  //       console.error(err);
-  //     })
-  //     .then((docRef) => {
-  //       console.log('Document written with ID: ', docRef?.id);
-  //     });
-  // }
 
   mouseAddContact(status: string) {
     if (status == 'active' && this.newContactActive.length != 0) {

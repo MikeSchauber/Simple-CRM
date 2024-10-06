@@ -1,5 +1,5 @@
 import { inject, Injectable } from '@angular/core';
-import { Firestore } from '@angular/fire/firestore';
+import { collectionData, Firestore } from '@angular/fire/firestore';
 import {
   collection,
   doc,
@@ -20,8 +20,7 @@ import { DataBackupService } from './data-backup.service';
 })
 export class DataManagementService {
   firestore: Firestore = inject(Firestore);
-  contactsRef = doc(this.firestore, 'crm-data', 'contacts');
-  dealsRef = doc(this.firestore, 'crm-data', 'deals');
+  contacts$;
 
   constructor(
     public tableControl: TableControlService,
@@ -29,31 +28,24 @@ export class DataManagementService {
   ) {
     /* Running this setDoc Functions to set Backup Data */
     // this.setCrmData();
-    this.getContactsData();
     this.getDealsData();
+    this.contacts$ = collectionData(this.getCrmRef('contacts'));
+
   }
 
-  getCrmRef() {
-    return collection(this.firestore, 'crm-data');
+  getCrmRef(ref: string) {
+    return collection(this.firestore, ref);
   }
 
   async setCrmData() {
-    await setDoc(doc(this.getCrmRef(), 'contacts'), {
+    await setDoc(doc(this.getCrmRef('contacts')), {
       activeContacts: this.dataBackup.activeContacts,
       inactiveContacts: this.dataBackup.inactiveContacts,
       activeTableColumns: this.dataBackup.activeTableColumns,
       inactiveTableColumns: this.dataBackup.inactiveTableColumns,
     });
-    await setDoc(doc(this.getCrmRef(), 'deals'), {
+    await setDoc(doc(this.getCrmRef('deals')), {
       deals: this.dataBackup.deals,
-    });
-  }
-
-  async getContactsData() {
-    const contactsSnapShot = await getDocs(this.getCrmRef());
-    contactsSnapShot.forEach((doc) => {
-      // doc.data() is never undefined for query doc snapshots
-      console.log(doc.data());
     });
   }
 

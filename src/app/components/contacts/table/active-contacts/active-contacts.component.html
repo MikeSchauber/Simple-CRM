@@ -12,15 +12,9 @@
         </section>
       </div>
       @for(item of this.dataBackup.activeTableColumns; track $index; let i = $index) {
-      @if (item.name == "Contacts") {
-      <div class="cell Contacts">
-        <span>{{item.name}}</span>
-      </div>
-      } @else {
       <div class="cell">
         <span>{{item.name}}</span>
       </div>
-      }
       }
 
       <!-- Add Column Menu -->
@@ -30,7 +24,7 @@
         </button>
         <mat-menu #menu="matMenu">
           <button (click)="tableControl.addColumn('note', 'active')" mat-menu-item><mat-icon
-              class="note">history_edu</mat-icon> Note</button>
+              class="note">paid</mat-icon> Deal</button>
           <button (click)="tableControl.addColumn('type', 'active')" mat-menu-item><mat-icon
               class="type">supervised_user_circle</mat-icon>
             Type</button>
@@ -45,7 +39,7 @@
 
     <!-- Table Content Rows -->
     @if (dataBackup.activeContacts.length > 0) {
-    @for (item of this.dataBackup.activeContacts; track $index; let i = $index) {
+    @for (item of ( this.dataManagement.contacts$ | async ); track $index; let i = $index) {
     <div class="row content-row">
       <div class="cell checkbox-cell">
         <section class="example-section">
@@ -67,7 +61,8 @@
       </div>
       } @else {
       <div class="cell">
-        <input class="dialog-input" type="text" (keydown)="tableControl.saveTelData($event, i, 'active')" placeholder="0 (123) 123 45690">
+        <input class="dialog-input" type="text" (keydown)="tableControl.saveTelData($event, i, 'active')"
+          placeholder="0 (123) 123 45690">
       </div>
       }
       }
