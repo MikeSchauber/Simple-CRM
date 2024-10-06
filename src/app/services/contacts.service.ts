@@ -1,51 +1,12 @@
 import { Injectable } from '@angular/core';
 
-
 @Injectable({
   providedIn: 'root',
 })
 export class ContactsService {
-
   constructor() {
 
   }
-
-  activeTableColumns = [
-    {
-      name: 'Contacts',
-      type: 'text',
-      availableDropdowns: [{}],
-    },
-    {
-      name: 'Tel.',
-      type: 'href',
-      availableDropdowns: [{}],
-    },
-    {
-      name: 'Email',
-      type: 'href',
-      availableDropdowns: [{}],
-    },
-  ];
-
-  inactiveTableColumns = [
-    {
-      class: 'contacts-cell',
-      name: 'Contacts',
-      type: 'text',
-      availableDropdowns: [{}],
-    },
-    {
-      name: 'Tel.',
-      type: 'href',
-      availableDropdowns: [{}],
-    },
-    {
-      name: 'Email',
-      type: 'href',
-      availableDropdowns: [{}],
-    },
-  ];
 
   availableColumnTypes = {
     note: {
@@ -87,39 +48,5 @@ export class ContactsService {
     },
   };
 
-  activeContacts = [
-    {
-      checked: false,
-      status: 'active',
-      name: 'Active',
-      tel: '0151332023',
-      email: 'mike.schuner@gmx.de',
-      visibleEmail: 'Mike Schuner',
-      newColumns: [
-        {
-          name: '',
-          type: '',
-          availableDropdowns: [{}],
-        },
-      ],
-    },
-  ];
 
-  inactiveContacts = [
-    {
-      checked: false,
-      status: 'inactive',
-      name: 'Inactive',
-      tel: '0151332023',
-      email: 'mike.schuner@gmx.de',
-      visibleEmail: 'Mike Schauber',
-      newColumns: [
-        {
-          name: '',
-          type: '',
-          availableDropdowns: [{}],
-        },
-      ],
-    },
-  ];
 }

@@ -7,11 +7,13 @@ import { CommonModule } from '@angular/common';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatMenuModule } from '@angular/material/menu';
 import { DealsService } from '../../services/deals.service';
+import { DataBackupService } from '../../services/data-backup.service';
 
 @Component({
   selector: 'app-deals',
   standalone: true,
   imports: [
+    
     MatButtonModule,
     MatCheckboxModule,
     FormsModule,
@@ -26,17 +28,17 @@ import { DealsService } from '../../services/deals.service';
 export class DealsComponent {
   allChecked: boolean = false;
 
-  constructor(public dealsData: DealsService) {}
+  constructor(public dealsData: DealsService, public dataBackup: DataBackupService) {}
 
   checkAllDeals() {
     if (!this.allChecked) {
       this.allChecked = true;
-      this.dealsData.deals.forEach((e) => {
+      this.dataBackup.deals.forEach((e) => {
         e.checked = true;
       });
     } else {
       this.allChecked = false;
-      this.dealsData.deals.forEach((e) => {
+      this.dataBackup.deals.forEach((e) => {
         e.checked = false;
       });
     }

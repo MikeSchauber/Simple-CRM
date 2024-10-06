@@ -1,6 +1,4 @@
-import { inject, Injectable } from '@angular/core';
-import { Firestore, collection, collectionData } from '@angular/fire/firestore';
-import { Observable } from 'rxjs';
+import { Injectable } from '@angular/core';
 
 @Injectable({
   providedIn: 'root',
@@ -45,33 +43,6 @@ export class DealsService {
       name: 'Erwartertetes Abschlussdatum',
       type: 'date',
       availableDropdowns: [{}],
-    },
-  ];
-
-  deals = [
-    {
-      checked: false,
-      name: 'Deal 1',
-      phase: 2,
-      dealValue: '14000',
-      responsible: 1,
-      closingDate: new Date('2024-10-31'),
-    },
-    {
-      checked: false,
-      name: 'Deal 2',
-      phase: 4,
-      dealValue: '8000',
-      responsible: 1,
-      closingDate: new Date('2024-11-15'),
-    },
-    {
-      checked: false,
-      name: 'Deal 3',
-      phase: 2,
-      dealValue: '10000',
-      responsible: 1,
-      closingDate: new Date('2024-12-22'),
     },
   ];
 }

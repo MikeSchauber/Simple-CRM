@@ -1,10 +1,8 @@
-import { inject, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { ContactsService } from './contacts.service';
 import { Contact } from '../models/contact.class';
 import { Column } from '../models/column.class';
-import { collectionData, Firestore } from '@angular/fire/firestore';
-import { Observable } from 'rxjs';
-import { addDoc, collection } from 'firebase/firestore';
+import { DataBackupService } from './data-backup.service';
 
 @Injectable({
   providedIn: 'root',
@@ -22,18 +20,7 @@ export class TableControlService {
   newVisibleMailActive: string = '';
   newVisibleMailInactive: string = '';
 
-  item$: Observable<any>;
-  firestore: Firestore = inject(Firestore);
-
-  constructor(private contactsData: ContactsService) {
-    const itemCollection = collection(this.firestore, 'items');
-    this.item$ = collectionData<any>(itemCollection);
-  }
-
-  
-getContactsRef() {
-  return collection(this.firestore, 'contacts');
-}
+  constructor(private contactsData: ContactsService, private dataBackup: DataBackupService) {}
 
   preventDefault(event: MouseEvent) {
     event.stopPropagation();
@@ -46,12 +33,12 @@ getContactsRef() {
   checkAllActives() {
     if (!this.allCheckedActive) {
       this.allCheckedActive = true;
-      this.contactsData.activeContacts.forEach((e) => {
+      this.dataBackup.activeContacts.forEach((e) => {
         e.checked = true;
       });
     } else {
       this.allCheckedActive = false;
-      this.contactsData.activeContacts.forEach((e) => {
+      this.dataBackup.activeContacts.forEach((e) => {
         e.checked = false;
       });
     }
@@ -60,12 +47,12 @@ getContactsRef() {
   checkAllInactives() {
     if (!this.allCheckedInactive) {
       this.allCheckedInactive = true;
-      this.contactsData.inactiveContacts.forEach((e) => {
+      this.dataBackup.inactiveContacts.forEach((e) => {
         e.checked = true;
       });
     } else {
       this.allCheckedInactive = false;
-      this.contactsData.inactiveContacts.forEach((e) => {
+      this.dataBackup.inactiveContacts.forEach((e) => {
         e.checked = false;
       });
     }
@@ -78,7 +65,7 @@ getContactsRef() {
       this.newContactActive.length != 0
     ) {
       let user = new Contact(this.newContactActive);
-      this.contactsData.activeContacts.push(user);
+      this.dataBackup.activeContacts.push(user);
       this.clearAllInputs();
     } else if (
       status == 'inactive' &&
@@ -86,29 +73,29 @@ getContactsRef() {
       this.newContactInactive.length != 0
     ) {
       let user = new Contact(this.newContactInactive);
-      this.contactsData.inactiveContacts.push(user);
-      await this.addContact(user);
+      this.dataBackup.inactiveContacts.push(user);
+      // await this.addContact(user);
       this.clearAllInputs();
     }
   }
 
-  async addContact(contact: Contact) {
-    await addDoc(this.getContactsRef(), contact.toJSON())
-      .catch((err) => {
-        console.error(err);
-      })
-      .then((docRef) => {
-        console.log('Document written with ID: ', docRef?.id);
-      });
-  }
+  // async addContact(contact: Contact) {
+  //   await addDoc(this.getContactsRef(), contact.toJSON())
+  //     .catch((err) => {
+  //       console.error(err);
+  //     })
+  //     .then((docRef) => {
+  //       console.log('Document written with ID: ', docRef?.id);
+  //     });
+  // }
 
   mouseAddContact(status: string) {
     if (status == 'active' && this.newContactActive.length != 0) {
       let user = new Contact(this.newContactActive);
-      this.contactsData.activeContacts.push(user);
+      this.dataBackup.activeContacts.push(user);
     } else if (status == 'inactive' && this.newContactInactive.length != 0) {
       let user = new Contact(this.newContactInactive);
-      this.contactsData.inactiveContacts.push(user);
+      this.dataBackup.inactiveContacts.push(user);
     }
     this.clearAllInputs();
   }
@@ -129,20 +116,20 @@ getContactsRef() {
   }
 
   handleActiveContacts() {
-    for (let i = 0; i < this.contactsData.activeContacts.length; i++) {
-      const contact = this.contactsData.activeContacts[i];
+    for (let i = 0; i < this.dataBackup.activeContacts.length; i++) {
+      const contact = this.dataBackup.activeContacts[i];
       if (contact.checked === true) {
-        this.contactsData.activeContacts.splice(i, 1);
+        this.dataBackup.activeContacts.splice(i, 1);
         i--;
       }
     }
   }
 
   handleInactiveContacts() {
-    for (let i = 0; i < this.contactsData.inactiveContacts.length; i++) {
-      const contact = this.contactsData.inactiveContacts[i];
+    for (let i = 0; i < this.dataBackup.inactiveContacts.length; i++) {
+      const contact = this.dataBackup.inactiveContacts[i];
       if (contact.checked === true) {
-        this.contactsData.inactiveContacts.splice(i, 1);
+        this.dataBackup.inactiveContacts.splice(i, 1);
         i--;
       }
     }
@@ -165,23 +152,23 @@ getContactsRef() {
   }
 
   pushIntoActiveContacts(newColumn: Column) {
-    this.contactsData.activeTableColumns.push(newColumn);
-    this.contactsData.activeContacts.forEach((contact) => {
+    this.dataBackup.activeTableColumns.push(newColumn);
+    this.dataBackup.activeContacts.forEach((contact) => {
       contact.newColumns.push(newColumn);
     });
   }
 
   pushIntoInactiveContacts(newColumn: Column) {
-    this.contactsData.inactiveTableColumns.push(newColumn);
-    this.contactsData.inactiveContacts.forEach((contact) => {
+    this.dataBackup.inactiveTableColumns.push(newColumn);
+    this.dataBackup.inactiveContacts.forEach((contact) => {
       contact.newColumns.push(newColumn);
     });
   }
 
   deleteTel(i: number, status: string) {
     status == 'active'
-      ? (this.contactsData.activeContacts[i].tel = '')
-      : (this.contactsData.inactiveContacts[i].tel = '');
+      ? (this.dataBackup.activeContacts[i].tel = '')
+      : (this.dataBackup.inactiveContacts[i].tel = '');
   }
 
   openTelInput(status: string) {
@@ -193,18 +180,18 @@ getContactsRef() {
   saveTelData(event: any, i: number, status: string) {
     if (event.keyCode === 13) {
       status == 'active'
-        ? (this.contactsData.activeContacts[i].tel = event.target.value)
-        : (this.contactsData.inactiveContacts[i].tel = event.target.value);
+        ? (this.dataBackup.activeContacts[i].tel = event.target.value)
+        : (this.dataBackup.inactiveContacts[i].tel = event.target.value);
     }
   }
 
   deleteEmail(i: number, status: string) {
     if (status == 'active') {
-      this.contactsData.activeContacts[i].email = '';
-      this.contactsData.activeContacts[i].visibleEmail = '';
+      this.dataBackup.activeContacts[i].email = '';
+      this.dataBackup.activeContacts[i].visibleEmail = '';
     } else {
-      this.contactsData.inactiveContacts[i].email = '';
-      this.contactsData.inactiveContacts[i].visibleEmail = '';
+      this.dataBackup.inactiveContacts[i].email = '';
+      this.dataBackup.inactiveContacts[i].visibleEmail = '';
     }
   }
 
@@ -225,12 +212,12 @@ getContactsRef() {
     if (event.keyCode == 13) {
       if (event.target.id !== 'visible') {
         status == 'active'
-          ? (this.contactsData.activeContacts[i].email = event.target.value)
-          : (this.contactsData.inactiveContacts[i].email = event.target.value);
+          ? (this.dataBackup.activeContacts[i].email = event.target.value)
+          : (this.dataBackup.inactiveContacts[i].email = event.target.value);
       } else {
         status == 'active'
-          ? (this.contactsData.activeContacts[i].email = emailValue)
-          : (this.contactsData.inactiveContacts[i].email = emailValue);
+          ? (this.dataBackup.activeContacts[i].email = emailValue)
+          : (this.dataBackup.inactiveContacts[i].email = emailValue);
       }
       this.closeEmailDialog(status);
     }
@@ -239,11 +226,11 @@ getContactsRef() {
   visibleEmail(event: any, i: number, emailValue: string, status: string) {
     if (status === 'active') {
       this.newVisibleMailActive = event.target.value;
-      this.contactsData.activeContacts[i].visibleEmail = event.target.value;
+      this.dataBackup.activeContacts[i].visibleEmail = event.target.value;
       this.onInputChange(event, i, emailValue, status);
     } else {
       this.newVisibleMailInactive = event.target.value;
-      this.contactsData.inactiveContacts[i].visibleEmail = event.target.value;
+      this.dataBackup.inactiveContacts[i].visibleEmail = event.target.value;
       this.onInputChange(event, i, emailValue, status);
     }
   }

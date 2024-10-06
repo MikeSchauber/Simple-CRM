@@ -8,6 +8,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatMenuModule } from '@angular/material/menu';
 import { ContactsService } from '../../../../services/contacts.service';
 import { TableControlService } from '../../../../services/table-control.service';
+import { DataBackupService } from '../../../../services/data-backup.service';
 
 @Component({
   selector: 'app-inactive-contacts',
@@ -28,7 +29,7 @@ export class InactiveContactsComponent {
   emailHovered: boolean = false;
   phoneHovered: boolean = false;
 
-  constructor(public contactsData: ContactsService, public tableControl: TableControlService) {}
+  constructor(public contactsData: ContactsService, public tableControl: TableControlService, public dataBackup: DataBackupService) {}
 
   hoverAction(action: string) {
     if (action == 'email') {
