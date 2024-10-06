@@ -1,60 +1,57 @@
 import { inject, Injectable } from '@angular/core';
 import { Firestore } from '@angular/fire/firestore';
-import { collection, doc, getDoc, getDocFromCache, getDocs, setDoc, where } from 'firebase/firestore';
+import {
+  collection,
+  doc,
+  getDoc,
+  getDocFromCache,
+  getDocs,
+  setDoc,
+  where,
+} from 'firebase/firestore';
 import { TableControlService } from './table-control.service';
 import { ContactsService } from './contacts.service';
 import { DealsService } from './deals.service';
 import { query } from '@angular/animations';
+import { DataBackupService } from './data-backup.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class DataManagementService {
   firestore: Firestore = inject(Firestore);
-  contactsRef = doc(this.firestore, 'contacts', 'new-collection');
-
-  
+  contactsRef = doc(this.firestore, 'crm-data', 'contacts');
+  dealsRef = doc(this.firestore, 'crm-data', 'deals');
 
   constructor(
     public tableControl: TableControlService,
-    private contactsData: ContactsService,
-    private dealsData: DealsService
+    private dataBackup: DataBackupService
   ) {
-    // this.setContactsData();
-    // this.setDealsData();
+    /* Running this setDoc Functions to set Backup Data */
+    // this.setCrmData();
     this.getContactsData();
     this.getDealsData();
   }
 
-  getContactsRef() {
-    return collection(this.firestore, 'contacts');
+  getCrmRef() {
+    return collection(this.firestore, 'crm-data');
   }
 
-  getDealsRef() {
-    return collection(this.firestore, 'deals');
+  async setCrmData() {
+    await setDoc(doc(this.getCrmRef(), 'contacts'), {
+      activeContacts: this.dataBackup.activeContacts,
+      inactiveContacts: this.dataBackup.inactiveContacts,
+      activeTableColumns: this.dataBackup.activeTableColumns,
+      inactiveTableColumns: this.dataBackup.inactiveTableColumns,
+    });
+    await setDoc(doc(this.getCrmRef(), 'deals'), {
+      deals: this.dataBackup.deals,
+    });
   }
-
-  /* Running this setDoc Functions to set Basic Data */
-
-  // async setContactsData() {
-  //   await setDoc(doc(this.getContactsRef(), 'new-collection'), {
-  //     activeContacts: this.contactsData.activeContacts,
-  //     inactiveContacts: this.contactsData.inactiveContacts,
-  //     activeTableColumns: this.contactsData.activeTableColumns,
-  //     inactiveTableColumns: this.contactsData.inactiveTableColumns,
-  //   });
-  // }
-
-  // async setDealsData() {
-  //   await setDoc(doc(this.getDealsRef(), 'new-collection'), {
-  //     deals: this.dealsData.deals,
-  //     tableColumns: this.dealsData.tableColumns,
-  //   });
-  // }
 
   async getContactsData() {
-    const querySnapshot = await getDocs(this.getContactsRef());
-    querySnapshot.forEach((doc) => {
+    const contactsSnapShot = await getDocs(this.getCrmRef());
+    contactsSnapShot.forEach((doc) => {
       // doc.data() is never undefined for query doc snapshots
       console.log(doc.data());
     });
