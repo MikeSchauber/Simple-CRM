@@ -30,14 +30,12 @@ import { query } from '@angular/animations';
   templateUrl: './active-contacts.component.html',
   styleUrl: './active-contacts.component.scss',
 })
-export class ActiveContactsComponent implements OnDestroy {
+export class ActiveContactsComponent {
   emailHovered: boolean = false;
   phoneHovered: boolean = false;
   activeContacts: Contact[] = [];
   columnActive: any[] = [];
   firestore: Firestore = inject(Firestore);
-  unsubActive;
-  // unsubColumnActive;
 
   constructor(
     public contactsData: ContactsService,
@@ -45,35 +43,7 @@ export class ActiveContactsComponent implements OnDestroy {
     public dataBackup: DataBackupService,
     public dataManagement: DataManagementService
   ) {
-    this.unsubActive = this.subActiveList();
-    // this.unsubColumnActive = this.subColumnActiveList();
-  }
 
-  ngOnDestroy() {
-    // this.unsubActive();
-    // this.unsubColumnActive();
-  }
-
-  subActiveList() {
-        
-    // const q = query(ref, limit(100));
-    // return onSnapshot(q, (list) => {
-    //   this.activeContacts = [];
-    //   list.forEach((element) => {
-    //     this.normalNotes.push(this.setNoteObject(element.data(), element.id));
-    //   });
-    //   list.docChanges().forEach((change) => {
-    //     if (change.type === 'added') {
-    //       console.log('New Note: ', change.doc.data());
-    //     }
-    //     if (change.type === 'modified') {
-    //       console.log('Modified Note: ', change.doc.data());
-    //     }
-    //     if (change.type === 'removed') {
-    //       console.log('Removed Note: ', change.doc.data());
-    //     }
-    //   });
-    // });
   }
 
   hoverAction(action: string) {
