@@ -9,6 +9,7 @@ import {
   getDocFromCache,
   getDocs,
   onSnapshot,
+  QuerySnapshot,
   setDoc,
   where,
 } from 'firebase/firestore';
@@ -18,6 +19,8 @@ import { DealsService } from './deals.service';
 import { query } from '@angular/animations';
 import { DataBackupService } from './data-backup.service';
 import { Contact } from '../models/contact.class';
+import { Column } from '../models/column.class';
+import { Deal } from '../models/deal.class';
 
 @Injectable({
   providedIn: 'root',
@@ -25,7 +28,14 @@ import { Contact } from '../models/contact.class';
 export class DataManagementService implements OnDestroy {
   firestore: Firestore = inject(Firestore);
   unsubContacts;
-  // unsubDeals;
+  unsubDeals;
+
+  activeContacts: Contact[] = [];
+  inactiveContacts: Contact[] = [];
+  activeTableColumns: Column[] = [];
+  inactiveTableColumns: Column[] = [];
+
+  deals: Deal[] = [];
 
   constructor(
     public tableControl: TableControlService,
@@ -33,15 +43,43 @@ export class DataManagementService implements OnDestroy {
   ) {
     /* Running this setDoc Functions to set Backup Data */
     // this.setCrmData();
-    this.unsubContacts = onSnapshot(this.getDocRef('contacts'), (contact) => {
-      contact.forEach((element) => {
-        console.log(element.data());
-      });
-    });
+    this.unsubContacts = this.subList('contacts');
+    this.unsubDeals = this.subList('deals');
   }
 
   ngOnDestroy(): void {
     this.unsubContacts();
+    this.unsubDeals();
+  }
+
+  subList(list: string) {
+    return onSnapshot(this.getDocRef(list), (elements) => {
+      if (list === 'contacts') {
+        this.setContactDocs(elements);
+      } else {
+        this.setDealDocs(elements);
+      }
+    });
+  }
+
+  setContactDocs(elements: QuerySnapshot) {
+    this.activeContacts = [];
+    this.inactiveContacts = [];
+    this.activeTableColumns = [];
+    this.inactiveTableColumns = [];
+    elements.forEach((element) => {
+      this.activeContacts = element.data()['activeContacts'];
+      this.inactiveContacts = element.data()['inactiveContacts'];
+      this.activeTableColumns = element.data()['activeTableColumns'];
+      this.inactiveTableColumns = element.data()['inactiveTableColumns'];
+    });
+  }
+
+  setDealDocs(elements: QuerySnapshot) {
+    this.deals = [];
+    elements.forEach((element) => {
+      console.log(element.data()['deals']);
+    });
   }
 
   getDocRef(ref: string) {
