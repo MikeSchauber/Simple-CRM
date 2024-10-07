@@ -24,30 +24,13 @@ input {
   }
 }
 
-.table {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  overflow-x: auto;
-  border: 1px solid #ddd;
-}
-
 .button-container {
   mat-icon {
     margin: 0;
   }
   button {
-    margin-right: 8px;
     color: $lightcolor;
     background-color: $darkcolor;
-    &:hover {
-      background-color: $darkcolorHover;
-    }
-    &:active {
-      &:hover {
-        background-color: $darkcolor;
-      }
-    }
   }
   mat-icon {
     color: $lightcolor;

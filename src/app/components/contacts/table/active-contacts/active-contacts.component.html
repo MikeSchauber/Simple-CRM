@@ -11,7 +11,7 @@
           <mat-checkbox [checked]="tableControl.allCheckedActive" class="example-margin"></mat-checkbox>
         </section>
       </div>
-      @for(item of this.dataBackup.activeTableColumns; track $index; let i = $index) {
+      @for(item of this.dataManagement.activeTableColumns; track $index; let i = $index) {
       <div class="cell">
         <span>{{item.name}}</span>
       </div>
@@ -38,7 +38,7 @@
     </div>
 
     <!-- Table Content Rows -->
-    @if (dataBackup.activeContacts.length > 0) {
+    @if (dataManagement.activeContacts.length > 0) {
     @for (item of this.dataManagement.activeContacts ; track $index; let i = $index) { 
     <div class="row content-row">
       <div class="cell checkbox-cell">
@@ -112,8 +112,8 @@
       </div>
       <div class="cell typ-cell"></div>
       <div class="cell"></div>
-      @if (dataBackup.activeContacts[0]) {
-      @for (item of dataBackup.activeContacts[0].newColumns; track $index) {
+      @if (dataManagement.activeContacts[0]) {
+      @for (item of dataManagement.activeContacts[0].newColumns; track $index) {
       <div class="cell"></div>
       }
       } @else {

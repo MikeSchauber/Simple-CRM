@@ -55,14 +55,14 @@ export class DataManagementService implements OnDestroy {
   subList(list: string) {
     return onSnapshot(this.getDocRef(list), (elements) => {
       if (list === 'contacts') {
-        this.setContactDocs(elements);
+        this.readContactDocs(elements);
       } else {
-        this.setDealDocs(elements);
+        this.readDealDocs(elements);
       }
     });
   }
 
-  setContactDocs(elements: QuerySnapshot) {
+  readContactDocs(elements: QuerySnapshot) {
     this.activeContacts = [];
     this.inactiveContacts = [];
     this.activeTableColumns = [];
@@ -75,7 +75,7 @@ export class DataManagementService implements OnDestroy {
     });
   }
 
-  setDealDocs(elements: QuerySnapshot) {
+  readDealDocs(elements: QuerySnapshot) {
     this.deals = [];
     elements.forEach((element) => {
       console.log(element.data()['deals']);
