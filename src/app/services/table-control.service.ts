@@ -4,6 +4,7 @@ import { Contact } from '../models/contact.class';
 import { Column } from '../models/column.class';
 import { DataBackupService } from './data-backup.service';
 import { Firestore } from '@angular/fire/firestore';
+import { DataManagementService } from './data-management.service';
 
 @Injectable({
   providedIn: 'root',
@@ -23,7 +24,11 @@ export class TableControlService {
 
   firestore: Firestore = inject(Firestore);
 
-  constructor(private contactsData: ContactsService, private dataBackup: DataBackupService) {}
+  constructor(
+    private contactsData: ContactsService,
+    private dataBackup: DataBackupService,
+    private dataManagement: DataManagementService
+  ) {}
 
   preventDefault(event: MouseEvent) {
     event.stopPropagation();
@@ -76,7 +81,8 @@ export class TableControlService {
       this.newContactInactive.length != 0
     ) {
       let user = new Contact(this.newContactInactive);
-      this.dataBackup.inactiveContacts.push(user);
+      this.dataManagement.inactiveContacts.push(user);
+      this.dataManagement.deleteContacts();
       this.clearAllInputs();
     }
   }

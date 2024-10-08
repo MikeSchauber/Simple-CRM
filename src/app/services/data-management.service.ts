@@ -1,22 +1,16 @@
 import { inject, Injectable, OnDestroy } from '@angular/core';
-import { collectionData, Firestore } from '@angular/fire/firestore';
+import { Firestore } from '@angular/fire/firestore';
 import {
+  addDoc,
+  arrayUnion,
   collection,
+  deleteDoc,
   doc,
-  DocumentData,
-  DocumentSnapshot,
-  getDoc,
-  getDocFromCache,
-  getDocs,
+  FieldPath,
   onSnapshot,
   QuerySnapshot,
-  setDoc,
-  where,
+  updateDoc,
 } from 'firebase/firestore';
-import { TableControlService } from './table-control.service';
-import { ContactsService } from './contacts.service';
-import { DealsService } from './deals.service';
-import { query } from '@angular/animations';
 import { DataBackupService } from './data-backup.service';
 import { Contact } from '../models/contact.class';
 import { Column } from '../models/column.class';
@@ -37,12 +31,13 @@ export class DataManagementService implements OnDestroy {
 
   deals: Deal[] = [];
 
-  constructor(
-    public tableControl: TableControlService,
-    private dataBackup: DataBackupService
-  ) {
-    /* Running this setDoc Functions to set Backup Data */
-    // this.setCrmData();
+  contactsId: string = '';
+  dealsId: string = '';
+
+  constructor(private dataBackup: DataBackupService) {
+    /* Running this addCrmData() Functions to set Backup Data */
+    // this.addCrmData();
+
     this.unsubContacts = this.subList('contacts');
     this.unsubDeals = this.subList('deals');
   }
@@ -62,12 +57,25 @@ export class DataManagementService implements OnDestroy {
     });
   }
 
-  readContactDocs(elements: QuerySnapshot) {
+  async addCrmData() {
+    await addDoc(this.getDocRef('contacts'), {
+      activeContacts: this.dataBackup.activeContacts,
+      inactiveContacts: this.dataBackup.inactiveContacts,
+      activeTableColumns: this.dataBackup.activeTableColumns,
+      inactiveTableColumns: this.dataBackup.inactiveTableColumns,
+    });
+    await addDoc(this.getDocRef('deals'), {
+      deals: this.dataBackup.deals,
+    });
+  }
+
+  async readContactDocs(elements: QuerySnapshot) {
     this.activeContacts = [];
     this.inactiveContacts = [];
     this.activeTableColumns = [];
     this.inactiveTableColumns = [];
     elements.forEach((element) => {
+      this.contactsId = element.id;
       this.activeContacts = element.data()['activeContacts'];
       this.inactiveContacts = element.data()['inactiveContacts'];
       this.activeTableColumns = element.data()['activeTableColumns'];
@@ -75,10 +83,23 @@ export class DataManagementService implements OnDestroy {
     });
   }
 
-  readDealDocs(elements: QuerySnapshot) {
+  async updateContacts() {
+    await updateDoc(this.getSingleDocRef('contacts', this.contactsId), {
+      activeContacts: arrayUnion(...this.activeContacts),
+    }).catch((err) => {
+      console.error('Error updating document: ', err);
+    });
+  }
+
+  async deleteContacts() {
+    await deleteDoc(doc(this.getDocRef('contacts'), 'activeContacts'));
+  }
+
+  async readDealDocs(elements: QuerySnapshot) {
     this.deals = [];
     elements.forEach((element) => {
-      console.log(element.data()['deals']);
+      this.dealsId = element.id;
+      this.deals = element.data()['deals'];
     });
   }
 
@@ -88,17 +109,5 @@ export class DataManagementService implements OnDestroy {
 
   getSingleDocRef(colId: string, docId: string) {
     return doc(this.getDocRef(colId), docId);
-  }
-
-  async setCrmData() {
-    await setDoc(doc(this.getDocRef('contacts')), {
-      activeContacts: this.dataBackup.activeContacts,
-      inactiveContacts: this.dataBackup.inactiveContacts,
-      activeTableColumns: this.dataBackup.activeTableColumns,
-      inactiveTableColumns: this.dataBackup.inactiveTableColumns,
-    });
-    await setDoc(doc(this.getDocRef('deals')), {
-      deals: this.dataBackup.deals,
-    });
   }
 }
