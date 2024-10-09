@@ -52,22 +52,22 @@ export class DataManagementService implements OnDestroy {
       const contact = this.dataBackup.activeContacts[i];
       await addDoc(this.getDocRef('activeContacts'), contact);
     }
-    // for (let i = 0; i < this.dataBackup.inactiveContacts.length; i++) {
-    //   const contact = this.dataBackup.inactiveContacts[i];
-    //   await addDoc(this.getDocRef('inactiveContacts'), contact);
-    // }
-    // for (let i = 0; i < this.dataBackup.activeTableColumns.length; i++) {
-    //   const column = this.dataBackup.activeTableColumns[i];
-    //   await addDoc(this.getDocRef('activeTableColumns'), column);
-    // }
-    // for (let i = 0; i < this.dataBackup.inactiveTableColumns.length; i++) {
-    //   const column = this.dataBackup.inactiveTableColumns[i];
-    //   await addDoc(this.getDocRef('inactiveTableColumns'), column);
-    // }
-    // for (let i = 0; i < this.dataBackup.deals.length; i++) {
-    //   const deal = this.dataBackup.deals[i];
-    //   await addDoc(this.getDocRef('deals'), deal);
-    // }
+    for (let i = 0; i < this.dataBackup.inactiveContacts.length; i++) {
+      const contact = this.dataBackup.inactiveContacts[i];
+      await addDoc(this.getDocRef('inactiveContacts'), contact);
+    }
+    for (let i = 0; i < this.dataBackup.activeTableColumns.length; i++) {
+      const column = this.dataBackup.activeTableColumns[i];
+      await addDoc(this.getDocRef('activeTableColumns'), column);
+    }
+    for (let i = 0; i < this.dataBackup.inactiveTableColumns.length; i++) {
+      const column = this.dataBackup.inactiveTableColumns[i];
+      await addDoc(this.getDocRef('inactiveTableColumns'), column);
+    }
+    for (let i = 0; i < this.dataBackup.deals.length; i++) {
+      const deal = this.dataBackup.deals[i];
+      await addDoc(this.getDocRef('deals'), deal);
+    }
   }
 
   ngOnDestroy(): void {
@@ -79,21 +79,59 @@ export class DataManagementService implements OnDestroy {
   }
 
   subList(list: string) {
-    return onSnapshot(this.getDocRef(list), (elements) => {
-      elements.forEach((e) => { 
-        console.log(e.data());
-      });
+    return onSnapshot(this.getDocRef(list), (querySnapshot) => {
+      if (list == 'activeContacts') {
+        this.pushIntoActiveContacts(querySnapshot);
+      } else if (list == 'inactiveContacts') {
+        this.pushIntoInactiveContacts(querySnapshot);
+      } else if (list == 'activeTableColumns') {
+        this.pushIntoActiveTableColumns(querySnapshot);
+      } else if (list == 'inactiveTableColumns') {
+        this.pushIntoInactiveTableColumns(querySnapshot);
+      } else if (list == 'deals') {
+        this.pushIntoDeals(querySnapshot);
+      }
     });
   }
 
-  async readContactDocs(elements: QuerySnapshot) {
-    this.activeContacts = [];
-    this.inactiveContacts = [];
-    this.activeTableColumns = [];
-    this.inactiveTableColumns = [];
-    elements.forEach((element) => {
-      console.log(element.data);
+  pushIntoActiveContacts(querySnapshot: QuerySnapshot) {
+    let activeContacts: any = [];
+    querySnapshot.forEach((e) => {
+      activeContacts.push(e.data());
     });
+    this.activeContacts = activeContacts;
+  }
+
+  pushIntoInactiveContacts(querySnapshot: QuerySnapshot) {
+    let inactiveContacts: any = [];
+    querySnapshot.forEach((e) => {
+      inactiveContacts.push(e.data());
+    });
+    this.inactiveContacts = inactiveContacts;
+  }
+
+  pushIntoActiveTableColumns(querySnapshot: QuerySnapshot) {
+    let activeTableColumns: any = [];
+    querySnapshot.forEach((e) => {
+      activeTableColumns.push(e.data());
+    });
+    this.activeTableColumns = activeTableColumns;
+  }
+
+  pushIntoInactiveTableColumns(querySnapshot: QuerySnapshot) {
+    let inactiveTableColumns: any = [];
+    querySnapshot.forEach((e) => {
+      inactiveTableColumns.push(e.data());
+    });
+    this.inactiveTableColumns = inactiveTableColumns;
+  }
+
+  pushIntoDeals(querySnapshot: QuerySnapshot) {
+    let inactiveTableColumns: any = [];
+    querySnapshot.forEach((e) => {
+      inactiveTableColumns.push(e.data());
+    });
+    this.inactiveTableColumns = inactiveTableColumns;
   }
 
   async updateContacts() {
