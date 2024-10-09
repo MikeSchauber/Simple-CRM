@@ -82,7 +82,6 @@ export class TableControlService {
     ) {
       let user = new Contact(this.newContactInactive);
       this.dataManagement.inactiveContacts.push(user);
-      this.dataManagement.deleteContacts();
       this.clearAllInputs();
     }
   }

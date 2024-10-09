@@ -1,5 +1,6 @@
 
 export class Contact {
+  id: string = "";
   checked: boolean = false;
   status: string = '';
   name: string = '';
@@ -20,6 +21,7 @@ export class Contact {
 
   public toJSON() {
     return {
+      id: this.id,
       checked: this.checked,
       status: this.status,
       name: this.name,

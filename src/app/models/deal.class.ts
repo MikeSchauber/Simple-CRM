@@ -1,4 +1,5 @@
 export class Deal {
+  id: string = '';
   checked: boolean = false;
   name: string = 'Deal';
   phase: number = 1;
