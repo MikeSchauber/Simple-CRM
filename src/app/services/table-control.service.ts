@@ -21,6 +21,7 @@ export class TableControlService implements OnInit {
   newContactInactive: string = '';
   newVisibleMailActive: string = '';
   newVisibleMailInactive: string = '';
+  editOpen: boolean = false;
 
   firestore: Firestore = inject(Firestore);
 
@@ -166,30 +167,18 @@ export class TableControlService implements OnInit {
     });
   }
 
-  async deleteTel(i: string, status: string) {
-    status == 'active'
-      ? await updateDoc(
-          this.dataManagement.getSingleDocRef('activeContacts', i),
-          { tel: '' }
-        )
-      : await updateDoc(
-          this.dataManagement.getSingleDocRef('inactiveContacts', i),
-          {
-            tel: '',
-          }
-        );
+  async deleteTel(i: string, collection: string) {
+    await updateDoc(this.dataManagement.getSingleDocRef(collection, i), {
+      tel: '',
+    });
   }
 
-  async openTelInput(status: string, i: string) {
-    status == 'active'
-      ? await updateDoc(
-          this.dataManagement.getSingleDocRef('activeContacts', i),
-          { telEdit: true }
-        )
-      : await updateDoc(
-          this.dataManagement.getSingleDocRef('inactiveContacts', i),
-          { telEdit: true }
-        );
+  async openTelInput(collection: string, i: string, e: MouseEvent) {
+    e.stopPropagation();
+    await this.closeAllEdits();
+    await updateDoc(this.dataManagement.getSingleDocRef(collection, i), {
+      telEdit: true,
+    });
   }
 
   async closeAllEdits() {
@@ -207,94 +196,64 @@ export class TableControlService implements OnInit {
       batch.update(doc.ref, { telEdit: false, emailEdit: false });
     });
     await batch.commit();
+    this.editOpen = false;
   }
 
-  async saveTelData(event: any, i: string, status: string) {
+  async saveTelData(event: any, i: string, collection: string) {
     if (event.keyCode === 13) {
-      status == 'active'
-        ? await updateDoc(
-            this.dataManagement.getSingleDocRef('activeContacts', i),
-            { tel: event.target.value, telEdit: false }
-          )
-        : await updateDoc(
-            this.dataManagement.getSingleDocRef('inactiveContacts', i),
-            {
-              tel: event.target.value,
-              telEdit: false,
-            }
-          );
+      await updateDoc(this.dataManagement.getSingleDocRef(collection, i), {
+        tel: event.target.value,
+        telEdit: false,
+      });
     }
   }
 
-  async deleteEmail(i: string, status: string) {
-    if (status == 'active') {
-      await updateDoc(
-        this.dataManagement.getSingleDocRef('activeContacts', i),
-        { email: '', visibleEmail: '' }
-      );
-    } else {
-      await updateDoc(
-        this.dataManagement.getSingleDocRef('inactiveContacts', i),
-        { email: '', visibleEmail: '' }
-      );
+  async deleteEmail(i: string, collection: string) {
+    await updateDoc(this.dataManagement.getSingleDocRef(collection, i), {
+      email: '',
+      visibleEmail: '',
+    });
+  }
+
+  async openEmailDialog(
+    event: MouseEvent,
+    collection: string,
+    i: string,
+    e: MouseEvent
+  ) {
+    await this.closeAllEdits();
+    e.stopPropagation();
+    if (!this.editOpen) {
+      this.editOpen = true;
+      this.dialogPositionY = (14 + event.clientY).toString();
+      this.dialogPositionX = (event.clientX - 453).toString();
+      await updateDoc(this.dataManagement.getSingleDocRef(collection, i), {
+        emailEdit: true,
+      });
     }
   }
 
-  async openEmailDialog(event: MouseEvent, status: string, i: string) {
-    this.dialogPositionY = (14 + event.clientY).toString();
-    this.dialogPositionX = (event.clientX - 453).toString();
-    console.log(this.dialogPositionY);
-
-    status == 'active'
-      ? await updateDoc(
-          this.dataManagement.getSingleDocRef('activeContacts', i),
-          { emailEdit: true }
-        )
-      : await updateDoc(
-          this.dataManagement.getSingleDocRef('inactiveContacts', i),
-          { emailEdit: true }
-        );
-  }
-
-  async closeEmailDialog(status: string, i: string) {
-    status == 'active'
-      ? await updateDoc(
-          this.dataManagement.getSingleDocRef('activeContacts', i),
-          { emailEdit: false }
-        )
-      : await updateDoc(
-          this.dataManagement.getSingleDocRef('inactiveContacts', i),
-          { emailEdit: false }
-        );
+  async closeEmailDialog(collection: string, i: string) {
+    await updateDoc(this.dataManagement.getSingleDocRef(collection, i), {
+      emailEdit: false,
+    });
   }
 
   async onInputChange(
     event: any,
     i: string,
     emailValue: string,
-    status: string
+    collection: string
   ) {
     if (event.keyCode == 13) {
       if (event.target.id !== 'visible') {
-        status == 'active'
-          ? await updateDoc(
-              this.dataManagement.getSingleDocRef('activeContacts', i),
-              { email: event.target.value }
-            )
-          : await updateDoc(
-              this.dataManagement.getSingleDocRef('inactiveContacts', i),
-              { email: event.target.value }
-            );
+        await updateDoc(this.dataManagement.getSingleDocRef(collection, i), {
+          email: event.target.value,
+        });
       } else {
-        status == 'active'
-          ? await updateDoc(
-              this.dataManagement.getSingleDocRef('activeContacts', i),
-              { email: emailValue }
-            )
-          : await updateDoc(
-              this.dataManagement.getSingleDocRef('inactiveContacts', i),
-              { email: emailValue }
-            );
+        await updateDoc(this.dataManagement.getSingleDocRef(collection, i), {
+          email: emailValue,
+        });
       }
       this.closeEmailDialog(status, i);
     }
@@ -304,22 +263,12 @@ export class TableControlService implements OnInit {
     event: any,
     i: string,
     emailValue: string,
-    status: string
+    collection: string
   ) {
-    if (status === 'active') {
-      this.newVisibleMailActive = event.target.value;
-      await updateDoc(
-        this.dataManagement.getSingleDocRef('activeContacts', i),
-        { visibleEmail: event.target.value }
-      );
-      this.onInputChange(event, i, emailValue, status);
-    } else {
-      this.newVisibleMailInactive = event.target.value;
-      await updateDoc(
-        this.dataManagement.getSingleDocRef('inactiveContacts', i),
-        { visibleEmail: event.target.value }
-      );
-      this.onInputChange(event, i, emailValue, status);
-    }
+    this.newVisibleMailActive = event.target.value;
+    await updateDoc(this.dataManagement.getSingleDocRef(collection, i), {
+      visibleEmail: event.target.value,
+    });
+    this.onInputChange(event, i, emailValue, status);
   }
 }

@@ -1,13 +1,14 @@
 <div class="table-container">
   <div class="button-container">
     <button mat-button><mat-icon>archive</mat-icon>Inactive</button>
-    <button mat-button (click)="tableControl.deleteContacts('inactive')"><mat-icon>delete</mat-icon>Trash</button>
+    <button mat-button
+      (click)="tableControl.deleteContacts('inactiveContacts')"><mat-icon>delete</mat-icon>Trash</button>
   </div>
   <div id="customers" class="table">
     <!-- Table Header -->
     <div class="table-head row">
       <div class="cell checkbox-cell">
-        <section (click)="tableControl.checkAllContacts('inactive')" class="example-section">
+        <section (click)="tableControl.checkAllContacts('inactiveContacts')" class="example-section">
           <mat-checkbox [checked]="tableControl.allCheckedInactive" class="example-margin"></mat-checkbox>
         </section>
       </div>
@@ -23,14 +24,14 @@
           <mat-icon>add</mat-icon>
         </button>
         <mat-menu #menu="matMenu">
-          <button (click)="tableControl.addColumn('note', 'inactive')" mat-menu-item><mat-icon
+          <button (click)="tableControl.addColumn('note', 'inactiveContacts')" mat-menu-item><mat-icon
               class="note">paid</mat-icon>Deal</button>
-          <button (click)="tableControl.addColumn('type', 'inactive')" mat-menu-item><mat-icon
+          <button (click)="tableControl.addColumn('type', 'inactiveContacts')" mat-menu-item><mat-icon
               class="type">supervised_user_circle</mat-icon>
             Type</button>
-          <button (click)="tableControl.addColumn('status', 'inactive')" mat-menu-item><mat-icon
+          <button (click)="tableControl.addColumn('status', 'inactiveContacts')" mat-menu-item><mat-icon
               class="status">bolt</mat-icon> Status</button>
-          <button (click)="tableControl.addColumn('prio', 'inactive')" mat-menu-item><mat-icon
+          <button (click)="tableControl.addColumn('prio', 'inactiveContacts')" mat-menu-item><mat-icon
               class="prio">priority_high</mat-icon>
             Priority</button>
         </mat-menu>
@@ -40,7 +41,7 @@
     <!-- Table Content Rows -->
     @if (dataManagement.inactiveContacts.length > 0) {
     @for (item of this.dataManagement.inactiveContacts; track $index; let i = $index) {
-    <div class="row content-row" (click)="tableControl.preventDefault($event)">
+    <div class="row content-row" >
       <div class="cell checkbox-cell">
         <section class="example-section">
           <mat-checkbox [(ngModel)]="item.checked" class="example-margin"></mat-checkbox>
@@ -50,36 +51,38 @@
       <!-- Tel Edit Menu -->
       @if (item.tel.length > 0) {
       <div (mouseover)="hoverAction('tel')" (mouseout)="mouseOutAction();" class="cell email-cell"><a
-          [href]="'tel:' + item.email">{{item.tel}}</a><mat-icon (click)="tableControl.deleteTel(item.id, 'inactive')"
+          [href]="'tel:' + item.email">{{item.tel}}</a><mat-icon
+          (click)="tableControl.deleteTel(item.id, 'inactiveContacts')"
           [ngClass]="{'d-none': !phoneHovered}">close</mat-icon>
       </div>
       } @else {
       @if (!item.telEdit) {
       <div class="cell email-cell add-button">
-        <mat-icon (click)="tableControl.openTelInput('inactive', item.id)">add_box</mat-icon><mat-icon
+        <mat-icon (click)="tableControl.openTelInput('inactiveContacts', item.id, $event)">add_box</mat-icon><mat-icon
           class="default-icon">phone_iphone</mat-icon>
       </div>
       } @else {
       <div class="cell">
-        <input class="dialog-input" type="text" (keydown)="tableControl.saveTelData($event, item.id, 'inactive')"
-          placeholder="0 (123) 123 45690">
+        <input class="dialog-input" type="number"
+          (keydown)="tableControl.saveTelData($event, item.id, 'inactiveContacts')" placeholder="0 (123) 123 45690">
       </div>
       }
       }
       <!-- Email Edit Menu -->
       @if (item.email.length == 0) {
       <div class="cell email-cell add-button">
-        <mat-icon (click)="tableControl.openEmailDialog($event, 'inactive', item.id)">add_box</mat-icon><mat-icon
+        <mat-icon
+          (click)="tableControl.openEmailDialog($event, 'inactiveContacts', item.id, $event)">add_box</mat-icon><mat-icon
           class="default-icon">mail</mat-icon>
-        <div (click)="tableControl.closeEmailDialog('inactive', item.id)" class="input-dialog"
+        <div (click)="tableControl.closeEmailDialog('inactiveContacts', item.id)" class="input-dialog"
           [ngClass]="{'d-none': !item.emailEdit}">
-          <div (click)="tableControl.preventDefault($event)" [ngStyle]="{'top': tableControl.dialogPositionY + 'px'}">
+          <div [ngStyle]="{'top': tableControl.dialogPositionY + 'px'}">
             <span>Add a new email-adress</span>
             <input class="dialog-input" placeholder="Add email" #emailInput
-              (keydown)="tableControl.onInputChange($event, item.id, emailInput.value, 'inactive')">
+              (keydown)="tableControl.onInputChange($event, item.id, emailInput.value, 'inactiveContacts')">
             <span>Displayed text</span>
             <input class="dialog-input" id="visible" placeholder="(optional)"
-              (keyup)="tableControl.visibleEmail($event, item.id, emailInput.value, 'inactive')">
+              (keyup)="tableControl.visibleEmail($event, item.id, emailInput.value, 'inactiveContacts')">
           </div>
         </div>
       </div>
@@ -93,7 +96,7 @@
           {{item.email}}
           }
         </a><mat-icon [ngClass]="{'d-none': !emailHovered}"
-          (click)="tableControl.deleteEmail(item.id, 'inactive');">close</mat-icon>
+          (click)="tableControl.deleteEmail(item.id, 'inactiveContacts');">close</mat-icon>
       </div>
       }
       @for (item of item.newColumns; track $index) {
@@ -104,10 +107,11 @@
     }
 
     <!-- Add New Contact Row -->
-    <div class="row content-row add-contact-row" (keydown)="tableControl.keyboardAddContact($event, 'inactive')">
+    <div class="row content-row add-contact-row"
+      (keydown)="tableControl.keyboardAddContact($event, 'inactiveContacts')">
       <div class="cell empty-field checkbox-cell"></div>
       <div class="cell add Contacts">
-        <mat-icon (click)="tableControl.mouseAddContact('inactive')">add_circle</mat-icon>
+        <mat-icon (click)="tableControl.mouseAddContact('inactiveContacts')">add_circle</mat-icon>
         <input [(ngModel)]="tableControl.newContactInactive" type="text" placeholder="Add contact">
       </div>
       <div class="cell typ-cell"></div>
