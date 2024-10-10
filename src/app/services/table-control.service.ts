@@ -1,4 +1,4 @@
-import { inject, Injectable } from '@angular/core';
+import { inject, Injectable, OnInit } from '@angular/core';
 import { ContactsService } from './contacts.service';
 import { Contact } from '../models/contact.class';
 import { Column } from '../models/column.class';
@@ -12,7 +12,7 @@ import { EmailValidator } from '@angular/forms';
 @Injectable({
   providedIn: 'root',
 })
-export class TableControlService {
+export class TableControlService implements OnInit {
   allCheckedActive: boolean = false;
   allCheckedInactive: boolean = false;
   dialogPositionY: string = '';
@@ -29,6 +29,10 @@ export class TableControlService {
     private dataBackup: DataBackupService,
     private dataManagement: DataManagementService
   ) {}
+
+  ngOnInit(): void {
+    this.closeAllEdits();
+  }
 
   preventDefault(event: MouseEvent) {
     event.stopPropagation();
@@ -188,10 +192,18 @@ export class TableControlService {
         );
   }
 
-  async closeAllEdits(collection: string) {
-    const querySnapshot = getDocs(this.dataManagement.getDocRef(collection));
+  async closeAllEdits() {
+    const activeSnapshot = getDocs(
+      this.dataManagement.getDocRef('activeContacts')
+    );
+    const inactiveSnapshot = getDocs(
+      this.dataManagement.getDocRef('inactiveContacts')
+    );
     const batch = writeBatch(this.firestore);
-    (await querySnapshot).forEach((doc) => {
+    (await activeSnapshot).forEach((doc) => {
+      batch.update(doc.ref, { telEdit: false, emailEdit: false });
+    });
+    (await inactiveSnapshot).forEach((doc) => {
       batch.update(doc.ref, { telEdit: false, emailEdit: false });
     });
     await batch.commit();

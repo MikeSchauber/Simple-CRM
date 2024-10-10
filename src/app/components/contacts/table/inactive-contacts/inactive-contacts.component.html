@@ -40,7 +40,7 @@
     <!-- Table Content Rows -->
     @if (dataManagement.inactiveContacts.length > 0) {
     @for (item of this.dataManagement.inactiveContacts; track $index; let i = $index) {
-    <div class="row content-row">
+    <div class="row content-row" (click)="tableControl.preventDefault($event)">
       <div class="cell checkbox-cell">
         <section class="example-section">
           <mat-checkbox [(ngModel)]="item.checked" class="example-margin"></mat-checkbox>
