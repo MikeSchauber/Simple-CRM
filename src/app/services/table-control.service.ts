@@ -16,6 +16,7 @@ export class TableControlService {
   allCheckedActive: boolean = false;
   allCheckedInactive: boolean = false;
   dialogPositionY: string = '';
+  dialogPositionX: string = '';
   newContactActive: string = '';
   newContactInactive: string = '';
   newVisibleMailActive: string = '';
@@ -229,6 +230,9 @@ export class TableControlService {
 
   async openEmailDialog(event: MouseEvent, status: string, i: string) {
     this.dialogPositionY = (14 + event.clientY).toString();
+    this.dialogPositionX = (event.clientX - 453).toString();
+    console.log(this.dialogPositionY);
+
     status == 'active'
       ? await updateDoc(
           this.dataManagement.getSingleDocRef('activeContacts', i),

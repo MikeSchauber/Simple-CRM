@@ -38,7 +38,7 @@
 
     <!-- Table Content Rows -->
     @if (dataManagement.activeContacts.length > 0) {
-    @for (item of this.dataManagement.activeContacts ; track $index; let i = $index) { 
+    @for (item of this.dataManagement.activeContacts ; track $index; let i = $index) {
     <div class="row content-row" (click)="tableControl.preventDefault($event)">
       <div class="cell checkbox-cell">
         <section class="example-section">
@@ -72,7 +72,8 @@
           class="default-icon">mail</mat-icon>
         <div (click)="tableControl.closeEmailDialog('active', item.id)" class="input-dialog"
           [ngClass]="{'d-none': !item.emailEdit}">
-          <div (click)="tableControl.preventDefault($event)" [ngStyle]="{'top': tableControl.dialogPositionY + 'px'}">
+          <div (click)="tableControl.preventDefault($event)"
+            [ngStyle]="{'top': tableControl.dialogPositionY + 'px', 'left': tableControl.dialogPositionX + 'px'}">
             <span>Add a new email-adress</span>
             <input class="dialog-input" placeholder="Add email" #emailInput
               (keydown)="tableControl.onInputChange($event, item.id, emailInput.value, 'active')">
