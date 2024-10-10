@@ -95,55 +95,65 @@ export class DataManagementService implements OnDestroy {
   }
 
   pushIntoActiveContacts(querySnapshot: QuerySnapshot) {
-    let activeContacts: any = [];
+    let activeContacts: any[] = [];
     querySnapshot.forEach((e) => {
-      activeContacts.push(e.data());
+      let data = e.data();
+      data['id'] = e.id;
+      activeContacts.push(data);
     });
     this.activeContacts = activeContacts;
   }
 
   pushIntoInactiveContacts(querySnapshot: QuerySnapshot) {
-    let inactiveContacts: any = [];
+    let inactiveContacts: any[] = [];
     querySnapshot.forEach((e) => {
-      inactiveContacts.push(e.data());
+      let data = e.data();
+      data['id'] = e.id;
+      inactiveContacts.push(data);
     });
     this.inactiveContacts = inactiveContacts;
   }
 
   pushIntoActiveTableColumns(querySnapshot: QuerySnapshot) {
-    let activeTableColumns: any = [];
+    let activeTableColumns: any[] = [];
     querySnapshot.forEach((e) => {
-      activeTableColumns.push(e.data());
+      let data = e.data();
+      data['id'] = e.id;
+      activeTableColumns.push(data);
     });
     this.activeTableColumns = activeTableColumns;
   }
 
   pushIntoInactiveTableColumns(querySnapshot: QuerySnapshot) {
-    let inactiveTableColumns: any = [];
+    let inactiveTableColumns: any[] = [];
     querySnapshot.forEach((e) => {
-      inactiveTableColumns.push(e.data());
+      let data = e.data();
+      data['id'] = e.id;
+      inactiveTableColumns.push(data);
     });
     this.inactiveTableColumns = inactiveTableColumns;
   }
 
   pushIntoDeals(querySnapshot: QuerySnapshot) {
-    let inactiveTableColumns: any = [];
+    let deals: any[] = [];
     querySnapshot.forEach((e) => {
-      inactiveTableColumns.push(e.data());
+      let data = e.data();
+      data['id'] = e.id;
+      deals.push(data);
     });
-    this.inactiveTableColumns = inactiveTableColumns;
+    this.deals = deals;
   }
 
-  async updateContacts() {
-    await updateDoc(this.getSingleDocRef('contacts', this.contactsId), {
+  async updateContacts(id: string) {
+    await updateDoc(this.getSingleDocRef('contacts', id), {
       activeContacts: arrayUnion(...this.activeContacts),
     }).catch((err) => {
       console.error('Error updating document: ', err);
     });
   }
 
-  async deleteContacts() {
-    await deleteDoc(doc(this.getDocRef('contacts'), 'activeContacts'));
+  async deleteContacts(id: string) {
+    await deleteDoc(doc(this.getDocRef('activeContacts'), id));
   }
 
   async readDealDocs(elements: QuerySnapshot) {

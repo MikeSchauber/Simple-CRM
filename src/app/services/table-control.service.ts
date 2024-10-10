@@ -162,7 +162,7 @@ export class TableControlService {
     });
   }
 
-  deleteTel(i: number, status: string) {
+  deleteTel(i: string, status: string) {
     status == 'active'
       ? (this.dataBackup.activeContacts[i].tel = '')
       : (this.dataBackup.inactiveContacts[i].tel = '');
@@ -174,7 +174,7 @@ export class TableControlService {
       : (this.telEditInactive = true);
   }
 
-  saveTelData(event: any, i: number, status: string) {
+  saveTelData(event: any, i: string, status: string) {
     if (event.keyCode === 13) {
       status == 'active'
         ? (this.dataBackup.activeContacts[i].tel = event.target.value)
@@ -182,7 +182,7 @@ export class TableControlService {
     }
   }
 
-  deleteEmail(i: number, status: string) {
+  deleteEmail(i: string, status: string) {
     if (status == 'active') {
       this.dataBackup.activeContacts[i].email = '';
       this.dataBackup.activeContacts[i].visibleEmail = '';
@@ -205,7 +205,7 @@ export class TableControlService {
       : (this.emailDialogInactive = false);
   }
 
-  onInputChange(event: any, i: number, emailValue: string, status: string) {
+  onInputChange(event: any, i: string, emailValue: string, status: string) {
     if (event.keyCode == 13) {
       if (event.target.id !== 'visible') {
         status == 'active'
@@ -220,7 +220,7 @@ export class TableControlService {
     }
   }
 
-  visibleEmail(event: any, i: number, emailValue: string, status: string) {
+  visibleEmail(event: any, i: string, emailValue: string, status: string) {
     if (status === 'active') {
       this.newVisibleMailActive = event.target.value;
       this.dataBackup.activeContacts[i].visibleEmail = event.target.value;

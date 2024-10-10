@@ -50,7 +50,7 @@
       <!-- Tel Edit Menu -->
       @if (item.tel.length > 0) {
       <div (mouseover)="hoverAction('tel')" (mouseout)="mouseOutAction();" class="cell email-cell"><a
-          [href]="'tel:' + item.email">{{item.tel}}</a><mat-icon (click)="tableControl.deleteTel(i, 'active')"
+          [href]="'tel:' + item.email">{{item.tel}}</a><mat-icon (click)="tableControl.deleteTel(item.id, 'active')"
           [ngClass]="{'d-none': !phoneHovered}">close</mat-icon>
       </div>
       } @else {
@@ -61,7 +61,7 @@
       </div>
       } @else {
       <div class="cell">
-        <input class="dialog-input" type="text" (keydown)="tableControl.saveTelData($event, i, 'active')"
+        <input class="dialog-input" type="text" (keydown)="tableControl.saveTelData($event, item.id, 'active')"
           placeholder="0 (123) 123 45690">
       </div>
       }
@@ -76,10 +76,10 @@
           <div (click)="tableControl.preventDefault($event)" [ngStyle]="{'top': tableControl.dialogPositionY + 'px'}">
             <span>Add a new email-adress</span>
             <input class="dialog-input" placeholder="Add email" #emailInput
-              (keydown)="tableControl.onInputChange($event, i, emailInput.value, 'active')">
+              (keydown)="tableControl.onInputChange($event, item.id, emailInput.value, 'active')">
             <span>Displayed text</span>
             <input class="dialog-input" id="visible" placeholder="(optional)"
-              (keyup)="tableControl.visibleEmail($event, i, emailInput.value, 'active')">
+              (keyup)="tableControl.visibleEmail($event, item.id, emailInput.value, 'active')">
           </div>
         </div>
       </div>
@@ -93,7 +93,7 @@
           {{item.email}}
           }
         </a><mat-icon [ngClass]="{'d-none': !emailHovered}"
-          (click)="tableControl.deleteEmail(i, 'active');">close</mat-icon>
+          (click)="tableControl.deleteEmail(item.id, 'active');">close</mat-icon>
       </div>
       }
       @for (item of item.newColumns; track $index) {
