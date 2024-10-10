@@ -50,18 +50,18 @@
       <!-- Tel Edit Menu -->
       @if (item.tel.length > 0) {
       <div (mouseover)="hoverAction('tel')" (mouseout)="mouseOutAction();" class="cell email-cell"><a
-          [href]="'tel:' + item.email">{{item.tel}}</a><mat-icon (click)="tableControl.deleteTel(i, 'inactive')"
+          [href]="'tel:' + item.email">{{item.tel}}</a><mat-icon (click)="tableControl.deleteTel(item.id, 'inactive')"
           [ngClass]="{'d-none': !phoneHovered}">close</mat-icon>
       </div>
       } @else {
-      @if (!tableControl.telEditInactive) {
+      @if (!item.telEdit) {
       <div class="cell email-cell add-button">
-        <mat-icon (click)="tableControl.openTelInput('inactive')">add_box</mat-icon><mat-icon
+        <mat-icon (click)="tableControl.openTelInput('inactive', item.id)">add_box</mat-icon><mat-icon
           class="default-icon">phone_iphone</mat-icon>
       </div>
       } @else {
       <div class="cell">
-        <input class="dialog-input" type="text" (keydown)="tableControl.saveTelData($event, i, 'inactive')"
+        <input class="dialog-input" type="text" (keydown)="tableControl.saveTelData($event, item.id, 'inactive')"
           placeholder="0 (123) 123 45690">
       </div>
       }
@@ -69,17 +69,17 @@
       <!-- Email Edit Menu -->
       @if (item.email.length == 0) {
       <div class="cell email-cell add-button">
-        <mat-icon (click)="tableControl.openEmailDialog($event, 'inactive')">add_box</mat-icon><mat-icon
+        <mat-icon (click)="tableControl.openEmailDialog($event, 'inactive', item.id)">add_box</mat-icon><mat-icon
           class="default-icon">mail</mat-icon>
-        <div (click)="tableControl.closeEmailDialog('inactive')" class="input-dialog"
-          [ngClass]="{'d-none': !tableControl.emailDialogInactive}">
+        <div (click)="tableControl.closeEmailDialog('inactive', item.id)" class="input-dialog"
+          [ngClass]="{'d-none': !item.emailEdit}">
           <div (click)="tableControl.preventDefault($event)" [ngStyle]="{'top': tableControl.dialogPositionY + 'px'}">
             <span>Add a new email-adress</span>
             <input class="dialog-input" placeholder="Add email" #emailInput
-              (keydown)="tableControl.onInputChange($event, i, emailInput.value, 'inactive')">
+              (keydown)="tableControl.onInputChange($event, item.id, emailInput.value, 'inactive')">
             <span>Displayed text</span>
             <input class="dialog-input" id="visible" placeholder="(optional)"
-              (keyup)="tableControl.visibleEmail($event, i, emailInput.value, 'inactive')">
+              (keyup)="tableControl.visibleEmail($event, item.id, emailInput.value, 'inactive')">
           </div>
         </div>
       </div>
@@ -93,7 +93,7 @@
           {{item.email}}
           }
         </a><mat-icon [ngClass]="{'d-none': !emailHovered}"
-          (click)="tableControl.deleteEmail(i, 'inactive');">close</mat-icon>
+          (click)="tableControl.deleteEmail(item.id, 'inactive');">close</mat-icon>
       </div>
       }
       @for (item of item.newColumns; track $index) {

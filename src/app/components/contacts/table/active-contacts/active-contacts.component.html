@@ -54,9 +54,9 @@
           [ngClass]="{'d-none': !phoneHovered}">close</mat-icon>
       </div>
       } @else {
-      @if (!tableControl.telEditActive) {
+      @if (!item.telEdit) {
       <div class="cell email-cell add-button">
-        <mat-icon (click)="tableControl.openTelInput('active')">add_box</mat-icon><mat-icon
+        <mat-icon (click)="tableControl.openTelInput('active', item.id)">add_box</mat-icon><mat-icon
           class="default-icon">phone_iphone</mat-icon>
       </div>
       } @else {
@@ -69,10 +69,10 @@
       <!-- Email Edit Menu -->
       @if (item.email.length == 0) {
       <div class="cell email-cell add-button">
-        <mat-icon (click)="tableControl.openEmailDialog($event, 'active')">add_box</mat-icon><mat-icon
+        <mat-icon (click)="tableControl.openEmailDialog($event, 'active', item.id)">add_box</mat-icon><mat-icon
           class="default-icon">mail</mat-icon>
-        <div (click)="tableControl.closeEmailDialog('active')" class="input-dialog"
-          [ngClass]="{'d-none': !tableControl.emailDialogActive}">
+        <div (click)="tableControl.closeEmailDialog('active', item.id)" class="input-dialog"
+          [ngClass]="{'d-none': !item.emailEdit}">
           <div (click)="tableControl.preventDefault($event)" [ngStyle]="{'top': tableControl.dialogPositionY + 'px'}">
             <span>Add a new email-adress</span>
             <input class="dialog-input" placeholder="Add email" #emailInput

@@ -1,5 +1,7 @@
 
 export class Contact {
+  emailEdit: boolean = false;
+  telEdit: boolean = false;
   id: string = "";
   checked: boolean = false;
   status: string = '';
@@ -17,18 +19,5 @@ export class Contact {
 
   constructor(name: string) {
     this.name = name;
-  }
-
-  public toJSON() {
-    return {
-      id: this.id,
-      checked: this.checked,
-      status: this.status,
-      name: this.name,
-      tel: this.tel,
-      email: this.email,
-      visibleEmail: this.visibleEmail,
-      newColumns: this.newColumns,
-    }
   }
 }
