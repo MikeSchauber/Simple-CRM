@@ -3,9 +3,11 @@ import { ContactsService } from './contacts.service';
 import { Contact } from '../models/contact.class';
 import { Column } from '../models/column.class';
 import { DataBackupService } from './data-backup.service';
-import { Firestore } from '@angular/fire/firestore';
+import { collectionData, Firestore } from '@angular/fire/firestore';
 import { DataManagementService } from './data-management.service';
-import { updateDoc } from 'firebase/firestore';
+import { doc, getDocs, updateDoc, writeBatch } from 'firebase/firestore';
+import { query } from '@angular/animations';
+import { EmailValidator } from '@angular/forms';
 
 @Injectable({
   providedIn: 'root',
@@ -183,6 +185,15 @@ export class TableControlService {
           this.dataManagement.getSingleDocRef('inactiveContacts', i),
           { telEdit: true }
         );
+  }
+
+  async closeAllEdits(collection: string) {
+    const querySnapshot = getDocs(this.dataManagement.getDocRef(collection));
+    const batch = writeBatch(this.firestore);
+    (await querySnapshot).forEach((doc) => {
+      batch.update(doc.ref, { telEdit: false, emailEdit: false });
+    });
+    await batch.commit();
   }
 
   async saveTelData(event: any, i: string, status: string) {

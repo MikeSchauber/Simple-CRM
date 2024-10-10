@@ -1,5 +1,5 @@
 import { inject, Injectable, OnDestroy } from '@angular/core';
-import { Firestore } from '@angular/fire/firestore';
+import { collectionData, Firestore } from '@angular/fire/firestore';
 import {
   addDoc,
   arrayUnion,
@@ -170,5 +170,9 @@ export class DataManagementService implements OnDestroy {
 
   getSingleDocRef(colId: string, docId: string) {
     return doc(this.getDocRef(colId), docId);
+  }
+
+  getQuerySnapshot(collection: string) {
+    return collectionData(this.firestore, collection);
   }
 }

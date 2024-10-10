@@ -16,7 +16,6 @@
         <span>{{item.name}}</span>
       </div>
       }
-
       <!-- Add Column Menu -->
       <div class="cell button-container">
         <button [matMenuTriggerFor]="menu" mat-raised-button matTooltip="Add a new Column">
@@ -40,7 +39,7 @@
     <!-- Table Content Rows -->
     @if (dataManagement.activeContacts.length > 0) {
     @for (item of this.dataManagement.activeContacts ; track $index; let i = $index) { 
-    <div class="row content-row">
+    <div class="row content-row" (click)="tableControl.preventDefault($event)">
       <div class="cell checkbox-cell">
         <section class="example-section">
           <mat-checkbox [(ngModel)]="item.checked" class="example-margin"></mat-checkbox>
@@ -61,7 +60,7 @@
       </div>
       } @else {
       <div class="cell">
-        <input class="dialog-input" type="text" (keydown)="tableControl.saveTelData($event, item.id, 'active')"
+        <input class="dialog-input" type="nu" (keydown)="tableControl.saveTelData($event, item.id, 'active')"
           placeholder="0 (123) 123 45690">
       </div>
       }
