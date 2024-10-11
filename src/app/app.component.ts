@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { RouterModule, RouterOutlet } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
@@ -27,16 +27,15 @@ import { DataManagementService } from './services/data-management.service';
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'simple-crm';
   firestore: Firestore = inject(Firestore);
 
   constructor(
     public tableControl: TableControlService,
-    private dataManagement: DataManagementService,
-  ) {
+  ) { }
 
+  ngOnInit(): void {
+    this.tableControl.closeAllEdits();
   }
-
-
 }

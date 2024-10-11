@@ -10,7 +10,7 @@ import { addDoc, collection, deleteDoc, doc, getDocs, updateDoc, writeBatch } fr
 @Injectable({
   providedIn: 'root',
 })
-export class TableControlService implements OnInit {
+export class TableControlService {
   allCheckedActive: boolean = false;
   allCheckedInactive: boolean = false;
   dialogPositionY: string = '';
@@ -28,10 +28,6 @@ export class TableControlService implements OnInit {
     private dataBackup: DataBackupService,
     private dataManagement: DataManagementService
   ) { }
-
-  ngOnInit(): void {
-    this.closeAllEdits();
-  }
 
   preventDefault(event: MouseEvent) {
     event.stopPropagation();
@@ -212,7 +208,7 @@ export class TableControlService implements OnInit {
     e.stopPropagation();
     if (!this.editOpen) {
       this.editOpen = true;
-      console.log(event)
+      console.log(window.scrollY);
       this.dialogPositionY = (14 + event.clientY).toString();
       this.dialogPositionX = (event.clientX - 453).toString();
       await updateDoc(this.dataManagement.getSingleDocRef(collection, i), {
