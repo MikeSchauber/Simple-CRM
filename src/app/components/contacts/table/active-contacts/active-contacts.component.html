@@ -22,16 +22,11 @@
           <mat-icon>add</mat-icon>
         </button>
         <mat-menu #menu="matMenu">
-          <button (click)="tableControl.addColumn('note', 'activeContacts')" mat-menu-item><mat-icon
-              class="note">paid</mat-icon> Deal</button>
-          <button (click)="tableControl.addColumn('type', 'activeContacts')" mat-menu-item><mat-icon
-              class="type">supervised_user_circle</mat-icon>
-            Type</button>
-          <button (click)="tableControl.addColumn('status', 'activeContacts')" mat-menu-item><mat-icon
-              class="status">bolt</mat-icon> Status</button>
-          <button (click)="tableControl.addColumn('prio', 'activeContacts')" mat-menu-item><mat-icon
-              class="prio">priority_high</mat-icon>
-            Priority</button>
+          @for (item of dataBackup.availableColumnTypes; track item; let i = $index) {
+            <button (click)="tableControl.addColumn(item.name, 'inactiveContacts')" mat-menu-item>
+              <mat-icon [ngStyle]="{'color': item.color}" class="type">{{item.icon}}</mat-icon>
+              {{item.name}}</button>
+            }
         </mat-menu>
       </div>
     </div>
