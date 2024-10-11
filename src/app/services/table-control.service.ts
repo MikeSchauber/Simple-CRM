@@ -5,7 +5,7 @@ import { Column } from '../models/column.class';
 import { DataBackupService } from './data-backup.service';
 import { collectionData, Firestore } from '@angular/fire/firestore';
 import { DataManagementService } from './data-management.service';
-import { doc, getDocs, updateDoc, writeBatch } from 'firebase/firestore';
+import { addDoc, collection, deleteDoc, doc, getDocs, updateDoc, writeBatch } from 'firebase/firestore';
 import { query } from '@angular/animations';
 import { EmailValidator } from '@angular/forms';
 
@@ -29,7 +29,7 @@ export class TableControlService implements OnInit {
     private contactsData: ContactsService,
     private dataBackup: DataBackupService,
     private dataManagement: DataManagementService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.closeAllEdits();
@@ -40,18 +40,18 @@ export class TableControlService implements OnInit {
   }
 
   checkAllContacts(status: string) {
-    status == 'active' ? this.checkAllActives() : this.checkAllInactives();
+    status == 'activeContacts' ? this.checkAllActives() : this.checkAllInactives();
   }
 
   checkAllActives() {
     if (!this.allCheckedActive) {
       this.allCheckedActive = true;
-      this.dataBackup.activeContacts.forEach((e) => {
+      this.dataManagement.activeContacts.forEach((e) => {
         e.checked = true;
       });
     } else {
       this.allCheckedActive = false;
-      this.dataBackup.activeContacts.forEach((e) => {
+      this.dataManagement.activeContacts.forEach((e) => {
         e.checked = false;
       });
     }
@@ -60,28 +60,56 @@ export class TableControlService implements OnInit {
   checkAllInactives() {
     if (!this.allCheckedInactive) {
       this.allCheckedInactive = true;
-      this.dataBackup.inactiveContacts.forEach((e) => {
+      this.dataManagement.inactiveContacts.forEach((e) => {
         e.checked = true;
       });
     } else {
       this.allCheckedInactive = false;
-      this.dataBackup.inactiveContacts.forEach((e) => {
+      this.dataManagement.inactiveContacts.forEach((e) => {
         e.checked = false;
       });
     }
   }
 
-  async keyboardAddContact(event: KeyboardEvent, status: string) {
+  deleteContacts(status: string) {
+    status == 'activeContacts'
+      ? this.handleActiveContacts(status)
+      : this.handleInactiveContacts(status);
+    this.allCheckedActive = false;
+    this.allCheckedInactive = false;
+  }
+
+  async handleActiveContacts(collection: string) {
+    for (let i = 0; i < this.dataManagement.activeContacts.length; i++) {
+      const contact = this.dataManagement.activeContacts[i];
+      if (contact.checked === true) {
+        await deleteDoc(doc(this.firestore, collection, contact.id))
+      }
+    }
+  }
+
+  async handleInactiveContacts(collection: string) {
+    for (let i = 0; i < this.dataManagement.inactiveContacts.length; i++) {
+      const contact = this.dataManagement.inactiveContacts[i];
+      if (contact.checked === true) {
+        await deleteDoc(doc(this.firestore, collection, contact.id))
+      }
+    }
+  }
+
+  async keyboardAddContact(event: KeyboardEvent, coll: string) {
     if (
-      status == 'active' &&
       event.keyCode === 13 &&
       this.newContactActive.length != 0
     ) {
-      let user = new Contact(this.newContactActive);
-      this.dataBackup.activeContacts.push(user);
+      let user = new Contact();
+      user.name = this.newContactActive
+      await addDoc(collection(this.firestore, coll), {
+        name: "Tokyo",
+        country: "Japan"
+      });
       this.clearAllInputs();
     } else if (
-      status == 'inactive' &&
       event.keyCode === 13 &&
       this.newContactInactive.length != 0
     ) {
@@ -107,34 +135,6 @@ export class TableControlService implements OnInit {
     this.newContactInactive = '';
     this.allCheckedActive = false;
     this.allCheckedInactive = false;
-  }
-
-  deleteContacts(status: string) {
-    status == 'active'
-      ? this.handleActiveContacts()
-      : this.handleInactiveContacts();
-    this.allCheckedActive = false;
-    this.allCheckedInactive = false;
-  }
-
-  handleActiveContacts() {
-    for (let i = 0; i < this.dataBackup.activeContacts.length; i++) {
-      const contact = this.dataBackup.activeContacts[i];
-      if (contact.checked === true) {
-        this.dataBackup.activeContacts.splice(i, 1);
-        i--;
-      }
-    }
-  }
-
-  handleInactiveContacts() {
-    for (let i = 0; i < this.dataBackup.inactiveContacts.length; i++) {
-      const contact = this.dataBackup.inactiveContacts[i];
-      if (contact.checked === true) {
-        this.dataBackup.inactiveContacts.splice(i, 1);
-        i--;
-      }
-    }
   }
 
   addColumn(type: string, status: string) {

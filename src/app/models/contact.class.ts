@@ -17,7 +17,6 @@ export class Contact {
     },
   ];
 
-  constructor(name: string) {
-    this.name = name;
+  constructor() {
   }
 }

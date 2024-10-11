@@ -59,9 +59,9 @@
           class="default-icon">phone_iphone</mat-icon>
       </div>
       } @else {
-      <div class="cell">
-        <input class="dialog-input" type="nu" (keydown)="tableControl.saveTelData($event, item.id, 'activeContacts')"
-          placeholder="0 (123) 123 45690">
+      <div class="cell" >
+        <input class="dialog-input" type="number" (click)="tableControl.preventDefault($event)" (keydown)="tableControl.saveTelData($event, item.id, 'activeContacts')"
+          placeholder="0 (123) 456 7890">
       </div>
       }
       }
@@ -70,9 +70,9 @@
       <div class="cell email-cell add-button">
         <mat-icon (click)="tableControl.openEmailDialog($event, 'activeContacts', item.id, $event)">add_box</mat-icon><mat-icon
           class="default-icon">mail</mat-icon>
-        <div (click)="tableControl.closeEmailDialog('activeContacts', item.id)" class="input-dialog"
+         <div (click)="tableControl.closeEmailDialog('activeContacts', item.id)" class="input-dialog"
           [ngClass]="{'d-none': !item.emailEdit}">
-          <div
+          <div (click)="tableControl.preventDefault($event)"
             [ngStyle]="{'top': tableControl.dialogPositionY + 'px', 'left': tableControl.dialogPositionX + 'px'}">
             <span>Add a new email-adress</span>
             <input class="dialog-input" placeholder="Add email" #emailInput
