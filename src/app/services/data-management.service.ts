@@ -6,7 +6,6 @@ import {
   collection,
   deleteDoc,
   doc,
-  FieldPath,
   onSnapshot,
   QuerySnapshot,
   updateDoc,

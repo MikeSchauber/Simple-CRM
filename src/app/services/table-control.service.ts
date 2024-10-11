@@ -128,9 +128,7 @@ export class TableControlService implements OnInit {
 
   addColumn(type: string, status: string) {
     let newColumn: Column;
-    if (type == 'note') {
-      newColumn = new Column(this.contactsData.availableColumnTypes.note);
-    } else if (type == 'type') {
+    if (type == 'type') {
       newColumn = new Column(this.contactsData.availableColumnTypes.type);
     } else if (type == 'status') {
       newColumn = new Column(this.contactsData.availableColumnTypes.status);

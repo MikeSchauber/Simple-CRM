@@ -24,16 +24,11 @@
           <mat-icon>add</mat-icon>
         </button>
         <mat-menu #menu="matMenu">
-          <button (click)="tableControl.addColumn('note', 'inactiveContacts')" mat-menu-item><mat-icon
-              class="note">paid</mat-icon>Deal</button>
-          <button (click)="tableControl.addColumn('type', 'inactiveContacts')" mat-menu-item><mat-icon
-              class="type">supervised_user_circle</mat-icon>
-            Type</button>
-          <button (click)="tableControl.addColumn('status', 'inactiveContacts')" mat-menu-item><mat-icon
-              class="status">bolt</mat-icon> Status</button>
-          <button (click)="tableControl.addColumn('prio', 'inactiveContacts')" mat-menu-item><mat-icon
-              class="prio">priority_high</mat-icon>
-            Priority</button>
+          @for (item of dataBackup.availableColumnTypes; track item; let i = $index) {
+          <button (click)="tableControl.addColumn(item.name, 'inactiveContacts')" mat-menu-item>
+            <mat-icon [ngStyle]="{'color': item.color}" class="type">{{item.icon}}</mat-icon>
+            {{item.name}}</button>
+          }
         </mat-menu>
       </div>
     </div>
@@ -41,7 +36,7 @@
     <!-- Table Content Rows -->
     @if (dataManagement.inactiveContacts.length > 0) {
     @for (item of this.dataManagement.inactiveContacts; track $index; let i = $index) {
-    <div class="row content-row" >
+    <div class="row content-row">
       <div class="cell checkbox-cell">
         <section class="example-section">
           <mat-checkbox [(ngModel)]="item.checked" class="example-margin"></mat-checkbox>
@@ -63,17 +58,16 @@
       </div>
       } @else {
       <div class="cell">
-        <input class="dialog-input" type="number"
-        (click)="tableControl.preventDefault($event)" (keydown)="tableControl.saveTelData($event, item.id, 'inactiveContacts')" placeholder="0 (123) 123 45690">
+        <input class="dialog-input" type="number" (click)="tableControl.preventDefault($event)"
+          (keydown)="tableControl.saveTelData($event, item.id, 'inactiveContacts')" placeholder="0 (123) 123 45690">
       </div>
       }
       }
       <!-- Email Edit Menu -->
       @if (item.email.length == 0) {
       <div class="cell email-cell add-button">
-        <mat-icon
-          (click)="tableControl.openEmailDialog($event, 'inactiveContacts', item.id, $event)">add_box</mat-icon><mat-icon
-          class="default-icon">mail</mat-icon>
+        <mat-icon (click)="tableControl.openEmailDialog($event, 'inactiveContacts', item.id, $event)">add_box</mat-icon>
+        <mat-icon class="default-icon">mail</mat-icon>
         <div (click)="tableControl.closeEmailDialog('inactiveContacts', item.id)" class="input-dialog"
           [ngClass]="{'d-none': !item.emailEdit}">
           <div (click)="tableControl.preventDefault($event)" [ngStyle]="{'top': tableControl.dialogPositionY + 'px'}">

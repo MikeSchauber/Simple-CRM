@@ -4,6 +4,45 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class DataBackupService {
+
+  availableColumnTypes = [
+    {
+      name: 'Type',
+      type: 'dropdown',
+      icon: 'supervised_user_circle',
+      color: '#2196f3',
+      availableDropdowns: [
+        { name: 'Artist', color: '#ff5722' },
+        { name: 'Manager', color: '#2196f3' },
+        { name: 'Lead', color: '#4caf50' },
+        { name: 'Partner', color: '#9c27b0' },
+        { name: 'Customer', color: '#ffeb3b' },
+      ],
+    },
+    {
+      name: 'Status',
+      type: 'dropdown',
+      icon: 'bolt',
+      color: '#4caf50',
+      availableDropdowns: [
+        { name: 'Active', color: '#4caf50' },
+        { name: 'Inactive', color: '#f44336' },
+      ],
+    },
+    {
+      name: 'Priority',
+      type: 'dropdown',
+      icon: 'priority_high',
+      color: '#f44336',
+      availableDropdowns: [
+        { name: 'low', color: '#8bc34a' },
+        { name: 'medium', color: '#ffc107' },
+        { name: 'high', color: '#f44336' },
+      ],
+    },
+  ];
+
+
   activeTableColumns = [
     {
       name: 'Contacts',
@@ -222,5 +261,5 @@ export class DataBackupService {
     },
   ];
 
-  constructor() {}
+  constructor() { }
 }
