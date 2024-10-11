@@ -3,11 +3,9 @@ import { ContactsService } from './contacts.service';
 import { Contact } from '../models/contact.class';
 import { Column } from '../models/column.class';
 import { DataBackupService } from './data-backup.service';
-import { collectionData, Firestore } from '@angular/fire/firestore';
+import { Firestore } from '@angular/fire/firestore';
 import { DataManagementService } from './data-management.service';
 import { addDoc, collection, deleteDoc, doc, getDocs, updateDoc, writeBatch } from 'firebase/firestore';
-import { query } from '@angular/animations';
-import { EmailValidator } from '@angular/forms';
 
 @Injectable({
   providedIn: 'root',
@@ -99,11 +97,8 @@ export class TableControlService implements OnInit {
 
   async keyboardAddContact(event: KeyboardEvent, coll: string) {
     let nameToAdd: string = "";
-    if (
-      event.keyCode === 13 &&
-      this.newContactActive.length != 0
-    ) {
-      coll == 'activeContacts' ? nameToAdd = this.newContactActive : nameToAdd = this.newContactInactive
+    coll == 'activeContacts' ? nameToAdd = this.newContactActive : nameToAdd = this.newContactInactive
+    if (event.keyCode === 13 && nameToAdd.length != 0) {
       let user = new Contact(nameToAdd);
       await addDoc(collection(this.firestore, coll),
         user.toJson()
@@ -114,8 +109,8 @@ export class TableControlService implements OnInit {
 
   async mouseAddContact(coll: string) {
     let nameToAdd: string = "";
-    if (this.newContactActive.length != 0) {
-      coll == 'activeContacts' ? nameToAdd = this.newContactActive : nameToAdd = this.newContactInactive
+    coll == 'inactiveContacts' ? nameToAdd = this.newContactActive : nameToAdd = this.newContactInactive
+    if (nameToAdd.length != 0) {
       let user = new Contact(nameToAdd);
       await addDoc(collection(this.firestore, coll),
         user.toJson()
