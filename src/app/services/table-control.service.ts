@@ -98,36 +98,30 @@ export class TableControlService implements OnInit {
   }
 
   async keyboardAddContact(event: KeyboardEvent, coll: string) {
+    let nameToAdd: string = "";
     if (
       event.keyCode === 13 &&
       this.newContactActive.length != 0
     ) {
-      let user = new Contact();
-      user.name = this.newContactActive
-      await addDoc(collection(this.firestore, coll), {
-        name: "Tokyo",
-        country: "Japan"
-      });
-      this.clearAllInputs();
-    } else if (
-      event.keyCode === 13 &&
-      this.newContactInactive.length != 0
-    ) {
-      let user = new Contact(this.newContactInactive);
-      this.dataManagement.inactiveContacts.push(user);
+      coll == 'activeContacts' ? nameToAdd = this.newContactActive : nameToAdd = this.newContactInactive
+      let user = new Contact(nameToAdd);
+      await addDoc(collection(this.firestore, coll),
+        user.toJson()
+      );
       this.clearAllInputs();
     }
   }
 
-  mouseAddContact(status: string) {
-    if (status == 'active' && this.newContactActive.length != 0) {
-      let user = new Contact(this.newContactActive);
-      this.dataBackup.activeContacts.push(user);
-    } else if (status == 'inactive' && this.newContactInactive.length != 0) {
-      let user = new Contact(this.newContactInactive);
-      this.dataBackup.inactiveContacts.push(user);
+  async mouseAddContact(coll: string) {
+    let nameToAdd: string = "";
+    if (this.newContactActive.length != 0) {
+      coll == 'activeContacts' ? nameToAdd = this.newContactActive : nameToAdd = this.newContactInactive
+      let user = new Contact(nameToAdd);
+      await addDoc(collection(this.firestore, coll),
+        user.toJson()
+      );
+      this.clearAllInputs();
     }
-    this.clearAllInputs();
   }
 
   clearAllInputs() {

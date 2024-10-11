@@ -17,6 +17,22 @@ export class Contact {
     },
   ];
 
-  constructor() {
+  constructor(name: string) {
+    this.name = name;
+  }
+
+  public toJson() {
+    return {
+      emailEdit: this.emailEdit,
+      telEdit: this.telEdit,
+      id: this.id,
+      checked: this.checked,
+      status: this.status,
+      name: this.name,
+      tel: this.tel,
+      email: this.email,
+      visibleMail: this.visibleEmail,
+      newColumns: this.newColumns 
+    }
   }
 }
