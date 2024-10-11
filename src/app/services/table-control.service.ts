@@ -212,6 +212,7 @@ export class TableControlService implements OnInit {
     e.stopPropagation();
     if (!this.editOpen) {
       this.editOpen = true;
+      console.log(event)
       this.dialogPositionY = (14 + event.clientY).toString();
       this.dialogPositionX = (event.clientX - 453).toString();
       await updateDoc(this.dataManagement.getSingleDocRef(collection, i), {
