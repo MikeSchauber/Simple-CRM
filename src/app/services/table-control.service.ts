@@ -125,11 +125,11 @@ export class TableControlService {
   addColumn(type: string, status: string) {
     let newColumn: Column;
     if (type == 'Type') {
-      newColumn = new Column(this.contactsData.availableColumnTypes.type);
+      newColumn = new Column(this.dataBackup.availableColumnTypes.type);
     } else if (type == 'Status') {
-      newColumn = new Column(this.contactsData.availableColumnTypes.status);
+      newColumn = new Column(this.dataBackup.availableColumnTypes.status);
     } else {
-      newColumn = new Column(this.contactsData.availableColumnTypes.priority);
+      newColumn = new Column(this.dataBackup.availableColumnTypes.priority);
     }
     status == 'active'
       ? this.pushIntoActiveContacts(newColumn)

@@ -8,4 +8,12 @@ export class Column {
     this.type = obj.type;
     this.availableDropdowns = obj.availableDropdowns;
   }
+
+  public toJson() {
+    return {
+      name: this.name,
+      type: this.type,
+      availableDropdowns: this.availableDropdowns
+    }
+  }
 }
