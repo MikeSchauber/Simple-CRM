@@ -223,36 +223,28 @@ export class TableControlService {
     });
   }
 
-  async onInputKeydown(
-    event: any,
-    i: string,
-    emailValue: string,
-    collection: string
+  async onInputKeydown(event: any, i: string, emailValue: string, coll: string
   ) {
     if (event.keyCode == 13) {
       if (event.target.id == 'visible') {
-        await updateDoc(this.dataManagement.getSingleDocRef(collection, i), {
+        await updateDoc(this.dataManagement.getSingleDocRef(coll, i), {
           email: emailValue,
         });
       } else {
-        await updateDoc(this.dataManagement.getSingleDocRef(collection, i), {
+        await updateDoc(this.dataManagement.getSingleDocRef(coll, i), {
           email: event.target.value,
         });
       }
-      this.closeEmailDialog(collection, i);
+      this.closeEmailDialog(coll, i);
     }
   }
 
-  async visibleEmail(
-    event: any,
-    i: string,
-    emailValue: string,
-    collection: string
+  async visibleEmail(event: any, i: string, emailValue: string, coll: string
   ) {
     this.newVisibleMailActive = event.target.value;
-    await updateDoc(this.dataManagement.getSingleDocRef(collection, i), {
+    await updateDoc(this.dataManagement.getSingleDocRef(coll, i), {
       visibleEmail: event.target.value,
     });
-    this.onInputKeydown(event, i, emailValue, collection);
+    this.onInputKeydown(event, i, emailValue, coll);
   }
 }
