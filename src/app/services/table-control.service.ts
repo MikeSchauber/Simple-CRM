@@ -122,32 +122,14 @@ export class TableControlService {
     this.allCheckedInactive = false;
   }
 
-  addColumn(type: string, status: string) {
-    let newColumn: Column;
-    if (type == 'Type') {
-      newColumn = new Column(this.dataBackup.availableColumnTypes.type);
-    } else if (type == 'Status') {
-      newColumn = new Column(this.dataBackup.availableColumnTypes.status);
-    } else {
-      newColumn = new Column(this.dataBackup.availableColumnTypes.priority);
-    }
-    status == 'active'
-      ? this.pushIntoActiveContacts(newColumn)
-      : this.pushIntoInactiveContacts(newColumn);
-  }
-
-  pushIntoActiveContacts(newColumn: Column) {
-    this.dataBackup.activeTableColumns.push(newColumn);
-    this.dataBackup.activeContacts.forEach((contact) => {
-      contact.newColumns.push(newColumn);
-    });
-  }
-
-  pushIntoInactiveContacts(newColumn: Column) {
-    this.dataBackup.inactiveTableColumns.push(newColumn);
-    this.dataBackup.inactiveContacts.forEach((contact) => {
-      contact.newColumns.push(newColumn);
-    });
+  async addColumn(i: number, tableColl: string, contactColl: string) {
+    let newColumn = new Column(this.dataBackup.availableColumnTypes[i]);
+    await addDoc(collection(this.firestore, tableColl),
+      newColumn.toJson()
+    );
+    await addDoc(collection(this.firestore, contactColl),
+    newColumn.toJson()
+  );
   }
 
   async deleteTel(i: string, collection: string) {
