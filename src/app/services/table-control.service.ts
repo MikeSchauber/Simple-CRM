@@ -127,12 +127,32 @@ export class TableControlService {
     await addDoc(collection(this.firestore, tableColl),
       newColumn.toJson()
     );
+    let contactCell = this.getContactCell(contactColl, newColumn);
+    const collectionSnapshot = getDocs(
+      this.dataManagement.getDocRef(contactColl)
+    );
+    const batch = writeBatch(this.firestore);
+    (await collectionSnapshot).forEach((doc) => {
+      batch.update(doc.ref, { newColumns: contactCell });
+    });
+    await batch.commit();
+  }
 
-    // Hier add Doc verwenden um die collums im contact feld zu erweitern...
-    // Dazu Bräuchte man noch die batch methode weil es für jeden kontakt passieren muss.
-    await addDoc(collection(this.firestore, contactColl),
-    newColumn.toJson()
-  );
+  getContactCell(collection: string, newColumn: Column) {
+    let columns;
+    if (collection == "activeContacts") {
+      this.dataManagement.activeContacts.forEach(e => {
+        e.newColumns.push(newColumn);
+        columns = e.newColumns;
+      });
+      return columns;
+    } else {
+      this.dataManagement.inactiveContacts.forEach(e => {
+        e.newColumns.push(newColumn);
+        columns = e.newColumns;
+      });
+      return columns;
+    }
   }
 
   async deleteTel(i: string, collection: string) {
