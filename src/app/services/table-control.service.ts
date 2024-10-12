@@ -127,6 +127,9 @@ export class TableControlService {
     await addDoc(collection(this.firestore, tableColl),
       newColumn.toJson()
     );
+
+    // Hier add Doc verwenden um die collums im contact feld zu erweitern...
+    // Dazu Bräuchte man noch die batch methode weil es für jeden kontakt passieren muss.
     await addDoc(collection(this.firestore, contactColl),
     newColumn.toJson()
   );
