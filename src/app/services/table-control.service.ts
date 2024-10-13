@@ -66,31 +66,29 @@ export class TableControlService {
     }
   }
 
-  deleteContacts(status: string) {
-    status == 'activeContacts'
-      ? this.handleActiveContacts(status)
-      : this.handleInactiveContacts(status);
+  async deleteContacts(collection: string) {
+    collection == 'activeContacts'
+      ? await this.handleActiveContacts(collection)
+      : await this.handleInactiveContacts(collection);
     this.allCheckedActive = false;
     this.allCheckedInactive = false;
   }
 
-  async handleActiveContacts(collection: string) {
-    for (let i = 0; i < this.dataManagement.activeContacts.length; i++) {
-      const contact = this.dataManagement.activeContacts[i];
-      if (contact.checked === true) {
-        await deleteDoc(doc(this.firestore, collection, contact.id))
-      }
+async handleActiveContacts(collection: string) {
+  for (const contact of this.dataManagement.activeContacts) {
+    if (contact.checked === true) {
+      await deleteDoc(doc(this.firestore, collection, contact.id));
     }
   }
+}
 
-  async handleInactiveContacts(collection: string) {
-    for (let i = 0; i < this.dataManagement.inactiveContacts.length; i++) {
-      const contact = this.dataManagement.inactiveContacts[i];
-      if (contact.checked === true) {
-        await deleteDoc(doc(this.firestore, collection, contact.id))
-      }
+async handleInactiveContacts(collection: string) {
+  for (const contact of this.dataManagement.inactiveContacts) {
+    if (contact.checked === true) {
+      await deleteDoc(doc(this.firestore, collection, contact.id));
     }
   }
+}
 
   async keyboardAddContact(event: KeyboardEvent, coll: string) {
     let nameToAdd: string = "";

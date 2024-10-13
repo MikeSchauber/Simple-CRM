@@ -14,7 +14,6 @@ import { DataBackupService } from './data-backup.service';
 import { Contact } from '../models/contact.class';
 import { Column } from '../models/column.class';
 import { Deal } from '../models/deal.class';
-import { AnyCatcher } from 'rxjs/internal/AnyCatcher';
 
 @Injectable({
   providedIn: 'root',
