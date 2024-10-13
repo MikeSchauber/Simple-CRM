@@ -124,20 +124,28 @@ export class TableControlService {
   async addColumn(i: number, tableCollection: string, contactCollection: string) {
     if (this.dataManagement.activeContacts.length != 0 || this.dataManagement.inactiveContacts.length != 0) {
       let newColumn = new Column(this.dataBackup.availableColumnTypes[i]);
-      const collectionSnapshot = getDocs(
-        this.dataManagement.getDocRef(contactCollection)
-      );
-      await addDoc(collection(this.firestore, tableCollection),
-        newColumn.toJson()
-      );
-      const batch = writeBatch(this.firestore);
-      (await collectionSnapshot).forEach((doc) => {
-        batch.update(doc.ref, { newColumns: arrayUnion(newColumn.toJson()) });
-      });
-      await batch.commit();
+      await this.addColumnToTableInCloud(tableCollection, newColumn);
+      await this.addColumnToContactsInCloud(contactCollection, newColumn);
     } else {
       console.error("There are no Contacts to add a Column into");
     }
+  }
+
+  async addColumnToTableInCloud(tableCollection: string, newColumn: Column) {
+    await addDoc(collection(this.firestore, tableCollection),
+      newColumn.toJson()
+    );
+  }
+
+  async addColumnToContactsInCloud(contactCollection: string, newColumn: Column) {
+    const collectionSnapshot = getDocs(
+      this.dataManagement.getDocRef(contactCollection)
+    );
+    const batch = writeBatch(this.firestore);
+    (await collectionSnapshot).forEach((doc) => {
+      batch.update(doc.ref, { newColumns: arrayUnion(newColumn.toJson()) });
+    });
+    await batch.commit();
   }
 
   async deleteTel(i: string, collection: string) {
