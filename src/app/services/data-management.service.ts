@@ -14,6 +14,7 @@ import { DataBackupService } from './data-backup.service';
 import { Contact } from '../models/contact.class';
 import { Column } from '../models/column.class';
 import { Deal } from '../models/deal.class';
+import { AnyCatcher } from 'rxjs/internal/AnyCatcher';
 
 @Injectable({
   providedIn: 'root',
@@ -30,8 +31,15 @@ export class DataManagementService implements OnDestroy {
   inactiveContacts: Contact[] = [];
   activeTableColumns: Column[] = [];
   inactiveTableColumns: Column[] = [];
-
   deals: Deal[] = [];
+
+  addBackupCollections: string[] = [
+    "activeContacts",
+    "inactiveContacts",
+    "activeTableColumns",
+    "inactiveTableColumns",
+    "deals",
+  ];
 
   contactsId: string = '';
   dealsId: string = '';
@@ -47,26 +55,13 @@ export class DataManagementService implements OnDestroy {
   }
 
   async addBackupData() {
-    for (let i = 0; i < this.dataBackup.activeContacts.length; i++) {
-      const contact = this.dataBackup.activeContacts[i];
-      await addDoc(this.getDocRef('activeContacts'), contact);
-    }
-    for (let i = 0; i < this.dataBackup.inactiveContacts.length; i++) {
-      const contact = this.dataBackup.inactiveContacts[i];
-      await addDoc(this.getDocRef('inactiveContacts'), contact);
-    }
-    for (let i = 0; i < this.dataBackup.activeTableColumns.length; i++) {
-      const column = this.dataBackup.activeTableColumns[i];
-      await addDoc(this.getDocRef('activeTableColumns'), column);
-    }
-    for (let i = 0; i < this.dataBackup.inactiveTableColumns.length; i++) {
-      const column = this.dataBackup.inactiveTableColumns[i];
-      await addDoc(this.getDocRef('inactiveTableColumns'), column);
-    }
-    for (let i = 0; i < this.dataBackup.deals.length; i++) {
-      const deal = this.dataBackup.deals[i];
-      await addDoc(this.getDocRef('deals'), deal);
-    }
+    for (let i = 0; i < this.addBackupCollections.length; i++) {
+      const collection = this.addBackupCollections[i];
+      for (let i = 0; i < this.dataBackup.activeContacts.length; i++) {
+        const contact = this.dataBackup.activeContacts[i];
+        await addDoc(this.getDocRef(collection), contact);
+      }
+    };
   }
 
   ngOnDestroy(): void {
@@ -80,67 +75,27 @@ export class DataManagementService implements OnDestroy {
   subList(list: string) {
     return onSnapshot(this.getDocRef(list), (querySnapshot) => {
       if (list == 'activeContacts') {
-        this.pushIntoActiveContacts(querySnapshot);
+        this.activeContacts = this.pushIntoEachArray(querySnapshot);
       } else if (list == 'inactiveContacts') {
-        this.pushIntoInactiveContacts(querySnapshot);
+        this.inactiveContacts = this.pushIntoEachArray(querySnapshot);
       } else if (list == 'activeTableColumns') {
-        this.pushIntoActiveTableColumns(querySnapshot);
+        this.activeTableColumns = this.pushIntoEachArray(querySnapshot);
       } else if (list == 'inactiveTableColumns') {
-        this.pushIntoInactiveTableColumns(querySnapshot);
+        this.inactiveTableColumns = this.pushIntoEachArray(querySnapshot);
       } else if (list == 'deals') {
-        this.pushIntoDeals(querySnapshot);
+        this.deals = this.pushIntoEachArray(querySnapshot);
       }
     });
   }
 
-  pushIntoActiveContacts(querySnapshot: QuerySnapshot) {
-    let activeContacts: any[] = [];
+  pushIntoEachArray(querySnapshot: QuerySnapshot) {
+    let arrayData: any[] = [];
     querySnapshot.forEach((e) => {
       let data = e.data();
       data['id'] = e.id;
-      activeContacts.push(data);
+      arrayData.push(data);
     });
-    this.activeContacts = activeContacts;
-  }
-
-  pushIntoInactiveContacts(querySnapshot: QuerySnapshot) {
-    let inactiveContacts: any[] = [];
-    querySnapshot.forEach((e) => {
-      let data = e.data();
-      data['id'] = e.id;
-      inactiveContacts.push(data);
-    });
-    this.inactiveContacts = inactiveContacts;
-  }
-
-  pushIntoActiveTableColumns(querySnapshot: QuerySnapshot) {
-    let activeTableColumns: any[] = [];
-    querySnapshot.forEach((e) => {
-      let data = e.data();
-      data['id'] = e.id;
-      activeTableColumns.push(data);
-    });
-    this.activeTableColumns = activeTableColumns;
-  }
-
-  pushIntoInactiveTableColumns(querySnapshot: QuerySnapshot) {
-    let inactiveTableColumns: any[] = [];
-    querySnapshot.forEach((e) => {
-      let data = e.data();
-      data['id'] = e.id;
-      inactiveTableColumns.push(data);
-    });
-    this.inactiveTableColumns = inactiveTableColumns;
-  }
-
-  pushIntoDeals(querySnapshot: QuerySnapshot) {
-    let deals: any[] = [];
-    querySnapshot.forEach((e) => {
-      let data = e.data();
-      data['id'] = e.id;
-      deals.push(data);
-    });
-    this.deals = deals;
+    return arrayData;
   }
 
   async updateContacts(id: string) {

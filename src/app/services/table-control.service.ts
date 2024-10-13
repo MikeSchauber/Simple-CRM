@@ -5,7 +5,7 @@ import { Column } from '../models/column.class';
 import { DataBackupService } from './data-backup.service';
 import { Firestore } from '@angular/fire/firestore';
 import { DataManagementService } from './data-management.service';
-import { addDoc, collection, deleteDoc, doc, getDocs, updateDoc, writeBatch } from 'firebase/firestore';
+import { addDoc, arrayUnion, collection, deleteDoc, doc, getDocs, updateDoc, writeBatch } from 'firebase/firestore';
 import { ColumnInterface } from '../interfaces/column-interface';
 
 @Injectable({
@@ -136,7 +136,7 @@ export class TableControlService {
       );
       const batch = writeBatch(this.firestore);
       (await collectionSnapshot).forEach((doc) => {
-        batch.update(doc.ref, { newColumns: newColumn.toJson() });
+        batch.update(doc.ref, {newColumns: arrayUnion(newColumn)});
       });
       await batch.commit();
     } else {
