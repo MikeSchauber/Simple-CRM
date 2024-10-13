@@ -25,7 +25,6 @@ export class TableControlService {
   firestore: Firestore = inject(Firestore);
 
   constructor(
-    private contactsData: ContactsService,
     private dataBackup: DataBackupService,
     private dataManagement: DataManagementService
   ) { }

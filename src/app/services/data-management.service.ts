@@ -11,9 +11,9 @@ import {
   updateDoc,
 } from 'firebase/firestore';
 import { DataBackupService } from './data-backup.service';
-import { Contact } from '../models/contact.class';
-import { Column } from '../models/column.class';
-import { Deal } from '../models/deal.class';
+import { ColumnInterface } from '../interfaces/column-interface';
+import { DealInterface } from '../interfaces/deal-interface';
+import { ContactInterface } from '../interfaces/contact-interface';
 
 @Injectable({
   providedIn: 'root',
@@ -24,13 +24,15 @@ export class DataManagementService implements OnDestroy {
   unsubInactiveContacts;
   unsubActiveTableColumns;
   unsubInactiveTableColumns;
+  unsubAvailableTableColumns;
   unsubDeals;
 
-  activeContacts: Contact[] = [];
-  inactiveContacts: Contact[] = [];
-  activeTableColumns: Column[] = [];
-  inactiveTableColumns: Column[] = []
-  deals: Deal[] = [];
+  activeContacts: ContactInterface[] = [];
+  inactiveContacts: ContactInterface[] = [];
+  activeTableColumns: ColumnInterface[] = [];
+  inactiveTableColumns: ColumnInterface[] = [];
+  availableTableColumns: ColumnInterface[] = [];
+  deals: DealInterface[] = [];
 
   contactsId: string = '';
   dealsId: string = '';
@@ -42,37 +44,38 @@ export class DataManagementService implements OnDestroy {
     this.unsubInactiveContacts = this.subList('inactiveContacts');
     this.unsubActiveTableColumns = this.subList('activeTableColumns');
     this.unsubInactiveTableColumns = this.subList('inactiveTableColumns');
+    this.unsubAvailableTableColumns = this.subList('availableTableColumns');
     this.unsubDeals = this.subList('deals');
   }
 
   async addBackupData() {
-    for (let i = 0; i < this.dataBackup.activeContacts.length; i++) {
-      const contact = this.dataBackup.activeContacts[i];
+    for (const contact of this.dataBackup.activeContacts) {
       await addDoc(this.getDocRef('activeContacts'), contact);
     }
-    for (let i = 0; i < this.dataBackup.inactiveContacts.length; i++) {
-      const contact = this.dataBackup.inactiveContacts[i];
+    for (const contact of this.dataBackup.inactiveContacts) {
       await addDoc(this.getDocRef('inactiveContacts'), contact);
     }
-    for (let i = 0; i < this.dataBackup.activeTableColumns.length; i++) {
-      const column = this.dataBackup.activeTableColumns[i];
+    for (const column of this.dataBackup.activeTableColumns) {
       await addDoc(this.getDocRef('activeTableColumns'), column);
     }
-    for (let i = 0; i < this.dataBackup.inactiveTableColumns.length; i++) {
-      const column = this.dataBackup.inactiveTableColumns[i];
+    for (const column of this.dataBackup.inactiveTableColumns) {
       await addDoc(this.getDocRef('inactiveTableColumns'), column);
     }
-    for (let i = 0; i < this.dataBackup.deals.length; i++) {
-      const deal = this.dataBackup.deals[i];
+    for (const deal of this.dataBackup.deals) {
       await addDoc(this.getDocRef('deals'), deal);
     }
+    for (const column of this.dataBackup.availableColumnTypes) {
+      await addDoc(this.getDocRef('availableTableColumns'), column);
+    }
   }
+
 
   ngOnDestroy(): void {
     this.unsubActiveContacts();
     this.unsubInactiveContacts();
     this.unsubActiveTableColumns();
     this.unsubInactiveTableColumns();
+    this.unsubAvailableTableColumns();
     this.unsubDeals();
   }
 
