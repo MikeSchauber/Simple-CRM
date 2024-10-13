@@ -13,6 +13,8 @@ export class Contact {
     {
       name: '',
       type: '',
+      icon: '',
+      color: '',
       availableDropdowns: [{ name: '', color: '' }],
     },
   ];

@@ -129,7 +129,6 @@ export class TableControlService {
     );
     let contactCell = this.getContactCell(contactColl, newColumn);
     console.log(contactCell);
-    
     const collectionSnapshot = getDocs(
       this.dataManagement.getDocRef(contactColl)
     );
