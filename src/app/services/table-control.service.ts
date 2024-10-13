@@ -128,6 +128,8 @@ export class TableControlService {
       newColumn.toJson()
     );
     let contactCell = this.getContactCell(contactColl, newColumn);
+    console.log(contactCell);
+    
     const collectionSnapshot = getDocs(
       this.dataManagement.getDocRef(contactColl)
     );
@@ -142,14 +144,16 @@ export class TableControlService {
     let columns;
     if (collection == "activeContacts") {
       this.dataManagement.activeContacts.forEach(e => {
-        e.newColumns.push(newColumn);
-        columns = e.newColumns;
+        let actualColumns = e.newColumns;
+        actualColumns.push(newColumn);
+        columns = actualColumns;
       });
       return columns;
     } else {
       this.dataManagement.inactiveContacts.forEach(e => {
-        e.newColumns.push(newColumn);
-        columns = e.newColumns;
+        let actualColumns = e.newColumns;
+        actualColumns.push(newColumn);
+        columns = actualColumns;
       });
       return columns;
     }

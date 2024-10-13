@@ -12,7 +12,7 @@ export class Contact {
   newColumns: any = [
     {
       name: '',
-      typ: '',
+      type: '',
       availableDropdowns: [{ name: '', color: '' }],
     },
   ];
