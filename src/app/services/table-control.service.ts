@@ -6,6 +6,7 @@ import { DataBackupService } from './data-backup.service';
 import { Firestore } from '@angular/fire/firestore';
 import { DataManagementService } from './data-management.service';
 import { addDoc, collection, deleteDoc, doc, getDocs, updateDoc, writeBatch } from 'firebase/firestore';
+import { ColumnInterface } from '../interfaces/column-interface';
 
 @Injectable({
   providedIn: 'root',
@@ -122,20 +123,20 @@ export class TableControlService {
     this.allCheckedInactive = false;
   }
 
-  async addColumn(i: number, tableColl: string, contactColl: string) {
+  async addColumn(i: number, tableCollection: string, contactCollection: string) {
     if (this.dataManagement.activeContacts.length != 0 || this.dataManagement.inactiveContacts.length != 0) {
       let newColumn = new Column(this.dataBackup.availableColumnTypes[i]);
       const collectionSnapshot = getDocs(
-        this.dataManagement.getDocRef(contactColl)
+        this.dataManagement.getDocRef(contactCollection)
       );
-      let contactCell = this.getContactCell(contactColl, newColumn);
-      console.log(contactCell);
-      await addDoc(collection(this.firestore, tableColl),
+      // let contactCell = this.getContactCell(contactCollection, newColumn);
+      console.log(this.dataManagement.activeContacts[0].newColumns);
+      await addDoc(collection(this.firestore, tableCollection),
         newColumn.toJson()
       );
       const batch = writeBatch(this.firestore);
       (await collectionSnapshot).forEach((doc) => {
-        batch.set(doc.ref, 'newColumns', newColumn);
+        batch.update(doc.ref, { newColumns: newColumn.toJson() });
       });
       await batch.commit();
     } else {
@@ -144,7 +145,7 @@ export class TableControlService {
 
   }
 
-  getContactCell(collection: string, newColumn: Column) {
+  getContactCell(collection: string, newColumn: ColumnInterface) {
     let columns;
     if (collection == "activeContacts") {
       this.dataManagement.activeContacts.forEach(e => {

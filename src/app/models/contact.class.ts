@@ -1,3 +1,5 @@
+import { ColumnInterface } from "../interfaces/column-interface";
+
 
 export class Contact {
   emailEdit: boolean = false;
@@ -9,7 +11,7 @@ export class Contact {
   tel: string = '';
   email: string = '';
   visibleEmail: string = '';
-  newColumns: any = [
+  newColumns: ColumnInterface[] = [
     {
       name: '',
       type: '',
