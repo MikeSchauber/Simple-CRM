@@ -74,21 +74,21 @@ export class TableControlService {
     this.allCheckedInactive = false;
   }
 
-async handleActiveContacts(collection: string) {
-  for (const contact of this.dataManagement.activeContacts) {
-    if (contact.checked === true) {
-      await deleteDoc(doc(this.firestore, collection, contact.id));
+  async handleActiveContacts(collection: string) {
+    for (const contact of this.dataManagement.activeContacts) {
+      if (contact.checked === true) {
+        await deleteDoc(doc(this.firestore, collection, contact.id));
+      }
     }
   }
-}
 
-async handleInactiveContacts(collection: string) {
-  for (const contact of this.dataManagement.inactiveContacts) {
-    if (contact.checked === true) {
-      await deleteDoc(doc(this.firestore, collection, contact.id));
+  async handleInactiveContacts(collection: string) {
+    for (const contact of this.dataManagement.inactiveContacts) {
+      if (contact.checked === true) {
+        await deleteDoc(doc(this.firestore, collection, contact.id));
+      }
     }
   }
-}
 
   async keyboardAddContact(event: KeyboardEvent, coll: string) {
     let nameToAdd: string = "";
@@ -127,38 +127,16 @@ async handleInactiveContacts(collection: string) {
       const collectionSnapshot = getDocs(
         this.dataManagement.getDocRef(contactCollection)
       );
-      // let contactCell = this.getContactCell(contactCollection, newColumn);
-      console.log(this.dataManagement.activeContacts[0].newColumns);
       await addDoc(collection(this.firestore, tableCollection),
         newColumn.toJson()
       );
       const batch = writeBatch(this.firestore);
       (await collectionSnapshot).forEach((doc) => {
-        batch.update(doc.ref, {newColumns: arrayUnion(newColumn)});
+        batch.update(doc.ref, { newColumns: arrayUnion(newColumn.toJson()) });
       });
       await batch.commit();
     } else {
       console.error("There are no Contacts to add a Column into");
-    }
-
-  }
-
-  getContactCell(collection: string, newColumn: ColumnInterface) {
-    let columns;
-    if (collection == "activeContacts") {
-      this.dataManagement.activeContacts.forEach(e => {
-        let actualColumns = e.newColumns;
-        actualColumns.push(newColumn);
-        columns = actualColumns;
-      });
-      return columns;
-    } else {
-      this.dataManagement.inactiveContacts.forEach(e => {
-        let actualColumns = e.newColumns;
-        actualColumns.push(newColumn);
-        columns = actualColumns;
-      });
-      return columns;
     }
   }
 
