@@ -30,16 +30,8 @@ export class DataManagementService implements OnDestroy {
   activeContacts: Contact[] = [];
   inactiveContacts: Contact[] = [];
   activeTableColumns: Column[] = [];
-  inactiveTableColumns: Column[] = [];
+  inactiveTableColumns: Column[] = []
   deals: Deal[] = [];
-
-  addBackupCollections: string[] = [
-    "activeContacts",
-    "inactiveContacts",
-    "activeTableColumns",
-    "inactiveTableColumns",
-    "deals",
-  ];
 
   contactsId: string = '';
   dealsId: string = '';
@@ -55,13 +47,26 @@ export class DataManagementService implements OnDestroy {
   }
 
   async addBackupData() {
-    for (let i = 0; i < this.addBackupCollections.length; i++) {
-      const collection = this.addBackupCollections[i];
-      for (let i = 0; i < this.dataBackup.activeContacts.length; i++) {
-        const contact = this.dataBackup.activeContacts[i];
-        await addDoc(this.getDocRef(collection), contact);
-      }
-    };
+    for (let i = 0; i < this.dataBackup.activeContacts.length; i++) {
+      const contact = this.dataBackup.activeContacts[i];
+      await addDoc(this.getDocRef('activeContacts'), contact);
+    }
+    for (let i = 0; i < this.dataBackup.inactiveContacts.length; i++) {
+      const contact = this.dataBackup.inactiveContacts[i];
+      await addDoc(this.getDocRef('inactiveContacts'), contact);
+    }
+    for (let i = 0; i < this.dataBackup.activeTableColumns.length; i++) {
+      const column = this.dataBackup.activeTableColumns[i];
+      await addDoc(this.getDocRef('activeTableColumns'), column);
+    }
+    for (let i = 0; i < this.dataBackup.inactiveTableColumns.length; i++) {
+      const column = this.dataBackup.inactiveTableColumns[i];
+      await addDoc(this.getDocRef('inactiveTableColumns'), column);
+    }
+    for (let i = 0; i < this.dataBackup.deals.length; i++) {
+      const deal = this.dataBackup.deals[i];
+      await addDoc(this.getDocRef('deals'), deal);
+    }
   }
 
   ngOnDestroy(): void {
