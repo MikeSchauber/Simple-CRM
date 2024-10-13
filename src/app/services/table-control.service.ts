@@ -123,20 +123,25 @@ export class TableControlService {
   }
 
   async addColumn(i: number, tableColl: string, contactColl: string) {
-    let newColumn = new Column(this.dataBackup.availableColumnTypes[i]);
-    await addDoc(collection(this.firestore, tableColl),
-      newColumn.toJson()
-    );
-    let contactCell = this.getContactCell(contactColl, newColumn);
-    console.log(contactCell);
-    const collectionSnapshot = getDocs(
-      this.dataManagement.getDocRef(contactColl)
-    );
-    const batch = writeBatch(this.firestore);
-    (await collectionSnapshot).forEach((doc) => {
-      batch.update(doc.ref, { newColumns: contactCell });
-    });
-    await batch.commit();
+    if (this.dataManagement.activeContacts.length != 0 || this.dataManagement.inactiveContacts.length != 0) {
+      let newColumn = new Column(this.dataBackup.availableColumnTypes[i]);
+      const collectionSnapshot = getDocs(
+        this.dataManagement.getDocRef(contactColl)
+      );
+      let contactCell = this.getContactCell(contactColl, newColumn);
+      console.log(contactCell);
+      await addDoc(collection(this.firestore, tableColl),
+        newColumn.toJson()
+      );
+      const batch = writeBatch(this.firestore);
+      (await collectionSnapshot).forEach((doc) => {
+        batch.set(doc.ref, 'newColumns', newColumn);
+      });
+      await batch.commit();
+    } else {
+      console.error("There are no Contacts to add a Column into");
+    }
+
   }
 
   getContactCell(collection: string, newColumn: Column) {
