@@ -91,6 +91,8 @@ export class DataManagementService implements OnDestroy {
         this.inactiveTableColumns = this.pushIntoEachArray(querySnapshot);
       } else if (list == 'deals') {
         this.deals = this.pushIntoEachArray(querySnapshot);
+      } else if (list == 'availableTableColumns') {
+        this.availableTableColumns = this.pushIntoEachArray(querySnapshot);
       }
     });
   }
