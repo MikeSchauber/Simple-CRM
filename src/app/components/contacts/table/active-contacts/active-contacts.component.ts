@@ -35,6 +35,11 @@ export class ActiveContactsComponent {
   phoneHovered: boolean = false;
   activeContacts: Contact[] = [];
   columnActive: any[] = [];
+  columnHovered: boolean[] = [
+    false,
+    false,
+    false
+  ];
   firestore: Firestore = inject(Firestore);
 
   constructor(
@@ -46,17 +51,22 @@ export class ActiveContactsComponent {
 
   }
 
-  hoverAction(action: string) {
+  hoverAction(action: string | number) {
     if (action == 'email') {
       this.emailHovered = true;
     } else if (action == 'tel') {
       this.phoneHovered = true;
+    } else if (action == 0 || action == 1 || action == 2) {
+      this.columnHovered[action] = true;
     }
   }
 
   mouseOutAction() {
     this.emailHovered = false;
     this.phoneHovered = false;
+    this.columnHovered.forEach((e) => {
+      e = false;
+    });
   }
 
   getValue(event: Event): string {

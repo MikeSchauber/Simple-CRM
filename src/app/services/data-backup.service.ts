@@ -8,6 +8,8 @@ export class DataBackupService {
   availableColumnTypes = [
     {
       index: 3,
+      columnId: '',
+      id: '',
       name: 'Type',
       type: 'dropdown',
       icon: 'supervised_user_circle',
@@ -22,6 +24,8 @@ export class DataBackupService {
     },
     {
       index: 4,
+      columnId: '',
+      id: '',
       name: 'Status',
       type: 'dropdown',
       icon: 'bolt',
@@ -33,6 +37,8 @@ export class DataBackupService {
     },
     {
       index: 5,
+      columnId: '',
+      id: '',
       name: 'Priority',
       type: 'dropdown',
       icon: 'priority_high',

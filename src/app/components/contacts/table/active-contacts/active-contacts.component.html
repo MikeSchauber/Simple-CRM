@@ -12,9 +12,18 @@
         </section>
       </div>
       @for(item of this.dataManagement.activeTableColumns; track $index; let i = $index) {
-      <div class="cell">
-        <span>{{item.name}}</span>
-      </div>
+      @if (item.index > 2) {
+        <div class="cell">
+          <span>{{item.name}}</span>
+        </div>
+      } @else {
+        <div class="cell" (mouseover)="hoverAction(i)" (mouseout)="mouseOutAction()">
+          <span>{{item.name}}</span> 
+          <mat-icon
+          (click)="tableControl.deleteColumn('activeTableColumns', 'activeContacts', item.id)"
+          [ngClass]="{'d-none': !columnHovered[i]}">close</mat-icon>
+        </div>
+      }
       }
       <!-- Add Column Menu -->
       <div class="cell button-container">
@@ -22,11 +31,11 @@
           <mat-icon>add</mat-icon>
         </button>
         <mat-menu #menu="matMenu">
-          @for (item of dataBackup.availableColumnTypes; track item; let i = $index) {
-            <button (click)="tableControl.addColumn(i, 'activeTableColumns', 'activeContacts')" mat-menu-item>
-              <mat-icon [ngStyle]="{'color': item.color}" class="type">{{item.icon}}</mat-icon>
-              {{item.name}}</button>
-            }
+          @for (item of this.dataManagement.availableTableColumns; track item; let i = $index) {
+          <button (click)="tableControl.addColumn(i, 'activeTableColumns', 'activeContacts', item.id)" mat-menu-item>
+            <mat-icon [ngStyle]="{'color': item.color}" class="type">{{item.icon}}</mat-icon>
+            {{item.name}}</button>
+          }
         </mat-menu>
       </div>
     </div>
@@ -44,7 +53,8 @@
       <!-- Tel Edit Menu -->
       @if (item.tel.length > 0) {
       <div (mouseover)="hoverAction('tel')" (mouseout)="mouseOutAction();" class="cell email-cell"><a
-          [href]="'tel:' + item.email">{{item.tel}}</a><mat-icon (click)="tableControl.deleteTel(item.id, 'activeContacts')"
+          [href]="'tel:' + item.email">{{item.tel}}</a><mat-icon
+          (click)="tableControl.deleteTel(item.id, 'activeContacts')"
           [ngClass]="{'d-none': !phoneHovered}">close</mat-icon>
       </div>
       } @else {
@@ -54,18 +64,19 @@
           class="default-icon">phone_iphone</mat-icon>
       </div>
       } @else {
-      <div class="cell" >
-        <input class="dialog-input" type="number" (click)="tableControl.preventDefault($event)" (keydown)="tableControl.saveTelData($event, item.id, 'activeContacts')"
-          placeholder="0 (123) 456 7890">
+      <div class="cell">
+        <input class="dialog-input" type="number" (click)="tableControl.preventDefault($event)"
+          (keydown)="tableControl.saveTelData($event, item.id, 'activeContacts')" placeholder="0 (123) 456 7890">
       </div>
       }
       }
       <!-- Email Edit Menu -->
       @if (item.email.length == 0) {
       <div class="cell email-cell add-button">
-        <mat-icon (click)="tableControl.openEmailDialog($event, 'activeContacts', item.id, $event)">add_box</mat-icon><mat-icon
+        <mat-icon
+          (click)="tableControl.openEmailDialog($event, 'activeContacts', item.id, $event)">add_box</mat-icon><mat-icon
           class="default-icon">mail</mat-icon>
-         <div (click)="tableControl.closeEmailDialog('activeContacts', item.id)" class="input-dialog"
+        <div (click)="tableControl.closeEmailDialog('activeContacts', item.id)" class="input-dialog"
           [ngClass]="{'d-none': !item.emailEdit}">
           <div (click)="tableControl.preventDefault($event)"
             [ngStyle]="{'top': tableControl.dialogPositionY + 'px', 'left': tableControl.dialogPositionX + 'px'}">

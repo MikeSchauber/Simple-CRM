@@ -120,9 +120,10 @@ export class TableControlService {
     this.allCheckedInactive = false;
   }
 
-  async addColumn(i: number, tableCollection: string, contactCollection: string) {
+  async addColumn(i: number, tableCollection: string, contactCollection: string, columnId: string) {
     if (this.dataManagement.activeContacts.length != 0 || this.dataManagement.inactiveContacts.length != 0) {
       let newColumn = new Column(this.dataBackup.availableColumnTypes[i]);
+      newColumn.columnId = columnId;
       await this.addColumnToTableInCloud(tableCollection, newColumn);
       await this.addColumnToContactsInCloud(contactCollection, newColumn);
     } else {
@@ -145,6 +146,10 @@ export class TableControlService {
       batch.update(doc.ref, { newColumns: arrayUnion(newColumn.toJson()) });
     });
     await batch.commit();
+  }
+
+  async deleteColumn(tableCollection: string, contactCollection: string, id: string) {
+
   }
 
   async deleteTel(i: string, collection: string) {
