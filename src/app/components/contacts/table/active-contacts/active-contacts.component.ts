@@ -52,21 +52,27 @@ export class ActiveContactsComponent {
   }
 
   hoverAction(action: string | number) {
+    console.log(action);
+
     if (action == 'email') {
       this.emailHovered = true;
     } else if (action == 'tel') {
       this.phoneHovered = true;
-    } else if (action == 0 || action == 1 || action == 2) {
+    } else if (action == 3 || action == 4 || action == 5) {
       this.columnHovered[action] = true;
+    } else {
+      this.mouseOutAction();
     }
   }
 
   mouseOutAction() {
     this.emailHovered = false;
     this.phoneHovered = false;
-    this.columnHovered.forEach((e) => {
-      e = false;
-    });
+    this.columnHovered = [
+      false,
+      false,
+      false
+    ]
   }
 
   getValue(event: Event): string {

@@ -12,16 +12,16 @@
         </section>
       </div>
       @for(item of this.dataManagement.activeTableColumns; track $index; let i = $index) {
-      @if (item.index > 2) {
-        <div class="cell">
+      @if (item.index <= 2) {
+        <div class="cell header-cell">
           <span>{{item.name}}</span>
         </div>
       } @else {
-        <div class="cell" (mouseover)="hoverAction(i)" (mouseout)="mouseOutAction()">
+        <div class="cell columnCell" (mouseover)="hoverAction(i)" (mouseleave)="mouseOutAction()">
           <span>{{item.name}}</span> 
           <mat-icon
           (click)="tableControl.deleteColumn('activeTableColumns', 'activeContacts', item.id)"
-          [ngClass]="{'d-none': !columnHovered[i]}">close</mat-icon>
+          [ngClass]="{'d-none': !columnHovered[i]}">more_vert</mat-icon>
         </div>
       }
       }

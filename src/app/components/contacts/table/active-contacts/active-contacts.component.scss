@@ -92,6 +92,29 @@ input {
   border: 1px solid #ddd;
 }
 
+.header-cell {
+  justify-content: flex-start;
+}
+
+.columnCell {
+  @include dFlex($fd: row, $jc: space-between);
+  mat-icon {
+    @include dFlex();
+    text-align: center;
+    background-color: lightgrey;
+    transition: all 125ms ease-in-out;
+    cursor: pointer;
+    border-radius: 50%;
+    color: $darkcolor;
+    font-size: 20px;
+    width: 28px;
+    height: 28px;
+    &:hover {
+      background-color: rgb(194, 194, 194);
+    }
+  }
+}
+
 .checkbox-cell {
   min-width: 50px;
   flex: 0;
@@ -137,7 +160,6 @@ input {
 .add-button {
   @include dFlex($fd: row, $g: 8px);
   color: $darkcolor;
-
   mat-icon {
     @include dFlex();
     height: 28px;
