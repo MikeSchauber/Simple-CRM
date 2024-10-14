@@ -7,6 +7,8 @@ import {
   deleteDoc,
   doc,
   onSnapshot,
+  orderBy,
+  query,
   QuerySnapshot,
   updateDoc,
 } from 'firebase/firestore';
@@ -49,24 +51,24 @@ export class DataManagementService implements OnDestroy {
   }
 
   async addBackupData() {
-    for (const contact of this.dataBackup.activeContacts) {
-      await addDoc(this.getDocRef('activeContacts'), contact);
-    }
-    for (const contact of this.dataBackup.inactiveContacts) {
-      await addDoc(this.getDocRef('inactiveContacts'), contact);
-    }
-    for (const column of this.dataBackup.activeTableColumns) {
-      await addDoc(this.getDocRef('activeTableColumns'), column);
-    }
-    for (const column of this.dataBackup.inactiveTableColumns) {
-      await addDoc(this.getDocRef('inactiveTableColumns'), column);
-    }
-    for (const deal of this.dataBackup.deals) {
-      await addDoc(this.getDocRef('deals'), deal);
-    }
-    for (const column of this.dataBackup.availableColumnTypes) {
-      await addDoc(this.getDocRef('availableTableColumns'), column);
-    }
+    // for (const contact of this.dataBackup.activeContacts) {
+    //   await addDoc(this.getDocRef('activeContacts'), contact);
+    // }
+    // for (const contact of this.dataBackup.inactiveContacts) {
+    //   await addDoc(this.getDocRef('inactiveContacts'), contact);
+    // }
+    // for (const column of this.dataBackup.activeTableColumns) {
+    //   await addDoc(this.getDocRef('activeTableColumns'), column);
+    // }
+    // for (const column of this.dataBackup.inactiveTableColumns) {
+    //   await addDoc(this.getDocRef('inactiveTableColumns'), column);
+    // }
+    // for (const deal of this.dataBackup.deals) {
+    //   await addDoc(this.getDocRef('deals'), deal);
+    // }
+    // for (const column of this.dataBackup.availableColumnTypes) {
+    //   await addDoc(this.getDocRef('availableTableColumns'), column);
+    // }
   }
 
 
@@ -80,22 +82,34 @@ export class DataManagementService implements OnDestroy {
   }
 
   subList(list: string) {
-    return onSnapshot(this.getDocRef(list), (querySnapshot) => {
-      if (list == 'activeContacts') {
+    let q = this.querySortedDocRef(list);
+    return onSnapshot(q, (querySnapshot) => {
+      if (list === 'activeContacts') {
         this.activeContacts = this.pushIntoEachArray(querySnapshot);
-      } else if (list == 'inactiveContacts') {
+      } else if (list === 'inactiveContacts') {
         this.inactiveContacts = this.pushIntoEachArray(querySnapshot);
-      } else if (list == 'activeTableColumns') {
+      } else if (list === 'activeTableColumns') {
         this.activeTableColumns = this.pushIntoEachArray(querySnapshot);
-      } else if (list == 'inactiveTableColumns') {
+      } else if (list === 'inactiveTableColumns') {
         this.inactiveTableColumns = this.pushIntoEachArray(querySnapshot);
-      } else if (list == 'deals') {
+      } else if (list === 'deals') {
         this.deals = this.pushIntoEachArray(querySnapshot);
-      } else if (list == 'availableTableColumns') {
+      } else if (list === 'availableTableColumns') {
         this.availableTableColumns = this.pushIntoEachArray(querySnapshot);
       }
     });
   }
+
+  querySortedDocRef(list: string) {
+    if (list === 'activeTableColumns' || list === 'inactiveTableColumns') {
+      return query(this.getDocRef(list), orderBy('index'));
+    } else if (list === 'activeContacts' || 'inactiveContacts') {
+      return query(this.getDocRef(list), orderBy('name'));
+    } else {
+      return this.getDocRef(list);
+    }
+  }
+
 
   pushIntoEachArray(querySnapshot: QuerySnapshot) {
     let arrayData: any[] = [];
@@ -103,9 +117,7 @@ export class DataManagementService implements OnDestroy {
       let data = e.data();
       data['id'] = e.id;
       arrayData.push(data);
-    }); 
-    console.log(arrayData);
-       
+    });
     return arrayData;
   }
 
