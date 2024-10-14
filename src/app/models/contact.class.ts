@@ -15,7 +15,7 @@ export class Contact {
     {
       name: '',
       type: '',
-      index: 0,
+      index: 99,
       icon: '',
       color: '',
       availableDropdowns: [{ name: '', color: '' }],
