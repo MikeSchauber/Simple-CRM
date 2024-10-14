@@ -25,7 +25,7 @@
         </button>
         <mat-menu #menu="matMenu">
           @for (item of dataBackup.availableColumnTypes; track item; let i = $index) {
-          <button (click)="tableControl.addColumn(i, 'inactiveTableColumns', 'activeContacts')" mat-menu-item>
+          <button (click)="tableControl.addColumn(i, 'inactiveTableColumns', 'inactiveContacts')" mat-menu-item>
             <mat-icon [ngStyle]="{'color': item.color}" class="type">{{item.icon}}</mat-icon>
             {{item.name}}</button>
           }

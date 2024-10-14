@@ -45,16 +45,19 @@ export class DataBackupService {
 
   activeTableColumns = [
     {
+      index: 0,
       name: 'Contacts',
       type: 'text',
       availableDropdowns: [{}],
     },
     {
+      index: 1,
       name: 'Tel.',
       type: 'href',
       availableDropdowns: [{}],
     },
     {
+      index: 2,
       name: 'Email',
       type: 'href',
       availableDropdowns: [{}],
@@ -63,16 +66,19 @@ export class DataBackupService {
 
   inactiveTableColumns = [
     {
+      index: 0,
       name: 'Contacts',
       type: 'text',
       availableDropdowns: [{}],
     },
     {
+      index: 1,
       name: 'Tel.',
       type: 'href',
       availableDropdowns: [{}],
     },
     {
+      index: 2,
       name: 'Email',
       type: 'href',
       availableDropdowns: [{}],

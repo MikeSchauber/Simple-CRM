@@ -103,7 +103,9 @@ export class DataManagementService implements OnDestroy {
       let data = e.data();
       data['id'] = e.id;
       arrayData.push(data);
-    });
+    }); 
+    console.log(arrayData);
+       
     return arrayData;
   }
 
