@@ -5,7 +5,16 @@ import { Column } from '../models/column.class';
 import { DataBackupService } from './data-backup.service';
 import { Firestore } from '@angular/fire/firestore';
 import { DataManagementService } from './data-management.service';
-import { addDoc, arrayUnion, collection, deleteDoc, doc, getDocs, updateDoc, writeBatch } from 'firebase/firestore';
+import {
+  addDoc,
+  arrayUnion,
+  collection,
+  deleteDoc,
+  doc,
+  getDocs,
+  updateDoc,
+  writeBatch,
+} from 'firebase/firestore';
 
 @Injectable({
   providedIn: 'root',
@@ -20,20 +29,23 @@ export class TableControlService {
   newVisibleMailActive: string = '';
   newVisibleMailInactive: string = '';
   editOpen: boolean = false;
+  noValidEmail: boolean = false;
 
   firestore: Firestore = inject(Firestore);
 
   constructor(
     private dataBackup: DataBackupService,
     private dataManagement: DataManagementService
-  ) { }
+  ) {}
 
   preventDefault(event: MouseEvent) {
     event.stopPropagation();
   }
 
   checkAllContacts(status: string) {
-    status == 'activeContacts' ? this.checkAllActives() : this.checkAllInactives();
+    status == 'activeContacts'
+      ? this.checkAllActives()
+      : this.checkAllInactives();
   }
 
   checkAllActives() {
@@ -89,25 +101,25 @@ export class TableControlService {
   }
 
   async keyboardAddContact(event: KeyboardEvent, coll: string) {
-    let nameToAdd: string = "";
-    coll == 'activeContacts' ? nameToAdd = this.newContactActive : nameToAdd = this.newContactInactive
+    let nameToAdd: string = '';
+    coll == 'activeContacts'
+      ? (nameToAdd = this.newContactActive)
+      : (nameToAdd = this.newContactInactive);
     if (event.keyCode === 13 && nameToAdd.length != 0) {
       let user = new Contact(nameToAdd);
-      await addDoc(collection(this.firestore, coll),
-        user.toJson()
-      );
+      await addDoc(collection(this.firestore, coll), user.toJson());
       this.clearAllInputs();
     }
   }
 
   async mouseAddContact(coll: string) {
-    let nameToAdd: string = "";
-    coll == 'inactiveContacts' ? nameToAdd = this.newContactActive : nameToAdd = this.newContactInactive
+    let nameToAdd: string = '';
+    coll == 'inactiveContacts'
+      ? (nameToAdd = this.newContactActive)
+      : (nameToAdd = this.newContactInactive);
     if (nameToAdd.length != 0) {
       let user = new Contact(nameToAdd);
-      await addDoc(collection(this.firestore, coll),
-        user.toJson()
-      );
+      await addDoc(collection(this.firestore, coll), user.toJson());
       this.clearAllInputs();
     }
   }
@@ -119,24 +131,36 @@ export class TableControlService {
     this.allCheckedInactive = false;
   }
 
-  async addColumn(i: number, tableCollection: string, contactCollection: string, columnId: string) {
-    if (this.dataManagement.activeContacts.length != 0 || this.dataManagement.inactiveContacts.length != 0) {
+  async addColumn(
+    i: number,
+    tableCollection: string,
+    contactCollection: string,
+    columnId: string
+  ) {
+    if (
+      this.dataManagement.activeContacts.length != 0 ||
+      this.dataManagement.inactiveContacts.length != 0
+    ) {
       let newColumn = new Column(this.dataBackup.availableColumnTypes[i]);
       newColumn.columnId = columnId;
       await this.addColumnToTableInCloud(tableCollection, newColumn);
       await this.addColumnToContactsInCloud(contactCollection, newColumn);
     } else {
-      console.error("There are no Contacts to add a Column into");
+      console.error('There are no Contacts to add a Column into');
     }
   }
 
   async addColumnToTableInCloud(tableCollection: string, newColumn: Column) {
-    await addDoc(collection(this.firestore, tableCollection),
+    await addDoc(
+      collection(this.firestore, tableCollection),
       newColumn.toJson()
     );
   }
 
-  async addColumnToContactsInCloud(contactCollection: string, newColumn: Column) {
+  async addColumnToContactsInCloud(
+    contactCollection: string,
+    newColumn: Column
+  ) {
     const collectionSnapshot = getDocs(
       this.dataManagement.getDocRef(contactCollection)
     );
@@ -147,9 +171,11 @@ export class TableControlService {
     await batch.commit();
   }
 
-  async deleteColumn(tableCollection: string, contactCollection: string, id: string) {
-
-  }
+  async deleteColumn(
+    tableCollection: string,
+    contactCollection: string,
+    id: string
+  ) {}
 
   async deleteTel(i: string, collection: string) {
     await updateDoc(this.dataManagement.getSingleDocRef(collection, i), {
@@ -209,7 +235,6 @@ export class TableControlService {
     e.stopPropagation();
     if (!this.editOpen) {
       this.editOpen = true;
-      console.log(window.scrollY);
       this.dialogPositionY = (14 + event.clientY).toString();
       this.dialogPositionX = (event.clientX - 453).toString();
       await updateDoc(this.dataManagement.getSingleDocRef(collection, i), {
@@ -224,28 +249,46 @@ export class TableControlService {
     });
   }
 
-  async onInputKeydown(event: any, i: string, emailValue: string, coll: string
+  validateEmail(email: string) {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  }
+
+  async onInputKeydown(
+    event: any,
+    i: string,
+    emailValue: string,
+    coll: string
   ) {
-    if (event.keyCode == 13) {
-      if (event.target.id == 'visible') {
-        await updateDoc(this.dataManagement.getSingleDocRef(coll, i), {
-          email: emailValue,
-        });
-      } else {
-        await updateDoc(this.dataManagement.getSingleDocRef(coll, i), {
-          email: event.target.value,
-        });
+    if (this.validateEmail(emailValue)) {
+      this.noValidEmail = false;
+      if (event.keyCode == 13) {
+        if (event.target.id == 'visible') {
+          await updateDoc(this.dataManagement.getSingleDocRef(coll, i), {
+            email: emailValue,
+          });
+        } else {
+          await updateDoc(this.dataManagement.getSingleDocRef(coll, i), {
+            email: event.target.value,
+          });
+        }
+        this.closeEmailDialog(coll, i);
       }
-      this.closeEmailDialog(coll, i);
+    } else {
+      this.noValidEmail = true;
     }
   }
 
-  async visibleEmail(event: any, i: string, emailValue: string, coll: string
-  ) {
-    this.newVisibleMailActive = event.target.value;
-    await updateDoc(this.dataManagement.getSingleDocRef(coll, i), {
-      visibleEmail: event.target.value,
-    });
-    this.onInputKeydown(event, i, emailValue, coll);
+  async visibleEmail(event: any, i: string, emailValue: string, coll: string) {
+    if (this.validateEmail(emailValue)) {
+      this.noValidEmail = false;
+      this.newVisibleMailActive = event.target.value;
+      await updateDoc(this.dataManagement.getSingleDocRef(coll, i), {
+        visibleEmail: event.target.value,
+      });
+      this.onInputKeydown(event, i, emailValue, coll);
+    } else {
+      this.noValidEmail = true;
+    }
   }
 }
