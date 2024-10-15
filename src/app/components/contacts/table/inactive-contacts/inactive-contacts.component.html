@@ -2,9 +2,12 @@
   <div class="button-container">
     <button class="head-button-container" mat-button>
       <mat-icon>unarchive</mat-icon>
-      <span>Active</span></button>
-    <button class="head-button-container" mat-button
-      (click)="tableControl.deleteContacts('inactiveContacts')"><mat-icon>delete</mat-icon>Trash</button>
+      <span>Active</span>
+    </button>
+    <button class="head-button-container" mat-button (click)="tableControl.deleteContacts('inactiveContacts')">
+      <mat-icon>delete</mat-icon>
+      <span>Trash</span>
+    </button>
   </div>
   <div id="customers" class="table">
     <!-- Table Header -->
@@ -15,10 +18,18 @@
         </section>
       </div>
       @for(item of this.dataManagement.inactiveTableColumns; track $index; let i = $index) {
-      <div class="cell header-cell">
-        <span>{{item.name}}</span>
-      </div>
-      }
+        @if (item.type == "dropdown" && item.used) {
+        <div class="cell columnCell" (mouseover)="hoverAction('none', i)" (mouseleave)="mouseOutAction()">
+          <span>{{item.name}}</span>
+          <mat-icon (click)="tableControl.deleteAvailableColumn(item.columnId)"
+            [ngClass]="{'d-none': !columnHovered[i]}">more_vert</mat-icon>
+        </div>
+        } @else if (item.index <= 2) {
+          <div class="cell header-cell">
+            <span>{{item.name}}</span>
+          </div>
+        }
+        }
 
       <!-- Add Column Menu -->
       <div class="cell button-container">
@@ -26,9 +37,8 @@
           <mat-icon>add</mat-icon>
         </button>
         <mat-menu #menu="matMenu">
-          @for (item of dataBackup.availableColumnTypes; track item; let i = $index) {
-          <button (click)="tableControl.addColumn('inactiveTableColumns', item.id)"
-            mat-menu-item>
+          @for (item of dataManagement.inactiveTableColumns; track item; let i = $index) {
+          <button (click)="tableControl.addColumn('inactiveTableColumns', item.id)" mat-menu-item>
             <mat-icon [ngStyle]="{'color': item.color}" class="type">{{item.icon}}</mat-icon>
             {{item.name}}</button>
           }
@@ -99,15 +109,14 @@
           (click)="tableControl.deleteEmail(item.id, 'inactiveContacts');">close</mat-icon>
       </div>
       }
+
+      <!-- Dropdown Cells -->
       @for (item of dataManagement.inactiveTableColumns; track $index) {
-      @if (item.type == "dropdown") {
+      @if (item.type == "dropdown" && item.used) {
       <div class="cell">dropdown</div>
       }
       }
-      @if (dataManagement.availableTableColumns.length > 0) {
       <div class="cell"></div>
-      }
-
     </div>
     }
     }
@@ -123,13 +132,11 @@
       <div class="cell typ-cell"></div>
       <div class="cell"></div>
       @for (item of dataManagement.inactiveTableColumns; track $index) {
-      @if (item.type == "dropdown") {
+      @if (item.type == "dropdown" && item.used) {
       <div class="cell"></div>
       }
       }
-      @if (dataManagement.availableTableColumns.length > 0) {
       <div class="cell"></div>
-      }
 
     </div>
   </div>

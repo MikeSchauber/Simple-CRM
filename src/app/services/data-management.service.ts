@@ -21,14 +21,12 @@ export class DataManagementService implements OnDestroy {
   unsubInactiveContacts;
   unsubActiveTableColumns;
   unsubInactiveTableColumns;
-  unsubAvailableTableColumns;
   unsubDeals;
 
   activeContacts: ContactInterface[] = [];
   inactiveContacts: ContactInterface[] = [];
   activeTableColumns: ColumnInterface[] = [];
   inactiveTableColumns: ColumnInterface[] = [];
-  availableTableColumns: ColumnInterface[] = [];
   deals: DealInterface[] = [];
 
   constructor() {
@@ -36,7 +34,6 @@ export class DataManagementService implements OnDestroy {
     this.unsubInactiveContacts = this.subList('inactiveContacts');
     this.unsubActiveTableColumns = this.subList('activeTableColumns');
     this.unsubInactiveTableColumns = this.subList('inactiveTableColumns');
-    this.unsubAvailableTableColumns = this.subList('availableTableColumns');
     this.unsubDeals = this.subList('deals');
   }
 
@@ -45,7 +42,6 @@ export class DataManagementService implements OnDestroy {
     this.unsubInactiveContacts();
     this.unsubActiveTableColumns();
     this.unsubInactiveTableColumns();
-    this.unsubAvailableTableColumns();
     this.unsubDeals();
   }
 
@@ -62,8 +58,6 @@ export class DataManagementService implements OnDestroy {
         this.inactiveTableColumns = this.pushIntoEachArray(querySnapshot);
       } else if (list === 'deals') {
         this.deals = this.pushIntoEachArray(querySnapshot);
-      } else if (list === 'availableTableColumns') {
-        this.availableTableColumns = this.pushIntoEachArray(querySnapshot);
       }
     });
   }

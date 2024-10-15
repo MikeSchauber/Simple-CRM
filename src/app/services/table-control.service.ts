@@ -150,9 +150,9 @@ export class TableControlService {
         console.log(newColumn);
         await this.addColumnToTableInCloud(tableCollection, newColumn);
         await this.deleteAvailableColumn(columnId);
-      } else {
-        console.error('There are no Contacts to add a Column into');
       }
+    } else {
+      console.error('There are no Contacts to add a Column into');
     }
   }
 

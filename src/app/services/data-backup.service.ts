@@ -6,7 +6,40 @@ import { DataManagementService } from './data-management.service';
   providedIn: 'root',
 })
 export class DataBackupService {
-  availableColumnTypes = [
+  activeTableColumns = [
+    {
+      index: 0,
+      name: 'Contacts',
+      type: 'text',
+      columnId: '',
+      id: '',
+      icon: '',
+      color: '',
+      used: true,
+      availableDropdowns: [{}],
+    },
+    {
+      index: 1,
+      name: 'Tel.',
+      type: 'href',
+            columnId: '',
+      id: '',
+      icon: '',
+      color: '',
+      used: true,
+      availableDropdowns: [{}],
+    },
+    {
+      index: 2,
+      name: 'Email',
+      type: 'href',
+            columnId: '',
+      id: '',
+      icon: '',
+      color: '',
+      used: true,
+      availableDropdowns: [{}],
+    },
     {
       index: 3,
       columnId: '',
@@ -15,6 +48,7 @@ export class DataBackupService {
       type: 'dropdown',
       icon: 'supervised_user_circle',
       color: '#2196f3',
+      used: false,
       availableDropdowns: [
         { name: 'Artist', color: '#ff5722' },
         { name: 'Manager', color: '#2196f3' },
@@ -31,6 +65,7 @@ export class DataBackupService {
       type: 'dropdown',
       icon: 'bolt',
       color: '#4caf50',
+      used: false,
       availableDropdowns: [
         { name: 'Active', color: '#4caf50' },
         { name: 'Inactive', color: '#f44336' },
@@ -44,6 +79,7 @@ export class DataBackupService {
       type: 'dropdown',
       icon: 'priority_high',
       color: '#f44336',
+      used: false,
       availableDropdowns: [
         { name: 'low', color: '#8bc34a' },
         { name: 'medium', color: '#ffc107' },
@@ -52,45 +88,85 @@ export class DataBackupService {
     },
   ];
 
-  activeTableColumns = [
-    {
-      index: 0,
-      name: 'Contacts',
-      type: 'text',
-      availableDropdowns: [{}],
-    },
-    {
-      index: 1,
-      name: 'Tel.',
-      type: 'href',
-      availableDropdowns: [{}],
-    },
-    {
-      index: 2,
-      name: 'Email',
-      type: 'href',
-      availableDropdowns: [{}],
-    },
-  ];
-
   inactiveTableColumns = [
     {
       index: 0,
       name: 'Contacts',
       type: 'text',
+            columnId: '',
+      id: '',
+      icon: '',
+      color: '',
+      used: true,
       availableDropdowns: [{}],
     },
     {
       index: 1,
       name: 'Tel.',
       type: 'href',
+            columnId: '',
+      id: '',
+      icon: '',
+      color: '',
+      used: true,
       availableDropdowns: [{}],
     },
     {
       index: 2,
       name: 'Email',
       type: 'href',
+            columnId: '',
+      id: '',
+      icon: '',
+      color: '',
+      used: true,
       availableDropdowns: [{}],
+    },
+    {
+      index: 3,
+      columnId: '',
+      id: '',
+      name: 'Type',
+      type: 'dropdown',
+      icon: 'supervised_user_circle',
+      color: '#2196f3',
+      used: false,
+      availableDropdowns: [
+        { name: 'Artist', color: '#ff5722' },
+        { name: 'Manager', color: '#2196f3' },
+        { name: 'Lead', color: '#4caf50' },
+        { name: 'Partner', color: '#9c27b0' },
+        { name: 'Customer', color: '#ffeb3b' },
+      ],
+    },
+    {
+      index: 4,
+      columnId: '',
+      id: '',
+      name: 'Status',
+      type: 'dropdown',
+      icon: 'bolt',
+      color: '#4caf50',
+      used: false,
+      availableDropdowns: [
+        { name: 'Active', color: '#4caf50' },
+        { name: 'Inactive', color: '#f44336' },
+      ],
+    },
+    {
+      index: 5,
+      columnId: '',
+      id: '',
+      name: 'Priority',
+      type: 'dropdown',
+      icon: 'priority_high',
+      color: '#f44336',
+      used: false,
+      availableDropdowns: [
+        { name: 'low', color: '#8bc34a' },
+        { name: 'medium', color: '#ffc107' },
+        { name: 'high', color: '#f44336' },
+      ],
     },
   ];
 
@@ -272,9 +348,6 @@ export class DataBackupService {
     // }
     // for (const deal of this.deals) {
     //   await addDoc(this.dataManagement.getDocRef('deals'), deal);
-    // }
-    // for (const column of this.availableColumnTypes) {
-    //   await addDoc(this.dataManagement.getDocRef('availableTableColumns'), column);
     // }
   }
 }
