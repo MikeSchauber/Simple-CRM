@@ -19,7 +19,7 @@
     } @else {
     <div class="cell columnCell" (mouseover)="hoverAction('none', i)" (mouseleave)="mouseOutAction()">
       <span>{{item.name}}</span>
-      <mat-icon (click)="tableControl.deleteColumn('activeTableColumns', 'activeContacts', item.id)"
+      <mat-icon (click)="tableControl.deleteAvailableColumn(item.columnId)"
         [ngClass]="{'d-none': !columnHovered[i]}">more_vert</mat-icon>
     </div>
     }
@@ -31,10 +31,12 @@
       </button>
       <mat-menu #menu="matMenu">
         @for (item of this.dataManagement.availableTableColumns; track item; let i = $index) {
-        <button (click)="tableControl.addColumn(i, 'activeTableColumns', 'activeContactCells', item.id)"
-          class="matMenu-button" mat-menu-item>
+        @if (!item.used) {
+        <button (click)="tableControl.addColumn('activeTableColumns', item.id)" class="matMenu-button" mat-menu-item>
           <mat-icon [ngStyle]="{'color': item.color}" class="type">{{item.icon}}</mat-icon>
           {{item.name}}</button>
+        }
+
         }
       </mat-menu>
     </div>
@@ -105,7 +107,7 @@
     }
     @for (item of dataManagement.activeTableColumns; track $index) {
     @if (item.type == "dropdown") {
-    <div class="cell">dropdown</div>
+    <div class="cell">{{item.type}}</div>
     }
     }
     @if (dataManagement.availableTableColumns.length > 0) {
@@ -125,13 +127,13 @@
     <div class="cell typ-cell"></div>
     <div class="cell"></div>
     @for (item of dataManagement.activeTableColumns; track $index) {
-      @if (item.type == "dropdown") {
-      <div class="cell"></div>
-      }
-      }
-      @if (dataManagement.availableTableColumns.length > 0) {
-      <div class="cell"></div>
-      }
+    @if (item.type == "dropdown") {
+    <div class="cell"></div>
+    }
+    }
+    @if (dataManagement.availableTableColumns.length > 0) {
+    <div class="cell"></div>
+    }
 
   </div>
 </div>

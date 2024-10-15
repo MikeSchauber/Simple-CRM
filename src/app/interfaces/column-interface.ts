@@ -1,6 +1,6 @@
 import { Dropdown } from "./dropdown";
 
-export interface CellInterface {
+export interface ColumnInterface {
     name: string,
     type: string,
     index: number,
@@ -8,5 +8,6 @@ export interface CellInterface {
     columnId: string,
     icon: string,
     color: string,
+    used: boolean,
     availableDropdowns: Dropdown[],
 }

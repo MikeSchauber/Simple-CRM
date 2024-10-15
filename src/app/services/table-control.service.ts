@@ -11,10 +11,12 @@ import {
   collection,
   deleteDoc,
   doc,
+  getDoc,
   getDocs,
   updateDoc,
   writeBatch,
 } from 'firebase/firestore';
+import { ColumnInterface } from '../interfaces/column-interface';
 
 @Injectable({
   providedIn: 'root',
@@ -131,22 +133,34 @@ export class TableControlService {
     this.allCheckedInactive = false;
   }
 
-  async addColumn(
-    i: number,
-    tableCollection: string,
-    cellCollection: string,
-    columnId: string
-  ) {
+  async addColumn(tableCollection: string, columnId: string) {
     if (
       this.dataManagement.activeContacts.length != 0 ||
       this.dataManagement.inactiveContacts.length != 0
     ) {
-      let newColumn = new Column(this.dataBackup.availableColumnTypes[i]);
-      newColumn.columnId = columnId;
-      await this.addColumnToTableInCloud(tableCollection, newColumn);
-      await this.addColumnToContactsInCloud(cellCollection, newColumn);
-    } else {
-      console.error('There are no Contacts to add a Column into');
+      const docSnapshot = await getDoc(
+        this.dataManagement.getSingleDocRef('availableTableColumns', columnId)
+      );
+      if (docSnapshot.exists()) {
+        const data = docSnapshot.data();
+        const columnData = {
+          name: data['name'],
+          type: data['type'],
+          index: data['index'],
+          columnId: docSnapshot.id,
+          id: data['id'],
+          icon: data['icon'],
+          color: data['color'],
+          used: data['used'],
+          availableDropdowns: data['availableDropdowns'],
+        };
+        const newColumn = new Column(columnData);
+        console.log(newColumn);
+        await this.addColumnToTableInCloud(tableCollection, newColumn);
+        await this.deleteAvailableColumn(columnId);
+      } else {
+        console.error('There are no Contacts to add a Column into');
+      }
     }
   }
 
@@ -157,21 +171,17 @@ export class TableControlService {
     );
   }
 
-  async addColumnToContactsInCloud(cellCollection: string, newColumn: Column) {
-    await addDoc(
-      collection(this.firestore, cellCollection),
-      newColumn.toJson()
+  async deleteAvailableColumn(id: string) {
+    await updateDoc(
+      this.dataManagement.getSingleDocRef('availableTableColumns', id),
+      {
+        used: true,
+      }
     );
   }
 
-  async deleteColumn(
-    tableCollection: string,
-    contactCollection: string,
-    id: string
-  ) {}
-
-  async deleteTel(i: string, collection: string) {
-    await updateDoc(this.dataManagement.getSingleDocRef(collection, i), {
+  async deleteTel(id: string, collection: string) {
+    await updateDoc(this.dataManagement.getSingleDocRef(collection, id), {
       tel: '',
     });
   }

@@ -10,7 +10,7 @@ import {
 } from 'firebase/firestore';
 import { DealInterface } from '../interfaces/deal-interface';
 import { ContactInterface } from '../interfaces/contact-interface';
-import { CellInterface } from '../interfaces/cell-interface';
+import { ColumnInterface } from '../interfaces/column-interface';
 
 @Injectable({
   providedIn: 'root',
@@ -26,9 +26,9 @@ export class DataManagementService implements OnDestroy {
 
   activeContacts: ContactInterface[] = [];
   inactiveContacts: ContactInterface[] = [];
-  activeTableColumns: CellInterface[] = [];
-  inactiveTableColumns: CellInterface[] = [];
-  availableTableColumns: CellInterface[] = [];
+  activeTableColumns: ColumnInterface[] = [];
+  inactiveTableColumns: ColumnInterface[] = [];
+  availableTableColumns: ColumnInterface[] = [];
   deals: DealInterface[] = [];
 
   constructor() {
