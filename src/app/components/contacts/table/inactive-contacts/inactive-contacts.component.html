@@ -66,38 +66,39 @@
       </div>
       }
       }
-      <!-- Email Edit Menu -->
-      @if (item.email.length == 0) {
-      <div class="cell email-cell add-button">
-        <mat-icon (click)="tableControl.openEmailDialog($event, 'inactiveContacts', item.id, $event)">add_box</mat-icon>
-        <mat-icon class="default-icon">mail</mat-icon>
+     <!-- Email Edit Menu -->
+     @if (item.email.length == 0) {
+      <form class="cell email-cell add-button">
+        <mat-icon
+          (click)="tableControl.openEmailDialog($event, 'inactiveContacts', item.id, $event)">add_box</mat-icon><mat-icon
+          class="default-icon">mail</mat-icon>
         <div (click)="tableControl.closeEmailDialog('inactiveContacts', item.id)" class="input-dialog"
           [ngClass]="{'d-none': !item.emailEdit}">
           <div (click)="tableControl.preventDefault($event)"
             [ngStyle]="{'top': tableControl.dialogPositionY + 'px', 'left': tableControl.dialogPositionX + 'px'}">
             <span>Add a new email-adress</span>
-            <input class="dialog-input" placeholder="Add email" #emailInput
+            <input class="dialog-input" [ngClass]="{'no-valid-email': tableControl.noValidEmail}" placeholder="Add email" type="email" #emailInput
               (keydown)="tableControl.onInputKeydown($event, item.id, emailInput.value, 'inactiveContacts')">
             <span>Displayed text</span>
-            <input class="dialog-input" id="visible" placeholder="(optional)"
+            <input class="dialog-input" type="text" id="visible" placeholder="(optional)"
               (keyup)="tableControl.visibleEmail($event, item.id, emailInput.value, 'inactiveContacts')">
           </div>
         </div>
-      </div>
+      </form>
       <!-- Email Data -->
       } @else {
       <div (mouseover)="hoverAction('email', i)" (mouseout)="mouseOutAction();" class="cell email-cell"><a
           [href]="'mailto:' + item.email">
-          @if (item.visibleEmail.length > 0) {
-          {{item.visibleEmail}}
-          } @else {
+          @if (item.email.length > 0) {
           {{item.email}}
+          } @else {
+          {{item.visibleEmail}}
           }
         </a><mat-icon [ngClass]="{'d-none': !item.emailHovered}"
           (click)="tableControl.deleteEmail(item.id, 'inactiveContacts');">close</mat-icon>
       </div>
       }
-      @for (item of dataManagement.inactiveContactCells; track $index) {
+      @for (item of dataManagement.activeContactCells; track $index) {
       <div class="cell"></div>
       }
     </div>
