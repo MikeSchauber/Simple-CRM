@@ -20,7 +20,7 @@
       @if (item.type == "dropdown" && item.used) {
       <div class="cell columnCell" (mouseover)="hoverAction('none', i)" (mouseleave)="mouseOutAction()">
         <span>{{item.name}}</span>
-        <mat-icon (click)="tableControl.deleteAvailableColumn(item.columnId)"
+        <mat-icon (click)="tableControl.deleteColumn('activeTableColumns', item.id)"
           [ngClass]="{'d-none': !columnHovered[i]}">more_vert</mat-icon>
       </div>
       } @else if (item.index <= 2) {

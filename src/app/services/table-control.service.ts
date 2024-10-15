@@ -140,48 +140,22 @@ export class TableControlService {
       this.dataManagement.activeContacts.length != 0 ||
       this.dataManagement.inactiveContacts.length != 0
     ) {
-      const docSnapshot = await getDoc(
-        this.dataManagement.getSingleDocRef('availableTableColumns', columnId)
+      await updateDoc(
+        this.dataManagement.getSingleDocRef(tableCollection, columnId),
+        {
+          used: true,
+        }
       );
-      if (docSnapshot.exists()) {
-        const data = docSnapshot.data();
-        const columnData = this.dataToJson(data, docSnapshot);
-        const newColumn = new Column(columnData);
-        console.log(newColumn);
-        await this.addColumnToTableInCloud(tableCollection, newColumn);
-        await this.deleteAvailableColumn(columnId);
-      }
     } else {
       console.error('There are no Contacts to add a Column into');
     }
   }
 
-  dataToJson(data: DocumentData, docSnapshot: QueryDocumentSnapshot) {
-    return {
-      name: data['name'],
-      type: data['type'],
-      index: data['index'],
-      columnId: docSnapshot.id,
-      id: data['id'],
-      icon: data['icon'],
-      color: data['color'],
-      used: data['used'],
-      availableDropdowns: data['availableDropdowns'],
-    };
-  }
-
-  async addColumnToTableInCloud(tableCollection: string, newColumn: Column) {
-    await addDoc(
-      collection(this.firestore, tableCollection),
-      newColumn.toJson()
-    );
-  }
-
-  async deleteAvailableColumn(id: string) {
+  async deleteColumn(tableCollection: string, columnId: string) {
     await updateDoc(
-      this.dataManagement.getSingleDocRef('availableTableColumns', id),
+      this.dataManagement.getSingleDocRef(tableCollection, columnId),
       {
-        used: true,
+        used: false,
       }
     );
   }
