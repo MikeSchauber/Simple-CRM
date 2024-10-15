@@ -37,10 +37,12 @@
           <mat-icon>add</mat-icon>
         </button>
         <mat-menu #menu="matMenu">
-          @for (item of dataManagement.inactiveTableColumns; track item; let i = $index) {
-          <button (click)="tableControl.addColumn('inactiveTableColumns', item.id)" mat-menu-item>
+          @for (item of this.dataManagement.inactiveTableColumns; track item; let i = $index) {
+          @if (!item.used && item.index > 2) {
+          <button (click)="tableControl.addColumn('inactiveTableColumns', item.id)" class="matMenu-button" mat-menu-item>
             <mat-icon [ngStyle]="{'color': item.color}" class="type">{{item.icon}}</mat-icon>
             {{item.name}}</button>
+          }
           }
         </mat-menu>
       </div>
