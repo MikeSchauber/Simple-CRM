@@ -11,8 +11,10 @@ import {
   collection,
   deleteDoc,
   doc,
+  DocumentData,
   getDoc,
   getDocs,
+  QueryDocumentSnapshot,
   updateDoc,
   writeBatch,
 } from 'firebase/firestore';
@@ -143,17 +145,7 @@ export class TableControlService {
       );
       if (docSnapshot.exists()) {
         const data = docSnapshot.data();
-        const columnData = {
-          name: data['name'],
-          type: data['type'],
-          index: data['index'],
-          columnId: docSnapshot.id,
-          id: data['id'],
-          icon: data['icon'],
-          color: data['color'],
-          used: data['used'],
-          availableDropdowns: data['availableDropdowns'],
-        };
+        const columnData = this.dataToJson(data, docSnapshot);
         const newColumn = new Column(columnData);
         console.log(newColumn);
         await this.addColumnToTableInCloud(tableCollection, newColumn);
@@ -162,6 +154,20 @@ export class TableControlService {
         console.error('There are no Contacts to add a Column into');
       }
     }
+  }
+
+  dataToJson(data: DocumentData, docSnapshot: QueryDocumentSnapshot) {
+    return {
+      name: data['name'],
+      type: data['type'],
+      index: data['index'],
+      columnId: docSnapshot.id,
+      id: data['id'],
+      icon: data['icon'],
+      color: data['color'],
+      used: data['used'],
+      availableDropdowns: data['availableDropdowns'],
+    };
   }
 
   async addColumnToTableInCloud(tableCollection: string, newColumn: Column) {
