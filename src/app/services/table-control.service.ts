@@ -1,24 +1,16 @@
-import { inject, Injectable, OnInit } from '@angular/core';
-import { ContactsService } from './contacts.service';
+import { inject, Injectable } from '@angular/core';
 import { Contact } from '../models/contact.class';
-import { Column } from '../models/column.class';
-import { DataBackupService } from './data-backup.service';
 import { Firestore } from '@angular/fire/firestore';
 import { DataManagementService } from './data-management.service';
 import {
   addDoc,
-  arrayUnion,
   collection,
   deleteDoc,
   doc,
-  DocumentData,
-  getDoc,
   getDocs,
-  QueryDocumentSnapshot,
   updateDoc,
   writeBatch,
 } from 'firebase/firestore';
-import { ColumnInterface } from '../interfaces/column-interface';
 
 @Injectable({
   providedIn: 'root',
@@ -38,7 +30,6 @@ export class TableControlService {
   firestore: Firestore = inject(Firestore);
 
   constructor(
-    private dataBackup: DataBackupService,
     private dataManagement: DataManagementService
   ) {}
 

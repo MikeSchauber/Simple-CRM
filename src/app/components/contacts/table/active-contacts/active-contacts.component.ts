@@ -29,19 +29,18 @@ import { DataManagementService } from '../../../../services/data-management.serv
 export class ActiveContactsComponent {
   emailHovered: boolean = false;
   phoneHovered: boolean = false;
-  columnHovered: boolean[] = [
-    false,
-    false,
-    false
-  ];
+  columnHovered: boolean[] = [false, false, false];
+  allColumnsUsed: boolean = false;
 
   constructor(
     public contactsData: ContactsService,
     public tableControl: TableControlService,
     public dataBackup: DataBackupService,
     public dataManagement: DataManagementService
-  ) {
+  ) {}
 
+  checkColumnsForUsability() {
+    
   }
 
   hoverAction(action: string, i: number) {
@@ -57,16 +56,12 @@ export class ActiveContactsComponent {
   }
 
   mouseOutAction() {
-    this.dataManagement.activeContacts.forEach(contact => {
+    this.dataManagement.activeContacts.forEach((contact) => {
       contact.emailHovered = false;
       contact.telHovered = false;
     });
     this.phoneHovered = false;
-    this.columnHovered = [
-      false,
-      false,
-      false
-    ]
+    this.columnHovered = [false, false, false];
   }
 
   getValue(event: Event): string {
