@@ -102,7 +102,7 @@
           (click)="tableControl.deleteEmail(item.id, 'activeContacts');">close</mat-icon>
       </div>
       }
-      @for (item of item.newColumns; track $index) {
+      @for (item of dataManagement.activeContactCells; track $index) {
       <div class="cell"></div>
       }
     </div>
@@ -118,11 +118,7 @@
       </div>
       <div class="cell typ-cell"></div>
       <div class="cell"></div>
-      @if (dataManagement.activeContacts[0]) {
-      @for (item of dataManagement.activeContacts[0].newColumns; track $index) {
-      <div class="cell"></div>
-      }
-      } @else {
+      @for (item of dataManagement.activeContactCells; track $index) {
       <div class="cell"></div>
       }
 

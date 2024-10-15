@@ -13,10 +13,9 @@ import {
   updateDoc,
 } from 'firebase/firestore';
 import { DataBackupService } from './data-backup.service';
-import { ColumnInterface } from '../interfaces/column-interface';
 import { DealInterface } from '../interfaces/deal-interface';
 import { ContactInterface } from '../interfaces/contact-interface';
-import { AddedCells } from '../interfaces/added-cells';
+import { CellInterface } from '../interfaces/cell-interface';
 
 @Injectable({
   providedIn: 'root',
@@ -25,6 +24,8 @@ export class DataManagementService implements OnDestroy {
   firestore: Firestore = inject(Firestore);
   unsubActiveContacts;
   unsubInactiveContacts;
+  unsubActiveContactCells;
+  unsubInactiveContactCells;
   unsubActiveTableColumns;
   unsubInactiveTableColumns;
   unsubAvailableTableColumns;
@@ -32,11 +33,11 @@ export class DataManagementService implements OnDestroy {
 
   activeContacts: ContactInterface[] = [];
   inactiveContacts: ContactInterface[] = [];
-  activeContactCells: AddedCells[] = [];
-  inactiveContactCells: AddedCells[] = [];
-  activeTableColumns: ColumnInterface[] = [];
-  inactiveTableColumns: ColumnInterface[] = [];
-  availableTableColumns: ColumnInterface[] = [];
+  activeContactCells: CellInterface[] = [];
+  inactiveContactCells: CellInterface[] = [];
+  activeTableColumns: CellInterface[] = [];
+  inactiveTableColumns: CellInterface[] = [];
+  availableTableColumns: CellInterface[] = [];
   deals: DealInterface[] = [];
 
   contactsId: string = '';
@@ -47,10 +48,14 @@ export class DataManagementService implements OnDestroy {
     // this.addBackupData();
     this.unsubActiveContacts = this.subList('activeContacts');
     this.unsubInactiveContacts = this.subList('inactiveContacts');
+    this.unsubActiveContactCells = this.subList('activeContactCells');
+    this.unsubInactiveContactCells = this.subList('inactiveContactCells');
     this.unsubActiveTableColumns = this.subList('activeTableColumns');
     this.unsubInactiveTableColumns = this.subList('inactiveTableColumns');
     this.unsubAvailableTableColumns = this.subList('availableTableColumns');
     this.unsubDeals = this.subList('deals');
+
+    
   }
 
   async addBackupData() {
@@ -72,11 +77,19 @@ export class DataManagementService implements OnDestroy {
     // for (const column of this.dataBackup.availableColumnTypes) {
     //   await addDoc(this.getDocRef('availableTableColumns'), column);
     // }
+    // for (const column of this.dataBackup.activeContactCells) {
+    //   await addDoc(this.getDocRef('activeContactCells'), column);
+    // }
+    // for (const column of this.dataBackup.inactiveContactCells) {
+    //   await addDoc(this.getDocRef('inactiveContactCells'), column);
+    // }
   }
 
   ngOnDestroy(): void {
     this.unsubActiveContacts();
     this.unsubInactiveContacts();
+    this.unsubActiveContactCells();
+    this.unsubInactiveContactCells();
     this.unsubActiveTableColumns();
     this.unsubInactiveTableColumns();
     this.unsubAvailableTableColumns();
@@ -98,9 +111,9 @@ export class DataManagementService implements OnDestroy {
         this.deals = this.pushIntoEachArray(querySnapshot);
       } else if (list === 'availableTableColumns') {
         this.availableTableColumns = this.pushIntoEachArray(querySnapshot);
-      } else if (list === 'activeContactColumns') {
+      } else if (list === 'activeContactCells') {
         this.activeContactCells = this.pushIntoEachArray(querySnapshot);
-      } else if (list === 'activeContactColumns') {
+      } else if (list === 'activeContactCells') {
         this.inactiveContactCells = this.pushIntoEachArray(querySnapshot);
       }
     });
@@ -111,6 +124,8 @@ export class DataManagementService implements OnDestroy {
       return query(this.getDocRef(list), orderBy('index'));
     } else if (list === 'activeContacts' || 'inactiveContacts') {
       return query(this.getDocRef(list), orderBy('name'));
+    } else if (list === 'activeContactCells' || 'inactiveContactCells') {
+      return query(this.getDocRef(list), orderBy('index'));
     } else {
       return this.getDocRef(list);
     }
@@ -124,26 +139,6 @@ export class DataManagementService implements OnDestroy {
       arrayData.push(data);
     });
     return arrayData;
-  }
-
-  async updateContacts(id: string) {
-    await updateDoc(this.getSingleDocRef('contacts', id), {
-      activeContacts: arrayUnion(...this.activeContacts),
-    }).catch((err) => {
-      console.error('Error updating document: ', err);
-    });
-  }
-
-  async deleteContacts(id: string) {
-    await deleteDoc(doc(this.getDocRef('activeContacts'), id));
-  }
-
-  async readDealDocs(elements: QuerySnapshot) {
-    this.deals = [];
-    elements.forEach((element) => {
-      this.dealsId = element.id;
-      this.deals = element.data()['deals'];
-    });
   }
 
   getDocRef(ref: string) {

@@ -1,28 +1,15 @@
-import { ColumnInterface } from "../interfaces/column-interface";
 
 
 export class Contact {
   emailEdit: boolean = false;
   telEdit: boolean = false;
-  id: string = "";
+  id: string = '';
   checked: boolean = false;
   status: string = '';
   name: string = '';
   tel: string = '';
   email: string = '';
   visibleEmail: string = '';
-  newColumns: ColumnInterface[] = [
-    {
-      name: '',
-      type: '',
-      index: 99,
-      id: '',
-      columnId: '',
-      icon: '',
-      color: '',
-      availableDropdowns: [{ name: '', color: '' }],
-    },
-  ];
 
   constructor(name: string) {
     this.name = name;
@@ -39,7 +26,6 @@ export class Contact {
       tel: this.tel,
       email: this.email,
       visibleMail: this.visibleEmail,
-      newColumns: this.newColumns 
-    }
+    };
   }
 }

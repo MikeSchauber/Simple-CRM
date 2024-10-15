@@ -9,11 +9,9 @@ import { MatMenuModule, MenuPositionX } from '@angular/material/menu';
 import { ContactsService } from '../../../../services/contacts.service';
 import { TableControlService } from '../../../../services/table-control.service';
 import { DataBackupService } from '../../../../services/data-backup.service';
-import { collection, doc, getDoc, limit, onSnapshot } from 'firebase/firestore';
-import { collectionData, Firestore } from '@angular/fire/firestore';
+import {  Firestore } from '@angular/fire/firestore';
 import { DataManagementService } from '../../../../services/data-management.service';
 import { Contact } from '../../../../models/contact.class';
-import { query } from '@angular/animations';
 
 @Component({
   selector: 'app-active-contacts',

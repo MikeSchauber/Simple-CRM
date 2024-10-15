@@ -6,7 +6,6 @@ import { DataBackupService } from './data-backup.service';
 import { Firestore } from '@angular/fire/firestore';
 import { DataManagementService } from './data-management.service';
 import { addDoc, arrayUnion, collection, deleteDoc, doc, getDocs, updateDoc, writeBatch } from 'firebase/firestore';
-import { ColumnInterface } from '../interfaces/column-interface';
 
 @Injectable({
   providedIn: 'root',

@@ -1,5 +1,3 @@
-import { ColumnInterface } from "./column-interface";
-
 export interface ContactInterface {
     emailEdit: boolean,
     telEdit: boolean,
@@ -10,5 +8,4 @@ export interface ContactInterface {
     tel: string,
     email: string,
     visibleEmail: string,
-    newColumns: ColumnInterface[],
 }
