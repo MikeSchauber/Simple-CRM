@@ -4,7 +4,6 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class DataBackupService {
-
   availableColumnTypes = [
     {
       index: 3,
@@ -51,7 +50,6 @@ export class DataBackupService {
     },
   ];
 
-
   activeTableColumns = [
     {
       index: 0,
@@ -94,6 +92,32 @@ export class DataBackupService {
     },
   ];
 
+  activeContactCells = [
+    {
+      index: 99,
+      columnId: '',
+      id: '',
+      name: 'Priority',
+      type: 'dropdown',
+      icon: 'priority_high',
+      color: '#f44336',
+      availableDropdowns: [],
+    },
+  ];
+
+  inactiveContactCells = [
+    {
+      index: 99,
+      columnId: '',
+      id: '',
+      name: 'empty cell',
+      type: 'empty',
+      icon: '',
+      color: '',
+      availableDropdowns: [],
+    },
+  ];
+
   activeContacts = [
     {
       id: '',
@@ -103,13 +127,6 @@ export class DataBackupService {
       tel: '0151332023',
       email: 'mike.schuner@gmx.de',
       visibleEmail: 'Mike Schuner',
-      newColumns: [
-        {
-          name: 'Position',
-          type: 'dropdown',
-          availableDropdowns: [{}],
-        },
-      ],
     },
     {
       id: '',
@@ -119,13 +136,6 @@ export class DataBackupService {
       tel: '0151432089',
       email: 'anna.schmidt@gmail.com',
       visibleEmail: 'Anna Schmidt',
-      newColumns: [
-        {
-          name: 'Position',
-          type: 'dropdown',
-          availableDropdowns: [{}],
-        },
-      ],
     },
     {
       id: '',
@@ -135,13 +145,6 @@ export class DataBackupService {
       tel: '0151532077',
       email: 'julia.bauer@yahoo.com',
       visibleEmail: 'Julia Bauer',
-      newColumns: [
-        {
-          name: 'Position',
-          type: 'dropdown',
-          availableDropdowns: [{}],
-        },
-      ],
     },
     {
       id: '',
@@ -151,13 +154,6 @@ export class DataBackupService {
       tel: '0151632066',
       email: 'felix.huber@outlook.com',
       visibleEmail: 'Felix Huber',
-      newColumns: [
-        {
-          name: 'Position',
-          type: 'dropdown',
-          availableDropdowns: [{}],
-        },
-      ],
     },
     {
       id: '',
@@ -167,13 +163,6 @@ export class DataBackupService {
       tel: '0151732055',
       email: 'lisa.klein@web.de',
       visibleEmail: 'Lisa Klein',
-      newColumns: [
-        {
-          name: 'Position',
-          type: 'dropdown',
-          availableDropdowns: [{}],
-        },
-      ],
     },
   ];
 
@@ -186,13 +175,6 @@ export class DataBackupService {
       tel: '0151832044',
       email: 'max.muster@gmx.de',
       visibleEmail: 'Max Muster',
-      newColumns: [
-        {
-          name: 'Position',
-          type: 'dropdown',
-          availableDropdowns: [{}],
-        },
-      ],
     },
     {
       id: '',
@@ -202,13 +184,6 @@ export class DataBackupService {
       tel: '0151932033',
       email: 'tina.mustermann@gmail.com',
       visibleEmail: 'Tina Mustermann',
-      newColumns: [
-        {
-          name: 'Position',
-          type: 'dropdown',
-          availableDropdowns: [{}],
-        },
-      ],
     },
     {
       id: '',
@@ -218,13 +193,6 @@ export class DataBackupService {
       tel: '0151032022',
       email: 'florian.schulz@yahoo.com',
       visibleEmail: 'Florian Schulz',
-      newColumns: [
-        {
-          name: 'Position',
-          type: 'dropdown',
-          availableDropdowns: [{}],
-        },
-      ],
     },
   ];
 
@@ -276,5 +244,5 @@ export class DataBackupService {
     },
   ];
 
-  constructor() { }
+  constructor() {}
 }

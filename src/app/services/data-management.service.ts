@@ -16,6 +16,7 @@ import { DataBackupService } from './data-backup.service';
 import { ColumnInterface } from '../interfaces/column-interface';
 import { DealInterface } from '../interfaces/deal-interface';
 import { ContactInterface } from '../interfaces/contact-interface';
+import { AddedCells } from '../interfaces/added-cells';
 
 @Injectable({
   providedIn: 'root',
@@ -31,6 +32,8 @@ export class DataManagementService implements OnDestroy {
 
   activeContacts: ContactInterface[] = [];
   inactiveContacts: ContactInterface[] = [];
+  activeContactCells: AddedCells[] = [];
+  inactiveContactCells: AddedCells[] = [];
   activeTableColumns: ColumnInterface[] = [];
   inactiveTableColumns: ColumnInterface[] = [];
   availableTableColumns: ColumnInterface[] = [];
@@ -71,7 +74,6 @@ export class DataManagementService implements OnDestroy {
     // }
   }
 
-
   ngOnDestroy(): void {
     this.unsubActiveContacts();
     this.unsubInactiveContacts();
@@ -96,6 +98,10 @@ export class DataManagementService implements OnDestroy {
         this.deals = this.pushIntoEachArray(querySnapshot);
       } else if (list === 'availableTableColumns') {
         this.availableTableColumns = this.pushIntoEachArray(querySnapshot);
+      } else if (list === 'activeContactColumns') {
+        this.activeContactCells = this.pushIntoEachArray(querySnapshot);
+      } else if (list === 'activeContactColumns') {
+        this.inactiveContactCells = this.pushIntoEachArray(querySnapshot);
       }
     });
   }
@@ -109,7 +115,6 @@ export class DataManagementService implements OnDestroy {
       return this.getDocRef(list);
     }
   }
-
 
   pushIntoEachArray(querySnapshot: QuerySnapshot) {
     let arrayData: any[] = [];
