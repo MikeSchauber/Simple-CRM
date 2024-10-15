@@ -9,7 +9,6 @@ input {
   border-color: transparent;
   border-radius: 5px;
   background: none;
-  padding: 5px;
   margin: 0;
   font: inherit;
   color: inherit;
@@ -100,6 +99,12 @@ mat-icon {
 .typ-headcell .typ-cell {
   flex: 0;
   min-width: 120px;
+}
+
+.matMenu-button {
+  mat-icon {
+    background-color: none !important;
+  }
 }
 
 .email-cell {

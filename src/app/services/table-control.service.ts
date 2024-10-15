@@ -60,6 +60,9 @@ export class TableControlService {
         e.checked = false;
       });
     }
+    console.log(this.dataManagement.inactiveContactCells);
+    console.log(this.dataManagement.activeContactCells);
+    
   }
 
   checkAllInactives() {
@@ -134,7 +137,7 @@ export class TableControlService {
   async addColumn(
     i: number,
     tableCollection: string,
-    contactCollection: string,
+    cellCollection: string,
     columnId: string
   ) {
     if (
@@ -144,7 +147,7 @@ export class TableControlService {
       let newColumn = new Column(this.dataBackup.availableColumnTypes[i]);
       newColumn.columnId = columnId;
       await this.addColumnToTableInCloud(tableCollection, newColumn);
-      await this.addColumnToContactsInCloud(contactCollection, newColumn);
+      await this.addColumnToContactsInCloud(cellCollection, newColumn);
     } else {
       console.error('There are no Contacts to add a Column into');
     }
@@ -157,18 +160,11 @@ export class TableControlService {
     );
   }
 
-  async addColumnToContactsInCloud(
-    contactCollection: string,
-    newColumn: Column
-  ) {
-    const collectionSnapshot = getDocs(
-      this.dataManagement.getDocRef(contactCollection)
+  async addColumnToContactsInCloud(cellCollection: string, newColumn: Column) {
+    await addDoc(
+      collection(this.firestore, cellCollection),
+      newColumn.toJson()
     );
-    const batch = writeBatch(this.firestore);
-    (await collectionSnapshot).forEach((doc) => {
-      batch.update(doc.ref, { newColumns: arrayUnion(newColumn.toJson()) });
-    });
-    await batch.commit();
   }
 
   async deleteColumn(

@@ -3,7 +3,7 @@
     <button class="head-button-container" mat-button>
       <mat-icon>unarchive</mat-icon>
       <span>Active</span></button>
-    <button mat-button
+    <button class="head-button-container" mat-button
       (click)="tableControl.deleteContacts('inactiveContacts')"><mat-icon>delete</mat-icon>Trash</button>
   </div>
   <div id="customers" class="table">
@@ -15,7 +15,7 @@
         </section>
       </div>
       @for(item of this.dataManagement.inactiveTableColumns; track $index; let i = $index) {
-      <div class="cell">
+      <div class="cell header-cell">
         <span>{{item.name}}</span>
       </div>
       }
@@ -27,7 +27,7 @@
         </button>
         <mat-menu #menu="matMenu">
           @for (item of dataBackup.availableColumnTypes; track item; let i = $index) {
-          <button (click)="tableControl.addColumn(i, 'inactiveTableColumns', 'inactiveContacts', item.id)"
+          <button (click)="tableControl.addColumn(i, 'inactiveTableColumns', 'inactiveContactCells', item.id)"
             mat-menu-item>
             <mat-icon [ngStyle]="{'color': item.color}" class="type">{{item.icon}}</mat-icon>
             {{item.name}}</button>
@@ -66,8 +66,8 @@
       </div>
       }
       }
-     <!-- Email Edit Menu -->
-     @if (item.email.length == 0) {
+      <!-- Email Edit Menu -->
+      @if (item.email.length == 0) {
       <form class="cell email-cell add-button">
         <mat-icon
           (click)="tableControl.openEmailDialog($event, 'inactiveContacts', item.id, $event)">add_box</mat-icon><mat-icon
@@ -77,7 +77,8 @@
           <div (click)="tableControl.preventDefault($event)"
             [ngStyle]="{'top': tableControl.dialogPositionY + 'px', 'left': tableControl.dialogPositionX + 'px'}">
             <span>Add a new email-adress</span>
-            <input class="dialog-input" [ngClass]="{'no-valid-email': tableControl.noValidEmail}" placeholder="Add email" type="email" #emailInput
+            <input class="dialog-input" [ngClass]="{'no-valid-email': tableControl.noValidEmail}"
+              placeholder="Add email" type="email" #emailInput
               (keydown)="tableControl.onInputKeydown($event, item.id, emailInput.value, 'inactiveContacts')">
             <span>Displayed text</span>
             <input class="dialog-input" type="text" id="visible" placeholder="(optional)"
@@ -98,9 +99,15 @@
           (click)="tableControl.deleteEmail(item.id, 'inactiveContacts');">close</mat-icon>
       </div>
       }
-      @for (item of dataManagement.activeContactCells; track $index) {
+      @for (item of dataManagement.inactiveTableColumns; track $index) {
+      @if (item.type == "dropdown") {
+      <div class="cell">dropdown</div>
+      }
+      }
+      @if (dataManagement.availableTableColumns.length > 0) {
       <div class="cell"></div>
       }
+
     </div>
     }
     }
@@ -115,7 +122,12 @@
       </div>
       <div class="cell typ-cell"></div>
       <div class="cell"></div>
-      @for (item of dataManagement.inactiveContactCells; track $index) {
+      @for (item of dataManagement.inactiveTableColumns; track $index) {
+      @if (item.type == "dropdown") {
+      <div class="cell"></div>
+      }
+      }
+      @if (dataManagement.availableTableColumns.length > 0) {
       <div class="cell"></div>
       }
 
