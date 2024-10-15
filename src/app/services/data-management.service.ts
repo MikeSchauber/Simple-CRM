@@ -19,8 +19,6 @@ export class DataManagementService implements OnDestroy {
   firestore: Firestore = inject(Firestore);
   unsubActiveContacts;
   unsubInactiveContacts;
-  unsubActiveContactCells;
-  unsubInactiveContactCells;
   unsubActiveTableColumns;
   unsubInactiveTableColumns;
   unsubAvailableTableColumns;
@@ -28,8 +26,6 @@ export class DataManagementService implements OnDestroy {
 
   activeContacts: ContactInterface[] = [];
   inactiveContacts: ContactInterface[] = [];
-  activeContactCells: CellInterface[] = [];
-  inactiveContactCells: CellInterface[] = [];
   activeTableColumns: CellInterface[] = [];
   inactiveTableColumns: CellInterface[] = [];
   availableTableColumns: CellInterface[] = [];
@@ -38,8 +34,6 @@ export class DataManagementService implements OnDestroy {
   constructor() {
     this.unsubActiveContacts = this.subList('activeContacts');
     this.unsubInactiveContacts = this.subList('inactiveContacts');
-    this.unsubActiveContactCells = this.subList('activeContactCells');
-    this.unsubInactiveContactCells = this.subList('inactiveContactCells');
     this.unsubActiveTableColumns = this.subList('activeTableColumns');
     this.unsubInactiveTableColumns = this.subList('inactiveTableColumns');
     this.unsubAvailableTableColumns = this.subList('availableTableColumns');
@@ -49,8 +43,6 @@ export class DataManagementService implements OnDestroy {
   ngOnDestroy(): void {
     this.unsubActiveContacts();
     this.unsubInactiveContacts();
-    this.unsubActiveContactCells();
-    this.unsubInactiveContactCells();
     this.unsubActiveTableColumns();
     this.unsubInactiveTableColumns();
     this.unsubAvailableTableColumns();
@@ -72,10 +64,6 @@ export class DataManagementService implements OnDestroy {
         this.deals = this.pushIntoEachArray(querySnapshot);
       } else if (list === 'availableTableColumns') {
         this.availableTableColumns = this.pushIntoEachArray(querySnapshot);
-      } else if (list === 'activeContactCells') {
-        this.activeContactCells = this.pushIntoEachArray(querySnapshot);
-      } else if (list === 'inactiveContactCells') {
-        this.inactiveContactCells = this.pushIntoEachArray(querySnapshot);
       }
     });
   }
@@ -85,8 +73,6 @@ export class DataManagementService implements OnDestroy {
       return query(this.getDocRef(list), orderBy('index'));
     } else if (list === 'activeContacts' || 'inactiveContacts') {
       return query(this.getDocRef(list), orderBy('name'));
-    } else if (list === 'activeContactCells' || 'inactiveContactCells') {
-      return query(this.getDocRef(list), orderBy('index'));
     } else {
       return this.getDocRef(list);
     }

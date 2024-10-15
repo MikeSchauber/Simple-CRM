@@ -94,32 +94,6 @@ export class DataBackupService {
     },
   ];
 
-  activeContactCells = [
-    {
-      index: 99,
-      columnId: '',
-      id: '',
-      name: 'Priority',
-      type: 'dropdown',
-      icon: 'priority_high',
-      color: '#f44336',
-      availableDropdowns: [],
-    },
-  ];
-
-  inactiveContactCells = [
-    {
-      index: 99,
-      columnId: '',
-      id: '',
-      name: 'empty cell',
-      type: 'empty',
-      icon: '',
-      color: '',
-      availableDropdowns: [],
-    },
-  ];
-
   activeContacts = [
     {
       id: '',
@@ -301,12 +275,6 @@ export class DataBackupService {
     // }
     // for (const column of this.availableColumnTypes) {
     //   await addDoc(this.dataManagement.getDocRef('availableTableColumns'), column);
-    // }
-    // for (const column of this.activeContactCells) {
-    //   await addDoc(this.dataManagement.getDocRef('activeContactCells'), column);
-    // }
-    // for (const column of this.inactiveContactCells) {
-    //   await addDoc(this.dataManagement.getDocRef('inactiveContactCells'), column);
     // }
   }
 }

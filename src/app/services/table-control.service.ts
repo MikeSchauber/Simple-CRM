@@ -60,9 +60,6 @@ export class TableControlService {
         e.checked = false;
       });
     }
-    console.log(this.dataManagement.inactiveContactCells);
-    console.log(this.dataManagement.activeContactCells);
-    
   }
 
   checkAllInactives() {
