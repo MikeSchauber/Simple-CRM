@@ -54,7 +54,7 @@
     <div (mouseover)="hoverAction('tel', i)" (mouseout)="mouseOutAction();" class="cell email-cell"><a
         [href]="'tel:' + item.email">{{item.tel}}</a><mat-icon
         (click)="tableControl.deleteTel(item.id, 'activeContacts')"
-        [ngClass]="{'d-none': !phoneHovered}">close</mat-icon>
+        [ngClass]="{'d-none': !item.telHovered}">close</mat-icon>
     </div>
     } @else {
     @if (!item.telEdit) {
@@ -97,7 +97,7 @@
         } @else {
         {{item.email}}
         }
-      </a><mat-icon [ngClass]="{'d-none': !emailHovered}"
+      </a><mat-icon [ngClass]="{'d-none': !item.emailHovered}"
         (click)="tableControl.deleteEmail(item.id, 'activeContacts');">close</mat-icon>
     </div>
     }

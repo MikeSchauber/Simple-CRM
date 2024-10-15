@@ -10,6 +10,8 @@ export class Contact {
   tel: string = '';
   email: string = '';
   visibleEmail: string = '';
+  emailHovered: boolean = false;
+  telHovered: boolean = false;
 
   constructor(name: string) {
     this.name = name;
@@ -26,6 +28,8 @@ export class Contact {
       tel: this.tel,
       email: this.email,
       visibleMail: this.visibleEmail,
+      emailHovered: this.emailHovered,
+      telHovered: this.telHovered,
     };
   }
 }

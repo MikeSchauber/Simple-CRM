@@ -46,9 +46,9 @@ export class ActiveContactsComponent {
 
   hoverAction(action: string, i: number) {
     if (action == 'email') {
-      this.emailHovered = true;
+      this.dataManagement.activeContacts[i].emailHovered = true;
     } else if (action == 'tel') {
-      this.phoneHovered = true;
+      this.dataManagement.activeContacts[i].telHovered = true;
     } else if (i == 3 || i == 4 || i == 5) {
       this.columnHovered[i] = true;
     } else {
@@ -57,7 +57,10 @@ export class ActiveContactsComponent {
   }
 
   mouseOutAction() {
-    this.emailHovered = false;
+    this.dataManagement.activeContacts.forEach(contact => {
+      contact.emailHovered = false;
+      contact.telHovered = false;
+    });
     this.phoneHovered = false;
     this.columnHovered = [
       false,

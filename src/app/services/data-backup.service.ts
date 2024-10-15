@@ -129,6 +129,10 @@ export class DataBackupService {
       tel: '0151332023',
       email: 'mike.schuner@gmx.de',
       visibleEmail: 'Mike Schuner',
+      emailEdit: false,
+      telEdit: false,
+      emailHovered: false,
+      telHovered: false,
     },
     {
       id: '',
@@ -138,6 +142,10 @@ export class DataBackupService {
       tel: '0151432089',
       email: 'anna.schmidt@gmail.com',
       visibleEmail: 'Anna Schmidt',
+      emailEdit: false,
+      telEdit: false,
+      emailHovered: false,
+      telHovered: false,
     },
     {
       id: '',
@@ -147,6 +155,10 @@ export class DataBackupService {
       tel: '0151532077',
       email: 'julia.bauer@yahoo.com',
       visibleEmail: 'Julia Bauer',
+      emailEdit: false,
+      telEdit: false,
+      emailHovered: false,
+      telHovered: false,
     },
     {
       id: '',
@@ -156,6 +168,10 @@ export class DataBackupService {
       tel: '0151632066',
       email: 'felix.huber@outlook.com',
       visibleEmail: 'Felix Huber',
+      emailEdit: false,
+      telEdit: false,
+      emailHovered: false,
+      telHovered: false,
     },
     {
       id: '',
@@ -165,6 +181,10 @@ export class DataBackupService {
       tel: '0151732055',
       email: 'lisa.klein@web.de',
       visibleEmail: 'Lisa Klein',
+      emailEdit: false,
+      telEdit: false,
+      emailHovered: false,
+      telHovered: false,
     },
   ];
 
@@ -177,6 +197,10 @@ export class DataBackupService {
       tel: '0151832044',
       email: 'max.muster@gmx.de',
       visibleEmail: 'Max Muster',
+      emailEdit: false,
+      telEdit: false,
+      emailHovered: false,
+      telHovered: false,
     },
     {
       id: '',
@@ -186,6 +210,10 @@ export class DataBackupService {
       tel: '0151932033',
       email: 'tina.mustermann@gmail.com',
       visibleEmail: 'Tina Mustermann',
+      emailEdit: false,
+      telEdit: false,
+      emailHovered: false,
+      telHovered: false,
     },
     {
       id: '',
@@ -195,6 +223,10 @@ export class DataBackupService {
       tel: '0151032022',
       email: 'florian.schulz@yahoo.com',
       visibleEmail: 'Florian Schulz',
+      emailEdit: false,
+      telEdit: false,
+      emailHovered: false,
+      telHovered: false,
     },
   ];
 

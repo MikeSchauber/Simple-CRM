@@ -27,14 +27,12 @@ import { DataManagementService } from '../../../../services/data-management.serv
   styleUrl: './inactive-contacts.component.scss',
 })
 export class InactiveContactsComponent {
-  emailHovered: boolean = false;
-  phoneHovered: boolean = false;
   columnHovered: boolean[] = [
     false,
     false,
     false
   ];
-  
+
   constructor(
     public contactsData: ContactsService,
     public tableControl: TableControlService,
@@ -42,17 +40,28 @@ export class InactiveContactsComponent {
     public dataManagement: DataManagementService
   ) {}
 
-  hoverAction(action: string) {
+  hoverAction(action: string, i: number) {
     if (action == 'email') {
-      this.emailHovered = true;
+      this.dataManagement.inactiveContacts[i].emailHovered = true;
     } else if (action == 'tel') {
-      this.phoneHovered = true;
+      this.dataManagement.inactiveContacts[i].telHovered = true;
+    } else if (i == 3 || i == 4 || i == 5) {
+      this.columnHovered[i] = true;
+    } else {
+      this.mouseOutAction();
     }
   }
 
   mouseOutAction() {
-    this.emailHovered = false;
-    this.phoneHovered = false;
+    this.dataManagement.inactiveContacts.forEach(contact => {
+      contact.emailHovered = false;
+      contact.telHovered = false;
+    });
+    this.columnHovered = [
+      false,
+      false,
+      false
+    ]
   }
 
   getValue(event: Event): string {

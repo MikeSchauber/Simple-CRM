@@ -48,10 +48,10 @@
       <div class="cell Contacts"><input type="text" (input)="item.name=getValue($event)" [value]="item.name"></div>
       <!-- Tel Edit Menu -->
       @if (item.tel.length > 0) {
-      <div (mouseover)="hoverAction('tel')" (mouseout)="mouseOutAction();" class="cell email-cell"><a
+      <div (mouseover)="hoverAction('tel', i)" (mouseout)="mouseOutAction();" class="cell email-cell"><a
           [href]="'tel:' + item.email">{{item.tel}}</a><mat-icon
           (click)="tableControl.deleteTel(item.id, 'inactiveContacts')"
-          [ngClass]="{'d-none': !phoneHovered}">close</mat-icon>
+          [ngClass]="{'d-none': !item.telHovered}">close</mat-icon>
       </div>
       } @else {
       @if (!item.telEdit) {
@@ -86,14 +86,14 @@
       </div>
       <!-- Email Data -->
       } @else {
-      <div (mouseover)="hoverAction('email')" (mouseout)="mouseOutAction();" class="cell email-cell"><a
+      <div (mouseover)="hoverAction('email', i)" (mouseout)="mouseOutAction();" class="cell email-cell"><a
           [href]="'mailto:' + item.email">
           @if (item.visibleEmail.length > 0) {
           {{item.visibleEmail}}
           } @else {
           {{item.email}}
           }
-        </a><mat-icon [ngClass]="{'d-none': !emailHovered}"
+        </a><mat-icon [ngClass]="{'d-none': !item.emailHovered}"
           (click)="tableControl.deleteEmail(item.id, 'inactiveContacts');">close</mat-icon>
       </div>
       }

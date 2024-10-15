@@ -8,4 +8,7 @@ export interface ContactInterface {
     tel: string,
     email: string,
     visibleEmail: string,
+    emailHovered: boolean,
+    telHovered: boolean,
+    
 }
