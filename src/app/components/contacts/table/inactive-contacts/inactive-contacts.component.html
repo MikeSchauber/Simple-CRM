@@ -1,6 +1,8 @@
 <div class="table-container">
   <div class="button-container">
-    <button mat-button><mat-icon>archive</mat-icon>Inactive</button>
+    <button class="head-button-container" mat-button>
+      <mat-icon>unarchive</mat-icon>
+      <span>Active</span></button>
     <button mat-button
       (click)="tableControl.deleteContacts('inactiveContacts')"><mat-icon>delete</mat-icon>Trash</button>
   </div>
@@ -106,7 +108,7 @@
     <div class="row content-row add-contact-row"
       (keydown)="tableControl.keyboardAddContact($event, 'inactiveContacts')">
       <div class="cell empty-field checkbox-cell"></div>
-      <div class="cell add Contacts">
+      <div class="cell add-button contact-add">
         <mat-icon (click)="tableControl.mouseAddContact('inactiveContacts')">add_circle</mat-icon>
         <input [(ngModel)]="tableControl.newContactInactive" type="text" placeholder="Add contact">
       </div>

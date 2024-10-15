@@ -29,7 +29,12 @@ import { DataManagementService } from '../../../../services/data-management.serv
 export class InactiveContactsComponent {
   emailHovered: boolean = false;
   phoneHovered: boolean = false;
-
+  columnHovered: boolean[] = [
+    false,
+    false,
+    false
+  ];
+  
   constructor(
     public contactsData: ContactsService,
     public tableControl: TableControlService,

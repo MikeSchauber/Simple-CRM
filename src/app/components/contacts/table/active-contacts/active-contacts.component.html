@@ -1,7 +1,8 @@
 <div class="table-container">
   <div class="button-container">
-    <button mat-button><mat-icon>archive</mat-icon>Inactive</button>
-    <button mat-button (click)="tableControl.deleteContacts('activeContacts')"><mat-icon>delete</mat-icon>Trash</button>
+    <button class="head-button-container" mat-button><mat-icon>archive</mat-icon><span>Inactive</span></button>
+    <button class="head-button-container" mat-button
+      (click)="tableControl.deleteContacts('activeContacts')"><mat-icon>delete</mat-icon><span>Trash</span></button>
   </div>
   <div id="customers" class="table">
     <!-- Table Header -->
@@ -12,116 +13,114 @@
         </section>
       </div>
       @for(item of this.dataManagement.activeTableColumns; track $index; let i = $index) {
-      @if (item.index <= 2) {
-        <div class="cell header-cell">
-          <span>{{item.name}}</span>
-        </div>
-      } @else {
-        <div class="cell columnCell" (mouseover)="hoverAction(i)" (mouseleave)="mouseOutAction()">
-          <span>{{item.name}}</span> 
-          <mat-icon
-          (click)="tableControl.deleteColumn('activeTableColumns', 'activeContacts', item.id)"
-          [ngClass]="{'d-none': !columnHovered[i]}">more_vert</mat-icon>
-        </div>
-      }
-      }
-      <!-- Add Column Menu -->
-      <div class="cell button-container">
-        <button [matMenuTriggerFor]="menu" mat-raised-button matTooltip="Add a new Column">
-          <mat-icon>add</mat-icon>
-        </button>
-        <mat-menu #menu="matMenu">
-          @for (item of this.dataManagement.availableTableColumns; track item; let i = $index) {
-          <button (click)="tableControl.addColumn(i, 'activeTableColumns', 'activeContacts', item.id)" mat-menu-item>
-            <mat-icon [ngStyle]="{'color': item.color}" class="type">{{item.icon}}</mat-icon>
-            {{item.name}}</button>
-          }
-        </mat-menu>
-      </div>
+      @if (item.index <= 2) { <div class="cell header-cell">
+        <span>{{item.name}}</span>
     </div>
-
-    <!-- Table Content Rows -->
-    @if (dataManagement.activeContacts.length > 0) {
-    @for (item of this.dataManagement.activeContacts ; track $index; let i = $index) {
-    <div class="row content-row">
-      <div class="cell checkbox-cell">
-        <section class="example-section">
-          <mat-checkbox [(ngModel)]="item.checked" class="example-margin"></mat-checkbox>
-        </section>
-      </div>
-      <div class="cell Contacts"><input type="text" (input)="item.name=getValue($event)" [value]="item.name"></div>
-      <!-- Tel Edit Menu -->
-      @if (item.tel.length > 0) {
-      <div (mouseover)="hoverAction('tel')" (mouseout)="mouseOutAction();" class="cell email-cell"><a
-          [href]="'tel:' + item.email">{{item.tel}}</a><mat-icon
-          (click)="tableControl.deleteTel(item.id, 'activeContacts')"
-          [ngClass]="{'d-none': !phoneHovered}">close</mat-icon>
-      </div>
-      } @else {
-      @if (!item.telEdit) {
-      <div class="cell email-cell add-button">
-        <mat-icon (click)="tableControl.openTelInput('activeContacts', item.id, $event)">add_box</mat-icon><mat-icon
-          class="default-icon">phone_iphone</mat-icon>
-      </div>
-      } @else {
-      <div class="cell">
-        <input class="dialog-input" type="number" (click)="tableControl.preventDefault($event)"
-          (keydown)="tableControl.saveTelData($event, item.id, 'activeContacts')" placeholder="0 (123) 456 7890">
-      </div>
-      }
-      }
-      <!-- Email Edit Menu -->
-      @if (item.email.length == 0) {
-      <div class="cell email-cell add-button">
-        <mat-icon
-          (click)="tableControl.openEmailDialog($event, 'activeContacts', item.id, $event)">add_box</mat-icon><mat-icon
-          class="default-icon">mail</mat-icon>
-        <div (click)="tableControl.closeEmailDialog('activeContacts', item.id)" class="input-dialog"
-          [ngClass]="{'d-none': !item.emailEdit}">
-          <div (click)="tableControl.preventDefault($event)"
-            [ngStyle]="{'top': tableControl.dialogPositionY + 'px', 'left': tableControl.dialogPositionX + 'px'}">
-            <span>Add a new email-adress</span>
-            <input class="dialog-input" placeholder="Add email" #emailInput
-              (keydown)="tableControl.onInputKeydown($event, item.id, emailInput.value, 'activeContacts')">
-            <span>Displayed text</span>
-            <input class="dialog-input" id="visible" placeholder="(optional)"
-              (keyup)="tableControl.visibleEmail($event, item.id, emailInput.value, 'activeContacts')">
-          </div>
-        </div>
-      </div>
-      <!-- Email Data -->
-      } @else {
-      <div (mouseover)="hoverAction('email')" (mouseout)="mouseOutAction();" class="cell email-cell"><a
-          [href]="'mailto:' + item.email">
-          @if (item.visibleEmail.length > 0) {
-          {{item.visibleEmail}}
-          } @else {
-          {{item.email}}
-          }
-        </a><mat-icon [ngClass]="{'d-none': !emailHovered}"
-          (click)="tableControl.deleteEmail(item.id, 'activeContacts');">close</mat-icon>
-      </div>
-      }
-      @for (item of dataManagement.activeContactCells; track $index) {
-      <div class="cell"></div>
-      }
+    } @else {
+    <div class="cell columnCell" (mouseover)="hoverAction('none', i)" (mouseleave)="mouseOutAction()">
+      <span>{{item.name}}</span>
+      <mat-icon (click)="tableControl.deleteColumn('activeTableColumns', 'activeContacts', item.id)"
+        [ngClass]="{'d-none': !columnHovered[i]}">more_vert</mat-icon>
     </div>
     }
     }
-
-    <!-- Add New Contact Row -->
-    <div class="row content-row add-contact-row" (keydown)="tableControl.keyboardAddContact($event, 'activeContacts')">
-      <div class="cell empty-field checkbox-cell"></div>
-      <div class="cell add Contacts">
-        <mat-icon (click)="tableControl.mouseAddContact('activeContacts')">add_circle</mat-icon>
-        <input [(ngModel)]="tableControl.newContactActive" type="text" placeholder="Add contact">
-      </div>
-      <div class="cell typ-cell"></div>
-      <div class="cell"></div>
-      @for (item of dataManagement.activeContactCells; track $index) {
-      <div class="cell"></div>
-      }
-
+    <!-- Add Column Menu -->
+    <div class="cell button-container">
+      <button [matMenuTriggerFor]="menu" mat-raised-button matTooltip="Add a new Column">
+        <mat-icon>add</mat-icon>
+      </button>
+      <mat-menu #menu="matMenu">
+        @for (item of this.dataManagement.availableTableColumns; track item; let i = $index) {
+        <button (click)="tableControl.addColumn(i, 'activeTableColumns', 'activeContacts', item.id)" mat-menu-item>
+          <mat-icon [ngStyle]="{'color': item.color}" class="type">{{item.icon}}</mat-icon>
+          {{item.name}}</button>
+        }
+      </mat-menu>
     </div>
   </div>
+
+  <!-- Table Content Rows -->
+  @if (dataManagement.activeContacts.length > 0) {
+  @for (item of this.dataManagement.activeContacts ; track $index; let i = $index) {
+  <div class="row content-row">
+    <div class="cell checkbox-cell">
+      <section class="example-section">
+        <mat-checkbox [(ngModel)]="item.checked" class="example-margin"></mat-checkbox>
+      </section>
+    </div>
+    <div class="cell Contacts"><input type="text" (input)="item.name=getValue($event)" [value]="item.name"></div>
+    <!-- Tel Edit Menu -->
+    @if (item.tel.length > 0) {
+    <div (mouseover)="hoverAction('tel', i)" (mouseout)="mouseOutAction();" class="cell email-cell"><a
+        [href]="'tel:' + item.email">{{item.tel}}</a><mat-icon
+        (click)="tableControl.deleteTel(item.id, 'activeContacts')"
+        [ngClass]="{'d-none': !phoneHovered}">close</mat-icon>
+    </div>
+    } @else {
+    @if (!item.telEdit) {
+    <div class="cell email-cell add-button">
+      <mat-icon (click)="tableControl.openTelInput('activeContacts', item.id, $event)">add_box</mat-icon><mat-icon
+        class="default-icon">phone_iphone</mat-icon>
+    </div>
+    } @else {
+    <div class="cell">
+      <input class="dialog-input" type="number" (click)="tableControl.preventDefault($event)"
+        (keydown)="tableControl.saveTelData($event, item.id, 'activeContacts')" placeholder="0 (123) 456 7890">
+    </div>
+    }
+    }
+    <!-- Email Edit Menu -->
+    @if (item.email.length == 0) {
+    <div class="cell email-cell add-button">
+      <mat-icon
+        (click)="tableControl.openEmailDialog($event, 'activeContacts', item.id, $event)">add_box</mat-icon><mat-icon
+        class="default-icon">mail</mat-icon>
+      <div (click)="tableControl.closeEmailDialog('activeContacts', item.id)" class="input-dialog"
+        [ngClass]="{'d-none': !item.emailEdit}">
+        <div (click)="tableControl.preventDefault($event)"
+          [ngStyle]="{'top': tableControl.dialogPositionY + 'px', 'left': tableControl.dialogPositionX + 'px'}">
+          <span>Add a new email-adress</span>
+          <input class="dialog-input" placeholder="Add email" #emailInput
+            (keydown)="tableControl.onInputKeydown($event, item.id, emailInput.value, 'activeContacts')">
+          <span>Displayed text</span>
+          <input class="dialog-input" id="visible" placeholder="(optional)"
+            (keyup)="tableControl.visibleEmail($event, item.id, emailInput.value, 'activeContacts')">
+        </div>
+      </div>
+    </div>
+    <!-- Email Data -->
+    } @else {
+    <div (mouseover)="hoverAction('email', i)" (mouseout)="mouseOutAction();" class="cell email-cell"><a
+        [href]="'mailto:' + item.email">
+        @if (item.visibleEmail.length > 0) {
+        {{item.visibleEmail}}
+        } @else {
+        {{item.email}}
+        }
+      </a><mat-icon [ngClass]="{'d-none': !emailHovered}"
+        (click)="tableControl.deleteEmail(item.id, 'activeContacts');">close</mat-icon>
+    </div>
+    }
+    @for (item of dataManagement.activeContactCells; track $index) {
+    <div class="cell"></div>
+    }
+  </div>
+  }
+  }
+
+  <!-- Add New Contact Row -->
+  <div class="row content-row add-contact-row" (keydown)="tableControl.keyboardAddContact($event, 'activeContacts')">
+    <div class="cell empty-field checkbox-cell"></div>
+    <div class="cell add-button contact-add">
+      <mat-icon (click)="tableControl.mouseAddContact('activeContacts')">add_circle</mat-icon>
+      <input [(ngModel)]="tableControl.newContactActive" type="text" placeholder="Add contact">
+    </div>
+    <div class="cell typ-cell"></div>
+    <div class="cell"></div>
+    @for (item of dataManagement.activeContactCells; track $index) {
+    <div class="cell"></div>
+    }
+
+  </div>
+</div>
 </div>

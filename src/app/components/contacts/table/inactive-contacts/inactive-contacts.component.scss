@@ -16,9 +16,11 @@ input {
   box-shadow: none;
   outline: none;
   transition: all 125ms ease-in-out;
+
   &:hover {
     border-color: rgb(184, 184, 184);
   }
+
   &:focus {
     border: 1px solid grey;
   }
@@ -26,45 +28,21 @@ input {
 
 .button-container {
   mat-icon {
+    background: none;
+    color: white;
     margin: 0;
+    &:hover {
+      background-color: none;
+      color: none;
+    }
   }
   button {
-    color: $lightcolor;
+    color: white;
     background-color: $darkcolor;
   }
-  mat-icon {
-    color: $lightcolor;
-  }
 }
 
-.add-container {
-  mat-icon {
-    border-radius: 50%;
-    cursor: pointer;
-    transition: all 100ms ease-in-out;
-    &:hover {
-      background-color: $lightcolorHover;
-    }
-    &:active {
-      background-color: $lightcolor;
-    }
-  }
-}
 
-.add {
-  @include dFlex($fd: row, $g: 8px);
-  width: 26px;
-  height: 26px;
-  mat-icon {
-    @include dFlex();
-    cursor: pointer;
-    color: $darkcolor;
-    transition: all 100ms ease-in-out;
-    &:hover {
-      color: $darkcolorHover;
-    }
-  }
-}
 
 .empty-field {
   background-color: white;
@@ -86,6 +64,31 @@ input {
   border: 1px solid #ddd;
 }
 
+.header-cell {
+  justify-content: flex-start;
+}
+
+.columnCell {
+  @include dFlex($fd: row, $jc: space-between);
+}
+
+mat-icon {
+  @include dFlex();
+  text-align: center;
+  background-color: lightgrey;
+  transition: all 125ms ease-in-out;
+  cursor: pointer;
+  border-radius:50%;
+  color: $darkcolor;
+  font-size: 16px;
+  width: 20px;
+  height: 20px;
+  &:hover {
+    color: $darkcolorHover;
+    background-color: rgb(194, 194, 194);
+  }
+}
+
 .checkbox-cell {
   min-width: 50px;
   flex: 0;
@@ -102,19 +105,10 @@ input {
 .email-cell {
   @include dFlex($fd: row, $g: 4px, $jc: space-between);
   font-size: 12px;
-  mat-icon {
-    @include dFlex();
-    width: 18px;
-    height: 18px;
-    font-size: 14px;
-    background-color: lightgrey;
-    transition: all 125ms ease-in-out;
-    cursor: pointer;
-    border-radius: 50%;
-    &:hover {
-      background-color: rgb(194, 194, 194);
-    }
-  }
+}
+
+.head-button-container {
+  @include dFlex($fd: row, $g: 4px);
 }
 
 .button-container {
@@ -138,10 +132,18 @@ input {
   }
 }
 
+.contact-add {
+  mat-icon {
+    font-size: 24px;
+    background-color: transparent;
+  }
+}
+
 .default-icon {
   color: grey;
   background-color: transparent !important;
-  cursor:auto !important;
+  cursor: auto !important;
+
   &:hover {
     background-color: transparent !important;
   }
@@ -159,7 +161,6 @@ input {
     padding: 16px;
   }
 }
-
 
 .dialog-input {
   border: 1px solid $darkcolor;

@@ -28,52 +28,24 @@ input {
 
 .button-container {
   mat-icon {
+    background: none;
+    color: white;
     margin: 0;
-    color: $lightcolor;
+    &:hover {
+      background-color: none;
+      color: none;
+    }
   }
-
   button {
-    color: $lightcolor;
+    color: white;
     background-color: $darkcolor;
   }
 }
 
-.add-container {
-  mat-icon {
-    border-radius: 50%;
-    cursor: pointer;
-    transition: all 100ms ease-in-out;
 
-    &:hover {
-      background-color: $lightcolorHover;
-    }
-
-    &:active {
-      background-color: $lightcolor;
-    }
-  }
-}
-
-.add {
-  @include dFlex($fd: row, $g: 8px);
-  width: 26px;
-  height: 26px;
-
-  mat-icon {
-    @include dFlex();
-    cursor: pointer;
-    color: $darkcolor;
-    transition: all 100ms ease-in-out;
-
-    &:hover {
-      color: $darkcolorHover;
-    }
-  }
-}
 
 .empty-field {
   background-color: white;
-
   &:hover {
     background-color: #ffffff00 !important;
   }
@@ -98,20 +70,22 @@ input {
 
 .columnCell {
   @include dFlex($fd: row, $jc: space-between);
-  mat-icon {
-    @include dFlex();
-    text-align: center;
-    background-color: lightgrey;
-    transition: all 125ms ease-in-out;
-    cursor: pointer;
-    border-radius: 50%;
-    color: $darkcolor;
-    font-size: 20px;
-    width: 28px;
-    height: 28px;
-    &:hover {
-      background-color: rgb(194, 194, 194);
-    }
+}
+
+mat-icon {
+  @include dFlex();
+  text-align: center;
+  background-color: lightgrey;
+  transition: all 125ms ease-in-out;
+  cursor: pointer;
+  border-radius:50%;
+  color: $darkcolor;
+  font-size: 16px;
+  width: 20px;
+  height: 20px;
+  &:hover {
+    color: $darkcolorHover;
+    background-color: rgb(194, 194, 194);
   }
 }
 
@@ -131,19 +105,10 @@ input {
 .email-cell {
   @include dFlex($fd: row, $g: 4px, $jc: space-between);
   font-size: 12px;
+}
 
-  mat-icon {
-    @include dFlex();
-    text-align: center;
-    background-color: lightgrey;
-    transition: all 125ms ease-in-out;
-    cursor: pointer;
-    border-radius: 50%;
-
-    &:hover {
-      background-color: rgb(194, 194, 194);
-    }
-  }
+.head-button-container {
+  @include dFlex($fd: row, $g: 4px);
 }
 
 .button-container {
@@ -161,10 +126,16 @@ input {
   @include dFlex($fd: row, $g: 8px);
   color: $darkcolor;
   mat-icon {
-    @include dFlex();
     height: 28px;
     width: 28px;
-    font-size: 18px;
+    font-size: 20px;
+  }
+}
+
+.contact-add {
+  mat-icon {
+    font-size: 24px;
+    background-color: transparent;
   }
 }
 
@@ -179,7 +150,7 @@ input {
 }
 
 .input-dialog {
-  >div {
+  > div {
     position: absolute;
     top: 28px;
     width: max-content;

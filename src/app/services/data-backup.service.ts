@@ -1,4 +1,6 @@
 import { Injectable } from '@angular/core';
+import { addDoc } from 'firebase/firestore';
+import { DataManagementService } from './data-management.service';
 
 @Injectable({
   providedIn: 'root',
@@ -244,5 +246,35 @@ export class DataBackupService {
     },
   ];
 
-  constructor() {}
+  constructor(private dataManagement: DataManagementService) {
+    /* Run this addBackupData() Functions to set Backup Data */
+    // this.addBackupData();
+  }
+
+  async addBackupData() {
+    // for (const contact of this.activeContacts) {
+    //   await addDoc(this.dataManagement.getDocRef('activeContacts'), contact);
+    // }
+    // for (const contact of this.inactiveContacts) {
+    //   await addDoc(this.dataManagement.getDocRef('inactiveContacts'), contact);
+    // }
+    // for (const column of this.activeTableColumns) {
+    //   await addDoc(this.dataManagement.getDocRef('activeTableColumns'), column);
+    // }
+    // for (const column of this.inactiveTableColumns) {
+    //   await addDoc(this.dataManagement.getDocRef('inactiveTableColumns'), column);
+    // }
+    // for (const deal of this.deals) {
+    //   await addDoc(this.dataManagement.getDocRef('deals'), deal);
+    // }
+    // for (const column of this.availableColumnTypes) {
+    //   await addDoc(this.dataManagement.getDocRef('availableTableColumns'), column);
+    // }
+    // for (const column of this.activeContactCells) {
+    //   await addDoc(this.dataManagement.getDocRef('activeContactCells'), column);
+    // }
+    // for (const column of this.inactiveContactCells) {
+    //   await addDoc(this.dataManagement.getDocRef('inactiveContactCells'), column);
+    // }
+  }
 }

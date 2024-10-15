@@ -9,9 +9,7 @@ import { MatMenuModule, MenuPositionX } from '@angular/material/menu';
 import { ContactsService } from '../../../../services/contacts.service';
 import { TableControlService } from '../../../../services/table-control.service';
 import { DataBackupService } from '../../../../services/data-backup.service';
-import {  Firestore } from '@angular/fire/firestore';
 import { DataManagementService } from '../../../../services/data-management.service';
-import { Contact } from '../../../../models/contact.class';
 
 @Component({
   selector: 'app-active-contacts',
@@ -31,14 +29,11 @@ import { Contact } from '../../../../models/contact.class';
 export class ActiveContactsComponent {
   emailHovered: boolean = false;
   phoneHovered: boolean = false;
-  activeContacts: Contact[] = [];
-  columnActive: any[] = [];
   columnHovered: boolean[] = [
     false,
     false,
     false
   ];
-  firestore: Firestore = inject(Firestore);
 
   constructor(
     public contactsData: ContactsService,
@@ -49,15 +44,13 @@ export class ActiveContactsComponent {
 
   }
 
-  hoverAction(action: string | number) {
-    console.log(action);
-
+  hoverAction(action: string, i: number) {
     if (action == 'email') {
       this.emailHovered = true;
     } else if (action == 'tel') {
       this.phoneHovered = true;
-    } else if (action == 3 || action == 4 || action == 5) {
-      this.columnHovered[action] = true;
+    } else if (i == 3 || i == 4 || i == 5) {
+      this.columnHovered[i] = true;
     } else {
       this.mouseOutAction();
     }
