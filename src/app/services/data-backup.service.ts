@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { addDoc } from 'firebase/firestore';
 import { DataManagementService } from './data-management.service';
 
 @Injectable({
@@ -16,7 +15,7 @@ export class DataBackupService {
       icon: '',
       color: '',
       used: true,
-      availableDropdowns: [{}],
+      availableDropdowns: [],
     },
     {
       index: 1,
@@ -27,7 +26,7 @@ export class DataBackupService {
       icon: '',
       color: '',
       used: true,
-      availableDropdowns: [{}],
+      availableDropdowns: [],
     },
     {
       index: 2,
@@ -38,7 +37,7 @@ export class DataBackupService {
       icon: '',
       color: '',
       used: true,
-      availableDropdowns: [{}],
+      availableDropdowns: [],
     },
     {
       index: 3,

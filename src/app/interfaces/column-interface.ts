@@ -9,5 +9,6 @@ export interface ColumnInterface {
     icon: string,
     color: string,
     used: boolean,
+    activeDropdown: Dropdown,
     availableDropdowns: Dropdown[],
 }

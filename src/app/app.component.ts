@@ -7,10 +7,6 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { CommonModule } from '@angular/common';
 import { TableControlService } from './services/table-control.service';
 import { Firestore } from '@angular/fire/firestore';
-import { ContactsService } from './services/contacts.service';
-import { DealsService } from './services/deals.service';
-import { doc, setDoc } from 'firebase/firestore';
-import { DataManagementService } from './services/data-management.service';
 
 @Component({
   selector: 'app-root',

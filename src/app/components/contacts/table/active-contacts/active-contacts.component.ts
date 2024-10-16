@@ -6,9 +6,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatMenuModule, MenuPositionX } from '@angular/material/menu';
-import { ContactsService } from '../../../../services/contacts.service';
 import { TableControlService } from '../../../../services/table-control.service';
-import { DataBackupService } from '../../../../services/data-backup.service';
 import { DataManagementService } from '../../../../services/data-management.service';
 
 @Component({
@@ -33,9 +31,7 @@ export class ActiveContactsComponent {
   allColumnsUsed: boolean = false;
 
   constructor(
-    public contactsData: ContactsService,
     public tableControl: TableControlService,
-    public dataBackup: DataBackupService,
     public dataManagement: DataManagementService
   ) {}
 

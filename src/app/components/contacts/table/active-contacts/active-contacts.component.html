@@ -111,7 +111,7 @@
     </div>
     }
 
-    <!-- Dropdown Cells -->
+    <!-- Added Cells with Dropdown -->
     @for (item of dataManagement.activeTableColumns; track $index) {
     @if (item.type == "dropdown" && item.used) {
     <div class="cell">{{item.type}}</div>

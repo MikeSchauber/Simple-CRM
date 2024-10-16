@@ -9,9 +9,10 @@ export class Column {
   icon: string = '';
   color: string = '';
   used: boolean = false;
+  activeDropdown: Dropdown = {name: '', color: ''}
   availableDropdowns: Dropdown[] = [];
 
-  constructor(obj: { name: string; type: string; index: number, columnId: string, id: string, icon: string; color: string; used: boolean, availableDropdowns: Dropdown[] }) {
+  constructor(obj: { name: string; type: string; index: number, columnId: string, id: string, icon: string; color: string; used: boolean, activeDropdown: Dropdown,  availableDropdowns: Dropdown[] }) {
     this.name = obj.name;
     this.type = obj.type;
     this.id = obj.id;
@@ -20,6 +21,7 @@ export class Column {
     this.icon = obj.icon;
     this.color = obj.color;
     this.used = obj.used;
+    this.activeDropdown;
     this.availableDropdowns = obj.availableDropdowns;
   }
 
@@ -33,6 +35,7 @@ export class Column {
       icon: this.icon,
       color: this.color,
       used: this.used,
+      activeDropdown: this.activeDropdown,
       availableDropdowns: this.availableDropdowns
     }
   }
