@@ -1,4 +1,4 @@
-import { Component, inject, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, inject, Input, OnChanges, OnDestroy, OnInit } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { FormsModule } from '@angular/forms';
 import { MatCheckboxModule } from '@angular/material/checkbox';
@@ -34,10 +34,6 @@ export class ActiveContactsComponent {
     public tableControl: TableControlService,
     public dataManagement: DataManagementService
   ) {}
-
-  checkColumnsForUsability() {
-    
-  }
 
   hoverAction(action: string, i: number) {
     if (action == 'email') {

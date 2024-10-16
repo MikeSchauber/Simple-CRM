@@ -115,11 +115,11 @@
     @for (cell of dataManagement.activeTableColumns; track $index) {
     @if (cell.type == "dropdown" && cell.used) {
     <div class="cell add-dropdown-cell">
-      <button [matMenuTriggerFor]="dropdown" mat-raised-button matTooltip="Add a new Column">
+      <button [matMenuTriggerFor]="dropdown" mat-raised-button matTooltip="{{cell.name}}">
         <mat-icon>arrow_drop_down</mat-icon>
       </button>
       <mat-menu #dropdown="matMenu">
-        @for (item of cell.availableDropdowns; track item; let i = $index) {
+        @for (item of cell.availableDropdowns; track $index; let i = $index) {
           <div [ngStyle]="{'background-color': item.color}">{{item.name}}</div>
         }
       </mat-menu>
