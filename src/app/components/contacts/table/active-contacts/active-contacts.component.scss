@@ -74,14 +74,13 @@ input {
 mat-icon {
   @include dFlex();
   text-align: center;
-  background-color: lightgrey;
   transition: all 125ms ease-in-out;
   cursor: pointer;
   border-radius:50%;
   color: $darkcolor;
-  font-size: 16px;
-  width: 20px;
-  height: 20px;
+  font-size: 20px;
+  width: 28px;
+  height: 28px;
   &:hover {
     color: $darkcolorHover;
     background-color: rgb(194, 194, 194);
@@ -173,4 +172,13 @@ mat-icon {
 
 .no-valid-email {
   border-color: rgb(189, 0, 0) !important;
+}
+
+.add-dropdown-cell {
+  @include dFlex($fd: row, $g: 8px);
+  button {
+    mat-icon {
+      margin: 0;
+    }
+  }
 }

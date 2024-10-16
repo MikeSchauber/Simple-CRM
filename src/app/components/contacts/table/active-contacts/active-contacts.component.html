@@ -29,20 +29,20 @@
     }
     <!-- Add Column Menu -->
     @if (!allColumnsUsed) {
-      <div class="cell button-container">
-        <button [matMenuTriggerFor]="menu" mat-raised-button matTooltip="Add a new Column">
-          <mat-icon>add</mat-icon>
-        </button>
-        <mat-menu #menu="matMenu">
-          @for (item of this.dataManagement.activeTableColumns; track item; let i = $index) {
-          @if (!item.used && item.index > 2) {
-          <button (click)="tableControl.addColumn('activeTableColumns', item.id)" class="matMenu-button" mat-menu-item>
-            <mat-icon [ngStyle]="{'color': item.color}" class="type">{{item.icon}}</mat-icon>
-            {{item.name}}</button>
-          }
-          }
-        </mat-menu>
-      </div>
+    <div class="cell button-container">
+      <button [matMenuTriggerFor]="menu" mat-raised-button matTooltip="Add a new Column">
+        <mat-icon>add</mat-icon>
+      </button>
+      <mat-menu #menu="matMenu">
+        @for (item of this.dataManagement.activeTableColumns; track item; let i = $index) {
+        @if (!item.used && item.index > 2) {
+        <button (click)="tableControl.addColumn('activeTableColumns', item.id)" class="matMenu-button" mat-menu-item>
+          <mat-icon [ngStyle]="{'color': item.color}" class="type">{{item.icon}}</mat-icon>
+          {{item.name}}</button>
+        }
+        }
+      </mat-menu>
+    </div>
     }
 
   </div>
@@ -112,9 +112,18 @@
     }
 
     <!-- Added Cells with Dropdown -->
-    @for (item of dataManagement.activeTableColumns; track $index) {
-    @if (item.type == "dropdown" && item.used) {
-    <div class="cell">{{item.type}}</div>
+    @for (cell of dataManagement.activeTableColumns; track $index) {
+    @if (cell.type == "dropdown" && cell.used) {
+    <div class="cell add-dropdown-cell">
+      <button [matMenuTriggerFor]="dropdown" mat-raised-button matTooltip="Add a new Column">
+        <mat-icon>arrow_drop_down</mat-icon>
+      </button>
+      <mat-menu #dropdown="matMenu">
+        @for (item of cell.availableDropdowns; track item; let i = $index) {
+          <div [ngStyle]="{'background-color': item.color}">{{item.name}}</div>
+        }
+      </mat-menu>
+    </div>
     }
     }
     <div class="cell"></div>
