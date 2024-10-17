@@ -300,75 +300,16 @@ export class TableControlService {
     id: string,
     cellType: string
   ) {
-    console.log(cellType);
-    
-    let badgeData = this.returnRightObject(cellType, value, color);
-    console.log(badgeData);
+    // console.log(cellType);
 
-    await updateDoc(this.dataManagement.getSingleDocRef(coll, id), badgeData);
-  }
-  returnRightObject(type: string, value: string, color: string) {
-    if (type === 'User Roles') {
-      return {
-        badgeType: 'role',
-        role: value,
-        prio: '',
-        badgeColorStatus: '',
-        badgeColorRole: color,
-        badgeColorPrio: '',
-      };
-    } else if (type === 'Status') {
-      return {
-        status: value,
-        badgeType: 'status',
-        role: '',
-        prio: '',
-        badgeColorStatus: color,
-        badgeColorRole: '',
-        badgeColorPrio: '',
-      };
-    } else if (type === 'Priority') {
-      return {
-        badgeType: 'prio',
-        role: '',
-        prio: value,
-        badgeColorStatus: '',
-        badgeColorRole: '',
-        badgeColorPrio: color,
-      };
-    } else {
-      return {
-        badgeType: '',
-        role: '',
-        prio: '',
-        badgeColorStatus: '',
-        badgeColorRole: '',
-        badgeColorPrio: '',
-      };
-    }
-  }
+    // let badgeData = this.returnRightObject(cellType, value, color);
+    // console.log(badgeData);
 
-  getBadgeColor(contact: ContactInterface, cellName: string): string {
-    if (cellName === 'User Roles') {
-      return contact.badgeColorRole;
-    } else if (cellName === 'Standing') {
-      return contact.badgeColorStatus;
-    } else if (cellName === 'Priority') {
-      return contact.badgeColorPrio;
-    }
-    return ''; 
+    await updateDoc(this.dataManagement.getSingleDocRef(coll, id), {
+      activeDropdown: {
+        color: color,
+        name: value,
+      },
+    });
   }
-
-  getBadgeText(contact: ContactInterface, cellName: string): string {
-    if (cellName === 'User Roles') {
-      return contact.role;
-    } else if (cellName === 'Standing') {
-      return contact.status;
-    } else if (cellName === 'Priority') {
-      return contact.prio;
-    }
-    return ''; // Fallback
-  }
-  
-  
 }

@@ -123,7 +123,7 @@
         <div class="badge-menu">
           @for (dropdown of cell.availableDropdowns; track $index; let i = $index) {
           <div class="badge"
-            (click)="tableControl.addBadgeToContact(dropdown.name, dropdown.color, 'activeContacts', contact.id, cell.name)"
+            (click)="tableControl.addBadgeToContact(dropdown.name, dropdown.color, 'activeTableColumns', cell.id, cell.name)"
             [ngStyle]="{'background-color': dropdown.color}">{{dropdown.name}}</div>
           }
         </div>
@@ -132,12 +132,12 @@
     }
     }
     } @else {
-    @for (cell of dataManagement.activeTableColumns; track $index) {
+    @for (cell of dataManagement.activeTableColumns; track $index; let i = $index) {
     @if (cell.type == "dropdown" && cell.used) {
     <div class="cell add-dropdown-cell">
       @if (contact.badgeType == 'role') {
-      <div class="badge" [matMenuTriggerFor]="dropdown" [ngStyle]="{'background-color': contact.badgeColorRole}">
-        {{contact.role}}
+      <div class="badge" [matMenuTriggerFor]="dropdown" [ngStyle]="{'background-color': cell.activeDropdown.color}">
+        {{cell.activeDropdown.name}}
       </div>
       } @else if (contact.badgeType == 'status') {
       <div class="badge" [matMenuTriggerFor]="dropdown" [ngStyle]="{'background-color': contact.badgeColorStatus}">
@@ -152,7 +152,7 @@
         <div class="badge-menu">
           @for (dropdown of cell.availableDropdowns; track $index; let i = $index) {
           <div class="badge"
-            (click)="tableControl.addBadgeToContact(dropdown.name, dropdown.color, 'activeContacts', contact.id, cell.name)"
+            (click)="tableControl.addBadgeToContact(dropdown.name, dropdown.color, 'activeTableColumns', cell.id, cell.name)"
             [ngStyle]="{'background-color': dropdown.color}">{{dropdown.name}}</div>
           }
         </div>
