@@ -56,9 +56,10 @@
         <mat-checkbox [(ngModel)]="item.checked" class="example-margin"></mat-checkbox>
       </section>
     </div>
-    <div class="cell Contacts"><input [(ngModel)]="item.name" #nameValue
-        (keyup)="tableControl.changeName($event, 'activeContacts', item.id, nameValue.value)" [value]="item.name">
-
+    <div class="cell Contacts">
+      <input [(ngModel)]="item.name" #nameValue [value]="item.name"
+        (blur)="tableControl.changeNameOnBlur($event, 'activeContacts', item.id)"
+        (keyup)="tableControl.changeName($event, 'activeContacts', item.id, nameValue.value)">
     </div>
     <!-- Tel Edit Menu -->
     @if (item.tel.length > 0) {

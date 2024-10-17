@@ -127,8 +127,18 @@ export class TableControlService {
     let nameToUpdate: string = '';
     nameToUpdate = value;
     console.log(nameToUpdate);
-    
+
     if (event.keyCode === 13 && nameToUpdate.length != 0) {
+      await updateDoc(this.dataManagement.getSingleDocRef(coll, id), {
+        name: nameToUpdate,
+      });
+    }
+  }
+
+  async changeNameOnBlur(event: FocusEvent, coll: string, id: string) {
+    const target = event.target as HTMLInputElement;
+    const nameToUpdate: string = target.value;
+    if (nameToUpdate.length != 0) {
       await updateDoc(this.dataManagement.getSingleDocRef(coll, id), {
         name: nameToUpdate,
       });
