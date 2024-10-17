@@ -29,9 +29,7 @@ export class TableControlService {
 
   firestore: Firestore = inject(Firestore);
 
-  constructor(
-    private dataManagement: DataManagementService
-  ) {}
+  constructor(private dataManagement: DataManagementService) {}
 
   preventDefault(event: MouseEvent) {
     event.stopPropagation();
@@ -96,6 +94,7 @@ export class TableControlService {
   }
 
   async keyboardAddContact(event: KeyboardEvent, coll: string) {
+    console.log(coll);
     let nameToAdd: string = '';
     coll == 'activeContacts'
       ? (nameToAdd = this.newContactActive)
@@ -109,13 +108,30 @@ export class TableControlService {
 
   async mouseAddContact(coll: string) {
     let nameToAdd: string = '';
-    coll == 'inactiveContacts'
+    coll == 'activeContacts'
       ? (nameToAdd = this.newContactActive)
       : (nameToAdd = this.newContactInactive);
     if (nameToAdd.length != 0) {
       let user = new Contact(nameToAdd);
       await addDoc(collection(this.firestore, coll), user.toJson());
       this.clearAllInputs();
+    }
+  }
+
+  async changeName(
+    event: KeyboardEvent,
+    coll: string,
+    id: string,
+    value: string
+  ) {
+    let nameToUpdate: string = '';
+    nameToUpdate = value;
+    console.log(nameToUpdate);
+    
+    if (event.keyCode === 13 && nameToUpdate.length != 0) {
+      await updateDoc(this.dataManagement.getSingleDocRef(coll, id), {
+        name: nameToUpdate,
+      });
     }
   }
 

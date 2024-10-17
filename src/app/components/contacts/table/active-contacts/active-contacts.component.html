@@ -56,7 +56,10 @@
         <mat-checkbox [(ngModel)]="item.checked" class="example-margin"></mat-checkbox>
       </section>
     </div>
-    <div class="cell Contacts"><input type="text" (input)="item.name=getValue($event)" [value]="item.name"></div>
+    <div class="cell Contacts"><input [(ngModel)]="item.name" #nameValue
+        (keyup)="tableControl.changeName($event, 'activeContacts', item.id, nameValue.value)" [value]="item.name">
+
+    </div>
     <!-- Tel Edit Menu -->
     @if (item.tel.length > 0) {
     <div (mouseover)="hoverAction('tel', i)" (mouseout)="mouseOutAction();" class="cell email-cell"><a
