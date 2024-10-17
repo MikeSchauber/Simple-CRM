@@ -10,10 +10,8 @@ export class Contact {
   visibleEmail: string = '';
   emailHovered: boolean = false;
   telHovered: boolean = false;
-  color: string = '';
-  userRole: string = '';
-  standing: string = '';
-  priority: string = '';
+  badge: string = '';
+  badgeColor: string = '';
 
   constructor(name: string) {
     this.name = name;
@@ -32,10 +30,8 @@ export class Contact {
       visibleEmail: this.visibleEmail,
       emailHovered: this.emailHovered,
       telHovered: this.telHovered,
-      color: this.color,
-      userRole: this.userRole,
-      standing: this.standing,
-      priority: this.priority,
+      badge: this.badge,
+      badgeColor: this.badgeColor,
     };
   }
 }

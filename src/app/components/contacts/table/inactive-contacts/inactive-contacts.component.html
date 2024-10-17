@@ -66,7 +66,7 @@
     <div (mouseover)="hoverAction('tel', i)" (mouseout)="mouseOutAction();" class="cell email-cell"><a
         [href]="'tel:' + item.email">{{item.tel}}</a><mat-icon
         (click)="tableControl.deleteTel(item.id, 'inactiveContacts')"
-        [ngClass]="{'d-none': !item.telHovered}">close</mat-icon>
+        [ngClass]="{'d-none': !item.telHovered}">edit</mat-icon>
     </div>
     } @else {
     @if (!item.telEdit) {
@@ -111,28 +111,50 @@
         {{item.visibleEmail}}
         }
       </a><mat-icon [ngClass]="{'d-none': !item.emailHovered}"
-        (click)="tableControl.deleteEmail(item.id, 'inactiveContacts');">close</mat-icon>
+        (click)="tableControl.deleteEmail(item.id, 'inactiveContacts');">edit</mat-icon>
     </div>
     }
 
     <!-- Added Cells with Dropdown -->
+    @if (item.badge.length == 0) {
     @for (cell of dataManagement.inactiveTableColumns; track $index) {
-      @if (cell.type == "dropdown" && cell.used) {
-      <div class="cell add-dropdown-cell">
-        <mat-icon class="arrow-drop-icon" [matMenuTriggerFor]="dropdown">arrow_drop_down</mat-icon>
-        <mat-menu #dropdown="matMenu">
-          <div class="badge-menu">
-            @for (item of cell.availableDropdowns; track $index; let i = $index) {
-            <div class="badge" [ngStyle]="{'background-color': item.color}">{{item.name}}</div>
-            }
-          </div>
-        </mat-menu>
+    @if (cell.type == "dropdown" && cell.used) {
+    <div class="cell add-dropdown-cell">
+      <mat-icon class="arrow-drop-icon" [matMenuTriggerFor]="dropdown">arrow_drop_down</mat-icon>
+      <mat-menu #dropdown="matMenu">
+        <div class="badge-menu">
+          @for (dropdown of cell.availableDropdowns; track $index; let i = $index) {
+          <div class="badge"
+            (click)="tableControl.addBadgeToContact(dropdown.name, dropdown.color, 'inactiveContacts', item.id)"
+            [ngStyle]="{'background-color': dropdown.color}">{{dropdown.name}}</div>
+          }
+        </div>
+      </mat-menu>
+    </div>
+    }
+    }
+    } @else {
+    @for (cell of dataManagement.inactiveTableColumns; track $index) {
+    @if (cell.type == "dropdown" && cell.used) {
+    <div class="cell add-dropdown-cell">
+      <div class="badge" [matMenuTriggerFor]="dropdown" [ngStyle]="{'background-color': item.badgeColor}">{{item.badge}}
       </div>
-      }
-      }
-      @if (!this.dataManagement.inactiveCheck) {
-      <div class="cell"></div>
-      }
+      <mat-menu #dropdown="matMenu">
+        <div class="badge-menu">
+          @for (dropdown of cell.availableDropdowns; track $index; let i = $index) {
+            <div class="badge"
+            (click)="tableControl.addBadgeToContact(dropdown.name, dropdown.color, 'inactiveContacts', item.id)"
+            [ngStyle]="{'background-color': dropdown.color}">{{dropdown.name}}</div>
+          }
+        </div>
+      </mat-menu>
+    </div>
+    }
+    }
+    }
+    @if (!this.dataManagement.inactiveCheck) {
+    <div class="cell"></div>
+    }
   </div>
   }
   }

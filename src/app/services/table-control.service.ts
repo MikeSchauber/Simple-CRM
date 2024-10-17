@@ -291,4 +291,11 @@ export class TableControlService {
       this.noValidEmail = true;
     }
   }
+
+  async addBadgeToContact(value: string, color: string, coll: string, id: string) {
+    await updateDoc(this.dataManagement.getSingleDocRef(coll, id), {
+      badge: value,
+      badgeColor: color,
+    });
+  }
 }

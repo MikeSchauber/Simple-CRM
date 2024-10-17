@@ -195,10 +195,8 @@ export class DataBackupService {
       telEdit: false,
       emailHovered: false,
       telHovered: false,
-      color: '',
-      userRole: '',
-      standing: '',
-      priority: '',
+      badge: '',
+      badgeColor:''
     },
     {
       id: '',
@@ -212,10 +210,8 @@ export class DataBackupService {
       telEdit: false,
       emailHovered: false,
       telHovered: false,
-      color: '',
-      userRole: '',
-      standing: '',
-      priority: '',
+      badge: '',
+      badgeColor:''
     },
     {
       id: '',
@@ -229,10 +225,8 @@ export class DataBackupService {
       telEdit: false,
       emailHovered: false,
       telHovered: false,
-      color: '',
-      userRole: '',
-      standing: '',
-      priority: '',
+        badge: '',
+      badgeColor:''
     },
     {
       id: '',
@@ -246,10 +240,8 @@ export class DataBackupService {
       telEdit: false,
       emailHovered: false,
       telHovered: false,
-      color: '',
-      userRole: '',
-      standing: '',
-      priority: '',
+       badge: '',
+      badgeColor:''
     },
     {
       id: '',
@@ -263,13 +255,11 @@ export class DataBackupService {
       telEdit: false,
       emailHovered: false,
       telHovered: false,
-      color: '',
-      userRole: '',
-      standing: '',
-      priority: '',
+      badge: '',
+      badgeColor:''
     },
   ];
-  
+
   inactiveContacts: ContactInterface[] = [
     {
       id: '',
@@ -283,10 +273,8 @@ export class DataBackupService {
       telEdit: false,
       emailHovered: false,
       telHovered: false,
-      color: '',
-      userRole: '',
-      standing: '',
-      priority: '',
+      badge: '',
+      badgeColor:''
     },
     {
       id: '',
@@ -300,10 +288,8 @@ export class DataBackupService {
       telEdit: false,
       emailHovered: false,
       telHovered: false,
-      color: '',
-      userRole: '',
-      standing: '',
-      priority: '',
+      badge: '',
+      badgeColor:''
     },
     {
       id: '',
@@ -317,13 +303,10 @@ export class DataBackupService {
       telEdit: false,
       emailHovered: false,
       telHovered: false,
-      color: '',
-      userRole: '',
-      standing: '',
-      priority: '',
+      badge: '',
+      badgeColor:''
     },
   ];
-  
 
   deals = [
     {
@@ -378,12 +361,12 @@ export class DataBackupService {
   }
 
   async addBackupData() {
-    // for (const contact of this.activeContacts) {
-    //   await addDoc(this.dataManagement.getDocRef('activeContacts'), contact);
-    // }
-    // for (const contact of this.inactiveContacts) {
-    //   await addDoc(this.dataManagement.getDocRef('inactiveContacts'), contact);
-    // }
+    for (const contact of this.activeContacts) {
+      await addDoc(this.dataManagement.getDocRef('activeContacts'), contact);
+    }
+    for (const contact of this.inactiveContacts) {
+      await addDoc(this.dataManagement.getDocRef('inactiveContacts'), contact);
+    }
     // for (const column of this.activeTableColumns) {
     //   await addDoc(this.dataManagement.getDocRef('activeTableColumns'), column);
     // }

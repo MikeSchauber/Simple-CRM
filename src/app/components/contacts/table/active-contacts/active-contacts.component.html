@@ -114,20 +114,42 @@
     }
 
     <!-- Added Cells with Dropdown -->
-    @for (cell of dataManagement.activeTableColumns; track $index) {
-    @if (cell.type == "dropdown" && cell.used) {
-    <div class="cell add-dropdown-cell">
-      <mat-icon class="arrow-drop-icon" [matMenuTriggerFor]="dropdown">arrow_drop_down</mat-icon>
-      <mat-menu #dropdown="matMenu">
-        <div class="badge-menu">
-          @for (item of cell.availableDropdowns; track $index; let i = $index) {
-          <div class="badge" [ngStyle]="{'background-color': item.color}">{{item.name}}</div>
-          }
+    @if (item.badge.length == 0) {
+      @for (cell of dataManagement.activeTableColumns; track $index) {
+      @if (cell.type == "dropdown" && cell.used) {
+      <div class="cell add-dropdown-cell">
+        <mat-icon class="arrow-drop-icon" [matMenuTriggerFor]="dropdown">arrow_drop_down</mat-icon>
+        <mat-menu #dropdown="matMenu">
+          <div class="badge-menu">
+            @for (dropdown of cell.availableDropdowns; track $index; let i = $index) {
+            <div class="badge"
+              (click)="tableControl.addBadgeToContact(dropdown.name, dropdown.color, 'activeContacts', item.id)"
+              [ngStyle]="{'background-color': dropdown.color}">{{dropdown.name}}</div>
+            }
+          </div>
+        </mat-menu>
+      </div>
+      }
+      }
+      } @else {
+      @for (cell of dataManagement.activeTableColumns; track $index) {
+      @if (cell.type == "dropdown" && cell.used) {
+      <div class="cell add-dropdown-cell">
+        <div class="badge" [matMenuTriggerFor]="dropdown" [ngStyle]="{'background-color': item.badgeColor}">{{item.badge}}
         </div>
-      </mat-menu>
-    </div>
-    }
-    }
+        <mat-menu #dropdown="matMenu">
+          <div class="badge-menu">
+            @for (dropdown of cell.availableDropdowns; track $index; let i = $index) {
+              <div class="badge"
+              (click)="tableControl.addBadgeToContact(dropdown.name, dropdown.color, 'activeContacts', item.id)"
+              [ngStyle]="{'background-color': dropdown.color}">{{dropdown.name}}</div>
+            }
+          </div>
+        </mat-menu>
+      </div>
+      }
+      }
+      }
     @if (!this.dataManagement.activeCheck) {
     <div class="cell"></div>
     }
