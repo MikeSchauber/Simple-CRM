@@ -28,7 +28,7 @@
     }
     }
     <!-- Add Column Menu -->
-    @if (!allColumnsUsed) {
+    @if (!allColumnsUsed && !this.dataManagement.checkUsedColumns()) {
     <div class="cell button-container">
       <button [matMenuTriggerFor]="menu" mat-raised-button matTooltip="Add a new Column">
         <mat-icon>add</mat-icon>
@@ -115,18 +115,21 @@
     @for (cell of dataManagement.activeTableColumns; track $index) {
     @if (cell.type == "dropdown" && cell.used) {
     <div class="cell add-dropdown-cell">
-      <button [matMenuTriggerFor]="dropdown" mat-raised-button matTooltip="{{cell.name}}">
+      <button [matMenuTriggerFor]="dropdown" mat-raised-button>
         <mat-icon>arrow_drop_down</mat-icon>
       </button>
       <mat-menu #dropdown="matMenu">
         @for (item of cell.availableDropdowns; track $index; let i = $index) {
-          <div [ngStyle]="{'background-color': item.color}">{{item.name}}</div>
-        }
+        <div [ngStyle]="{'background-color': item.color}">{{item.name}}</div>
+        }git
       </mat-menu>
     </div>
     }
     }
+    @if (!this.dataManagement.checkUsedColumns()) {
     <div class="cell"></div>
+    }
+
   </div>
   }
   }
@@ -145,7 +148,9 @@
     <div class="cell"></div>
     }
     }
+    @if (!this.dataManagement.checkUsedColumns()) {
     <div class="cell"></div>
+    }
 
   </div>
 </div>

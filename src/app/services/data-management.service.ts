@@ -11,6 +11,7 @@ import {
 import { DealInterface } from '../interfaces/deal-interface';
 import { ContactInterface } from '../interfaces/contact-interface';
 import { ColumnInterface } from '../interfaces/column-interface';
+import { ActiveContactsComponent } from '../components/contacts/table/active-contacts/active-contacts.component';
 
 @Injectable({
   providedIn: 'root',
@@ -59,7 +60,15 @@ export class DataManagementService implements OnDestroy {
       } else if (list === 'deals') {
         this.deals = this.pushIntoEachArray(querySnapshot);
       }
+      this.checkUsedColumns();
     });
+  }
+
+  checkUsedColumns() {
+    let usedColumnChecker = this.activeTableColumns.every(
+      (c) => c.used === true
+    );
+    return usedColumnChecker
   }
 
   querySortedDocRef(list: string) {
