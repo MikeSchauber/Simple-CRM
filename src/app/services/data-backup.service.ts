@@ -341,28 +341,27 @@ export class DataBackupService {
   ];
 
   constructor(private dataManagement: DataManagementService) {
-    /* Run this addBackupData() Functions to set Backup Data */
-    this.addBackupData();
+    /* Run this addBackupData() Function in AppComponent.ts to set Backup Data */
   }
 
   async addBackupData() {
-    for (const contact of this.activeContacts) {
-      await addDoc(this.dataManagement.getDocRef('activeContacts'), contact);
-    }
-    for (const contact of this.inactiveContacts) {
-      await addDoc(this.dataManagement.getDocRef('inactiveContacts'), contact);
-    }
-    for (const column of this.activeTableColumns) {
-      await addDoc(this.dataManagement.getDocRef('activeTableColumns'), column);
-    }
-    for (const column of this.inactiveTableColumns) {
-      await addDoc(
-        this.dataManagement.getDocRef('inactiveTableColumns'),
-        column
-      );
-    }
-    for (const deal of this.deals) {
-      await addDoc(this.dataManagement.getDocRef('deals'), deal);
-    }
+    // for (const contact of this.activeContacts) {
+    //   await addDoc(this.dataManagement.getDocRef('activeContacts'), contact);
+    // }
+    // for (const contact of this.inactiveContacts) {
+    //   await addDoc(this.dataManagement.getDocRef('inactiveContacts'), contact);
+    // }
+    // for (const column of this.activeTableColumns) {
+    //   await addDoc(this.dataManagement.getDocRef('activeTableColumns'), column);
+    // }
+    // for (const column of this.inactiveTableColumns) {
+    //   await addDoc(
+    //     this.dataManagement.getDocRef('inactiveTableColumns'),
+    //     column
+    //   );
+    // }
+    // for (const deal of this.deals) {
+    //   await addDoc(this.dataManagement.getDocRef('deals'), deal);
+    // }
   }
 }

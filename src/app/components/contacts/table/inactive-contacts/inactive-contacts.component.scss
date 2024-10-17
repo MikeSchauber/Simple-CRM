@@ -9,8 +9,8 @@ input {
   border-color: transparent;
   border-radius: 5px;
   background: none;
-  padding: 5px;
   margin: 0;
+  padding: 5px;
   font: inherit;
   color: inherit;
   box-shadow: none;
@@ -42,8 +42,6 @@ input {
   }
 }
 
-
-
 .empty-field {
   background-color: white;
   &:hover {
@@ -66,6 +64,7 @@ input {
 
 .header-cell {
   justify-content: flex-start;
+  color: $darkcolorHover;
 }
 
 .columnCell {
@@ -77,14 +76,38 @@ mat-icon {
   text-align: center;
   transition: all 125ms ease-in-out;
   cursor: pointer;
-  border-radius:50%;
+  background-color: lightgrey;
+  border-radius: 50%;
   color: $darkcolor;
-  font-size: 20px;
-  width: 28px;
-  height: 28px;
+  font-size: 18px;
+  width: 24px;
+  height: 24px;
   &:hover {
     color: $darkcolorHover;
+    background-color: rgb(224, 224, 224);
   }
+}
+
+.no-icon-action {
+  background-color: transparent;
+  font-size: 20px;
+  &:hover {
+    color: grey;
+    background-color: transparent;
+  }
+}
+
+.blue-color-icon {
+  color: $darkcolor !important;
+  font-size: 32px;
+  &:hover {
+    color: $darkcolorHover !important;
+  }
+}
+
+.column-icon {
+  background-color: transparent;
+  font-size: 32px;
 }
 
 .checkbox-cell {
@@ -181,4 +204,46 @@ mat-icon {
       margin: 0;
     }
   }
+}
+
+.badge-menu {
+  @include dFlex($g: 4px);
+}
+
+.badge {
+  width: 90%;
+  overflow: hidden;
+  display: inline-block;
+  padding: 8px 16px;
+  border-radius: 12px;
+  color: white;
+  font-weight: bold;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.125s ease-in-out;
+  cursor: pointer;
+}
+
+.badge::before {
+  content: "";
+  position: absolute;
+  top: 0%;
+  left: 150%;
+  width: 300%;
+  height: 100%;
+  background: linear-gradient(0deg, rgba(255, 255, 255, 0) 15%, rgba(255, 255, 255, 0.415) 50%, rgba(255, 255, 255, 0) 85%);
+  transform: rotate(-155deg);
+  transition: all 0.125s ease-in-out;
+  pointer-events: none;
+}
+
+.badge:hover::before {
+  left: -60%;
+  top: 50%;
+  transform: rotate(-160deg);
+}
+
+.badge:hover {
+  transform: scale(1.05);
 }

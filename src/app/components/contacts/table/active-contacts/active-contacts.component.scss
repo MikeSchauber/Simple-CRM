@@ -64,6 +64,7 @@ input {
 
 .header-cell {
   justify-content: flex-start;
+  color: $darkcolorHover;
 }
 
 .columnCell {
@@ -99,6 +100,9 @@ mat-icon {
 .blue-color-icon {
   color: $darkcolor !important;
   font-size: 32px;
+  &:hover {
+    color: $darkcolorHover !important;
+  }
 }
 
 .column-icon {
@@ -203,7 +207,7 @@ mat-icon {
 }
 
 .badge-menu {
-  @include dFlex($g: 8px);
+  @include dFlex($g: 4px);
 }
 
 .badge {

@@ -33,14 +33,12 @@
     <!-- Add Column Menu -->
     @if (!this.dataManagement.inactiveCheck) {
     <div class="cell button-container">
-      <button [matMenuTriggerFor]="menu" mat-raised-button matTooltip="Add a new Column">
-        <mat-icon>add</mat-icon>
-      </button>
+      <mat-icon class=" blue-color-icon" [matMenuTriggerFor]="menu" matTooltip="Add a new Column">add_circle</mat-icon>
       <mat-menu #menu="matMenu">
         @for (item of this.dataManagement.inactiveTableColumns; track item; let i = $index) {
         @if (!item.used && item.index > 2) {
         <button (click)="tableControl.addColumn('inactiveTableColumns', item.id)" class="matMenu-button" mat-menu-item>
-          <mat-icon [ngStyle]="{'color': item.color}" class="type">{{item.icon}}</mat-icon>
+          <mat-icon [ngStyle]="{'color': item.color}" class="type column-icon">{{item.icon}}</mat-icon>
           {{item.name}}</button>
         }
         }
@@ -88,7 +86,7 @@
     <form class="cell email-cell add-button">
       <mat-icon
         (click)="tableControl.openEmailDialog($event, 'inactiveContacts', item.id, $event)">add_box</mat-icon><mat-icon
-        class="default-icon">mail</mat-icon>
+        class="default-icon no-icon-action">mail</mat-icon>
       <div (click)="tableControl.closeEmailDialog('inactiveContacts', item.id)" class="input-dialog"
         [ngClass]="{'d-none': !item.emailEdit}">
         <div (click)="tableControl.preventDefault($event)"
@@ -119,20 +117,22 @@
 
     <!-- Added Cells with Dropdown -->
     @for (cell of dataManagement.inactiveTableColumns; track $index) {
-    @if (cell.type == "dropdown" && cell.used) {
-    <div class="cell add-dropdown-cell">
-      <mat-icon [matMenuTriggerFor]="dropdown">arrow_drop_down</mat-icon>
-      <mat-menu #dropdown="matMenu">
-        @for (item of cell.availableDropdowns; track $index; let i = $index) {
-        <div [ngStyle]="{'background-color': item.color}">{{item.name}}</div>
-        }git
-      </mat-menu>
-    </div>
-    }
-    }
-    @if (!this.dataManagement.inactiveCheck) {
-    <div class="cell"></div>
-    }
+      @if (cell.type == "dropdown" && cell.used) {
+      <div class="cell add-dropdown-cell">
+        <mat-icon class="arrow-drop-icon" [matMenuTriggerFor]="dropdown">arrow_drop_down</mat-icon>
+        <mat-menu #dropdown="matMenu">
+          <div class="badge-menu">
+            @for (item of cell.availableDropdowns; track $index; let i = $index) {
+            <div class="badge" [ngStyle]="{'background-color': item.color}">{{item.name}}</div>
+            }
+          </div>
+        </mat-menu>
+      </div>
+      }
+      }
+      @if (!this.dataManagement.inactiveCheck) {
+      <div class="cell"></div>
+      }
   </div>
   }
   }

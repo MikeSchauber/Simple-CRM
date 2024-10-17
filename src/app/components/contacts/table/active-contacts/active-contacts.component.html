@@ -17,7 +17,7 @@
       </div>
       @for(item of this.dataManagement.activeTableColumns; track $index; let i = $index) {
       @if (item.type == "dropdown" && item.used) {
-      <div class="cell columnCell" (mouseover)="hoverAction('none', i)" (mouseleave)="mouseOutAction()">
+      <div class="cell columnCell header-cell" (mouseover)="hoverAction('none', i)" (mouseleave)="mouseOutAction()">
         <span>{{item.name}}</span>
         <mat-icon (click)="tableControl.deleteColumn('activeTableColumns', item.id)"
           [ngClass]="{'d-none': !columnHovered[i]}">more_vert</mat-icon>
@@ -126,6 +126,8 @@
         </div>
       </mat-menu>
     </div>
+    } @else {
+      
     }
     }
     @if (!this.dataManagement.activeCheck) {

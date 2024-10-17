@@ -7,6 +7,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { CommonModule } from '@angular/common';
 import { TableControlService } from './services/table-control.service';
 import { Firestore } from '@angular/fire/firestore';
+import { DataBackupService } from './services/data-backup.service';
 
 @Component({
   selector: 'app-root',
@@ -29,7 +30,10 @@ export class AppComponent implements OnInit {
 
   constructor(
     public tableControl: TableControlService,
-  ) { }
+    private dataBackup: DataBackupService
+  ) {
+    // this.dataBackup.addBackupData();
+  }
 
   ngOnInit(): void {
     this.tableControl.closeAllEdits();
