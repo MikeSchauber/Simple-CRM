@@ -195,8 +195,12 @@ export class DataBackupService {
       telEdit: false,
       emailHovered: false,
       telHovered: false,
-      badge: '',
-      badgeColor:''
+      badgeType: '',
+      role: '',
+      prio: '',
+      badgeColorStatus: '',
+      badgeColorRole: '',
+      badgeColorPrio: '',
     },
     {
       id: '',
@@ -210,8 +214,12 @@ export class DataBackupService {
       telEdit: false,
       emailHovered: false,
       telHovered: false,
-      badge: '',
-      badgeColor:''
+      badgeType: '',
+      role: '',
+      prio: '',
+      badgeColorStatus: '',
+      badgeColorRole: '',
+      badgeColorPrio: '',
     },
     {
       id: '',
@@ -225,8 +233,12 @@ export class DataBackupService {
       telEdit: false,
       emailHovered: false,
       telHovered: false,
-        badge: '',
-      badgeColor:''
+      badgeType: '',
+      role: '',
+      prio: '',
+      badgeColorStatus: '',
+      badgeColorRole: '',
+      badgeColorPrio: '',
     },
     {
       id: '',
@@ -240,8 +252,12 @@ export class DataBackupService {
       telEdit: false,
       emailHovered: false,
       telHovered: false,
-       badge: '',
-      badgeColor:''
+      badgeType: '',
+      role: '',
+      prio: '',
+      badgeColorStatus: '',
+      badgeColorRole: '',
+      badgeColorPrio: '',
     },
     {
       id: '',
@@ -255,8 +271,12 @@ export class DataBackupService {
       telEdit: false,
       emailHovered: false,
       telHovered: false,
-      badge: '',
-      badgeColor:''
+      badgeType: '',
+      role: '',
+      prio: '',
+      badgeColorStatus: '',
+      badgeColorRole: '',
+      badgeColorPrio: '',
     },
   ];
 
@@ -273,8 +293,12 @@ export class DataBackupService {
       telEdit: false,
       emailHovered: false,
       telHovered: false,
-      badge: '',
-      badgeColor:''
+      badgeType: '',
+      role: '',
+      prio: '',
+      badgeColorStatus: '',
+      badgeColorRole: '',
+      badgeColorPrio: '',
     },
     {
       id: '',
@@ -288,8 +312,12 @@ export class DataBackupService {
       telEdit: false,
       emailHovered: false,
       telHovered: false,
-      badge: '',
-      badgeColor:''
+      badgeType: '',
+      role: '',
+      prio: '',
+      badgeColorStatus: '',
+      badgeColorRole: '',
+      badgeColorPrio: '',
     },
     {
       id: '',
@@ -303,8 +331,12 @@ export class DataBackupService {
       telEdit: false,
       emailHovered: false,
       telHovered: false,
-      badge: '',
-      badgeColor:''
+      badgeType: '',
+      role: '',
+      prio: '',
+      badgeColorStatus: '',
+      badgeColorRole: '',
+      badgeColorPrio: '',
     },
   ];
 

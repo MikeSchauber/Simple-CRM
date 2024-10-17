@@ -10,6 +10,10 @@ export interface ContactInterface {
   visibleEmail: string;
   emailHovered: boolean;
   telHovered: boolean;
-  badge: string;
-  badgeColor: string;
+  badgeType: string;
+  role: string;
+  prio: string;
+  badgeColorStatus: string;
+  badgeColorRole: string;
+  badgeColorPrio: string;
 }

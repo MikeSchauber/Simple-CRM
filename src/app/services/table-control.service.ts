@@ -11,6 +11,7 @@ import {
   updateDoc,
   writeBatch,
 } from 'firebase/firestore';
+import { ContactInterface } from '../interfaces/contact-interface';
 
 @Injectable({
   providedIn: 'root',
@@ -292,10 +293,82 @@ export class TableControlService {
     }
   }
 
-  async addBadgeToContact(value: string, color: string, coll: string, id: string) {
-    await updateDoc(this.dataManagement.getSingleDocRef(coll, id), {
-      badge: value,
-      badgeColor: color,
-    });
+  async addBadgeToContact(
+    value: string,
+    color: string,
+    coll: string,
+    id: string,
+    cellType: string
+  ) {
+    console.log(cellType);
+    
+    let badgeData = this.returnRightObject(cellType, value, color);
+    console.log(badgeData);
+
+    await updateDoc(this.dataManagement.getSingleDocRef(coll, id), badgeData);
   }
+  returnRightObject(type: string, value: string, color: string) {
+    if (type === 'User Roles') {
+      return {
+        badgeType: 'role',
+        role: value,
+        prio: '',
+        badgeColorStatus: '',
+        badgeColorRole: color,
+        badgeColorPrio: '',
+      };
+    } else if (type === 'Status') {
+      return {
+        status: value,
+        badgeType: 'status',
+        role: '',
+        prio: '',
+        badgeColorStatus: color,
+        badgeColorRole: '',
+        badgeColorPrio: '',
+      };
+    } else if (type === 'Priority') {
+      return {
+        badgeType: 'prio',
+        role: '',
+        prio: value,
+        badgeColorStatus: '',
+        badgeColorRole: '',
+        badgeColorPrio: color,
+      };
+    } else {
+      return {
+        badgeType: '',
+        role: '',
+        prio: '',
+        badgeColorStatus: '',
+        badgeColorRole: '',
+        badgeColorPrio: '',
+      };
+    }
+  }
+
+  getBadgeColor(contact: ContactInterface, cellName: string): string {
+    if (cellName === 'User Roles') {
+      return contact.badgeColorRole;
+    } else if (cellName === 'Standing') {
+      return contact.badgeColorStatus;
+    } else if (cellName === 'Priority') {
+      return contact.badgeColorPrio;
+    }
+    return ''; 
+  }
+
+  getBadgeText(contact: ContactInterface, cellName: string): string {
+    if (cellName === 'User Roles') {
+      return contact.role;
+    } else if (cellName === 'Standing') {
+      return contact.status;
+    } else if (cellName === 'Priority') {
+      return contact.prio;
+    }
+    return ''; // Fallback
+  }
+  
+  
 }

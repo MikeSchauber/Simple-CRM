@@ -47,109 +47,120 @@
 
   <!-- Table Content Rows -->
   @if (dataManagement.activeContacts.length > 0) {
-  @for (item of this.dataManagement.activeContacts ; track $index; let i = $index) {
+  @for (contact of this.dataManagement.activeContacts ; track $index; let i = $index) {
   <div class="row content-row">
     <div class="cell checkbox-cell">
       <section class="example-section">
-        <mat-checkbox [(ngModel)]="item.checked" class="example-margin"></mat-checkbox>
+        <mat-checkbox [(ngModel)]="contact.checked" class="example-margin"></mat-checkbox>
       </section>
     </div>
     <div class="cell Contacts">
-      <input [(ngModel)]="item.name" #nameValue [value]="item.name"
-        (blur)="tableControl.changeNameOnBlur($event, 'activeContacts', item.id)"
-        (keyup)="tableControl.changeName($event, 'activeContacts', item.id, nameValue.value)">
+      <input [(ngModel)]="contact.name" #nameValue [value]="contact.name"
+        (blur)="tableControl.changeNameOnBlur($event, 'activeContacts', contact.id)"
+        (keyup)="tableControl.changeName($event, 'activeContacts', contact.id, nameValue.value)">
     </div>
     <!-- Tel Edit Menu -->
-    @if (item.tel.length > 0) {
+    @if (contact.tel.length > 0) {
     <div (mouseover)="hoverAction('tel', i)" (mouseout)="mouseOutAction();" class="cell email-cell"><a
-        [href]="'tel:' + item.email">{{item.tel}}</a><mat-icon
-        (click)="tableControl.deleteTel(item.id, 'activeContacts')"
-        [ngClass]="{'d-none': !item.telHovered}">edit</mat-icon>
+        [href]="'tel:' + contact.email">{{contact.tel}}</a><mat-icon
+        (click)="tableControl.deleteTel(contact.id, 'activeContacts')"
+        [ngClass]="{'d-none': !contact.telHovered}">edit</mat-icon>
     </div>
     } @else {
-    @if (!item.telEdit) {
+    @if (!contact.telEdit) {
     <div class="cell email-cell add-button">
-      <mat-icon (click)="tableControl.openTelInput('activeContacts', item.id, $event)">add_box</mat-icon><mat-icon
+      <mat-icon (click)="tableControl.openTelInput('activeContacts', contact.id, $event)">add_box</mat-icon><mat-icon
         class="default-icon no-action-icon">phone_iphone</mat-icon>
     </div>
     } @else {
     <div class="cell">
       <input class="dialog-input" type="phone" (click)="tableControl.preventDefault($event)"
-        (keydown)="tableControl.saveTelData($event, item.id, 'activeContacts')" placeholder="0 (123) 456 7890">
+        (keydown)="tableControl.saveTelData($event, contact.id, 'activeContacts')" placeholder="0 (123) 456 7890">
     </div>
     }
     }
     <!-- Email Edit Menu -->
-    @if (item.email.length == 0) {
+    @if (contact.email.length == 0) {
     <form class="cell email-cell add-button">
       <mat-icon
-        (click)="tableControl.openEmailDialog($event, 'activeContacts', item.id, $event)">add_box</mat-icon><mat-icon
+        (click)="tableControl.openEmailDialog($event, 'activeContacts', contact.id, $event)">add_box</mat-icon><mat-icon
         class="default-icon no-icon-action">mail</mat-icon>
-      <div (click)="tableControl.closeEmailDialog('activeContacts', item.id)" class="input-dialog"
-        [ngClass]="{'d-none': !item.emailEdit}">
+      <div (click)="tableControl.closeEmailDialog('activeContacts', contact.id)" class="input-dialog"
+        [ngClass]="{'d-none': !contact.emailEdit}">
         <div (click)="tableControl.preventDefault($event)"
           [ngStyle]="{'top': tableControl.dialogPositionY + 'px', 'left': tableControl.dialogPositionX + 'px'}">
           <span>Add a new email-adress</span>
           <input class="dialog-input" [ngClass]="{'no-valid-email': tableControl.noValidEmail}" placeholder="Add email"
             type="email" #emailInput
-            (keydown)="tableControl.onInputKeydown($event, item.id, emailInput.value, 'activeContacts')">
+            (keydown)="tableControl.onInputKeydown($event, contact.id, emailInput.value, 'activeContacts')">
           <span>Displayed text</span>
           <input class="dialog-input" type="text" id="visible" placeholder="(optional)"
-            (keyup)="tableControl.visibleEmail($event, item.id, emailInput.value, 'activeContacts')">
+            (keyup)="tableControl.visibleEmail($event, contact.id, emailInput.value, 'activeContacts')">
         </div>
       </div>
     </form>
     <!-- Email Data -->
     } @else {
     <div (mouseover)="hoverAction('email', i)" (mouseout)="mouseOutAction();" class="cell email-cell"><a
-        [href]="'mailto:' + item.email">
-        @if (item.email.length > 0) {
-        {{item.email}}
+        [href]="'mailto:' + contact.email">
+        @if (contact.email.length > 0) {
+        {{contact.email}}
         } @else {
-        {{item.visibleEmail}}
+        {{contact.visibleEmail}}
         }
-      </a><mat-icon [ngClass]="{'d-none': !item.emailHovered}"
-        (click)="tableControl.deleteEmail(item.id, 'activeContacts');">edit</mat-icon>
+      </a><mat-icon [ngClass]="{'d-none': !contact.emailHovered}"
+        (click)="tableControl.deleteEmail(contact.id, 'activeContacts');">edit</mat-icon>
     </div>
     }
 
     <!-- Added Cells with Dropdown -->
-    @if (item.badge.length == 0) {
-      @for (cell of dataManagement.activeTableColumns; track $index) {
-      @if (cell.type == "dropdown" && cell.used) {
-      <div class="cell add-dropdown-cell">
-        <mat-icon class="arrow-drop-icon" [matMenuTriggerFor]="dropdown">arrow_drop_down</mat-icon>
-        <mat-menu #dropdown="matMenu">
-          <div class="badge-menu">
-            @for (dropdown of cell.availableDropdowns; track $index; let i = $index) {
-            <div class="badge"
-              (click)="tableControl.addBadgeToContact(dropdown.name, dropdown.color, 'activeContacts', item.id)"
-              [ngStyle]="{'background-color': dropdown.color}">{{dropdown.name}}</div>
-            }
-          </div>
-        </mat-menu>
-      </div>
-      }
-      }
-      } @else {
-      @for (cell of dataManagement.activeTableColumns; track $index) {
-      @if (cell.type == "dropdown" && cell.used) {
-      <div class="cell add-dropdown-cell">
-        <div class="badge" [matMenuTriggerFor]="dropdown" [ngStyle]="{'background-color': item.badgeColor}">{{item.badge}}
+    @if (contact.badgeType.length == 0) {
+    @for (cell of dataManagement.activeTableColumns; track $index) {
+    @if (cell.type == "dropdown" && cell.used) {
+    <div class="cell add-dropdown-cell">
+      <mat-icon class="arrow-drop-icon" [matMenuTriggerFor]="dropdown">arrow_drop_down</mat-icon>
+      <mat-menu #dropdown="matMenu">
+        <div class="badge-menu">
+          @for (dropdown of cell.availableDropdowns; track $index; let i = $index) {
+          <div class="badge"
+            (click)="tableControl.addBadgeToContact(dropdown.name, dropdown.color, 'activeContacts', contact.id, cell.name)"
+            [ngStyle]="{'background-color': dropdown.color}">{{dropdown.name}}</div>
+          }
         </div>
-        <mat-menu #dropdown="matMenu">
-          <div class="badge-menu">
-            @for (dropdown of cell.availableDropdowns; track $index; let i = $index) {
-              <div class="badge"
-              (click)="tableControl.addBadgeToContact(dropdown.name, dropdown.color, 'activeContacts', item.id)"
-              [ngStyle]="{'background-color': dropdown.color}">{{dropdown.name}}</div>
-            }
-          </div>
-        </mat-menu>
+      </mat-menu>
+    </div>
+    }
+    }
+    } @else {
+    @for (cell of dataManagement.activeTableColumns; track $index) {
+    @if (cell.type == "dropdown" && cell.used) {
+    <div class="cell add-dropdown-cell">
+      @if (contact.badgeType == 'role') {
+      <div class="badge" [matMenuTriggerFor]="dropdown" [ngStyle]="{'background-color': contact.badgeColorRole}">
+        {{contact.role}}
+      </div>
+      } @else if (contact.badgeType == 'status') {
+      <div class="badge" [matMenuTriggerFor]="dropdown" [ngStyle]="{'background-color': contact.badgeColorStatus}">
+        {{contact.status}}
+      </div>
+      } @else {
+      <div class="badge" [matMenuTriggerFor]="dropdown" [ngStyle]="{'background-color': contact.badgeColorPrio}">
+        {{contact.prio}}
       </div>
       }
-      }
-      }
+      <mat-menu #dropdown="matMenu">
+        <div class="badge-menu">
+          @for (dropdown of cell.availableDropdowns; track $index; let i = $index) {
+          <div class="badge"
+            (click)="tableControl.addBadgeToContact(dropdown.name, dropdown.color, 'activeContacts', contact.id, cell.name)"
+            [ngStyle]="{'background-color': dropdown.color}">{{dropdown.name}}</div>
+          }
+        </div>
+      </mat-menu>
+    </div>
+    }
+    }
+    }
     @if (!this.dataManagement.activeCheck) {
     <div class="cell"></div>
     }
