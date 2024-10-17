@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { DataManagementService } from './data-management.service';
+import { addDoc } from 'firebase/firestore';
 
 @Injectable({
   providedIn: 'root',
@@ -46,18 +47,18 @@ export class DataBackupService {
       index: 3,
       columnId: '',
       id: '',
-      name: 'Type',
+      name: 'User Roles',
       type: 'dropdown',
       icon: 'supervised_user_circle',
       color: '#2196f3',
       used: false,
-      activeDropdown: {name: '', color: ''},
+      activeDropdown: { name: '', color: '' },
       availableDropdowns: [
-        { name: 'Artist', color: '#ff5722' },
-        { name: 'Manager', color: '#2196f3' },
-        { name: 'Lead', color: '#4caf50' },
-        { name: 'Partner', color: '#9c27b0' },
-        { name: 'Customer', color: '#ffeb3b' },
+        { name: 'Artist', color: '#d84315' },
+        { name: 'Manager', color: '#1976d2' },
+        { name: 'Lead', color: '#388e3c' },
+        { name: 'Partner', color: '#7b1fa2' },
+        { name: 'Customer', color: '#fbc02d' },
       ],
     },
     {
@@ -69,7 +70,7 @@ export class DataBackupService {
       icon: 'bolt',
       color: '#4caf50',
       used: false,
-      activeDropdown: {name: '', color: ''},
+      activeDropdown: { name: '', color: '' },
       availableDropdowns: [
         { name: 'Active', color: '#4caf50' },
         { name: 'Inactive', color: '#f44336' },
@@ -84,7 +85,7 @@ export class DataBackupService {
       icon: 'priority_high',
       color: '#f44336',
       used: false,
-      activeDropdown: {name: '', color: ''},
+      activeDropdown: { name: '', color: '' },
       availableDropdowns: [
         { name: 'low', color: '#8bc34a' },
         { name: 'medium', color: '#ffc107' },
@@ -134,18 +135,18 @@ export class DataBackupService {
       index: 3,
       columnId: '',
       id: '',
-      name: 'Type',
+      name: 'User Roles',
       type: 'dropdown',
       icon: 'supervised_user_circle',
       color: '#2196f3',
       used: false,
-      activeDropdown: {name: '', color: ''},
+      activeDropdown: { name: '', color: '' },
       availableDropdowns: [
-        { name: 'Artist', color: '#ff5722' },
-        { name: 'Manager', color: '#2196f3' },
-        { name: 'Lead', color: '#4caf50' },
-        { name: 'Partner', color: '#9c27b0' },
-        { name: 'Customer', color: '#ffeb3b' },
+        { name: 'Artist', color: '#d84315' },
+        { name: 'Manager', color: '#1976d2' },
+        { name: 'Lead', color: '#388e3c' },
+        { name: 'Partner', color: '#7b1fa2' },
+        { name: 'Customer', color: '#fbc02d' },
       ],
     },
     {
@@ -157,7 +158,7 @@ export class DataBackupService {
       icon: 'bolt',
       color: '#4caf50',
       used: false,
-      activeDropdown: {name: '', color: ''},
+      activeDropdown: { name: '', color: '' },
       availableDropdowns: [
         { name: 'Active', color: '#4caf50' },
         { name: 'Inactive', color: '#f44336' },
@@ -172,7 +173,7 @@ export class DataBackupService {
       icon: 'priority_high',
       color: '#f44336',
       used: false,
-      activeDropdown: {name: '', color: ''},
+      activeDropdown: { name: '', color: '' },
       availableDropdowns: [
         { name: 'low', color: '#8bc34a' },
         { name: 'medium', color: '#ffc107' },
@@ -341,24 +342,27 @@ export class DataBackupService {
 
   constructor(private dataManagement: DataManagementService) {
     /* Run this addBackupData() Functions to set Backup Data */
-    // this.addBackupData();
+    this.addBackupData();
   }
 
   async addBackupData() {
-    // for (const contact of this.activeContacts) {
-    //   await addDoc(this.dataManagement.getDocRef('activeContacts'), contact);
-    // }
-    // for (const contact of this.inactiveContacts) {
-    //   await addDoc(this.dataManagement.getDocRef('inactiveContacts'), contact);
-    // }
-    // for (const column of this.activeTableColumns) {
-    //   await addDoc(this.dataManagement.getDocRef('activeTableColumns'), column);
-    // }
-    // for (const column of this.inactiveTableColumns) {
-    //   await addDoc(this.dataManagement.getDocRef('inactiveTableColumns'), column);
-    // }
-    // for (const deal of this.deals) {
-    //   await addDoc(this.dataManagement.getDocRef('deals'), deal);
-    // }
+    for (const contact of this.activeContacts) {
+      await addDoc(this.dataManagement.getDocRef('activeContacts'), contact);
+    }
+    for (const contact of this.inactiveContacts) {
+      await addDoc(this.dataManagement.getDocRef('inactiveContacts'), contact);
+    }
+    for (const column of this.activeTableColumns) {
+      await addDoc(this.dataManagement.getDocRef('activeTableColumns'), column);
+    }
+    for (const column of this.inactiveTableColumns) {
+      await addDoc(
+        this.dataManagement.getDocRef('inactiveTableColumns'),
+        column
+      );
+    }
+    for (const deal of this.deals) {
+      await addDoc(this.dataManagement.getDocRef('deals'), deal);
+    }
   }
 }

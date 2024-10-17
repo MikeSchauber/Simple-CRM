@@ -30,8 +30,7 @@
     <!-- Add Column Menu -->
     @if (!this.dataManagement.activeCheck) {
     <div class="cell button-container">
-      <mat-icon class=" blue-color-icon" [matMenuTriggerFor]="menu"
-        matTooltip="Add a new Column">add_circle</mat-icon>
+      <mat-icon class=" blue-color-icon" [matMenuTriggerFor]="menu" matTooltip="Add a new Column">add_circle</mat-icon>
       <mat-menu #menu="matMenu">
         @for (item of this.dataManagement.activeTableColumns; track item; let i = $index) {
         @if (!item.used && item.index > 2) {
@@ -120,9 +119,11 @@
     <div class="cell add-dropdown-cell">
       <mat-icon class="arrow-drop-icon" [matMenuTriggerFor]="dropdown">arrow_drop_down</mat-icon>
       <mat-menu #dropdown="matMenu">
-        @for (item of cell.availableDropdowns; track $index; let i = $index) {
-        <div [ngStyle]="{'background-color': item.color}">{{item.name}}</div>
-        }
+        <div class="badge-menu">
+          @for (item of cell.availableDropdowns; track $index; let i = $index) {
+          <div class="badge" [ngStyle]="{'background-color': item.color}">{{item.name}}</div>
+          }
+        </div>
       </mat-menu>
     </div>
     }

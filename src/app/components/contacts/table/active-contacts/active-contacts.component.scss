@@ -201,3 +201,45 @@ mat-icon {
     }
   }
 }
+
+.badge-menu {
+  @include dFlex($g: 8px);
+}
+
+.badge {
+  width: 90%;
+  overflow: hidden;
+  display: inline-block;
+  padding: 8px 16px;
+  border-radius: 12px;
+  color: white;
+  font-weight: bold;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.125s ease-in-out;
+  cursor: pointer;
+}
+
+.badge::before {
+  content: "";
+  position: absolute;
+  top: 0%;
+  left: 150%;
+  width: 300%;
+  height: 100%;
+  background: linear-gradient(0deg, rgba(255, 255, 255, 0) 15%, rgba(255, 255, 255, 0.415) 50%, rgba(255, 255, 255, 0) 85%);
+  transform: rotate(-155deg);
+  transition: all 0.125s ease-in-out;
+  pointer-events: none;
+}
+
+.badge:hover::before {
+  left: -60%;
+  top: 50%;
+  transform: rotate(-160deg);
+}
+
+.badge:hover {
+  transform: scale(1.05);
+}
