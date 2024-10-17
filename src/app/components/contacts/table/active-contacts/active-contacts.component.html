@@ -30,14 +30,13 @@
     <!-- Add Column Menu -->
     @if (!this.dataManagement.activeCheck) {
     <div class="cell button-container">
-      <button [matMenuTriggerFor]="menu" mat-raised-button matTooltip="Add a new Column">
-        <mat-icon>add</mat-icon>
-      </button>
+      <mat-icon class=" blue-color-icon" [matMenuTriggerFor]="menu"
+        matTooltip="Add a new Column">add_circle</mat-icon>
       <mat-menu #menu="matMenu">
         @for (item of this.dataManagement.activeTableColumns; track item; let i = $index) {
         @if (!item.used && item.index > 2) {
         <button (click)="tableControl.addColumn('activeTableColumns', item.id)" class="matMenu-button" mat-menu-item>
-          <mat-icon [ngStyle]="{'color': item.color}" class="type">{{item.icon}}</mat-icon>
+          <mat-icon [ngStyle]="{'color': item.color}" class="type column-icon">{{item.icon}}</mat-icon>
           {{item.name}}</button>
         }
         }
@@ -66,17 +65,17 @@
     <div (mouseover)="hoverAction('tel', i)" (mouseout)="mouseOutAction();" class="cell email-cell"><a
         [href]="'tel:' + item.email">{{item.tel}}</a><mat-icon
         (click)="tableControl.deleteTel(item.id, 'activeContacts')"
-        [ngClass]="{'d-none': !item.telHovered}">close</mat-icon>
+        [ngClass]="{'d-none': !item.telHovered}">edit</mat-icon>
     </div>
     } @else {
     @if (!item.telEdit) {
     <div class="cell email-cell add-button">
       <mat-icon (click)="tableControl.openTelInput('activeContacts', item.id, $event)">add_box</mat-icon><mat-icon
-        class="default-icon">phone_iphone</mat-icon>
+        class="default-icon no-action-icon">phone_iphone</mat-icon>
     </div>
     } @else {
     <div class="cell">
-      <input class="dialog-input" type="number" (click)="tableControl.preventDefault($event)"
+      <input class="dialog-input" type="phone" (click)="tableControl.preventDefault($event)"
         (keydown)="tableControl.saveTelData($event, item.id, 'activeContacts')" placeholder="0 (123) 456 7890">
     </div>
     }
@@ -86,7 +85,7 @@
     <form class="cell email-cell add-button">
       <mat-icon
         (click)="tableControl.openEmailDialog($event, 'activeContacts', item.id, $event)">add_box</mat-icon><mat-icon
-        class="default-icon">mail</mat-icon>
+        class="default-icon no-icon-action">mail</mat-icon>
       <div (click)="tableControl.closeEmailDialog('activeContacts', item.id)" class="input-dialog"
         [ngClass]="{'d-none': !item.emailEdit}">
         <div (click)="tableControl.preventDefault($event)"
@@ -111,7 +110,7 @@
         {{item.visibleEmail}}
         }
       </a><mat-icon [ngClass]="{'d-none': !item.emailHovered}"
-        (click)="tableControl.deleteEmail(item.id, 'activeContacts');">close</mat-icon>
+        (click)="tableControl.deleteEmail(item.id, 'activeContacts');">edit</mat-icon>
     </div>
     }
 
@@ -119,13 +118,11 @@
     @for (cell of dataManagement.activeTableColumns; track $index) {
     @if (cell.type == "dropdown" && cell.used) {
     <div class="cell add-dropdown-cell">
-      <button [matMenuTriggerFor]="dropdown" mat-raised-button>
-        <mat-icon>arrow_drop_down</mat-icon>
-      </button>
+      <mat-icon class="arrow-drop-icon" [matMenuTriggerFor]="dropdown">arrow_drop_down</mat-icon>
       <mat-menu #dropdown="matMenu">
         @for (item of cell.availableDropdowns; track $index; let i = $index) {
         <div [ngStyle]="{'background-color': item.color}">{{item.name}}</div>
-        }git
+        }
       </mat-menu>
     </div>
     }

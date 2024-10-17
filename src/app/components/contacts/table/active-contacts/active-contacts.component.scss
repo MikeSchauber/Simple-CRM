@@ -10,6 +10,7 @@ input {
   border-radius: 5px;
   background: none;
   margin: 0;
+  padding: 5px;
   font: inherit;
   color: inherit;
   box-shadow: none;
@@ -40,8 +41,6 @@ input {
     background-color: $darkcolor;
   }
 }
-
-
 
 .empty-field {
   background-color: white;
@@ -76,14 +75,35 @@ mat-icon {
   text-align: center;
   transition: all 125ms ease-in-out;
   cursor: pointer;
-  border-radius:50%;
+  background-color: lightgrey;
+  border-radius: 50%;
   color: $darkcolor;
-  font-size: 20px;
-  width: 28px;
-  height: 28px;
+  font-size: 18px;
+  width: 24px;
+  height: 24px;
   &:hover {
     color: $darkcolorHover;
+    background-color: rgb(224, 224, 224);
   }
+}
+
+.no-icon-action {
+  background-color: transparent;
+  font-size: 20px;
+  &:hover {
+    color: grey;
+    background-color: transparent;
+  }
+}
+
+.blue-color-icon {
+  color: $darkcolor !important;
+  font-size: 32px;
+}
+
+.column-icon {
+  background-color: transparent;
+  font-size: 32px;
 }
 
 .checkbox-cell {
