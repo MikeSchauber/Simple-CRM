@@ -4,7 +4,7 @@
       <mat-icon>archive</mat-icon>
       <span>Inactive</span></button>
     <button class="head-button-container" mat-button (click)="tableControl.deleteContacts('activeContacts')">
-      <mat-icon>delete</mat-icon><span>Trash</span>
+      <mat-icon>delete</mat-icon><span>Delete</span>
     </button>
   </div>
   <div id="customers" class="table">
@@ -28,7 +28,7 @@
     }
     }
     <!-- Add Column Menu -->
-    @if (!allColumnsUsed && !this.dataManagement.checkUsedColumns()) {
+    @if (!this.dataManagement.activeCheck) {
     <div class="cell button-container">
       <button [matMenuTriggerFor]="menu" mat-raised-button matTooltip="Add a new Column">
         <mat-icon>add</mat-icon>
@@ -126,7 +126,7 @@
     </div>
     }
     }
-    @if (!this.dataManagement.checkUsedColumns()) {
+    @if (!this.dataManagement.activeCheck) {
     <div class="cell"></div>
     }
 
@@ -148,7 +148,7 @@
     <div class="cell"></div>
     }
     }
-    @if (!this.dataManagement.checkUsedColumns()) {
+    @if (!this.dataManagement.activeCheck) {
     <div class="cell"></div>
     }
 

@@ -30,6 +30,9 @@ export class DataManagementService implements OnDestroy {
   inactiveTableColumns: ColumnInterface[] = [];
   deals: DealInterface[] = [];
 
+  activeCheck: boolean = false;
+  inactiveCheck: boolean = false;
+
   constructor() {
     this.unsubActiveContacts = this.subList('activeContacts');
     this.unsubInactiveContacts = this.subList('inactiveContacts');
@@ -65,10 +68,11 @@ export class DataManagementService implements OnDestroy {
   }
 
   checkUsedColumns() {
-    let usedColumnChecker = this.activeTableColumns.every(
+    this.activeCheck = this.activeTableColumns.every((c) => c.used === true);
+    this.inactiveCheck = this.inactiveTableColumns.every(
       (c) => c.used === true
     );
-    return usedColumnChecker
+
   }
 
   querySortedDocRef(list: string) {

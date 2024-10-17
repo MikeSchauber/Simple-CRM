@@ -1,11 +1,13 @@
-import { Component, inject, Input, OnChanges, OnDestroy, OnInit } from '@angular/core';
+import {
+  Component,
+} from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { FormsModule } from '@angular/forms';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { MatMenuModule, MenuPositionX } from '@angular/material/menu';
+import { MatMenuModule } from '@angular/material/menu';
 import { TableControlService } from '../../../../services/table-control.service';
 import { DataManagementService } from '../../../../services/data-management.service';
 
@@ -23,6 +25,7 @@ import { DataManagementService } from '../../../../services/data-management.serv
   ],
   templateUrl: './active-contacts.component.html',
   styleUrl: './active-contacts.component.scss',
+  providers: [DataManagementService],
 })
 export class ActiveContactsComponent {
   emailHovered: boolean = false;

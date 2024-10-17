@@ -23,6 +23,7 @@ import { DataManagementService } from '../../../../services/data-management.serv
   ],
   templateUrl: './inactive-contacts.component.html',
   styleUrl: './inactive-contacts.component.scss',
+  providers: [DataManagementService],
 })
 export class InactiveContactsComponent {
   columnHovered: boolean[] = [

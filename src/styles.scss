@@ -14,7 +14,35 @@ html {
 
 body {
   height: 100vh;
-  color: white;
+  color: rgb(255, 255, 255);
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+  transition: all 100ms ease-in-out;
+}
+::-webkit-scrollbar-button {
+  width: 0px;
+  height: 0px;
+  transition: all 100ms ease-in-out;
+}
+::-webkit-scrollbar-thumb {
+  background-color: $lightcolor;
+  border: 0px none #ffffff;
+  border-radius: 52px;
+  transition: all 100ms ease-in-out;
+}
+::-webkit-scrollbar-thumb:hover {
+  background-color: $lightcolorHover;
+}
+::-webkit-scrollbar-thumb:active {
+  background-color: $lightcolor;
+}
+::-webkit-scrollbar-track {
+  background-color: #ffffff;
+  border: 0px none #ffffff;
+  border-radius: 23px;
 }
 
 .d-none {
@@ -23,9 +51,25 @@ body {
 
 /* Table styling */
 
+a {
+  color: $darkcolor;
+  text-decoration: none; 
+  padding: 5px;
+  border-radius: 3px;
+  background-color: var(--lightcolor); 
+  transition: all 125ms ease-in-out
+}
+
+/* Hover-Effekt */
+a:hover {
+  background-color: var(--lightcolorHover); 
+  text-decoration: underline; 
+}
+
 .table-container {
   @include dFlex($g: 32px, $ai: flex-start);
   max-width: 1220px;
+  color: $darkcolor;
 }
 
 .table {
@@ -46,8 +90,8 @@ body {
     background-color: $darkcolor;
     transition: all 125ms ease-in-out;
     &:hover {
-      background-color: $darkcolorHover;   
-       box-shadow: 0px 0px 0px 0px rgba(0, 0, 0, 0);
+      background-color: $darkcolorHover;
+      box-shadow: 0px 0px 0px 0px rgba(0, 0, 0, 0);
     }
     &:active {
       &:hover {
@@ -56,7 +100,6 @@ body {
     }
   }
 }
-
 
 @font-face {
   src: url("../src/assets/fonts/Khand-Light.ttf") format("truetype");
