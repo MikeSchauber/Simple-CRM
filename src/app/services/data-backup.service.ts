@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { DataManagementService } from './data-management.service';
 import { addDoc } from 'firebase/firestore';
+import { ContactInterface } from '../interfaces/contact-interface';
 
 @Injectable({
   providedIn: 'root',
@@ -65,7 +66,7 @@ export class DataBackupService {
       index: 4,
       columnId: '',
       id: '',
-      name: 'Status',
+      name: 'Standing',
       type: 'dropdown',
       icon: 'bolt',
       color: '#4caf50',
@@ -181,8 +182,7 @@ export class DataBackupService {
       ],
     },
   ];
-
-  activeContacts = [
+  activeContacts: ContactInterface[] = [
     {
       id: '',
       checked: false,
@@ -195,6 +195,10 @@ export class DataBackupService {
       telEdit: false,
       emailHovered: false,
       telHovered: false,
+      color: '',
+      userRole: '',
+      standing: '',
+      priority: '',
     },
     {
       id: '',
@@ -208,6 +212,10 @@ export class DataBackupService {
       telEdit: false,
       emailHovered: false,
       telHovered: false,
+      color: '',
+      userRole: '',
+      standing: '',
+      priority: '',
     },
     {
       id: '',
@@ -221,6 +229,10 @@ export class DataBackupService {
       telEdit: false,
       emailHovered: false,
       telHovered: false,
+      color: '',
+      userRole: '',
+      standing: '',
+      priority: '',
     },
     {
       id: '',
@@ -234,6 +246,10 @@ export class DataBackupService {
       telEdit: false,
       emailHovered: false,
       telHovered: false,
+      color: '',
+      userRole: '',
+      standing: '',
+      priority: '',
     },
     {
       id: '',
@@ -247,10 +263,14 @@ export class DataBackupService {
       telEdit: false,
       emailHovered: false,
       telHovered: false,
+      color: '',
+      userRole: '',
+      standing: '',
+      priority: '',
     },
   ];
-
-  inactiveContacts = [
+  
+  inactiveContacts: ContactInterface[] = [
     {
       id: '',
       checked: false,
@@ -263,6 +283,10 @@ export class DataBackupService {
       telEdit: false,
       emailHovered: false,
       telHovered: false,
+      color: '',
+      userRole: '',
+      standing: '',
+      priority: '',
     },
     {
       id: '',
@@ -276,6 +300,10 @@ export class DataBackupService {
       telEdit: false,
       emailHovered: false,
       telHovered: false,
+      color: '',
+      userRole: '',
+      standing: '',
+      priority: '',
     },
     {
       id: '',
@@ -289,8 +317,13 @@ export class DataBackupService {
       telEdit: false,
       emailHovered: false,
       telHovered: false,
+      color: '',
+      userRole: '',
+      standing: '',
+      priority: '',
     },
   ];
+  
 
   deals = [
     {

@@ -1,5 +1,3 @@
-
-
 export class Contact {
   emailEdit: boolean = false;
   telEdit: boolean = false;
@@ -12,6 +10,10 @@ export class Contact {
   visibleEmail: string = '';
   emailHovered: boolean = false;
   telHovered: boolean = false;
+  color: string = '';
+  userRole: string = '';
+  standing: string = '';
+  priority: string = '';
 
   constructor(name: string) {
     this.name = name;
@@ -27,9 +29,13 @@ export class Contact {
       name: this.name,
       tel: this.tel,
       email: this.email,
-      visibleMail: this.visibleEmail,
+      visibleEmail: this.visibleEmail,
       emailHovered: this.emailHovered,
       telHovered: this.telHovered,
+      color: this.color,
+      userRole: this.userRole,
+      standing: this.standing,
+      priority: this.priority,
     };
   }
 }
