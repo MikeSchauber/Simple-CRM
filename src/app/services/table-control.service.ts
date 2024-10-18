@@ -302,11 +302,10 @@ export class TableControlService {
     collection: string
   ) {
     console.log(cell.name);
-    
-    
     let badgeData = this.returnRightObject(cell.name, dropdown, contact);
     console.log(badgeData);
-    console.log(this.dataManagement.inactiveContacts)
+    console.log(this.dataManagement.inactiveTableColumns);
+    
     await updateDoc(this.dataManagement.getSingleDocRef(collection, contact.id), badgeData);
   }
 
@@ -315,12 +314,12 @@ export class TableControlService {
     if (category == "User Roles") {
       badgeData = {
         badgeType: category,
-        status: '',
+        status: contact.status,
         role: dropdown.name,
-        prio: '',
+        prio: contact.prio,
         badgeColorStatus: '',
         badgeColorRole: dropdown.color,
-        badgeColorPrio: '',
+        badgeColorPrio: contact.badgeColorPrio,
       }
     } else if (category == "Standing") {
       badgeData = {
