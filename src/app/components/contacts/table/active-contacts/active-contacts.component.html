@@ -123,7 +123,7 @@
         <div class="badge-menu">
           @for (dropdown of cell.availableDropdowns; track $index; let i = $index) {
           <div class="badge"
-            (click)="tableControl.addBadgeToContact(dropdown.name, dropdown.color, 'activeTableColumns', cell.id, cell.name)"
+            (click)="tableControl.addBadgeToContact(dropdown, cell, contact, 'activeContacts')"
             [ngStyle]="{'background-color': dropdown.color}">{{dropdown.name}}</div>
           }
         </div>
@@ -152,7 +152,7 @@
         <div class="badge-menu">
           @for (dropdown of cell.availableDropdowns; track $index; let i = $index) {
           <div class="badge"
-            (click)="tableControl.addBadgeToContact(dropdown.name, dropdown.color, 'activeTableColumns', cell.id, cell.name)"
+            (click)="tableControl.addBadgeToContact(dropdown, cell, contact, 'activeContacts')"
             [ngStyle]="{'background-color': dropdown.color}">{{dropdown.name}}</div>
           }
         </div>
