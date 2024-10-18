@@ -136,15 +136,17 @@
     @for (cell of dataManagement.inactiveTableColumns; track $index) {
     @if (cell.type == "dropdown" && cell.used) {
     <div class="cell add-dropdown-cell">
-      @if (contact.role.length > 0 && cell.name === 'User Roles') {
+      @if (contact.badgeType == 'User Roles' && cell.name === 'User Roles') {
       <div class="badge" [matMenuTriggerFor]="dropdown" [ngStyle]="{'background-color': contact.badgeColorRole}">
         {{contact.role}}
       </div>
-      } @else if (contact.prio.length > 0 && cell.name == 'Priority') {
+      }
+      @if (contact.badgeType == 'Priority' && cell.name == 'Priority') {
       <div class="badge" [matMenuTriggerFor]="dropdown" [ngStyle]="{'background-color': contact.badgeColorPrio}">
         {{contact.prio}}
       </div>
-      } @else {
+      } 
+      @if (contact.badgeType == 'Standing' && cell.name == 'Standing') {
       <div class="badge" [matMenuTriggerFor]="dropdown" [ngStyle]="{'background-color': contact.badgeColorStatus}">
         {{contact.status}}
       </div>

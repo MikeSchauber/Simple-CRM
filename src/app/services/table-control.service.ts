@@ -301,12 +301,15 @@ export class TableControlService {
     contact: ContactInterface,
     collection: string
   ) {
-    let badgeData = this.returnRightObject(cell.name, dropdown);
+    console.log(cell.name);
+    
+    
+    let badgeData = this.returnRightObject(cell.name, dropdown, contact);
     console.log(badgeData);
     await updateDoc(this.dataManagement.getSingleDocRef(collection, contact.id), badgeData);
   }
 
-  returnRightObject(category: string, dropdown: Dropdown) {
+  returnRightObject(category: string, dropdown: Dropdown, contact: ContactInterface) {
     let badgeData;
     if (category == "User Roles") {
       badgeData = {
@@ -321,22 +324,22 @@ export class TableControlService {
     } else if (category == "Standing") {
       badgeData = {
         badgeType: category,
-        status: '',
-        role: '',
-        prio: '',
-        badgeColorStatus: '',
-        badgeColorRole: '',
-        badgeColorPrio: '',
+        status: dropdown.name,
+        role: contact.role,
+        prio: contact.prio,
+        badgeColorStatus: dropdown.color,
+        badgeColorRole: contact.badgeColorRole,
+        badgeColorPrio: contact.badgeColorPrio,
       }
     } else if (category == "Priority") {
       badgeData = {
         badgeType: category,
-        status: '',
-        role: '',
-        prio: '',
-        badgeColorStatus: '',
-        badgeColorRole: '',
-        badgeColorPrio: '',
+        status: contact.status,
+        role: contact.role,
+        prio: dropdown.name,
+        badgeColorStatus: contact.badgeColorStatus,
+        badgeColorRole: contact.badgeColorRole,
+        badgeColorPrio: dropdown.color,
       }
     } else {
       badgeData = {
