@@ -306,6 +306,7 @@ export class TableControlService {
     
     let badgeData = this.returnRightObject(cell.name, dropdown, contact);
     console.log(badgeData);
+    console.log(this.dataManagement.inactiveContacts)
     await updateDoc(this.dataManagement.getSingleDocRef(collection, contact.id), badgeData);
   }
 
