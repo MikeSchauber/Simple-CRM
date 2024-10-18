@@ -3,7 +3,6 @@ export class Contact {
   telEdit: boolean = false;
   id: string = '';
   checked: boolean = false;
-  status: string = '';
   name: string = '';
   tel: string = '';
   email: string = '';
@@ -11,6 +10,7 @@ export class Contact {
   emailHovered: boolean = false;
   telHovered: boolean = false;
   badgeType: string = '';
+  status: string = '';
   role: string = '';
   prio: string = '';
   badgeColorStatus: string = '';
@@ -27,7 +27,6 @@ export class Contact {
       telEdit: this.telEdit,
       id: this.id,
       checked: this.checked,
-      status: this.status,
       name: this.name,
       tel: this.tel,
       email: this.email,
@@ -35,6 +34,7 @@ export class Contact {
       emailHovered: this.emailHovered,
       telHovered: this.telHovered,
       badgeType: this.badgeType,
+      status: this.status,
       role: this.role,
       prio: this.prio,
       badgeColorStatus: this.badgeColorStatus,

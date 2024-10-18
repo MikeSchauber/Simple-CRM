@@ -32,7 +32,7 @@ export class TableControlService {
 
   firestore: Firestore = inject(Firestore);
 
-  constructor(private dataManagement: DataManagementService) {}
+  constructor(private dataManagement: DataManagementService) { }
 
   preventDefault(event: MouseEvent) {
     event.stopPropagation();
@@ -301,18 +301,54 @@ export class TableControlService {
     contact: ContactInterface,
     collection: string
   ) {
-    console.log(dropdown);
-    console.log(cell);
-    console.log(contact);
-    
-
-    let badgeData = this.returnRightObject();
+    let badgeData = this.returnRightObject(cell.name, dropdown);
     console.log(badgeData);
-
-    // await updateDoc(this.dataManagement.getSingleDocRef(coll, id), badgeData);
+    await updateDoc(this.dataManagement.getSingleDocRef(collection, contact.id), badgeData);
   }
 
-  returnRightObject() {
-
+  returnRightObject(category: string, dropdown: Dropdown) {
+    let badgeData;
+    if (category == "User Roles") {
+      badgeData = {
+        badgeType: category,
+        status: '',
+        role: dropdown.name,
+        prio: '',
+        badgeColorStatus: '',
+        badgeColorRole: dropdown.color,
+        badgeColorPrio: '',
+      }
+    } else if (category == "Standing") {
+      badgeData = {
+        badgeType: category,
+        status: '',
+        role: '',
+        prio: '',
+        badgeColorStatus: '',
+        badgeColorRole: '',
+        badgeColorPrio: '',
+      }
+    } else if (category == "Priority") {
+      badgeData = {
+        badgeType: category,
+        status: '',
+        role: '',
+        prio: '',
+        badgeColorStatus: '',
+        badgeColorRole: '',
+        badgeColorPrio: '',
+      }
+    } else {
+      badgeData = {
+        badgeType: '',
+        status: '',
+        role: '',
+        prio: '',
+        badgeColorStatus: '',
+        badgeColorRole: '',
+        badgeColorPrio: '',
+      }
+    }
+    return badgeData
   }
 }
