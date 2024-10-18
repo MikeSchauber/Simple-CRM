@@ -12,6 +12,8 @@ import {
   writeBatch,
 } from 'firebase/firestore';
 import { ContactInterface } from '../interfaces/contact-interface';
+import { Dropdown } from '../interfaces/dropdown';
+import { ColumnInterface } from '../interfaces/column-interface';
 
 @Injectable({
   providedIn: 'root',
@@ -294,22 +296,23 @@ export class TableControlService {
   }
 
   async addBadgeToContact(
-    value: string,
-    color: string,
-    coll: string,
-    id: string,
-    cellType: string
+    dropdown: Dropdown,
+    cell: ColumnInterface,
+    contact: ContactInterface,
+    collection: string
   ) {
-    // console.log(cellType);
+    console.log(dropdown);
+    console.log(cell);
+    console.log(contact);
+    
 
-    // let badgeData = this.returnRightObject(cellType, value, color);
-    // console.log(badgeData);
+    let badgeData = this.returnRightObject();
+    console.log(badgeData);
 
-    await updateDoc(this.dataManagement.getSingleDocRef(coll, id), {
-      activeDropdown: {
-        color: color,
-        name: value,
-      },
-    });
+    // await updateDoc(this.dataManagement.getSingleDocRef(coll, id), badgeData);
+  }
+
+  returnRightObject() {
+
   }
 }
