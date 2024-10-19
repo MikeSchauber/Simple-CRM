@@ -172,6 +172,8 @@ export class TableControlService {
     }
   }
 
+  // Hier noch eine Löschefuntion für die Badgefelder der Kontakte implementieren
+
   async deleteColumn(tableCollection: string, columnId: string) {
     await updateDoc(
       this.dataManagement.getSingleDocRef(tableCollection, columnId),
