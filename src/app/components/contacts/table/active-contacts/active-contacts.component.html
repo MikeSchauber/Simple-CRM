@@ -113,66 +113,36 @@
     </div>
     }
 
-    <!-- Added Cells with Dropdown -->
-    @for (cell of dataManagement.activeTableColumns; track $index) {
-      @if (cell.used && contact.priorityBadge.used) {
-      <div class="cell add-dropdown-cell">
-        <div class="badge" [matMenuTriggerFor]="dropdown" [ngStyle]="{'background-color': contact.priorityBadge.color}">
-          {{contact.priorityBadge.name}}
-        </div>
-        <mat-menu #dropdown="matMenu">
-          <div class="badge-menu">
-            @for (dropdown of cell.availableDropdowns; track $index; let i = $index) {
-            <div class="badge" (click)="tableControl.addBadgeToContact(dropdown, cell, contact, 'activeContacts')"
-              [ngStyle]="{'background-color': dropdown.color}">{{dropdown.name}}</div>
-            }
-          </div>
-        </mat-menu>
+  <!-- Added Cells with Dropdown -->
+  @for (cell of dataManagement.activeTableColumns; track $index) {
+    @if (cell.used && cell.type == 'dropdown') {
+    <div class="cell add-dropdown-cell">
+      @if (contact.priorityBadge.used && cell.name == 'Priority') {
+      <div class="badge" [matMenuTriggerFor]="dropdown" [ngStyle]="{'background-color': contact.priorityBadge.color}">
+        {{contact.priorityBadge.name}}
       </div>
-      } @else if (cell.used && contact.statusBadge.used) {
-      <div class="cell add-dropdown-cell">
-        <div class="badge" [matMenuTriggerFor]="dropdown" [ngStyle]="{'background-color': contact.statusBadge.color}">
-          {{contact.statusBadge.name}}
-        </div>
-        <mat-menu #dropdown="matMenu">
-          <div class="badge-menu">
-            @for (dropdown of cell.availableDropdowns; track $index; let i = $index) {
-            <div class="badge" (click)="tableControl.addBadgeToContact(dropdown, cell, contact, 'activeContacts')"
-              [ngStyle]="{'background-color': dropdown.color}">{{dropdown.name}}</div>
-            }
-          </div>
-        </mat-menu>
+      } @else if (contact.statusBadge.used && cell.name == 'Standing') {
+      <div class="badge" [matMenuTriggerFor]="dropdown" [ngStyle]="{'background-color': contact.statusBadge.color}">
+        {{contact.statusBadge.name}}
       </div>
-      } @else if (cell.used && contact.roleBadge.used) {
-      <div class="cell add-dropdown-cell">
-        <div class="badge" [matMenuTriggerFor]="dropdown" [ngStyle]="{'background-color': contact.roleBadge.color}">
-          {{contact.roleBadge.name}}
-        </div>
-        <mat-menu #dropdown="matMenu">
-          <div class="badge-menu">
-            @for (dropdown of cell.availableDropdowns; track $index; let i = $index) {
-            <div class="badge" (click)="tableControl.addBadgeToContact(dropdown, cell, contact, 'activeContacts')"
-              [ngStyle]="{'background-color': dropdown.color}">{{dropdown.name}}</div>
-            }
-          </div>
-        </mat-menu>
-      </div>
-      } @else if (cell.used && !contact.roleBadge.used && !contact.statusBadge.used && ! contact.priorityBadge.used) {
-      <div class="cell add-dropdown-cell">
-        <mat-icon class="arrow-drop-icon" [matMenuTriggerFor]="dropdown">arrow_drop_down</mat-icon>
-        <mat-menu #dropdown="matMenu">
-          <div class="badge-menu">
-            @for (dropdown of cell.availableDropdowns; track $index; let i = $index) {
-            <div class="badge" (click)="tableControl.addBadgeToContact(dropdown, cell, contact, 'activeContacts')"
-              [ngStyle]="{'background-color': dropdown.color}">{{dropdown.name}}</div>
-            }
-          </div>
-        </mat-menu>
+      } @else if (contact.roleBadge.used && cell.name == 'User Roles') {
+      <div class="badge" [matMenuTriggerFor]="dropdown" [ngStyle]="{'background-color': contact.roleBadge.color}">
+        {{contact.roleBadge.name}}
       </div>
       } @else {
-        <div>falsch</div>
+      <mat-icon class="arrow-drop-icon" [matMenuTriggerFor]="dropdown">arrow_drop_down</mat-icon>
       }
-      }
+      <mat-menu #dropdown="matMenu">
+        <div class="badge-menu">
+          @for (dropdown of cell.availableDropdowns; track $index; let i = $index) {
+          <div class="badge" (click)="tableControl.addBadgeToContact(dropdown, cell, contact, 'activeContacts')"
+            [ngStyle]="{'background-color': dropdown.color}">{{dropdown.name}}</div>
+          }
+        </div>
+      </mat-menu>
+    </div>
+    }
+    }
     @if (!this.dataManagement.activeCheck) {
     <div class="cell"></div>
     }

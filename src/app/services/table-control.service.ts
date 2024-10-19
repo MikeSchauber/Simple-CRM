@@ -301,15 +301,13 @@ export class TableControlService {
     contact: ContactInterface,
     collection: string
   ) {
-    console.log(cell.name);
-    let badgeData = this.returnRightObject(cell.name, dropdown, contact);
-    console.log(badgeData);
-
-
-     await updateDoc(this.dataManagement.getSingleDocRef(collection, contact.id), badgeData);
+    let badgeData = this.returnRightObject(cell.name, dropdown);
+    console.log(contact);
+    
+    await updateDoc(this.dataManagement.getSingleDocRef(collection, contact.id), badgeData);
   }
 
-  returnRightObject(category: string, dropdown: Dropdown, contact: ContactInterface) {
+  returnRightObject(category: string, dropdown: Dropdown) {
     let badgeData;
     if (category == "User Roles") {
       badgeData = {
