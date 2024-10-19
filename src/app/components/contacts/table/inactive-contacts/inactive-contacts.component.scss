@@ -246,6 +246,6 @@ mat-icon {
 
 .badge:hover {
   perspective: 500px; 
-  transform: rotateX(20deg) skewX(-2deg) scale(1.05); 
+  transform: rotateX(15deg) skewX(-1deg) scale(1.05, 0.95); 
   transform-origin: top; 
 }

@@ -9,14 +9,22 @@ export class Contact {
   visibleEmail: string = '';
   emailHovered: boolean = false;
   telHovered: boolean = false;
-  badgeType: string = '';
   status: string = '';
-  role: string = '';
-  prio: string = '';
-  badgeColorStatus: string = '';
-  badgeColorRole: string = '';
-  badgeColorPrio: string = '';
-
+  priorityBadge = {
+    name: '',
+    color: '',
+    used: false,
+  };
+  statusBadge = {
+    name: '',
+    color: '',
+    used: false,
+  };
+  roleBadge = {
+    name: '',
+    color: '',
+    used: false,
+  };
   constructor(name: string) {
     this.name = name;
   }
@@ -33,13 +41,10 @@ export class Contact {
       visibleEmail: this.visibleEmail,
       emailHovered: this.emailHovered,
       telHovered: this.telHovered,
-      badgeType: this.badgeType,
       status: this.status,
-      role: this.role,
-      prio: this.prio,
-      badgeColorStatus: this.badgeColorStatus,
-      badgeColorRole: this.badgeColorRole,
-      badgeColorPrio: this.badgeColorPrio,
+      priorityBadge: this.priorityBadge,
+      statusBadge: this.statusBadge,
+      roleBadge: this.roleBadge,
     };
   }
 }

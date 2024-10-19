@@ -1,6 +1,5 @@
 export interface BadgeInterface {
-    badgeType: string;
-    status: string;
-    badgeName: string;
-    badgeColor: string;
+    name: string;
+    color: string;
+    used: boolean;
 }

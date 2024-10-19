@@ -304,52 +304,55 @@ export class TableControlService {
     console.log(cell.name);
     let badgeData = this.returnRightObject(cell.name, dropdown, contact);
     console.log(badgeData);
-    console.log(this.dataManagement.inactiveTableColumns);
-    
-    await updateDoc(this.dataManagement.getSingleDocRef(collection, contact.id), badgeData);
+
+
+     await updateDoc(this.dataManagement.getSingleDocRef(collection, contact.id), badgeData);
   }
 
   returnRightObject(category: string, dropdown: Dropdown, contact: ContactInterface) {
     let badgeData;
     if (category == "User Roles") {
       badgeData = {
-        badgeType: category,
-        status: contact.status,
-        role: dropdown.name,
-        prio: contact.prio,
-        badgeColorStatus: '',
-        badgeColorRole: dropdown.color,
-        badgeColorPrio: contact.badgeColorPrio,
+        roleBadge: {
+          name: dropdown.name,
+          color: dropdown.color,
+          used: true,
+        }
       }
     } else if (category == "Standing") {
       badgeData = {
-        badgeType: category,
-        status: dropdown.name,
-        role: contact.role,
-        prio: contact.prio,
-        badgeColorStatus: dropdown.color,
-        badgeColorRole: contact.badgeColorRole,
-        badgeColorPrio: contact.badgeColorPrio,
+        statusBadge: {
+          name: dropdown.name,
+          color: dropdown.color,
+          used: true,
+        },
+        status: dropdown.name
       }
     } else if (category == "Priority") {
       badgeData = {
-        badgeType: category,
-        status: contact.status,
-        role: contact.role,
-        prio: dropdown.name,
-        badgeColorStatus: contact.badgeColorStatus,
-        badgeColorRole: contact.badgeColorRole,
-        badgeColorPrio: dropdown.color,
+        priorityBadge: {
+          name: dropdown.name,
+          color: dropdown.color,
+          used: true,
+        }
       }
     } else {
       badgeData = {
-        badgeType: '',
-        status: '',
-        role: '',
-        prio: '',
-        badgeColorStatus: '',
-        badgeColorRole: '',
-        badgeColorPrio: '',
+        priorityBadge: {
+          name: '',
+          color: '',
+          used: false,
+        },
+        statusBadge: {
+          name: '',
+          color: '',
+          used: false,
+        },
+        roleBadge: {
+          name: '',
+          color: '',
+          used: false,
+        }
       }
     }
     return badgeData

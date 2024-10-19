@@ -195,12 +195,21 @@ export class DataBackupService {
       telEdit: false,
       emailHovered: false,
       telHovered: false,
-      badgeType: '',
-      role: '',
-      prio: '',
-      badgeColorStatus: '',
-      badgeColorRole: '',
-      badgeColorPrio: '',
+      priorityBadge: {
+        name: '',
+        color: '',
+        used: false,
+      },
+      statusBadge: {
+        name: '',
+        color: '',
+        used: false,
+      },
+      roleBadge: {
+        name: '',
+        color: '',
+        used: false,
+      }
     },
     {
       id: '',
@@ -214,12 +223,21 @@ export class DataBackupService {
       telEdit: false,
       emailHovered: false,
       telHovered: false,
-      badgeType: '',
-      role: '',
-      prio: '',
-      badgeColorStatus: '',
-      badgeColorRole: '',
-      badgeColorPrio: '',
+      priorityBadge: {
+        name: '',
+        color: '',
+        used: false,
+      },
+      statusBadge: {
+        name: '',
+        color: '',
+        used: false,
+      },
+      roleBadge: {
+        name: '',
+        color: '',
+        used: false,
+      }
     },
     {
       id: '',
@@ -233,51 +251,22 @@ export class DataBackupService {
       telEdit: false,
       emailHovered: false,
       telHovered: false,
-      badgeType: '',
-      role: '',
-      prio: '',
-      badgeColorStatus: '',
-      badgeColorRole: '',
-      badgeColorPrio: '',
-    },
-    {
-      id: '',
-      checked: false,
-      status: 'active',
-      name: 'Active 4',
-      tel: '0151632066',
-      email: 'felix.huber@outlook.com',
-      visibleEmail: 'Felix Huber',
-      emailEdit: false,
-      telEdit: false,
-      emailHovered: false,
-      telHovered: false,
-      badgeType: '',
-      role: '',
-      prio: '',
-      badgeColorStatus: '',
-      badgeColorRole: '',
-      badgeColorPrio: '',
-    },
-    {
-      id: '',
-      checked: false,
-      status: 'active',
-      name: 'Active 5',
-      tel: '0151732055',
-      email: 'lisa.klein@web.de',
-      visibleEmail: 'Lisa Klein',
-      emailEdit: false,
-      telEdit: false,
-      emailHovered: false,
-      telHovered: false,
-      badgeType: '',
-      role: '',
-      prio: '',
-      badgeColorStatus: '',
-      badgeColorRole: '',
-      badgeColorPrio: '',
-    },
+      priorityBadge: {
+        name: '',
+        color: '',
+        used: false,
+      },
+      statusBadge: {
+        name: '',
+        color: '',
+        used: false,
+      },
+      roleBadge: {
+        name: '',
+        color: '',
+        used: false,
+      }
+    }
   ];
 
   inactiveContacts: ContactInterface[] = [
@@ -293,12 +282,21 @@ export class DataBackupService {
       telEdit: false,
       emailHovered: false,
       telHovered: false,
-      badgeType: '',
-      role: '',
-      prio: '',
-      badgeColorStatus: '',
-      badgeColorRole: '',
-      badgeColorPrio: '',
+      priorityBadge: {
+        name: '',
+        color: '',
+        used: false,
+      },
+      statusBadge: {
+        name: '',
+        color: '',
+        used: false,
+      },
+      roleBadge: {
+        name: '',
+        color: '',
+        used: false,
+      }
     },
     {
       id: '',
@@ -312,12 +310,21 @@ export class DataBackupService {
       telEdit: false,
       emailHovered: false,
       telHovered: false,
-      badgeType: '',
-      role: '',
-      prio: '',
-      badgeColorStatus: '',
-      badgeColorRole: '',
-      badgeColorPrio: '',
+      priorityBadge: {
+        name: '',
+        color: '',
+        used: false,
+      },
+      statusBadge: {
+        name: '',
+        color: '',
+        used: false,
+      },
+      roleBadge: {
+        name: '',
+        color: '',
+        used: false,
+      }
     },
     {
       id: '',
@@ -331,12 +338,21 @@ export class DataBackupService {
       telEdit: false,
       emailHovered: false,
       telHovered: false,
-      badgeType: '',
-      role: '',
-      prio: '',
-      badgeColorStatus: '',
-      badgeColorRole: '',
-      badgeColorPrio: '',
+      priorityBadge: {
+        name: '',
+        color: '',
+        used: false,
+      },
+      statusBadge: {
+        name: '',
+        color: '',
+        used: false,
+      },
+      roleBadge: {
+        name: '',
+        color: '',
+        used: false,
+      }
     },
   ];
 
