@@ -213,10 +213,21 @@ export class TableControlService {
     this.editOpen = false;
   }
 
-  async saveTelData(event: any, i: string, collection: string) {
+  async saveTelData(event: any, id: string, collection: string) {
     if (event.keyCode === 13) {
-      await updateDoc(this.dataManagement.getSingleDocRef(collection, i), {
+      await updateDoc(this.dataManagement.getSingleDocRef(collection, id), {
         tel: event.target.value,
+        telEdit: false,
+      });
+    }
+  }
+
+  async saveTelOnBlur(event: FocusEvent, coll: string, id: string) {
+    const target = event.target as HTMLInputElement;
+    const telToUpdate: string = target.value;
+    if (telToUpdate.length != 0) {
+      await updateDoc(this.dataManagement.getSingleDocRef(coll, id), {
+        tel: telToUpdate,
         telEdit: false,
       });
     }

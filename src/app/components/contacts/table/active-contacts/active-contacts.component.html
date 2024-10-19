@@ -75,6 +75,7 @@
     } @else {
     <div class="cell">
       <input class="dialog-input" type="phone" (click)="tableControl.preventDefault($event)"
+      (blur)="tableControl.saveTelOnBlur($event, 'activeContacts', contact.id)"
         (keydown)="tableControl.saveTelData($event, contact.id, 'activeContacts')" placeholder="0 (123) 456 7890">
     </div>
     }
