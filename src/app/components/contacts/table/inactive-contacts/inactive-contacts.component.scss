@@ -31,11 +31,13 @@ input {
     background: none;
     color: white;
     margin: 0;
+
     &:hover {
       background-color: none;
       color: none;
     }
   }
+
   button {
     color: white;
     background-color: $darkcolor;
@@ -44,6 +46,7 @@ input {
 
 .empty-field {
   background-color: white;
+
   &:hover {
     background-color: #ffffff00 !important;
   }
@@ -82,6 +85,7 @@ mat-icon {
   font-size: 18px;
   width: 24px;
   height: 24px;
+
   &:hover {
     color: $darkcolorHover;
     background-color: rgb(224, 224, 224);
@@ -91,6 +95,7 @@ mat-icon {
 .no-icon-action {
   background-color: transparent;
   font-size: 20px;
+
   &:hover {
     color: grey;
     background-color: transparent;
@@ -100,6 +105,7 @@ mat-icon {
 .blue-color-icon {
   color: $darkcolor !important;
   font-size: 32px;
+
   &:hover {
     color: $darkcolorHover !important;
   }
@@ -132,6 +138,15 @@ mat-icon {
 .email-cell {
   @include dFlex($fd: row, $g: 4px, $jc: space-between);
   font-size: 12px;
+
+  a {
+    overflow: hidden;
+  }
+
+  mat-icon {
+    min-width: 24px;
+    min-height: 24px;
+  }
 }
 
 .head-button-container {
@@ -152,6 +167,7 @@ mat-icon {
 .add-button {
   @include dFlex($fd: row, $g: 8px);
   color: $darkcolor;
+
   mat-icon {
     height: 28px;
     width: 28px;
@@ -177,7 +193,7 @@ mat-icon {
 }
 
 .input-dialog {
-  > div {
+  >div {
     position: absolute;
     top: 28px;
     width: max-content;
@@ -199,6 +215,7 @@ mat-icon {
 
 .add-dropdown-cell {
   @include dFlex($fd: row, $g: 8px);
+
   button {
     mat-icon {
       margin: 0;
@@ -245,7 +262,7 @@ mat-icon {
 }
 
 .badge:hover {
-  perspective: 500px; 
-  transform: rotateX(15deg) skewX(-1deg) scale(1.05, 0.95); 
-  transform-origin: top; 
+  perspective: 500px;
+  transform: rotateX(20deg) skewX(-2deg) scale(1.05);
+  transform-origin: top;
 }

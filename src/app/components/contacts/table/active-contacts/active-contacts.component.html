@@ -19,8 +19,15 @@
       @if (item.type == "dropdown" && item.used) {
       <div class="cell columnCell header-cell" (mouseover)="hoverAction('none', i)" (mouseleave)="mouseOutAction()">
         <span>{{item.name}}</span>
-        <mat-icon (click)="tableControl.deleteColumn('activeTableColumns', item.id)"
+        <mat-icon class=" blue-color-icon" style="color: rgb(0, 118, 145); font-size: 18px; padding: 2px;"
+          [matMenuTriggerFor]="erase" matTooltip="Delete Column"
           [ngClass]="{'d-none': !columnHovered[i]}">more_vert</mat-icon>
+        <mat-menu #erase="matMenu">
+          <button (click)="tableControl.deleteColumn('activeTableColumns', item.id)" class="matMenu-button"
+            mat-menu-item> Delete Column
+            <mat-icon style="color: rgb(0, 118, 145);" class="type column-icon">delete</mat-icon>
+          </button>
+        </mat-menu>
       </div>
       } @else if (item.index <= 2) { <div class="cell header-cell">
         <span>{{item.name}}</span>
