@@ -113,10 +113,10 @@
     } @else {
     <div (mouseover)="hoverAction('email', i)" (mouseout)="mouseOutAction();" class="cell email-cell"><a
         [href]="'mailto:' + contact.email">
-        @if (contact.email.length > 0) {
-        {{contact.email}}
-        } @else {
+        @if (contact.visibleEmail.length > 0) {
         {{contact.visibleEmail}}
+        } @else {
+        {{contact.email}}
         }
       </a><mat-icon [ngClass]="{'d-none': !contact.emailHovered}"
         (click)="tableControl.deleteEmail(contact.id, 'inactiveContacts');">delete</mat-icon>
