@@ -12,9 +12,9 @@
   <div id="customers" class="table">
     <!-- Table Header -->
     <div class="table-head row">
-      <div class="cell checkbox-cell">
-        <section (click)="tableControl.checkAllContacts('inactiveContacts')" class="example-section">
-          <mat-checkbox [checked]="tableControl.allCheckedInactive" class="example-margin"></mat-checkbox>
+      <div class="cell checkbox-cell" (click)="tableControl.checkAllContacts('inactiveContacts')">
+        <section class="example-section">
+          <mat-checkbox [(ngModel)]="tableControl.allCheckedInactive" class="example-margin"></mat-checkbox>
         </section>
       </div>
       @for(item of this.dataManagement.inactiveTableColumns; track $index; let i = $index) {
@@ -51,7 +51,7 @@
   @if (dataManagement.inactiveContacts.length > 0) {
   @for (contact of this.dataManagement.inactiveContacts; track $index; let i = $index) {
   <div class="row content-row">
-    <div class="cell checkbox-cell">
+    <div class="cell checkbox-cell" (click)="tableControl.checkContact('inactive', i)">
       <section class="example-section">
         <mat-checkbox [(ngModel)]="contact.checked" class="example-margin"></mat-checkbox>
       </section>
@@ -66,7 +66,7 @@
     <div (mouseover)="hoverAction('tel', i)" (mouseout)="mouseOutAction();" class="cell email-cell"><a
         [href]="'tel:' + contact.email">{{contact.tel}}</a><mat-icon
         (click)="tableControl.deleteTel(contact.id, 'inactiveContacts')"
-        [ngClass]="{'d-none': !contact.telHovered}">edit</mat-icon>
+        [ngClass]="{'d-none': !contact.telHovered}">delete</mat-icon>
     </div>
     } @else {
     @if (!contact.telEdit) {
@@ -111,7 +111,7 @@
         {{contact.visibleEmail}}
         }
       </a><mat-icon [ngClass]="{'d-none': !contact.emailHovered}"
-        (click)="tableControl.deleteEmail(contact.id, 'inactiveContacts');">edit</mat-icon>
+        (click)="tableControl.deleteEmail(contact.id, 'inactiveContacts');">delete</mat-icon>
     </div>
     }
 

@@ -1,4 +1,4 @@
-import { inject, Injectable } from '@angular/core';
+import { ChangeDetectorRef, inject, Injectable } from '@angular/core';
 import { Contact } from '../models/contact.class';
 import { Firestore } from '@angular/fire/firestore';
 import { DataManagementService } from './data-management.service';
@@ -38,37 +38,41 @@ export class TableControlService {
     event.stopPropagation();
   }
 
+  returnCheckedStatus(checked: boolean) {
+    return checked
+  }
+
   checkAllContacts(status: string) {
+    let contactArray: ContactInterface[];
     status == 'activeContacts'
-      ? this.checkAllActives()
-      : this.checkAllInactives();
+      ? contactArray = this.dataManagement.activeContacts
+      : contactArray = this.dataManagement.inactiveContacts;
+    this.handleAllCheckboxes(contactArray);
+    this.dataManagement.activeContacts.forEach((c) => {
+      console.log(c.checked);
+    });
+    console.log(this.allCheckedActive);
+
   }
 
-  checkAllActives() {
-    if (!this.allCheckedActive) {
-      this.allCheckedActive = true;
-      this.dataManagement.activeContacts.forEach((e) => {
-        e.checked = true;
-      });
-    } else {
-      this.allCheckedActive = false;
-      this.dataManagement.activeContacts.forEach((e) => {
-        e.checked = false;
-      });
-    }
+  handleAllCheckboxes(contactArray: ContactInterface[]) {
+    contactArray.forEach(c => {
+      if (this.allCheckedActive) {
+        c.checked = true;
+      } else {
+        c.checked = false;
+      }
+    });
   }
 
-  checkAllInactives() {
-    if (!this.allCheckedInactive) {
-      this.allCheckedInactive = true;
-      this.dataManagement.inactiveContacts.forEach((e) => {
-        e.checked = true;
-      });
+  checkContact(status: string, i: number) {
+    let contact: ContactInterface;
+    status == 'active' ? contact = this.dataManagement.activeContacts[i] :
+      contact = this.dataManagement.inactiveContacts[i];
+    if (contact.checked == true) {
+      contact.checked = false;
     } else {
-      this.allCheckedInactive = false;
-      this.dataManagement.inactiveContacts.forEach((e) => {
-        e.checked = false;
-      });
+      contact.checked = true
     }
   }
 
@@ -97,7 +101,6 @@ export class TableControlService {
   }
 
   async keyboardAddContact(event: KeyboardEvent, coll: string) {
-    console.log(coll);
     let nameToAdd: string = '';
     coll == 'activeContacts'
       ? (nameToAdd = this.newContactActive)
@@ -129,8 +132,6 @@ export class TableControlService {
   ) {
     let nameToUpdate: string = '';
     nameToUpdate = value;
-    console.log(nameToUpdate);
-
     if (event.keyCode === 13 && nameToUpdate.length != 0) {
       await updateDoc(this.dataManagement.getSingleDocRef(coll, id), {
         name: nameToUpdate,
@@ -301,13 +302,11 @@ export class TableControlService {
     contact: ContactInterface,
     collection: string
   ) {
-    let badgeData = this.returnRightObject(cell.name, dropdown);
-    console.log(contact);
-    
+    let badgeData = this.returnBadgeObject(cell.name, dropdown);
     await updateDoc(this.dataManagement.getSingleDocRef(collection, contact.id), badgeData);
   }
 
-  returnRightObject(category: string, dropdown: Dropdown) {
+  returnBadgeObject(category: string, dropdown: Dropdown) {
     let badgeData;
     if (category == "User Roles") {
       badgeData = {

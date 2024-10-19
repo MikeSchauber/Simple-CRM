@@ -10,9 +10,9 @@
   <div id="customers" class="table">
     <!-- Table Header -->
     <div class="table-head row">
-      <div class="cell checkbox-cell">
-        <section (click)="tableControl.checkAllContacts('activeContacts')" class="example-section">
-          <mat-checkbox [checked]="tableControl.allCheckedActive" class="example-margin"></mat-checkbox>
+      <div class="cell checkbox-cell" (click)="tableControl.checkAllContacts('activeContacts')">
+        <section  class="example-section">
+          <mat-checkbox [(ngModel)]="tableControl.allCheckedActive" class="example-margin"></mat-checkbox>
         </section>
       </div>
       @for(item of this.dataManagement.activeTableColumns; track $index; let i = $index) {
@@ -47,9 +47,9 @@
 
   <!-- Table Content Rows -->
   @if (dataManagement.activeContacts.length > 0) {
-  @for (contact of this.dataManagement.activeContacts ; track $index; let i = $index) {
+  @for (contact of this.dataManagement.activeContacts; track $index; let i = $index) {
   <div class="row content-row">
-    <div class="cell checkbox-cell">
+    <div class="cell checkbox-cell" (click)="tableControl.checkContact('active', i)">
       <section class="example-section">
         <mat-checkbox [(ngModel)]="contact.checked" class="example-margin"></mat-checkbox>
       </section>
@@ -64,7 +64,7 @@
     <div (mouseover)="hoverAction('tel', i)" (mouseout)="mouseOutAction();" class="cell email-cell"><a
         [href]="'tel:' + contact.email">{{contact.tel}}</a><mat-icon
         (click)="tableControl.deleteTel(contact.id, 'activeContacts')"
-        [ngClass]="{'d-none': !contact.telHovered}">edit</mat-icon>
+        [ngClass]="{'d-none': !contact.telHovered}">delete</mat-icon>
     </div>
     } @else {
     @if (!contact.telEdit) {
@@ -109,7 +109,7 @@
         {{contact.visibleEmail}}
         }
       </a><mat-icon [ngClass]="{'d-none': !contact.emailHovered}"
-        (click)="tableControl.deleteEmail(contact.id, 'activeContacts');">edit</mat-icon>
+        (click)="tableControl.deleteEmail(contact.id, 'activeContacts');">delete</mat-icon>
     </div>
     }
 

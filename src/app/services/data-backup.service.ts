@@ -88,9 +88,9 @@ export class DataBackupService {
       used: false,
       activeDropdown: { name: '', color: '' },
       availableDropdowns: [
-        { name: 'low', color: '#8bc34a' },
-        { name: 'medium', color: '#ffc107' },
         { name: 'high', color: '#f44336' },
+        { name: 'medium', color: '#ffc107' },
+        { name: 'low', color: '#8bc34a' },
       ],
     },
   ];
@@ -176,9 +176,9 @@ export class DataBackupService {
       used: false,
       activeDropdown: { name: '', color: '' },
       availableDropdowns: [
-        { name: 'low', color: '#8bc34a' },
-        { name: 'medium', color: '#ffc107' },
         { name: 'high', color: '#f44336' },
+        { name: 'medium', color: '#ffc107' },
+        { name: 'low', color: '#8bc34a' },
       ],
     },
   ];
@@ -409,21 +409,21 @@ export class DataBackupService {
   }
 
   async addBackupData() {
-    for (const contact of this.activeContacts) {
-      await addDoc(this.dataManagement.getDocRef('activeContacts'), contact);
-    }
-    for (const contact of this.inactiveContacts) {
-      await addDoc(this.dataManagement.getDocRef('inactiveContacts'), contact);
-    }
-    // for (const column of this.activeTableColumns) {
-    //   await addDoc(this.dataManagement.getDocRef('activeTableColumns'), column);
+    // for (const contact of this.activeContacts) {
+    //   await addDoc(this.dataManagement.getDocRef('activeContacts'), contact);
     // }
-    // for (const column of this.inactiveTableColumns) {
-    //   await addDoc(
-    //     this.dataManagement.getDocRef('inactiveTableColumns'),
-    //     column
-    //   );
+    // for (const contact of this.inactiveContacts) {
+    //   await addDoc(this.dataManagement.getDocRef('inactiveContacts'), contact);
     // }
+    for (const column of this.activeTableColumns) {
+      await addDoc(this.dataManagement.getDocRef('activeTableColumns'), column);
+    }
+    for (const column of this.inactiveTableColumns) {
+      await addDoc(
+        this.dataManagement.getDocRef('inactiveTableColumns'),
+        column
+      );
+    }
     // for (const deal of this.deals) {
     //   await addDoc(this.dataManagement.getDocRef('deals'), deal);
     // }
