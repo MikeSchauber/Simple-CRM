@@ -59,6 +59,7 @@ input {
 .cell {
   padding: 0px 8px;
   min-height: 50px;
+
   min-width: 210px;
   @include dFlex($fd: row);
   flex: 1;
