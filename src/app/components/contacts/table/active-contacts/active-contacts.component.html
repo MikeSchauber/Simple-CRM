@@ -11,7 +11,7 @@
     <!-- Table Header -->
     <div class="table-head row">
       <div class="cell checkbox-cell" (click)="tableControl.checkAllContacts('activeContacts')">
-        <section  class="example-section">
+        <section class="example-section">
           <mat-checkbox [(ngModel)]="tableControl.allCheckedActive" class="example-margin"></mat-checkbox>
         </section>
       </div>
@@ -75,7 +75,7 @@
     } @else {
     <div class="cell">
       <input class="dialog-input" type="phone" (click)="tableControl.preventDefault($event)"
-      (blur)="tableControl.saveTelOnBlur($event, 'activeContacts', contact.id)"
+        (blur)="tableControl.saveTelOnBlur($event, 'activeContacts', contact.id)"
         (keydown)="tableControl.saveTelData($event, contact.id, 'activeContacts')" placeholder="0 (123) 456 7890">
     </div>
     }
@@ -104,18 +104,18 @@
     } @else {
     <div (mouseover)="hoverAction('email', i)" (mouseout)="mouseOutAction();" class="cell email-cell"><a
         [href]="'mailto:' + contact.email">
-        @if (contact.email.length > 0) {
-        {{contact.email}}
-        } @else {
+        @if (contact.visibleEmail.length > 0) {
         {{contact.visibleEmail}}
+        } @else {
+        {{contact.email}}
         }
       </a><mat-icon [ngClass]="{'d-none': !contact.emailHovered}"
         (click)="tableControl.deleteEmail(contact.id, 'activeContacts');">delete</mat-icon>
     </div>
     }
 
-  <!-- Added Cells with Dropdown -->
-  @for (cell of dataManagement.activeTableColumns; track $index) {
+    <!-- Added Cells with Dropdown -->
+    @for (cell of dataManagement.activeTableColumns; track $index) {
     @if (cell.used && cell.type == 'dropdown') {
     <div class="cell add-dropdown-cell">
       @if (contact.priorityBadge.used && cell.name == 'Priority') {
