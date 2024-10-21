@@ -38,42 +38,49 @@ export class TableControlService {
     event.stopPropagation();
   }
 
-  returnCheckedStatus(checked: boolean) {
-    return checked
-  }
-
   checkAllContacts(status: string, checkbox: boolean) {
+    console.log(checkbox);
+
     let contactArray: ContactInterface[];
-    status == 'activeContacts'
-      ? contactArray = this.dataManagement.activeContacts
-      : contactArray = this.dataManagement.inactiveContacts;
+    if (status == 'activeContacts') {
+      contactArray = this.dataManagement.activeContacts;
+      this.activateAllCheckboxes(checkbox, status);
+    } else {
+      contactArray = this.dataManagement.inactiveContacts;
+      this.activateAllCheckboxes(checkbox, status);
+    }
     this.handleAllCheckboxes(contactArray, checkbox);
-    this.dataManagement.activeContacts.forEach((c) => {
-      console.log(c.checked);
-    });
   }
 
   handleAllCheckboxes(contactArray: ContactInterface[], checkbox: boolean) {
     contactArray.forEach(c => {
       if (!checkbox) {
         c.checked = false;
-        this.allCheckedActive = false;
       } else {
         c.checked = true;
-        this.allCheckedActive = true;
       }
     });
   }
 
-  checkContact(status: string, i: number, checkbox: boolean) {
-    let contact: ContactInterface;
-    status == 'active' ? contact = this.dataManagement.activeContacts[i] :
-      contact = this.dataManagement.inactiveContacts[i];
+  activateAllCheckboxes(checkbox: boolean, status: string) {
     if (!checkbox) {
-      contact.checked = false;
+      status == 'activeContacts' ? this.allCheckedActive = false : this.allCheckedInactive = false;
     } else {
-      contact.checked = true
+      status == 'activeContacts' ? this.allCheckedActive = true : this.allCheckedInactive = true;
     }
+  }
+
+  checkContact(status: string, i: number) {
+    let contact: ContactInterface;
+    status === 'active' ? contact = this.dataManagement.activeContacts[i] :
+      contact = this.dataManagement.inactiveContacts[i];
+    if (!contact.checked) {
+      contact.checked = true;
+    } else {
+      contact.checked = false;
+    }
+    console.log(contact.checked);
+    
   }
 
   async deleteContacts(collection: string) {

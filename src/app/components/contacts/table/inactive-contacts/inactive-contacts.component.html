@@ -12,10 +12,12 @@
   <div id="customers" class="table">
     <!-- Table Header -->
     <div class="table-head row">
-      <div class="cell checkbox-cell" (click)="tableControl.checkAllContacts('inactiveContacts')">
-        <section class="example-section">
-          <mat-checkbox [(ngModel)]="tableControl.allCheckedInactive" class="example-margin"></mat-checkbox>
-        </section>
+      <div class="cell checkbox-cell">
+        <div class="cell checkbox-cell">
+          <mat-checkbox [checked]="tableControl.allCheckedInactive"
+            (change)="tableControl.checkAllContacts('inactiveContacts', $event.checked)"
+            class="example-margin"></mat-checkbox>
+        </div>
       </div>
       @for(item of this.dataManagement.inactiveTableColumns; track $index; let i = $index) {
       @if (item.type == "dropdown" && item.used) {
@@ -59,9 +61,10 @@
   @for (contact of this.dataManagement.inactiveContacts; track $index; let i = $index) {
   <div class="row content-row">
     <div class="cell checkbox-cell" (click)="tableControl.checkContact('inactive', i)">
-      <section class="example-section">
-        <mat-checkbox [(ngModel)]="contact.checked" class="example-margin"></mat-checkbox>
-      </section>
+      <div class="cell checkbox-cell">
+        <mat-checkbox [checked]="this.tableControl.allCheckedInactive" [(ngModel)]="contact.checked"
+          (change)="tableControl.checkContact('inactive', i)" class="example-margin"></mat-checkbox>
+      </div>
     </div>
     <div class="cell Contacts">
       <input [(ngModel)]="contact.name" #nameValue [value]="contact.name"
