@@ -139,6 +139,13 @@
       <mat-menu #dropdown="matMenu">
         <div class="badge-menu">
           @for (dropdown of cell.availableDropdowns; track $index; let i = $index) {
+
+            @if (dropdown.name == 'Active') {
+              (click)="tableControl.redirectionOfContactStatus(contact.statusbadge.name)"
+            } @else if (dropdown.name == 'Inactive') {
+              
+            }
+
           <div class="badge" (click)="tableControl.addBadgeToContact(dropdown, cell, contact, 'activeContacts')"
             [ngStyle]="{'background-color': dropdown.color}">{{dropdown.name}}</div>
           }

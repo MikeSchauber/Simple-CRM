@@ -25,8 +25,9 @@ export class Contact {
     color: '',
     used: false,
   };
-  constructor(name: string) {
-    this.name = name;
+  constructor(obj: {name: string, status: string}) {
+    this.name = obj.name;
+    this.status = obj.status;
   }
 
   public toJson() {

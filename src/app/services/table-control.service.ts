@@ -80,7 +80,7 @@ export class TableControlService {
       contact.checked = false;
     }
     console.log(contact.checked);
-    
+
   }
 
   async deleteContacts(collection: string) {
@@ -108,11 +108,8 @@ export class TableControlService {
   }
 
   async keyboardAddContact(event: KeyboardEvent, coll: string) {
-    let nameToAdd: string = '';
-    coll == 'activeContacts'
-      ? (nameToAdd = this.newContactActive)
-      : (nameToAdd = this.newContactInactive);
-    if (event.keyCode === 13 && nameToAdd.length != 0) {
+    let nameToAdd = this.returnContactObject(coll);
+    if (event.keyCode === 13 && nameToAdd.name.length != 0) {
       let user = new Contact(nameToAdd);
       await addDoc(collection(this.firestore, coll), user.toJson());
       this.clearAllInputs();
@@ -120,14 +117,25 @@ export class TableControlService {
   }
 
   async mouseAddContact(coll: string) {
-    let nameToAdd: string = '';
-    coll == 'activeContacts'
-      ? (nameToAdd = this.newContactActive)
-      : (nameToAdd = this.newContactInactive);
-    if (nameToAdd.length != 0) {
+    let nameToAdd = this.returnContactObject(coll);
+    if (nameToAdd.name.length != 0) {
       let user = new Contact(nameToAdd);
       await addDoc(collection(this.firestore, coll), user.toJson());
       this.clearAllInputs();
+    }
+  }
+
+  returnContactObject(coll: string) {
+    if (coll == 'activeContacts') {
+      return {
+        name: this.newContactActive,
+        status: 'active',
+      }
+    } else {
+      return {
+        name: this.newContactInactive,
+        status: 'inactive',
+      }
     }
   }
 
