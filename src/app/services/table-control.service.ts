@@ -108,35 +108,36 @@ export class TableControlService {
   }
 
   async keyboardAddContact(event: KeyboardEvent, coll: string) {
-    let nameToAdd = this.returnContactObject(coll);
-    if (event.keyCode === 13 && nameToAdd.name.length != 0) {
-      let user = new Contact(nameToAdd);
+    let user = this.returnContactObject(coll);
+    if (event.keyCode === 13 && user.name.length != 0) {
       await addDoc(collection(this.firestore, coll), user.toJson());
       this.clearAllInputs();
     }
   }
 
   async mouseAddContact(coll: string) {
-    let nameToAdd = this.returnContactObject(coll);
-    if (nameToAdd.name.length != 0) {
-      let user = new Contact(nameToAdd);
+    let user = this.returnContactObject(coll);
+    if (user.name.length != 0) {
+
       await addDoc(collection(this.firestore, coll), user.toJson());
       this.clearAllInputs();
     }
   }
 
   returnContactObject(coll: string) {
+    let user;
     if (coll == 'activeContacts') {
-      return {
+      user = new Contact({
         name: this.newContactActive,
         status: 'active',
-      }
+      });
     } else {
-      return {
+      user = new Contact({
         name: this.newContactInactive,
         status: 'inactive',
-      }
+      });
     }
+    return user;
   }
 
   async changeName(
@@ -383,15 +384,15 @@ export class TableControlService {
   async contactStatusRedirection(status: string, contact: ContactInterface, dropdown: Dropdown) {
     let addCollection;
     let deleteCollection;
-    let newContact;
+    let newContact = new Contact(contact);
     if (status == 'active') {
       addCollection = 'inactiveContacts';
       deleteCollection = 'activeContacts';
-      newContact = new Contact({ name: contact.name, status: 'active' });
+      newContact.status = 'active';
     } else {
       addCollection = 'activeContacts';
       deleteCollection = 'inactiveContacts';
-      newContact = new Contact({ name: contact.name, status: 'inactive' });
+      newContact.status = 'inactive';
     }
     newContact.statusBadge = {
       name: dropdown.name,

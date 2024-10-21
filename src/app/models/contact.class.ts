@@ -1,3 +1,5 @@
+import { ContactInterface } from "../interfaces/contact-interface";
+
 export class Contact {
   emailEdit: boolean = false;
   telEdit: boolean = false;
@@ -25,9 +27,21 @@ export class Contact {
     color: '',
     used: false,
   };
-  constructor(obj: {name: string, status: string}) {
-    this.name = obj.name;
-    this.status = obj.status;
+  constructor(obj: Partial<ContactInterface>) {
+    this.id = obj.id ? obj.id : '';
+    this.checked = obj.checked ? obj.checked : false;
+    this.name = obj.name ? obj.name : '';
+    this.tel = obj.tel ? obj.tel : '';
+    this.email = obj.email ? obj.email : '';
+    this.visibleEmail = obj.visibleEmail ? obj.visibleEmail : '';
+    this.emailEdit = obj.emailEdit ? obj.emailEdit : false;
+    this.telEdit = obj.telEdit ? obj.telEdit : false;
+    this.emailHovered = obj.emailHovered ? obj.emailHovered : false;
+    this.telHovered = obj.telHovered ? obj.telHovered : false;
+    this.status = obj.status  ? obj.status : '';
+    this.priorityBadge = obj.priorityBadge ? { ...obj.priorityBadge } : this.priorityBadge;
+    this.statusBadge = obj.statusBadge ? { ...obj.statusBadge } : this.statusBadge;
+    this.roleBadge = obj.roleBadge ? { ...obj.roleBadge } : this.roleBadge;
   }
 
   public toJson() {
