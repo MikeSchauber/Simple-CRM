@@ -33,40 +33,44 @@
           </button>
         </mat-menu>
       </div>
-      } @else if (item.index <= 2) { <div class="cell header-cell">
+      } @else if (item.index <= 2 && item.name=="Contacts" ) { <div class="cell header-cell second-cell">
         <span>{{item.name}}</span>
     </div>
-    }
-    }
-
-    <!-- Add Column Menu -->
-    @if (!this.dataManagement.inactiveCheck) {
-    <div class="cell button-container">
-      <mat-icon class=" blue-color-icon" [matMenuTriggerFor]="menu" matTooltip="Add a new Column">add_circle</mat-icon>
-      <mat-menu #menu="matMenu">
-        @for (item of this.dataManagement.inactiveTableColumns; track item; let i = $index) {
-        @if (!item.used && item.index > 2) {
-        <button (click)="tableControl.addColumn('inactiveTableColumns', item.id)" class="matMenu-button" mat-menu-item>
-          <mat-icon [ngStyle]="{'color': item.color}" class="type column-icon">{{item.icon}}</mat-icon>
-          {{item.name}}</button>
-        }
-        }
-      </mat-menu>
+    } @else {
+    <div class="cell header-cell">
+      <span>{{item.name}}</span>
     </div>
     }
+    }
   </div>
+  
+  <!-- Add Column Menu -->
+  @if (!this.dataManagement.inactiveCheck) {
+  <div class="cell button-container">
+    <mat-icon class=" blue-color-icon" [matMenuTriggerFor]="menu" matTooltip="Add a new Column">add_circle</mat-icon>
+    <mat-menu #menu="matMenu">
+      @for (item of this.dataManagement.inactiveTableColumns; track item; let i = $index) {
+      @if (!item.used && item.index > 2) {
+      <button (click)="tableControl.addColumn('inactiveTableColumns', item.id)" class="matMenu-button" mat-menu-item>
+        <mat-icon [ngStyle]="{'color': item.color}" class="type column-icon">{{item.icon}}</mat-icon>
+        {{item.name}}</button>
+      }
+      }
+    </mat-menu>
+  </div>
+  }
 
   <!-- Table Content Rows -->
   @if (dataManagement.inactiveContacts.length > 0) {
   @for (contact of this.dataManagement.inactiveContacts; track $index; let i = $index) {
   <div class="row content-row">
-    <div class="cell checkbox-cell">
+    <div class="cell checkbox-cell ">
       <div class="cell checkbox-cell">
         <mat-checkbox [checked]="this.tableControl.allCheckedInactive" [(ngModel)]="contact.checked"
           (change)="tableControl.checkContact('inactive', i)" class="example-margin"></mat-checkbox>
       </div>
     </div>
-    <div class="cell Contacts">
+    <div class="cell Contacts second-cell">
       <input [(ngModel)]="contact.name" #nameValue [value]="contact.name"
         (blur)="tableControl.changeNameOnBlur($event, 'inactiveContacts', contact.id)"
         (keyup)="tableControl.changeName($event, 'inactiveContacts', contact.id, nameValue.value)">
@@ -148,13 +152,13 @@
       <mat-menu #dropdown="matMenu">
         <div class="badge-menu">
           @for (dropdown of cell.availableDropdowns; track $index; let i = $index) {
-            @if (dropdown.name == 'Active') {
-              <div class="badge" (click)="tableControl.contactStatusRedirection(contact.status, contact, dropdown)"
-              [ngStyle]="{'background-color': dropdown.color}">{{dropdown.name}}</div>
-            } @else {
-              <div class="badge" (click)="tableControl.addBadgeToContact(dropdown, cell, contact, 'inactiveContacts')"
-              [ngStyle]="{'background-color': dropdown.color}">{{dropdown.name}}</div>
-            }
+          @if (dropdown.name == 'Active') {
+          <div class="badge" (click)="tableControl.contactStatusRedirection(contact.status, contact, dropdown)"
+            [ngStyle]="{'background-color': dropdown.color}">{{dropdown.name}}</div>
+          } @else {
+          <div class="badge" (click)="tableControl.addBadgeToContact(dropdown, cell, contact, 'inactiveContacts')"
+            [ngStyle]="{'background-color': dropdown.color}">{{dropdown.name}}</div>
+          }
           }
         </div>
       </mat-menu>
@@ -172,7 +176,7 @@
   <!-- Add New Contact Row -->
   <div class="row content-row add-contact-row" (keydown)="tableControl.keyboardAddContact($event, 'inactiveContacts')">
     <div class="cell empty-field checkbox-cell"></div>
-    <div class="cell add-button contact-add">
+    <div class="cell add-button contact-add second-cell">
       <mat-icon (click)="tableControl.mouseAddContact('inactiveContacts')">add_circle</mat-icon>
       <input [(ngModel)]="tableControl.newContactInactive" type="text" placeholder="Add contact">
     </div>
@@ -186,8 +190,5 @@
     @if (!this.dataManagement.inactiveCheck) {
     <div class="cell"></div>
     }
-
-
   </div>
-</div>
 </div>

@@ -11,7 +11,9 @@
     <!-- Table Header -->
     <div class="table-head row">
       <div class="cell checkbox-cell">
-        <mat-checkbox [checked]="tableControl.allCheckedActive" (change)="tableControl.checkAllContacts('activeContacts', $event.checked)" class="example-margin"></mat-checkbox>
+        <mat-checkbox [checked]="tableControl.allCheckedActive"
+          (change)="tableControl.checkAllContacts('activeContacts', $event.checked)"
+          class="example-margin"></mat-checkbox>
       </div>
       @for(item of this.dataManagement.activeTableColumns; track $index; let i = $index) {
       @if (item.type == "dropdown" && item.used) {
@@ -27,37 +29,42 @@
           </button>
         </mat-menu>
       </div>
-      } @else if (item.index <= 2) { <div class="cell header-cell">
+      } @else if (item.index <= 2 && item.name=="Contacts" ) { <div class="cell header-cell second-cell">
         <span>{{item.name}}</span>
     </div>
-    }
-    }
-    <!-- Add Column Menu -->
-    @if (!this.dataManagement.activeCheck) {
-    <div class="cell button-container">
-      <mat-icon class=" blue-color-icon" [matMenuTriggerFor]="menu" matTooltip="Add a new Column">add_circle</mat-icon>
-      <mat-menu #menu="matMenu">
-        @for (item of this.dataManagement.activeTableColumns; track item; let i = $index) {
-        @if (!item.used && item.index > 2) {
-        <button (click)="tableControl.addColumn('activeTableColumns', item.id)" class="matMenu-button" mat-menu-item>
-          <mat-icon [ngStyle]="{'color': item.color}" class="type column-icon">{{item.icon}}</mat-icon>
-          {{item.name}}</button>
-        }
-        }
-      </mat-menu>
+    } @else {
+    <div class="cell header-cell">
+      <span>{{item.name}}</span>
     </div>
     }
-
+    }
   </div>
+  <!-- Add Column Menu -->
+  @if (!this.dataManagement.activeCheck) {
+  <div class="cell button-container">
+    <mat-icon class=" blue-color-icon" [matMenuTriggerFor]="menu" matTooltip="Add a new Column">add_circle</mat-icon>
+    <mat-menu #menu="matMenu">
+      @for (item of this.dataManagement.activeTableColumns; track item; let i = $index) {
+      @if (!item.used && item.index > 2) {
+      <button (click)="tableControl.addColumn('activeTableColumns', item.id)" class="matMenu-button" mat-menu-item>
+        <mat-icon [ngStyle]="{'color': item.color}" class="type column-icon">{{item.icon}}</mat-icon>
+        {{item.name}}</button>
+      }
+      }
+    </mat-menu>
+  </div>
+  }
+
 
   <!-- Table Content Rows -->
   @if (dataManagement.activeContacts.length > 0) {
   @for (contact of this.dataManagement.activeContacts; track $index; let i = $index) {
   <div class="row content-row">
-    <div class="cell checkbox-cell"  >
-      <mat-checkbox [checked]="this.tableControl.allCheckedActive" [(ngModel)]="contact.checked" (change)="tableControl.checkContact('active', i)" class="example-margin"></mat-checkbox>
+    <div class="cell checkbox-cell">
+      <mat-checkbox [checked]="this.tableControl.allCheckedActive" [(ngModel)]="contact.checked"
+        (change)="tableControl.checkContact('active', i)" class="example-margin"></mat-checkbox>
     </div>
-    <div class="cell Contacts">
+    <div class="cell Contacts second-cell">
       <input [(ngModel)]="contact.name" #nameValue [value]="contact.name"
         (blur)="tableControl.changeNameOnBlur($event, 'activeContacts', contact.id)"
         (keyup)="tableControl.changeName($event, 'activeContacts', contact.id, nameValue.value)">
@@ -139,13 +146,13 @@
       <mat-menu #dropdown="matMenu">
         <div class="badge-menu">
           @for (dropdown of cell.availableDropdowns; track $index; let i = $index) {
-            @if (dropdown.name == 'Inactive') {
-              <div class="badge" (click)="tableControl.contactStatusRedirection(contact.status, contact, dropdown)"
-              [ngStyle]="{'background-color': dropdown.color}">{{dropdown.name}}</div>
-            } @else {
-              <div class="badge" (click)="tableControl.addBadgeToContact(dropdown, cell, contact, 'activeContacts')"
-              [ngStyle]="{'background-color': dropdown.color}">{{dropdown.name}}</div>
-            }
+          @if (dropdown.name == 'Inactive') {
+          <div class="badge" (click)="tableControl.contactStatusRedirection(contact.status, contact, dropdown)"
+            [ngStyle]="{'background-color': dropdown.color}">{{dropdown.name}}</div>
+          } @else {
+          <div class="badge" (click)="tableControl.addBadgeToContact(dropdown, cell, contact, 'activeContacts')"
+            [ngStyle]="{'background-color': dropdown.color}">{{dropdown.name}}</div>
+          }
           }
         </div>
       </mat-menu>
@@ -163,7 +170,7 @@
   <!-- Add New Contact Row -->
   <div class="row content-row add-contact-row" (keydown)="tableControl.keyboardAddContact($event, 'activeContacts')">
     <div class="cell empty-field checkbox-cell"></div>
-    <div class="cell add-button contact-add">
+    <div class="cell add-button contact-add second-cell">
       <mat-icon (click)="tableControl.mouseAddContact('activeContacts')">add_circle</mat-icon>
       <input [(ngModel)]="tableControl.newContactActive" type="text" placeholder="Add contact">
     </div>
@@ -179,5 +186,4 @@
     }
 
   </div>
-</div>
 </div>

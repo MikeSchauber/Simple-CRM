@@ -117,11 +117,15 @@ mat-icon {
   font-size: 32px;
 }
 
+.second-cell {
+  margin-left: 50px !important;
+}
+
 .checkbox-cell {
   min-width: 50px;
   flex: 0;
   padding: 0;
-  position: sticky;
+  position: fixed;
   background-color: white;
 }
 
