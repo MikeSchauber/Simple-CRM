@@ -42,34 +42,34 @@ export class TableControlService {
     return checked
   }
 
-  checkAllContacts(status: string) {
+  checkAllContacts(status: string, checkbox: boolean) {
     let contactArray: ContactInterface[];
     status == 'activeContacts'
       ? contactArray = this.dataManagement.activeContacts
       : contactArray = this.dataManagement.inactiveContacts;
-    this.handleAllCheckboxes(contactArray);
+    this.handleAllCheckboxes(contactArray, checkbox);
     this.dataManagement.activeContacts.forEach((c) => {
       console.log(c.checked);
     });
-    console.log(this.allCheckedActive);
-
   }
 
-  handleAllCheckboxes(contactArray: ContactInterface[]) {
+  handleAllCheckboxes(contactArray: ContactInterface[], checkbox: boolean) {
     contactArray.forEach(c => {
-      if (this.allCheckedActive) {
-        c.checked = true;
-      } else {
+      if (!checkbox) {
         c.checked = false;
+        this.allCheckedActive = false;
+      } else {
+        c.checked = true;
+        this.allCheckedActive = true;
       }
     });
   }
 
-  checkContact(status: string, i: number) {
+  checkContact(status: string, i: number, checkbox: boolean) {
     let contact: ContactInterface;
     status == 'active' ? contact = this.dataManagement.activeContacts[i] :
       contact = this.dataManagement.inactiveContacts[i];
-    if (contact.checked == true) {
+    if (!checkbox) {
       contact.checked = false;
     } else {
       contact.checked = true

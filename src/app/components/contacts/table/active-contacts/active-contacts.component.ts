@@ -36,7 +36,7 @@ export class ActiveContactsComponent {
   constructor(
     public tableControl: TableControlService,
     public dataManagement: DataManagementService
-  ) {}
+  ) { }
 
   hoverAction(action: string, i: number) {
     if (action == 'email') {

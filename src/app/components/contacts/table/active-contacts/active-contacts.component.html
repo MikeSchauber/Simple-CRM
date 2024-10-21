@@ -10,10 +10,8 @@
   <div id="customers" class="table">
     <!-- Table Header -->
     <div class="table-head row">
-      <div class="cell checkbox-cell" (click)="tableControl.checkAllContacts('activeContacts')">
-        <section class="example-section">
-          <mat-checkbox [(ngModel)]="tableControl.allCheckedActive" class="example-margin"></mat-checkbox>
-        </section>
+      <div class="cell checkbox-cell">
+        <mat-checkbox [checked]="tableControl.allCheckedActive" (change)="tableControl.checkAllContacts('activeContacts', $event.checked)" class="example-margin"></mat-checkbox>
       </div>
       @for(item of this.dataManagement.activeTableColumns; track $index; let i = $index) {
       @if (item.type == "dropdown" && item.used) {
@@ -56,10 +54,8 @@
   @if (dataManagement.activeContacts.length > 0) {
   @for (contact of this.dataManagement.activeContacts; track $index; let i = $index) {
   <div class="row content-row">
-    <div class="cell checkbox-cell" (click)="tableControl.checkContact('active', i)">
-      <section class="example-section">
-        <mat-checkbox [(ngModel)]="contact.checked" class="example-margin"></mat-checkbox>
-      </section>
+    <div class="cell checkbox-cell" >
+      <mat-checkbox [checked]="this.tableControl.allCheckedActive" (change)="tableControl.checkContact('active', i, $event.checked)" class="example-margin"></mat-checkbox>
     </div>
     <div class="cell Contacts">
       <input [(ngModel)]="contact.name" #nameValue [value]="contact.name"
