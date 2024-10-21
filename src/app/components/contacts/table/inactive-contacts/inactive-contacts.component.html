@@ -60,7 +60,7 @@
   @if (dataManagement.inactiveContacts.length > 0) {
   @for (contact of this.dataManagement.inactiveContacts; track $index; let i = $index) {
   <div class="row content-row">
-    <div class="cell checkbox-cell" (click)="tableControl.checkContact('inactive', i)">
+    <div class="cell checkbox-cell">
       <div class="cell checkbox-cell">
         <mat-checkbox [checked]="this.tableControl.allCheckedInactive" [(ngModel)]="contact.checked"
           (change)="tableControl.checkContact('inactive', i)" class="example-margin"></mat-checkbox>
