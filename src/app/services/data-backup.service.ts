@@ -415,9 +415,9 @@ export class DataBackupService {
     // for (const contact of this.inactiveContacts) {
     //   await addDoc(this.dataManagement.getDocRef('inactiveContacts'), contact);
     // }
-    for (const column of this.activeTableColumns) {
-      await addDoc(this.dataManagement.getDocRef('activeTableColumns'), column);
-    }
+    // for (const column of this.activeTableColumns) {
+    //   await addDoc(this.dataManagement.getDocRef('activeTableColumns'), column);
+    // }
     for (const column of this.inactiveTableColumns) {
       await addDoc(
         this.dataManagement.getDocRef('inactiveTableColumns'),
