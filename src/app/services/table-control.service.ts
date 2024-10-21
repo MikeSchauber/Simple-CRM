@@ -328,8 +328,6 @@ export class TableControlService {
     contact: ContactInterface,
     collection: string
   ) {
-    console.log(cell.name);
-
     let badgeData = this.returnBadgeObject(cell.name, dropdown);
     await updateDoc(this.dataManagement.getSingleDocRef(collection, contact.id), badgeData);
   }
@@ -400,9 +398,6 @@ export class TableControlService {
       color: dropdown.color,
       used: true,
     }
-
-    console.log(newContact.statusBadge);
-
     await addDoc(collection(this.firestore, addCollection), newContact.toJson());
     await deleteDoc(doc(this.firestore, deleteCollection, contact.id));
   }
