@@ -387,11 +387,11 @@ export class TableControlService {
     if (status == 'active') {
       addCollection = 'inactiveContacts';
       deleteCollection = 'activeContacts';
-      newContact = new Contact({ name: contact.name, status: 'inactive' });
+      newContact = new Contact({ name: contact.name, status: 'active' });
     } else {
       addCollection = 'activeContacts';
       deleteCollection = 'inactiveContacts';
-      newContact = new Contact({ name: contact.name, status: 'active' });
+      newContact = new Contact({ name: contact.name, status: 'inactive' });
     }
     newContact.statusBadge = {
       name: dropdown.name,
@@ -404,8 +404,8 @@ export class TableControlService {
 
   async moveContacts(collection: string) {
     collection == 'activeContacts'
-      ? await this.moveActiveContacts('active', { name: 'Active', color: '#4caf50', used: false })
-      : await this.moveInactiveContacts('inactive', { name: 'Inactive', color: '#f44336', used: false });
+      ? await this.moveActiveContacts('active', { name: 'Inactive', color: '#f44336', used: false })
+      : await this.moveInactiveContacts('inactive', { name: 'Active', color: '#4caf50', used: false });
     this.allCheckedActive = false;
     this.allCheckedInactive = false;
   }
@@ -419,7 +419,7 @@ export class TableControlService {
   }
 
   async moveInactiveContacts(status: string, dropdown: Dropdown) {
-    for (const contact of this.dataManagement.activeContacts) {
+    for (const contact of this.dataManagement.inactiveContacts) {
       if (contact.checked === true) {
         await this.contactStatusRedirection(status, contact, dropdown);
       }
