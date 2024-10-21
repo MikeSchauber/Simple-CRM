@@ -1,6 +1,6 @@
 <div class="table-container">
   <div class="button-container">
-    <button class="head-button-container" mat-button>
+    <button class="head-button-container" mat-button (click)="tableControl.moveContacts('activeContacts')">
       <mat-icon>archive</mat-icon>
       <span>Inactive</span></button>
     <button class="head-button-container" mat-button (click)="tableControl.deleteContacts('activeContacts')">

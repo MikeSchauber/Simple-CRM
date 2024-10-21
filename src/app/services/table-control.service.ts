@@ -402,4 +402,27 @@ export class TableControlService {
     await deleteDoc(doc(this.firestore, deleteCollection, contact.id));
   }
 
+  async moveContacts(collection: string) {
+    collection == 'activeContacts'
+      ? await this.moveActiveContacts('active', { name: 'Active', color: '#4caf50', used: false })
+      : await this.moveInactiveContacts('inactive', { name: 'Inactive', color: '#f44336', used: false });
+    this.allCheckedActive = false;
+    this.allCheckedInactive = false;
+  }
+
+  async moveActiveContacts(status: string, dropdown: Dropdown) {
+    for (const contact of this.dataManagement.activeContacts) {
+      if (contact.checked === true) {
+        await this.contactStatusRedirection(status, contact, dropdown);
+      }
+    }
+  }
+
+  async moveInactiveContacts(status: string, dropdown: Dropdown) {
+    for (const contact of this.dataManagement.activeContacts) {
+      if (contact.checked === true) {
+        await this.contactStatusRedirection(status, contact, dropdown);
+      }
+    }
+  }
 }
