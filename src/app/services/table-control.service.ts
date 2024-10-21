@@ -213,17 +213,15 @@ export class TableControlService {
   }
 
   async closeAllEdits() {
-    const activeSnapshot = getDocs(
-      this.dataManagement.getDocRef('activeContacts')
-    );
-    const inactiveSnapshot = getDocs(
-      this.dataManagement.getDocRef('inactiveContacts')
-    );
     const batch = writeBatch(this.firestore);
-    (await activeSnapshot).forEach((doc) => {
+    (await getDocs(
+      this.dataManagement.getDocRef('activeContacts')
+    )).forEach((doc) => {
       batch.update(doc.ref, { telEdit: false, emailEdit: false });
     });
-    (await inactiveSnapshot).forEach((doc) => {
+    (await getDocs(
+      this.dataManagement.getDocRef('inactiveContacts')
+    )).forEach((doc) => {
       batch.update(doc.ref, { telEdit: false, emailEdit: false });
     });
     await batch.commit();
@@ -382,4 +380,27 @@ export class TableControlService {
     }
     return badgeData
   }
+
+  async contactStatusRedirection(status: string, contact: ContactInterface, dropdown: Dropdown) {
+    let addCollection;
+    let deleteCollection;
+    let newContact;
+    if (status == 'Active') {
+      addCollection = 'inactiveContacts';
+      deleteCollection = 'activeContacts';
+      newContact = new Contact({ name: contact.name, status: 'inactive' });
+    } else {
+      addCollection = 'activeContacts';
+      deleteCollection = 'inactiveContacts';
+      newContact = new Contact({ name: contact.name, status: 'active' });
+    }
+    newContact.statusBadge = {
+      name: dropdown.name,
+      color: dropdown.color,
+      used: true,
+    }
+    await addDoc(collection(this.firestore, addCollection), newContact.toJson());
+    await deleteDoc(doc(this.firestore, deleteCollection, contact.id));
+  }
+
 }
