@@ -382,6 +382,7 @@ export class TableControlService {
   }
 
   async contactStatusRedirection(status: string, contact: ContactInterface, dropdown: Dropdown) {
+    let id = contact.id;
     let addCollection;
     let deleteCollection;
     let newContact = new Contact(contact);
@@ -399,8 +400,9 @@ export class TableControlService {
       color: dropdown.color,
       used: true,
     }
+    newContact.checked = false;
     await addDoc(collection(this.firestore, addCollection), newContact.toJson());
-    await deleteDoc(doc(this.firestore, deleteCollection, contact.id));
+    await deleteDoc(doc(this.firestore, deleteCollection, id));
   }
 
   async moveContacts(collection: string) {
