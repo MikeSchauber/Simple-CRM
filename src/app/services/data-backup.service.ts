@@ -154,7 +154,7 @@ export class DataBackupService {
       index: 4,
       columnId: '',
       id: '',
-      name: 'Status',
+      name: 'Standing',
       type: 'dropdown',
       icon: 'bolt',
       color: '#4caf50',
