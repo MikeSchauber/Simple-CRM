@@ -39,8 +39,8 @@ export class DataManagementService implements OnDestroy {
     this.unsubInactiveContacts = this.subList('inactiveContacts');
     this.unsubActiveTableColumns = this.subList('activeTableColumns');
     this.unsubInactiveTableColumns = this.subList('inactiveTableColumns');
+    this.unsubDealsColumns = this.subList('dealsColumns');
     this.unsubDeals = this.subList('deals');
-    this.unsubDealsColumns = this.subList('dealsColumns'); 
   }
 
   ngOnDestroy(): void {
@@ -83,15 +83,15 @@ export class DataManagementService implements OnDestroy {
   querySortedDocRef(list: string) {
     if (list === 'activeTableColumns' || list === 'inactiveTableColumns') {
       return query(this.getDocRef(list), orderBy('index'));
-    } else if (list === 'activeContacts' || 'inactiveContacts') {
+    } else if (list === 'activeContacts' || list === 'inactiveContacts') {
       return query(this.getDocRef(list), orderBy('timestamp'));
     } else if (list === 'dealsColumns') {
-      console.log(list);
-      
       return query(this.getDocRef(list), orderBy('index'));
     } else {
       return this.getDocRef(list);
     }
+
+
   }
 
   pushIntoEachArray(querySnapshot: QuerySnapshot) {

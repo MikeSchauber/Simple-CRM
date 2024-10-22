@@ -498,11 +498,11 @@ export class DataBackupService {
     //     column
     //   );
     // }
-    for (const deal of this.deals) {
-      await addDoc(this.dataManagement.getDocRef('deals'), deal);
-    }
-    // for (const column of this.dealsColumns) {
-    //   await addDoc(this.dataManagement.getDocRef('dealsColumns'), column);
+    // for (const deal of this.deals) {
+    //   await addDoc(this.dataManagement.getDocRef('deals'), deal);
     // }
+    for (const column of this.dealsColumns) {
+      await addDoc(this.dataManagement.getDocRef('dealsColumns'), column);
+    }
   }
 }
