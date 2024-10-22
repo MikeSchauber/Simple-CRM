@@ -55,11 +55,11 @@ export class DataBackupService {
       used: false,
       activeDropdown: { name: '', color: '' },
       availableDropdowns: [
-        { name: 'Artist', color: '#d84315' },
+        { name: 'Designer', color: '#d84315' },
         { name: 'Manager', color: '#1976d2' },
         { name: 'Lead', color: '#388e3c' },
         { name: 'Partner', color: '#7b1fa2' },
-        { name: 'Customer', color: '#fbc02d' },
+        { name: 'Developer', color: '#fbc02d' },
       ],
     },
     {

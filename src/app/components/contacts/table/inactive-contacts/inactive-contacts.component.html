@@ -1,27 +1,23 @@
 <div class="table-container">
   <div class="button-container">
     <button class="head-button-container" mat-button (click)="tableControl.moveContacts('inactiveContacts')">
-      <mat-icon>unarchive</mat-icon>
-      <span>Active</span>
-    </button>
+      <mat-icon>archive</mat-icon>
+      <span>Inactive</span></button>
     <button class="head-button-container" mat-button (click)="tableControl.deleteContacts('inactiveContacts')">
-      <mat-icon>delete</mat-icon>
-      <span>Delete</span>
+      <mat-icon>delete</mat-icon><span>Delete</span>
     </button>
   </div>
-  <div id="customers" class="table">
+  <div class="table">
     <!-- Table Header -->
     <div class="table-head row">
       <div class="cell checkbox-cell">
-        <div class="cell checkbox-cell">
-          <mat-checkbox [checked]="tableControl.allCheckedInactive"
-            (change)="tableControl.checkAllContacts('inactiveContacts', $event.checked)"
-            class="example-margin"></mat-checkbox>
-        </div>
+        <mat-checkbox [checked]="tableControl.allCheckedInactive"
+          (change)="tableControl.checkAllContacts('inactiveContacts', $event.checked)"
+          class="example-margin"></mat-checkbox>
       </div>
       @for(item of this.dataManagement.inactiveTableColumns; track $index; let i = $index) {
       @if (item.type == "dropdown" && item.used) {
-      <div class="cell columnCell" (mouseover)="hoverAction('none', i)" (mouseleave)="mouseOutAction()">
+      <div class="cell columnCell header-cell" (mouseover)="hoverAction('none', i)" (mouseleave)="mouseOutAction()">
         <span>{{item.name}}</span>
         <mat-icon class=" blue-color-icon" style="color: rgb(0, 118, 145); font-size: 18px; padding: 2px;"
           [matMenuTriggerFor]="erase" matTooltip="Delete Column"
@@ -33,32 +29,27 @@
           </button>
         </mat-menu>
       </div>
-      } @else if (item.index <= 2 && item.name=="Contacts" ) { <div class="cell header-cell second-cell">
+      } @else if (item.index <= 2) { <div class="cell header-cell">
         <span>{{item.name}}</span>
     </div>
-    } @else {
-    <div class="cell header-cell">
-      <span>{{item.name}}</span>
+    }
+    }
+    <!-- Add Column Menu -->
+    @if (!this.dataManagement.inactiveCheck) {
+    <div class="cell button-container">
+      <mat-icon class=" blue-color-icon" [matMenuTriggerFor]="menu" matTooltip="Add a new Column">add_circle</mat-icon>
+      <mat-menu #menu="matMenu">
+        @for (item of this.dataManagement.inactiveTableColumns; track item; let i = $index) {
+        @if (!item.used && item.index > 2) {
+        <button (click)="tableControl.addColumn('inactiveTableColumns', item.id)" class="matMenu-button" mat-menu-item>
+          <mat-icon [ngStyle]="{'color': item.color}" class="type column-icon">{{item.icon}}</mat-icon>
+          {{item.name}}</button>
+        }
+        }
+      </mat-menu>
     </div>
     }
-    }
   </div>
-  
-  <!-- Add Column Menu -->
-  @if (!this.dataManagement.inactiveCheck) {
-  <div class="cell button-container">
-    <mat-icon class=" blue-color-icon" [matMenuTriggerFor]="menu" matTooltip="Add a new Column">add_circle</mat-icon>
-    <mat-menu #menu="matMenu">
-      @for (item of this.dataManagement.inactiveTableColumns; track item; let i = $index) {
-      @if (!item.used && item.index > 2) {
-      <button (click)="tableControl.addColumn('inactiveTableColumns', item.id)" class="matMenu-button" mat-menu-item>
-        <mat-icon [ngStyle]="{'color': item.color}" class="type column-icon">{{item.icon}}</mat-icon>
-        {{item.name}}</button>
-      }
-      }
-    </mat-menu>
-  </div>
-  }
 
   <!-- Table Content Rows -->
   @if (dataManagement.inactiveContacts.length > 0) {

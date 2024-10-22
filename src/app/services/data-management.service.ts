@@ -11,8 +11,6 @@ import {
 import { DealInterface } from '../interfaces/deal-interface';
 import { ContactInterface } from '../interfaces/contact-interface';
 import { ColumnInterface } from '../interfaces/column-interface';
-import { ActiveContactsComponent } from '../components/contacts/table/active-contacts/active-contacts.component';
-import { DataBackupService } from './data-backup.service';
 
 @Injectable({
   providedIn: 'root',

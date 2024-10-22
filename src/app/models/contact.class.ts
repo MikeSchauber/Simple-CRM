@@ -28,6 +28,7 @@ export class Contact {
     color: '',
     used: false,
   };
+  
   constructor(obj: Partial<ContactInterface>) {
     this.id = obj.id ? obj.id : '';
     this.checked = obj.checked ? obj.checked : false;
