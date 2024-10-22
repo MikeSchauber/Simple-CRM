@@ -62,10 +62,8 @@ export class DealsComponent {
 
   async closeDatePicker(event: FocusEvent, id: string) {
     let value = this.getValue(event);
-    let splittedValue = value.split("-");
-    let valueReordered = `${splittedValue[2]}-${splittedValue[1]}-${splittedValue[0]}`;
     await updateDoc(this.dataManagement.getSingleDocRef('deals', id), {
-      closingDate: valueReordered,
+      closingDate: value,
     });
   }
 }
