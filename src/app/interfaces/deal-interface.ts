@@ -7,7 +7,7 @@ export interface DealInterface {
     name: string;
     phaseBadge: BadgeInterface;
     dealValue: number;
-    responsible: string;
+    responsibleBadge: BadgeInterface;
     closingDate: string;
     timestamp: number;
 }

@@ -48,7 +48,7 @@
             </div>
             <!-- Responsible Person -->
             <div class="cell">
-                {{deal.responsible}}
+                {{deal.responsibleBadge.name}}
             </div>
             <!-- Closing Date -->
             <div class="cell" (click)="openDatePicker(dateValue)">
@@ -69,7 +69,10 @@
             <div class="cell typ-cell"></div>
             <div class="cell"></div>
             @for (item of dataManagement.dealsColumns; track $index) {
-            <div class="cell"></div>
+                @if (item.index > 2) {
+                    <div class="cell"></div>
+                }
+           
             }
 
         </div>
