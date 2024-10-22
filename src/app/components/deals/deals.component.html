@@ -10,14 +10,14 @@
                     <mat-checkbox (click)="checkAllDeals()" class="example-margin"></mat-checkbox>
                 </section>
             </div>
-            @for(item of this.dataManagement.dealsColumns; track $index; let i = $index) {
-            @if (item.name == "Deal") {
+            @for(column of this.dataManagement.dealsColumns; track $index; let i = $index) {
+            @if (column.name == "Deal") {
             <div class="cell Contacts">
-                <span>{{item.name}}</span>
+                <span>{{column.name}}</span>
             </div>
             } @else {
             <div class="cell">
-                <span>{{item.name}}</span>
+                <span>{{column.name}}</span>
             </div>
             }
             }
@@ -25,31 +25,31 @@
 
         <!-- Table Content Rows -->
         @if (dataManagement.deals.length > 0) {
-        @for (item of this.dataManagement.deals; track $index; let i = $index) {
+        @for (deal of this.dataManagement.deals; track $index; let i = $index) {
         <div class="row content-row">
             <div class="cell checkbox-cell">
                 <section class="example-section">
-                    <mat-checkbox [(ngModel)]="item.checked" class="example-margin"></mat-checkbox>
+                    <mat-checkbox [(ngModel)]="deal.checked" class="example-margin"></mat-checkbox>
                 </section>
             </div>
             <div class="cell Contacts">
-                <input type="text" (input)="item.name=getValue($event)" [value]="item.name">
+                <input type="text" (input)="deal.name=getValue($event)" [value]="deal.name">
             </div>
             <!-- Deal Value -->
             <div class="cell">
-                {{item.dealValue}}
+                {{deal.dealValue}}
             </div>
             <!-- Phase Dropdown Menu -->
             <div class="cell">
-                {{item.phaseBadge.name}}
+                {{deal.phaseBadge.name}}
             </div>
             <!-- Responsible Person -->
             <div class="cell">
-                {{item.responsible}}
+                {{deal.responsible}}
             </div>
             <!-- Closing Date -->
             <div class="cell" (click)="openDatePicker(dateValue)">
-                <input #dateValue  type="date" (blur)="closeDatePicker($event)" [value]="item.closingDate">
+                <input #dateValue  type="date" (blur)="closeDatePicker($event, deal.id)" [value]="deal.closingDate">
             </div>
         </div>
         }

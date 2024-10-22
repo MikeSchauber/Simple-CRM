@@ -7,6 +7,7 @@ import { CommonModule } from '@angular/common';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatMenuModule } from '@angular/material/menu';
 import { DataManagementService } from '../../services/data-management.service';
+import { updateDoc } from 'firebase/firestore';
 
 @Component({
   selector: 'app-deals',
@@ -59,12 +60,12 @@ export class DealsComponent {
     dateInput.showPicker();
   }
 
-  closeDatePicker(event: FocusEvent) {
+  async closeDatePicker(event: FocusEvent, id: string) {
     let value = this.getValue(event);
     let splittedValue = value.split("-");
-    let valueReorderd = `${splittedValue[2]}-${splittedValue[1]}-${splittedValue[0]}`;
-    console.log(valueReorderd);
-    
-    
+    let valueReordered = `${splittedValue[2]}-${splittedValue[1]}-${splittedValue[0]}`;
+    await updateDoc(this.dataManagement.getSingleDocRef('deals', id), {
+      closingDate: valueReordered,
+    });
   }
 }
