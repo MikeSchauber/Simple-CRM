@@ -22,12 +22,14 @@ export class DataManagementService implements OnDestroy {
   unsubActiveTableColumns;
   unsubInactiveTableColumns;
   unsubDeals;
+  unsubDealsColumns;
 
   activeContacts: ContactInterface[] = [];
   inactiveContacts: ContactInterface[] = [];
   activeTableColumns: ColumnInterface[] = [];
   inactiveTableColumns: ColumnInterface[] = [];
   deals: DealInterface[] = [];
+  dealsColumns: ColumnInterface[] = [];
 
   activeCheck: boolean = false;
   inactiveCheck: boolean = false;
@@ -38,6 +40,7 @@ export class DataManagementService implements OnDestroy {
     this.unsubActiveTableColumns = this.subList('activeTableColumns');
     this.unsubInactiveTableColumns = this.subList('inactiveTableColumns');
     this.unsubDeals = this.subList('deals');
+    this.unsubDealsColumns = this.subList('dealsColumns'); 
   }
 
   ngOnDestroy(): void {
@@ -46,6 +49,7 @@ export class DataManagementService implements OnDestroy {
     this.unsubActiveTableColumns();
     this.unsubInactiveTableColumns();
     this.unsubDeals();
+    this.unsubDealsColumns();
   }
 
   subList(list: string) {
@@ -61,6 +65,8 @@ export class DataManagementService implements OnDestroy {
         this.inactiveTableColumns = this.pushIntoEachArray(querySnapshot);
       } else if (list === 'deals') {
         this.deals = this.pushIntoEachArray(querySnapshot);
+      } else if (list === 'dealsColumns') {
+        this.dealsColumns = this.pushIntoEachArray(querySnapshot);
       }
       this.checkUsedColumns();
     });
@@ -79,6 +85,10 @@ export class DataManagementService implements OnDestroy {
       return query(this.getDocRef(list), orderBy('index'));
     } else if (list === 'activeContacts' || 'inactiveContacts') {
       return query(this.getDocRef(list), orderBy('timestamp'));
+    } else if (list === 'dealsColumns') {
+      console.log(list);
+      
+      return query(this.getDocRef(list), orderBy('index'));
     } else {
       return this.getDocRef(list);
     }

@@ -438,7 +438,11 @@ export class DataBackupService {
       id: '',
       checked: false,
       name: 'Deal 1',
-      phase: '',
+      phaseBadge: {
+        name: '',
+        color: '',
+        used: false,
+      },
       dealValue: '14000',
       responsible: '',
       closingDate: '2024-10-31',
@@ -448,7 +452,11 @@ export class DataBackupService {
       id: '',
       checked: false,
       name: 'Deal 2',
-      phase: '',
+      phaseBadge: {
+        name: '',
+        color: '',
+        used: false,
+      },
       dealValue: '8000',
       responsible: '',
       closingDate: '2024-11-15',
@@ -458,7 +466,11 @@ export class DataBackupService {
       id: '',
       checked: false,
       name: 'Deal 3',
-      phase: '',
+      phaseBadge: {
+        name: '',
+        color: '',
+        used: false,
+      },
       dealValue: '10000',
       responsible: '',
       closingDate: '2024-12-22',
@@ -486,11 +498,11 @@ export class DataBackupService {
     //     column
     //   );
     // }
-    // for (const deal of this.deals) {
-    //   await addDoc(this.dataManagement.getDocRef('deals'), deal);
-    // }
-    for (const column of this.dealsColumns) {
-      await addDoc(this.dataManagement.getDocRef('dealsColumns'), column);
+    for (const deal of this.deals) {
+      await addDoc(this.dataManagement.getDocRef('deals'), deal);
     }
+    // for (const column of this.dealsColumns) {
+    //   await addDoc(this.dataManagement.getDocRef('dealsColumns'), column);
+    // }
   }
 }

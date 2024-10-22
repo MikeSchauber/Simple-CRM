@@ -6,14 +6,12 @@ import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatMenuModule } from '@angular/material/menu';
-import { DealsService } from '../../services/deals.service';
-import { DataBackupService } from '../../services/data-backup.service';
+import { DataManagementService } from '../../services/data-management.service';
 
 @Component({
   selector: 'app-deals',
   standalone: true,
   imports: [
-    
     MatButtonModule,
     MatCheckboxModule,
     FormsModule,
@@ -28,20 +26,22 @@ import { DataBackupService } from '../../services/data-backup.service';
 export class DealsComponent {
   allChecked: boolean = false;
 
-  constructor(public dealsData: DealsService, public dataBackup: DataBackupService) {}
+  constructor(public dataManagement: DataManagementService) { }
 
   checkAllDeals() {
     if (!this.allChecked) {
       this.allChecked = true;
-      this.dataBackup.deals.forEach((e) => {
+      this.dataManagement.deals.forEach((e) => {
         e.checked = true;
       });
     } else {
       this.allChecked = false;
-      this.dataBackup.deals.forEach((e) => {
+      this.dataManagement.deals.forEach((e) => {
         e.checked = false;
       });
     }
+    console.log(this.dataManagement.dealsColumns);
+    
   }
 
   getValue(event: Event): string {
@@ -55,7 +55,7 @@ export class DealsComponent {
     return `${day}.${month}.${year}`
   }
 
-  openDatePicker(){
-    
+  openDatePicker() {
+
   }
 }

@@ -10,7 +10,7 @@
                     <mat-checkbox (click)="checkAllDeals()" class="example-margin"></mat-checkbox>
                 </section>
             </div>
-            @for(item of this.dealsData.tableColumns; track $index; let i = $index) {
+            @for(item of this.dataManagement.dealsColumns; track $index; let i = $index) {
             @if (item.name == "Deal") {
             <div class="cell Contacts">
                 <span>{{item.name}}</span>
@@ -24,8 +24,8 @@
         </div>
 
         <!-- Table Content Rows -->
-        @if (dataBackup.deals.length > 0) {
-        @for (item of this.dataBackup.deals; track $index; let i = $index) {
+        @if (dataManagement.deals.length > 0) {
+        @for (item of this.dataManagement.deals; track $index; let i = $index) {
         <div class="row content-row">
             <div class="cell checkbox-cell">
                 <section class="example-section">
@@ -37,7 +37,7 @@
             </div>
             <!-- Phase Dropdown Menu -->
             <div class="cell">
-                {{item.phase}}
+                {{item.phaseBadge.name}}
             </div>
 
             <!-- Deal Value -->
@@ -52,7 +52,7 @@
 
             <!-- Closing Date -->
             <div class="cell" (click)="openDatePicker()">
-                {{returnPrettierDate(item.closingDate)}}
+                {{item.closingDate}}
             </div>
         </div>
         }

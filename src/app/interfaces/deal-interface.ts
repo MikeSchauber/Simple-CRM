@@ -1,10 +1,11 @@
-import { Badge } from "../models/badge.class";
+
+import { BadgeInterface } from "./badge-interface";
 
 export interface DealInterface {
     id: string;
     checked: boolean;
     name: string;
-    phaseBadge: Badge;
+    phaseBadge: BadgeInterface;
     dealValue: string;
     responsible: string;
     closingDate: string;
