@@ -6,7 +6,7 @@ export interface DealInterface {
     checked: boolean;
     name: string;
     phaseBadge: BadgeInterface;
-    dealValue: string;
+    dealValue: number;
     responsible: string;
     closingDate: string;
     timestamp: number;

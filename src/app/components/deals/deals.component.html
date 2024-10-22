@@ -33,11 +33,14 @@
                 </section>
             </div>
             <div class="cell Contacts">
-                <input type="text" (input)="deal.name=getValue($event)" [value]="deal.name">
+                <input type="text" #nameValue (input)="deal.name=getValue($event)"
+                    (blur)="saveDealName($event, deal.id, 'text');"
+                    (keyup)="saveDealWidthEnter($event, deal.id, nameValue, 'text')" [value]="deal.name">
             </div>
             <!-- Deal Value -->
             <div class="cell">
-                <input type="text" [value]="deal.dealValue">
+                <input type="number" #priceValue (blur)="saveDealName($event, deal.id, 'number');"
+                    (keyup)="saveDealWidthEnter($event, deal.id, priceValue, 'number')" [value]="deal.dealValue">
             </div>
             <!-- Phase Dropdown Menu -->
             <div class="cell">
@@ -54,5 +57,21 @@
         </div>
         }
         }
+
+        <!-- Add New Contact Row -->
+        <div class="row content-row add-contact-row"
+            (keydown)="this.addNewDeal($event)">
+            <div class="cell empty-field checkbox-cell"></div>
+            <div class="cell add-button contact-add second-cell">
+                <mat-icon (click)="this.addDealToCloud()">add_circle</mat-icon>
+                <input [(ngModel)]="this.newDealValue" type="text" placeholder="New Deal">
+            </div>
+            <div class="cell typ-cell"></div>
+            <div class="cell"></div>
+            @for (item of dataManagement.dealsColumns; track $index) {
+            <div class="cell"></div>
+            }
+
+        </div>
     </div>
 </div>
