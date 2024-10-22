@@ -129,16 +129,19 @@ export class TableControlService implements AfterViewInit {
   }
 
   returnContactObject(coll: string) {
+    let timestamp = new Date().getTime();
     let user;
     if (coll == 'activeContacts') {
       user = new Contact({
         name: this.newContactActive,
         status: 'active',
+        timestamp: timestamp,
       });
     } else {
       user = new Contact({
         name: this.newContactInactive,
         status: 'inactive',
+        timestamp: timestamp,
       });
     }
     return user;

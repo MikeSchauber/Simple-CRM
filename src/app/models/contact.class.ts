@@ -12,6 +12,7 @@ export class Contact {
   emailHovered: boolean = false;
   telHovered: boolean = false;
   status: string = '';
+  timestamp: number = 0;
   priorityBadge = {
     name: '',
     color: '',
@@ -39,6 +40,7 @@ export class Contact {
     this.emailHovered = obj.emailHovered ? obj.emailHovered : false;
     this.telHovered = obj.telHovered ? obj.telHovered : false;
     this.status = obj.status  ? obj.status : '';
+    this.timestamp = obj.timestamp ? obj.timestamp : 0;
     this.priorityBadge = obj.priorityBadge ? { ...obj.priorityBadge } : this.priorityBadge;
     this.statusBadge = obj.statusBadge ? { ...obj.statusBadge } : this.statusBadge;
     this.roleBadge = obj.roleBadge ? { ...obj.roleBadge } : this.roleBadge;
@@ -57,6 +59,7 @@ export class Contact {
       emailHovered: this.emailHovered,
       telHovered: this.telHovered,
       status: this.status,
+      timestamp: this.timestamp,
       priorityBadge: this.priorityBadge,
       statusBadge: this.statusBadge,
       roleBadge: this.roleBadge,

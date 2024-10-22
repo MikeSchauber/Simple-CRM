@@ -9,7 +9,7 @@ export class Column {
   icon: string = '';
   color: string = '';
   used: boolean = false;
-  activeDropdown: Dropdown = {name: '', color: ''}
+  activeDropdown: Dropdown = {name: '', color: '', used: false};
   availableDropdowns: Dropdown[] = [];
 
   constructor(obj: { name: string; type: string; index: number, columnId: string, id: string, icon: string; color: string; used: boolean, activeDropdown: Dropdown,  availableDropdowns: Dropdown[] }) {

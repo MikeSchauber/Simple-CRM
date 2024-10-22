@@ -187,7 +187,7 @@ export class DataBackupService {
       id: '',
       checked: false,
       status: 'active',
-      name: 'Active 1',
+      name: 'Mike Schuner',
       tel: '0151332023',
       email: 'mike.schuner@gmx.de',
       visibleEmail: 'Mike Schuner',
@@ -195,6 +195,7 @@ export class DataBackupService {
       telEdit: false,
       emailHovered: false,
       telHovered: false,
+      timestamp: 0,
       priorityBadge: {
         name: '',
         color: '',
@@ -223,6 +224,7 @@ export class DataBackupService {
       telEdit: false,
       emailHovered: false,
       telHovered: false,
+      timestamp: 1,
       priorityBadge: {
         name: '',
         color: '',
@@ -251,6 +253,7 @@ export class DataBackupService {
       telEdit: false,
       emailHovered: false,
       telHovered: false,
+      timestamp: 2,
       priorityBadge: {
         name: '',
         color: '',
@@ -282,6 +285,7 @@ export class DataBackupService {
       telEdit: false,
       emailHovered: false,
       telHovered: false,
+      timestamp: 0,
       priorityBadge: {
         name: '',
         color: '',
@@ -310,6 +314,7 @@ export class DataBackupService {
       telEdit: false,
       emailHovered: false,
       telHovered: false,
+      timestamp: 1,
       priorityBadge: {
         name: '',
         color: '',
@@ -338,6 +343,7 @@ export class DataBackupService {
       telEdit: false,
       emailHovered: false,
       telHovered: false,
+      timestamp: 2,
       priorityBadge: {
         name: '',
         color: '',

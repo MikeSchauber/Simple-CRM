@@ -10,6 +10,7 @@ export interface ContactInterface {
   visibleEmail: string;
   emailHovered: boolean;
   telHovered: boolean;
+  timestamp: number;
   priorityBadge: {
     name: string;
     color: string;

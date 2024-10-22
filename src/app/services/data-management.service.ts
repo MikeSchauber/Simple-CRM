@@ -80,7 +80,7 @@ export class DataManagementService implements OnDestroy {
     if (list === 'activeTableColumns' || list === 'inactiveTableColumns') {
       return query(this.getDocRef(list), orderBy('index'));
     } else if (list === 'activeContacts' || 'inactiveContacts') {
-      return query(this.getDocRef(list), orderBy('name'));
+      return query(this.getDocRef(list), orderBy('timestamp'));
     } else {
       return this.getDocRef(list);
     }
