@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, inject, Injectable } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, ElementRef, inject, Injectable, ViewChild } from '@angular/core';
 import { Contact } from '../models/contact.class';
 import { Firestore } from '@angular/fire/firestore';
 import { DataManagementService } from './data-management.service';
@@ -18,7 +18,7 @@ import { ColumnInterface } from '../interfaces/column-interface';
 @Injectable({
   providedIn: 'root',
 })
-export class TableControlService {
+export class TableControlService implements AfterViewInit {
   allCheckedActive: boolean = false;
   allCheckedInactive: boolean = false;
   dialogPositionY: string = '';
@@ -32,7 +32,11 @@ export class TableControlService {
 
   firestore: Firestore = inject(Firestore);
 
-  constructor(private dataManagement: DataManagementService) { }
+  constructor(private dataManagement: DataManagementService) {
+
+  }
+
+  ngAfterViewInit() { }
 
   preventDefault(event: MouseEvent) {
     event.stopPropagation();
@@ -152,6 +156,8 @@ export class TableControlService {
       await updateDoc(this.dataManagement.getSingleDocRef(coll, id), {
         name: nameToUpdate,
       });
+      const inputElement = (event.target as HTMLInputElement);
+      inputElement.blur();
     }
   }
 
@@ -162,6 +168,7 @@ export class TableControlService {
       await updateDoc(this.dataManagement.getSingleDocRef(coll, id), {
         name: nameToUpdate,
       });
+
     }
   }
 
@@ -407,8 +414,8 @@ export class TableControlService {
 
   async moveContacts(collection: string) {
     collection == 'activeContacts'
-      ? await this.moveActiveContacts('active', { name: 'Inactive', color: '#f44336', used: false })
-      : await this.moveInactiveContacts('inactive', { name: 'Active', color: '#4caf50', used: false });
+      ? await this.moveActiveContacts('active', { name: 'Active', color: '#4caf50', used: false })
+      : await this.moveInactiveContacts('inactive', { name: 'Inactive', color: '#f44336', used: false });
     this.allCheckedActive = false;
     this.allCheckedInactive = false;
   }
