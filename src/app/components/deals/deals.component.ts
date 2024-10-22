@@ -41,7 +41,7 @@ export class DealsComponent {
       });
     }
     console.log(this.dataManagement.dealsColumns);
-    
+
   }
 
   getValue(event: Event): string {
@@ -55,7 +55,16 @@ export class DealsComponent {
     return `${day}.${month}.${year}`
   }
 
-  openDatePicker() {
+  openDatePicker(dateInput: HTMLInputElement) {
+    dateInput.showPicker();
+  }
 
+  closeDatePicker(event: FocusEvent) {
+    let value = this.getValue(event);
+    let splittedValue = value.split("-");
+    let valueReorderd = `${splittedValue[2]}-${splittedValue[1]}-${splittedValue[0]}`;
+    console.log(valueReorderd);
+    
+    
   }
 }

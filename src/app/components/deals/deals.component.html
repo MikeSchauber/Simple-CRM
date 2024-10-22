@@ -35,24 +35,21 @@
             <div class="cell Contacts">
                 <input type="text" (input)="item.name=getValue($event)" [value]="item.name">
             </div>
-            <!-- Phase Dropdown Menu -->
-            <div class="cell">
-                {{item.phaseBadge.name}}
-            </div>
-
             <!-- Deal Value -->
             <div class="cell">
                 {{item.dealValue}}
             </div>
-
+            <!-- Phase Dropdown Menu -->
+            <div class="cell">
+                {{item.phaseBadge.name}}
+            </div>
             <!-- Responsible Person -->
             <div class="cell">
                 {{item.responsible}}
             </div>
-
             <!-- Closing Date -->
-            <div class="cell" (click)="openDatePicker()">
-                {{item.closingDate}}
+            <div class="cell" (click)="openDatePicker(dateValue)">
+                <input #dateValue  type="date" (blur)="closeDatePicker($event)" [value]="item.closingDate">
             </div>
         </div>
         }
