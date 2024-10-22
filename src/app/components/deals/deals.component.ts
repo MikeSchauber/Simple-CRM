@@ -114,8 +114,8 @@ export class DealsComponent {
     });
     if (this.newDealValue.length > 0) {
       await addDoc(collection(this.firestore, 'deals'), user.toJson());
+      this.newDealValue = '';
     }
-
   }
 
 

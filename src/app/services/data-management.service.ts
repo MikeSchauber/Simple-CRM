@@ -85,6 +85,8 @@ export class DataManagementService implements OnDestroy {
       return query(this.getDocRef(list), orderBy('index'));
     } else if (list === 'activeContacts' || list === 'inactiveContacts') {
       return query(this.getDocRef(list), orderBy('timestamp'));
+    } else if (list === 'deals') {
+      return query(this.getDocRef(list), orderBy('timestamp'));
     } else if (list === 'dealsColumns') {
       return query(this.getDocRef(list), orderBy('index'));
     } else {
