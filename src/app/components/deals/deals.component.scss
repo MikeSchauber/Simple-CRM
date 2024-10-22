@@ -9,109 +9,120 @@ input {
   border-color: transparent;
   border-radius: 5px;
   background: none;
-  padding: 5px;
   margin: 0;
+  padding: 5px;
   font: inherit;
   color: inherit;
   box-shadow: none;
   outline: none;
   transition: all 125ms ease-in-out;
+
   &:hover {
     border-color: rgb(184, 184, 184);
   }
+
   &:focus {
     border: 1px solid grey;
   }
 }
 
-.table {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  overflow-x: auto;
-  border: 1px solid #ddd;
-}
-
-.row {
-  display: flex;
-  height: 50px;
-}
-
-.cell {
-  padding: 0 8px;
-  display: flex;
-  align-items: center;
-  flex: 1;
-  flex-basis: 0;
-  border: 1px solid #ddd;
-  min-height: 50px;
-  overflow-x: hidden;
-  min-width: 210px;
-}
-
-.checkbox-cell {
-  min-width: 50px;
-  max-width: 50px; 
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-right: 1px solid #ddd;
-  position: fixed;
-  background-color: white;
-}
-
-.Contacts {
-  padding-left: 58px;
-  display: flex;
-  align-items: center;
-}
-
 .button-container {
   mat-icon {
+    background: none;
+    color: white;
     margin: 0;
+
+    &:hover {
+      background-color: none;
+      color: none;
+    }
   }
+
   button {
-    color: $lightcolor;
-  }
-  mat-icon {
-    color: $lightcolor;
-  }
-}
-
-.add-container {
-  mat-icon {
-    border-radius: 50%;
-    cursor: pointer;
-    transition: all 100ms ease-in-out;
-    &:hover {
-      background-color: $lightcolorHover;
-    }
-    &:active {
-      background-color: $lightcolor;
-    }
-  }
-}
-
-.add {
-  @include dFlex($fd: row, $g: 8px);
-  width: 26px;
-  height: 26px;
-  mat-icon {
-    @include dFlex();
-    cursor: pointer;
-    color: $darkcolor;
-    transition: all 100ms ease-in-out;
-    &:hover {
-      color: $darkcolorHover;
-    }
+    color: white;
+    background-color: $darkcolor;
   }
 }
 
 .empty-field {
   background-color: white;
+
   &:hover {
     background-color: #ffffff00 !important;
   }
+}
+
+.row {
+  display: flex;
+}
+
+.cell {
+  padding: 0px 8px;
+  min-height: 50px;
+
+  min-width: 210px;
+  @include dFlex($fd: row);
+  flex: 1;
+  border: 1px solid #ddd;
+}
+
+.header-cell {
+  justify-content: flex-start;
+  color: $darkcolorHover;
+}
+
+.columnCell {
+  @include dFlex($fd: row, $jc: space-between);
+}
+
+mat-icon {
+  @include dFlex();
+  text-align: center;
+  transition: all 125ms ease-in-out;
+  cursor: pointer;
+  background-color: lightgrey;
+  border-radius: 50%;
+  color: $darkcolor;
+  font-size: 18px;
+  width: 24px;
+  height: 24px;
+
+  &:hover {
+    color: $darkcolorHover;
+    background-color: rgb(224, 224, 224);
+  }
+}
+
+.no-icon-action {
+  background-color: transparent;
+  font-size: 20px;
+
+  &:hover {
+    color: grey;
+    background-color: transparent;
+  }
+}
+
+.blue-color-icon {
+  color: $darkcolor !important;
+  font-size: 32px;
+
+  &:hover {
+    color: $darkcolorHover !important;
+  }
+}
+
+.column-icon {
+  background-color: transparent;
+  font-size: 32px;
+}
+
+.checkbox-cell {
+  min-width: 50px;
+  flex: 0;
+  padding: 0;
+  position: sticky;
+  background-color: white;
 }
 
 .typ-headcell .typ-cell {
@@ -119,22 +130,34 @@ input {
   min-width: 120px;
 }
 
+.matMenu-button {
+  mat-icon {
+    background-color: none !important;
+  }
+}
+
 .email-cell {
   @include dFlex($fd: row, $g: 4px, $jc: space-between);
   font-size: 12px;
-  mat-icon {
-    @include dFlex();
-    width: 18px;
-    height: 18px;
-    font-size: 14px;
-    background-color: lightgrey;
-    transition: all 125ms ease-in-out;
-    cursor: pointer;
-    border-radius: 50%;
-    &:hover {
-      background-color: rgb(194, 194, 194);
-    }
+
+  a {
+    overflow: hidden;
   }
+
+  mat-icon {
+    min-width: 24px;
+    min-height: 24px;
+  }
+}
+
+.head-button-container {
+  @include dFlex($fd: row, $g: 4px);
+}
+
+.button-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .add-contact-row .add {
@@ -142,25 +165,10 @@ input {
   align-items: center;
 }
 
-.note {
-  color: #ff9800 !important;
-}
-
-.type {
-  color: #2196f3 !important;
-}
-
-.status {
-  color: #4caf50 !important;
-}
-
-.prio {
-  color: #f44336 !important;
-}
-
 .add-button {
   @include dFlex($fd: row, $g: 8px);
   color: $darkcolor;
+
   mat-icon {
     height: 28px;
     width: 28px;
@@ -168,26 +176,25 @@ input {
   }
 }
 
+.contact-add {
+  mat-icon {
+    font-size: 24px;
+    background-color: transparent;
+  }
+}
+
 .default-icon {
   color: grey;
   background-color: transparent !important;
   cursor: auto !important;
+
   &:hover {
     background-color: transparent !important;
   }
 }
 
 .input-dialog {
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 999;
-  height: 100vh;
-  width: 100vw;
-  background-color: rgba(255, 255, 255, 0);
-  @include dFlex();
-  overflow: hidden;
-  > div {
+  >div {
     position: absolute;
     top: 28px;
     width: max-content;
@@ -201,4 +208,62 @@ input {
 
 .dialog-input {
   border: 1px solid $darkcolor;
+}
+
+.no-valid-email {
+  border-color: rgb(189, 0, 0) !important;
+}
+
+.add-dropdown-cell {
+  @include dFlex($fd: row, $g: 8px);
+
+  button {
+    mat-icon {
+      margin: 0;
+    }
+  }
+}
+
+.badge-menu {
+  @include dFlex($g: 4px);
+}
+
+.badge {
+  width: 90%;
+  overflow: hidden;
+  display: inline-block;
+  padding: 8px 16px;
+  border-radius: 12px;
+  color: white;
+  font-weight: bold;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.125s ease-in-out;
+  cursor: pointer;
+}
+
+.badge::before {
+  content: "";
+  position: absolute;
+  top: 0%;
+  left: 150%;
+  width: 300%;
+  height: 100%;
+  background: linear-gradient(0deg, rgba(255, 255, 255, 0) 15%, rgba(255, 255, 255, 0.415) 50%, rgba(255, 255, 255, 0) 85%);
+  transform: rotate(-155deg);
+  transition: all 0.125s ease-in-out;
+  pointer-events: none;
+}
+
+.badge:hover::before {
+  left: -60%;
+  top: 50%;
+  transform: rotate(-160deg);
+}
+
+.badge:hover {
+  perspective: 500px;
+  transform: rotateX(20deg) skewX(-2deg) scale(1.05);
+  transform-origin: top;
 }

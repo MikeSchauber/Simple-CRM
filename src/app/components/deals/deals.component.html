@@ -37,7 +37,7 @@
             </div>
             <!-- Deal Value -->
             <div class="cell">
-                {{deal.dealValue}}
+                <input type="text" [value]="deal.dealValue">
             </div>
             <!-- Phase Dropdown Menu -->
             <div class="cell">
@@ -49,7 +49,7 @@
             </div>
             <!-- Closing Date -->
             <div class="cell" (click)="openDatePicker(dateValue)">
-                <input #dateValue  type="date" (blur)="closeDatePicker($event, deal.id)" [value]="deal.closingDate">
+                <input #dateValue type="date" (blur)="closeDatePicker($event, deal.id)" [value]="deal.closingDate">
             </div>
         </div>
         }
