@@ -182,6 +182,7 @@ export class DataBackupService {
       ],
     },
   ];
+
   activeContacts: ContactInterface[] = [
     {
       id: '',
@@ -362,51 +363,106 @@ export class DataBackupService {
     },
   ];
 
+  dealsColumns = [
+    {
+      index: 0,
+      name: 'Deal',
+      type: 'text',
+      columnId: '',
+      id: '',
+      icon: '',
+      color: '',
+      used: true,
+      activeDropdown: {},
+      availableDropdowns: [],
+    },
+    {
+      index: 1,
+      name: 'Value',
+      type: 'text',
+      columnId: '',
+      id: '',
+      icon: '',
+      color: '',
+      used: true,
+      activeDropdown: {},
+      availableDropdowns: [],
+    },
+    {
+      index: 2,
+      name: 'Phase',
+      type: 'dropdown',
+      columnId: '',
+      id: '',
+      icon: '',
+      color: '',
+      used: true,
+      activeDropdown: {},
+      availableDropdowns: [
+        { "name": "Lead", "color": "#8B4513", "used": false },
+        { "name": "Check", "color": "#4682B4", "used": false },
+        { "name": "Offer", "color": "#6A5ACD", "used": false },
+        { "name": "Close", "color": "#2E8B57", "used": false },
+        { "name": "Won", "color": "#4B0082", "used": false },
+        { "name": "Lost", "color": "#B22222", "used": false }
+      ],
+    },
+    {
+      index: 3,
+      columnId: '',
+      id: '',
+      name: 'Representative',
+      type: 'dropdown',
+      icon: '',
+      color: '',
+      used: true,
+      activeDropdown: { name: '', color: '' },
+      availableDropdowns: [],
+    },
+    {
+      index: 4,
+      columnId: '',
+      id: '',
+      name: 'Expexted Close Date',
+      type: 'date',
+      icon: '',
+      color: '',
+      used: true,
+      activeDropdown: {},
+      availableDropdowns: [],
+    },
+  ];
+
   deals = [
     {
       id: '',
       checked: false,
       name: 'Deal 1',
-      phase: 2,
+      phase: '',
       dealValue: '14000',
-      responsible: 1,
-      closingDate: new Date('2024-10-31'),
+      responsible: '',
+      closingDate: '2024-10-31',
+      timestamp: 1,
     },
     {
       id: '',
       checked: false,
       name: 'Deal 2',
-      phase: 4,
+      phase: '',
       dealValue: '8000',
-      responsible: 1,
-      closingDate: new Date('2024-11-15'),
+      responsible: '',
+      closingDate: '2024-11-15',
+      timestamp: 1,
     },
     {
       id: '',
       checked: false,
       name: 'Deal 3',
-      phase: 2,
+      phase: '',
       dealValue: '10000',
-      responsible: 1,
-      closingDate: new Date('2024-12-22'),
-    },
-    {
-      id: '',
-      checked: false,
-      name: 'Deal 4',
-      phase: 1,
-      dealValue: '5000',
-      responsible: 2,
-      closingDate: new Date('2024-09-20'),
-    },
-    {
-      id: '',
-      checked: false,
-      name: 'Deal 5',
-      phase: 3,
-      dealValue: '12000',
-      responsible: 2,
-      closingDate: new Date('2024-12-10'),
+      responsible: '',
+      closingDate: '2024-12-22',
+      timestamp: 2,
     },
   ];
 
@@ -415,12 +471,12 @@ export class DataBackupService {
   }
 
   async addBackupData() {
-    for (const contact of this.activeContacts) {
-      await addDoc(this.dataManagement.getDocRef('activeContacts'), contact);
-    }
-    for (const contact of this.inactiveContacts) {
-      await addDoc(this.dataManagement.getDocRef('inactiveContacts'), contact);
-    }
+    // for (const contact of this.activeContacts) {
+    //   await addDoc(this.dataManagement.getDocRef('activeContacts'), contact);
+    // }
+    // for (const contact of this.inactiveContacts) {
+    //   await addDoc(this.dataManagement.getDocRef('inactiveContacts'), contact);
+    // }
     // for (const column of this.activeTableColumns) {
     //   await addDoc(this.dataManagement.getDocRef('activeTableColumns'), column);
     // }
@@ -433,5 +489,8 @@ export class DataBackupService {
     // for (const deal of this.deals) {
     //   await addDoc(this.dataManagement.getDocRef('deals'), deal);
     // }
+    for (const column of this.dealsColumns) {
+      await addDoc(this.dataManagement.getDocRef('dealsColumns'), column);
+    }
   }
 }
