@@ -388,30 +388,6 @@ export class TableControlService implements AfterViewInit {
     return badgeData
   }
 
-  async contactStatusRedirection(status: string, contact: ContactInterface, dropdown: Dropdown) {
-    let id = contact.id;
-    let addCollection;
-    let deleteCollection;
-    let newContact = new Contact(contact);
-    if (status == 'active') {
-      addCollection = 'inactiveContacts';
-      deleteCollection = 'activeContacts';
-      newContact.status = 'active';
-    } else {
-      addCollection = 'activeContacts';
-      deleteCollection = 'inactiveContacts';
-      newContact.status = 'inactive';
-    }
-    newContact.statusBadge = {
-      name: dropdown.name,
-      color: dropdown.color,
-      used: true,
-    }
-    newContact.checked = false;
-    await addDoc(collection(this.firestore, addCollection), newContact.toJson());
-    await deleteDoc(doc(this.firestore, deleteCollection, id));
-  }
-
   async moveContacts(collection: string) {
     collection == 'activeContacts'
       ? await this.moveActiveContacts('active', { name: 'Active', color: '#4caf50', used: false })
@@ -434,5 +410,29 @@ export class TableControlService implements AfterViewInit {
         await this.contactStatusRedirection(status, contact, dropdown);
       }
     }
+  }
+
+  async contactStatusRedirection(status: string, contact: ContactInterface, dropdown: Dropdown) {
+    let id = contact.id;
+    let addCollection;
+    let deleteCollection;
+    let newContact = new Contact(contact);
+    if (status == 'active') {
+      addCollection = 'inactiveContacts';
+      deleteCollection = 'activeContacts';
+      newContact.status = 'inactive';
+    } else {
+      addCollection = 'activeContacts';
+      deleteCollection = 'inactiveContacts';
+      newContact.status = 'active';
+    }
+    newContact.statusBadge = {
+      name: dropdown.name,
+      color: dropdown.color,
+      used: true,
+    }
+    newContact.checked = false;
+    await addDoc(collection(this.firestore, addCollection), newContact.toJson());
+    await deleteDoc(doc(this.firestore, deleteCollection, id));
   }
 }
