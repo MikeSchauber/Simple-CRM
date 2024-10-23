@@ -197,6 +197,7 @@ export class DataBackupService {
       emailHovered: false,
       telHovered: false,
       timestamp: 0,
+      color: '#CD5C5C',
       priorityBadge: {
         name: '',
         color: '',
@@ -226,6 +227,7 @@ export class DataBackupService {
       emailHovered: false,
       telHovered: false,
       timestamp: 1,
+      color: '#6A5ACD',
       priorityBadge: {
         name: '',
         color: '',
@@ -255,6 +257,7 @@ export class DataBackupService {
       emailHovered: false,
       telHovered: false,
       timestamp: 2,
+      color: '#FF4500',
       priorityBadge: {
         name: '',
         color: '',
@@ -287,6 +290,7 @@ export class DataBackupService {
       emailHovered: false,
       telHovered: false,
       timestamp: 0,
+      color: '#20B2AA',
       priorityBadge: {
         name: '',
         color: '',
@@ -316,6 +320,7 @@ export class DataBackupService {
       emailHovered: false,
       telHovered: false,
       timestamp: 1,
+      color: '#FF6347',
       priorityBadge: {
         name: '',
         color: '',
@@ -345,6 +350,7 @@ export class DataBackupService {
       emailHovered: false,
       telHovered: false,
       timestamp: 2,
+      color: '#4682B4',
       priorityBadge: {
         name: '',
         color: '',
@@ -495,12 +501,12 @@ export class DataBackupService {
   }
 
   async addBackupData() {
-    // for (const contact of this.activeContacts) {
-    //   await addDoc(this.dataManagement.getDocRef('activeContacts'), contact);
-    // }
-    // for (const contact of this.inactiveContacts) {
-    //   await addDoc(this.dataManagement.getDocRef('inactiveContacts'), contact);
-    // }
+    for (const contact of this.activeContacts) {
+      await addDoc(this.dataManagement.getDocRef('activeContacts'), contact);
+    }
+    for (const contact of this.inactiveContacts) {
+      await addDoc(this.dataManagement.getDocRef('inactiveContacts'), contact);
+    }
     // for (const column of this.activeTableColumns) {
     //   await addDoc(this.dataManagement.getDocRef('activeTableColumns'), column);
     // }
@@ -510,9 +516,9 @@ export class DataBackupService {
     //     column
     //   );
     // }
-    for (const deal of this.deals) {
-      await addDoc(this.dataManagement.getDocRef('deals'), deal);
-    }
+    // for (const deal of this.deals) {
+    //   await addDoc(this.dataManagement.getDocRef('deals'), deal);
+    // }
     // for (const column of this.dealsColumns) {
     //   await addDoc(this.dataManagement.getDocRef('dealsColumns'), column);
     // }

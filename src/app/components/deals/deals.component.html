@@ -12,7 +12,7 @@
             </div>
             @for(column of this.dataManagement.dealsColumns; track $index; let i = $index) {
             @if (column.name == "Deal") {
-            <div class="cell Contacts">
+            <div class="cell Contacts header-cell">
                 <span>{{column.name}}</span>
             </div>
             } @else {
@@ -48,7 +48,31 @@
             </div>
             <!-- Responsible Person -->
             <div class="cell">
-                {{deal.responsibleBadge.name}}
+                @if (this.dataManagement.activeContacts.length > 0 && deal.responsibleBadge.used) {
+                <div class="badge" [matMenuTriggerFor]="dropdown"
+                    [ngStyle]="{'background-color': deal.responsibleBadge.color}">
+                    {{deal.responsibleBadge.name}}
+                </div>
+                }
+                @else {
+                <mat-icon class="arrow-drop-icon" [matMenuTriggerFor]="dropdown">arrow_drop_down</mat-icon>
+                }
+                <mat-menu #dropdown="matMenu">
+                    <div class="badge-menu">
+                        <div class="badge" [ngStyle]="{'background-color': '#C0C0C0'}" (click)="deleteResponsible(deal.id)">
+                            <mat-icon>delete_forever</mat-icon>
+                            <span>Delete</span>
+                        </div>
+                        @for (contact of dataManagement.activeContacts; track $index; let i = $index) {
+                        <div class="badge" (click)="addResponsibleToDeal(contact, deal.id)"
+                            [ngStyle]="{'background-color': contact.color}">
+                            <mat-icon>account_circle</mat-icon>
+                            <span>{{contact.name}}</span>
+                        </div>
+                        <!--  -->
+                        }
+                    </div>
+                </mat-menu>
             </div>
             <!-- Closing Date -->
             <div class="cell" (click)="openDatePicker(dateValue)">
@@ -59,8 +83,7 @@
         }
 
         <!-- Add New Contact Row -->
-        <div class="row content-row add-contact-row"
-            (keydown)="this.addNewDeal($event)">
+        <div class="row content-row add-contact-row" (keydown)="this.addNewDeal($event)">
             <div class="cell empty-field checkbox-cell"></div>
             <div class="cell add-button contact-add second-cell">
                 <mat-icon (click)="this.addDealToCloud()">add_circle</mat-icon>
@@ -69,10 +92,10 @@
             <div class="cell typ-cell"></div>
             <div class="cell"></div>
             @for (item of dataManagement.dealsColumns; track $index) {
-                @if (item.index > 2) {
-                    <div class="cell"></div>
-                }
-           
+            @if (item.index > 2) {
+            <div class="cell"></div>
+            }
+
             }
 
         </div>

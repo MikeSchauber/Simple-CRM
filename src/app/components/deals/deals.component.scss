@@ -225,13 +225,18 @@ mat-icon {
 }
 
 .badge-menu {
-  @include dFlex($g: 4px);
+  @include dFlex($g: 4px, $jc: flex-start, );
+  overflow-y: auto;
+  max-height: 240px;
+  >.badge {
+    @include dFlex($fd: row, $jc: flex-start, $g: 8px);
+    min-height: 46px;
+  }
 }
 
 .badge {
+  @include dFlex($fd: row, $jc: center, $g: 8px);
   width: 90%;
-  overflow: hidden;
-  display: inline-block;
   padding: 8px 16px;
   border-radius: 12px;
   color: white;
@@ -241,25 +246,35 @@ mat-icon {
   overflow: hidden;
   transition: all 0.125s ease-in-out;
   cursor: pointer;
+  mat-icon {
+    background-color: transparent;
+    color: rgb(255, 255, 255);
+    padding: 0;
+    font-size: 24px;
+    &:hover {
+      background-color: transparent;
+    }
+  }
+  span {
+    text-align: start;
+  }
 }
 
 .badge::before {
   content: "";
   position: absolute;
-  top: 0%;
-  left: 150%;
+  top: -100%;
+  left: 0%;
   width: 300%;
   height: 100%;
-  background: linear-gradient(0deg, rgba(255, 255, 255, 0) 15%, rgba(255, 255, 255, 0.415) 50%, rgba(255, 255, 255, 0) 85%);
-  transform: rotate(-155deg);
+  background: linear-gradient(0deg, rgba(255, 255, 255, 0) 15%, rgba(255, 255, 255, 0.384) 50%, rgba(255, 255, 255, 0) 85%);
+  transform: rotate(-175deg);
   transition: all 0.125s ease-in-out;
   pointer-events: none;
 }
 
 .badge:hover::before {
-  left: -60%;
-  top: 50%;
-  transform: rotate(-160deg);
+  top: 40%;
 }
 
 .badge:hover {

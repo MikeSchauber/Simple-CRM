@@ -243,23 +243,22 @@ mat-icon {
   cursor: pointer;
 }
 
+
 .badge::before {
   content: "";
   position: absolute;
-  top: 0%;
-  left: 150%;
+  top: -100%;
+  left: 0%;
   width: 300%;
   height: 100%;
-  background: linear-gradient(0deg, rgba(255, 255, 255, 0) 15%, rgba(255, 255, 255, 0.415) 50%, rgba(255, 255, 255, 0) 85%);
-  transform: rotate(-155deg);
+  background: linear-gradient(0deg, rgba(255, 255, 255, 0) 15%, rgba(255, 255, 255, 0.384) 50%, rgba(255, 255, 255, 0) 85%);
+  transform: rotate(-175deg);
   transition: all 0.125s ease-in-out;
   pointer-events: none;
 }
 
 .badge:hover::before {
-  left: -60%;
-  top: 50%;
-  transform: rotate(-160deg);
+  top: 40%;
 }
 
 .badge:hover {

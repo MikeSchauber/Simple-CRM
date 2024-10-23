@@ -8,9 +8,9 @@ export class Badge {
     color: string = '';
     used: boolean = false;
 
-    constructor(dropdown: Dropdown) {
-        this.name = dropdown.name;
-        this.color = dropdown.color;
+    constructor(dropdown: Partial<Dropdown>) {
+        this.name = dropdown.name ? dropdown.name : '';
+        this.color = dropdown.color ? dropdown. color : '';
         this.used = true;
     }
 

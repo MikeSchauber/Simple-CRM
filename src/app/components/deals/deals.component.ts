@@ -10,6 +10,8 @@ import { DataManagementService } from '../../services/data-management.service';
 import { addDoc, collection, updateDoc } from 'firebase/firestore';
 import { Deal } from '../../models/deal.class';
 import { Firestore } from '@angular/fire/firestore';
+import { ContactInterface } from '../../interfaces/contact-interface';
+import { Badge } from '../../models/badge.class';
 
 @Component({
   selector: 'app-deals',
@@ -118,5 +120,21 @@ export class DealsComponent {
     }
   }
 
+  async addResponsibleToDeal(contact: ContactInterface, id: string) {
+    let badge = new Badge({ name: contact.name, color: contact.color, used: true });
+    await updateDoc(this.dataManagement.getSingleDocRef('deals', id), {
+      responsibleBadge: badge.toJson(),
+    });
+  }
+
+  async deleteResponsible(id: string) {
+    await updateDoc(this.dataManagement.getSingleDocRef('deals', id), {
+      responsibleBadge: {
+        name: '',
+        color: '',
+        used: false,
+      },
+    });
+  }
 
 }

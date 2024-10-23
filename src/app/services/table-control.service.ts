@@ -29,6 +29,18 @@ export class TableControlService implements AfterViewInit {
   newVisibleMailInactive: string = '';
   editOpen: boolean = false;
   noValidEmail: boolean = false;
+  colorArray = [
+    '#2E8B57',
+    '#4682B4',
+    '#8A2BE2',
+    '#D2691E',
+    '#FF6347',
+    '#20B2AA',
+    '#FF4500',
+    '#6A5ACD',
+    '#CD5C5C',
+    '#FF8C00'
+  ];
 
   firestore: Firestore = inject(Firestore);
 
@@ -43,8 +55,6 @@ export class TableControlService implements AfterViewInit {
   }
 
   checkAllContacts(status: string, checkbox: boolean) {
-    console.log(checkbox);
-
     let contactArray: ContactInterface[];
     if (status == 'activeContacts') {
       contactArray = this.dataManagement.activeContacts;
@@ -111,6 +121,13 @@ export class TableControlService implements AfterViewInit {
     }
   }
 
+  getRandomColor(): string {
+    const randomIndex = Math.floor(Math.random() * this.colorArray.length);
+    return this.colorArray[randomIndex];
+  }
+
+
+
   async keyboardAddContact(event: KeyboardEvent, coll: string) {
     let user = this.returnContactObject(coll);
     if (event.keyCode === 13 && user.name.length != 0) {
@@ -131,17 +148,20 @@ export class TableControlService implements AfterViewInit {
   returnContactObject(coll: string) {
     let timestamp = new Date().getTime();
     let user;
+    let color = this.getRandomColor();
     if (coll == 'activeContacts') {
       user = new Contact({
         name: this.newContactActive,
         status: 'active',
         timestamp: timestamp,
+        color: color,
       });
     } else {
       user = new Contact({
         name: this.newContactInactive,
         status: 'inactive',
         timestamp: timestamp,
+        color: color,
       });
     }
     return user;

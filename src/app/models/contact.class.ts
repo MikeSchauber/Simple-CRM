@@ -13,6 +13,7 @@ export class Contact {
   telHovered: boolean = false;
   status: string = '';
   timestamp: number = 0;
+  color: string = '#2E8B57';
   priorityBadge = {
     name: '',
     color: '',
@@ -28,7 +29,7 @@ export class Contact {
     color: '',
     used: false,
   };
-  
+
   constructor(obj: Partial<ContactInterface>) {
     this.id = obj.id ? obj.id : '';
     this.checked = obj.checked ? obj.checked : false;
@@ -40,8 +41,9 @@ export class Contact {
     this.telEdit = obj.telEdit ? obj.telEdit : false;
     this.emailHovered = obj.emailHovered ? obj.emailHovered : false;
     this.telHovered = obj.telHovered ? obj.telHovered : false;
-    this.status = obj.status  ? obj.status : '';
+    this.status = obj.status ? obj.status : '';
     this.timestamp = obj.timestamp ? obj.timestamp : 0;
+    this.color = obj.color ? obj.color : '#2E8B57';
     this.priorityBadge = obj.priorityBadge ? { ...obj.priorityBadge } : this.priorityBadge;
     this.statusBadge = obj.statusBadge ? { ...obj.statusBadge } : this.statusBadge;
     this.roleBadge = obj.roleBadge ? { ...obj.roleBadge } : this.roleBadge;
@@ -61,6 +63,7 @@ export class Contact {
       telHovered: this.telHovered,
       status: this.status,
       timestamp: this.timestamp,
+      color: this.color,
       priorityBadge: this.priorityBadge,
       statusBadge: this.statusBadge,
       roleBadge: this.roleBadge,
