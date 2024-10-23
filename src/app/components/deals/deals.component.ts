@@ -13,6 +13,7 @@ import { Firestore } from '@angular/fire/firestore';
 import { ContactInterface } from '../../interfaces/contact-interface';
 import { Badge } from '../../models/badge.class';
 import { BadgeInterface } from '../../interfaces/badge-interface';
+import { Dropdown } from '../../interfaces/dropdown';
 
 @Component({
   selector: 'app-deals',
@@ -125,7 +126,7 @@ export class DealsComponent {
     }
   }
 
-  async addBadge(contact: ContactInterface, id: string, type: string) {
+  async addBadge(contact: ContactInterface | Dropdown, id: string, type: string) {
     let badge = new Badge({
       name: contact.name,
       color: contact.color,

@@ -60,13 +60,13 @@
       <!-- Phase Dropdown Menu -->
       <div class="cell">
         @if (this.dataManagement.activeContacts.length > 0 &&
-        deal.responsibleBadge.used) {
+        deal.phaseBadge.used) {
         <div
           class="badge"
           [matMenuTriggerFor]="dropdown"
-          [ngStyle]="{ 'background-color': deal.responsibleBadge.color }"
+          [ngStyle]="{ 'background-color': deal.phaseBadge.color }"
         >
-          {{ deal.responsibleBadge.name }}
+          {{ deal.phaseBadge.name }}
         </div>
         } @else {
         <mat-icon class="arrow-drop-icon" [matMenuTriggerFor]="dropdown"
@@ -83,17 +83,17 @@
               <mat-icon>delete_forever</mat-icon>
               <span>Delete</span>
             </div>
-            @for (contact of dataManagement.activeContacts; track $index; let i
-            = $index) {
+            @for (cell of this.dataManagement.dealsColumns; track $index; let i
+            = $index) { @if (cell.name == 'Phase') { @for (dropdown of
+            cell.availableDropdowns;track $index; let i = $index) {
             <div
               class="badge"
-              (click)="addBadge(contact, deal.id, 'phase')"
-              [ngStyle]="{ 'background-color': contact.color }"
+              (click)="addBadge(dropdown, deal.id, 'phase')"
+              [ngStyle]="{ 'background-color': dropdown.color }"
             >
-              <mat-icon>account_circle</mat-icon>
-              <span>{{ contact.name }}</span>
+              <span>{{ dropdown.name }}</span>
             </div>
-            }
+            } } }
           </div>
         </mat-menu>
       </div>
