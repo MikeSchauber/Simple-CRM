@@ -1,103 +1,174 @@
 <div class="table-container">
-    <div class="button-container">
-        <button mat-button><mat-icon>delete</mat-icon>Trash</button>
+  <div class="button-container">
+    <button mat-button><mat-icon>delete</mat-icon>Trash</button>
+  </div>
+  <div id="customers" class="table">
+    <!-- Table Header -->
+    <div class="table-head row">
+      <div class="cell checkbox-cell">
+        <section class="example-section">
+          <mat-checkbox
+            (click)="checkAllDeals()"
+            class="example-margin"
+          ></mat-checkbox>
+        </section>
+      </div>
+      @for(column of this.dataManagement.dealsColumns; track $index; let i =
+      $index) { @if (column.name == "Deal") {
+      <div class="cell Contacts header-cell">
+        <span>{{ column.name }}</span>
+      </div>
+      } @else {
+      <div class="cell">
+        <span>{{ column.name }}</span>
+      </div>
+      } }
     </div>
-    <div id="customers" class="table">
-        <!-- Table Header -->
-        <div class="table-head row">
-            <div class="cell checkbox-cell">
-                <section class="example-section">
-                    <mat-checkbox (click)="checkAllDeals()" class="example-margin"></mat-checkbox>
-                </section>
-            </div>
-            @for(column of this.dataManagement.dealsColumns; track $index; let i = $index) {
-            @if (column.name == "Deal") {
-            <div class="cell Contacts header-cell">
-                <span>{{column.name}}</span>
-            </div>
-            } @else {
-            <div class="cell">
-                <span>{{column.name}}</span>
-            </div>
-            }
-            }
-        </div>
 
-        <!-- Table Content Rows -->
-        @if (dataManagement.deals.length > 0) {
-        @for (deal of this.dataManagement.deals; track $index; let i = $index) {
-        <div class="row content-row">
-            <div class="cell checkbox-cell">
-                <section class="example-section">
-                    <mat-checkbox [(ngModel)]="deal.checked" class="example-margin"></mat-checkbox>
-                </section>
-            </div>
-            <div class="cell Contacts">
-                <input type="text" #nameValue (input)="deal.name=getValue($event)"
-                    (blur)="saveDealName($event, deal.id, 'text');"
-                    (keyup)="saveDealWidthEnter($event, deal.id, nameValue, 'text')" [value]="deal.name">
-            </div>
-            <!-- Deal Value -->
-            <div class="cell">
-                <input type="number" #priceValue (blur)="saveDealName($event, deal.id, 'number');"
-                    (keyup)="saveDealWidthEnter($event, deal.id, priceValue, 'number')" [value]="deal.dealValue">
-            </div>
-            <!-- Phase Dropdown Menu -->
-            <div class="cell">
-                {{deal.phaseBadge.name}}
-            </div>
-            <!-- Responsible Person -->
-            <div class="cell">
-                @if (this.dataManagement.activeContacts.length > 0 && deal.responsibleBadge.used) {
-                <div class="badge" [matMenuTriggerFor]="dropdown"
-                    [ngStyle]="{'background-color': deal.responsibleBadge.color}">
-                    {{deal.responsibleBadge.name}}
-                </div>
-                }
-                @else {
-                <mat-icon class="arrow-drop-icon" [matMenuTriggerFor]="dropdown">arrow_drop_down</mat-icon>
-                }
-                <mat-menu #dropdown="matMenu">
-                    <div class="badge-menu">
-                        <div class="badge" [ngStyle]="{'background-color': '#C0C0C0'}" (click)="deleteResponsible(deal.id)">
-                            <mat-icon>delete_forever</mat-icon>
-                            <span>Delete</span>
-                        </div>
-                        @for (contact of dataManagement.activeContacts; track $index; let i = $index) {
-                        <div class="badge" (click)="addResponsibleToDeal(contact, deal.id)"
-                            [ngStyle]="{'background-color': contact.color}">
-                            <mat-icon>account_circle</mat-icon>
-                            <span>{{contact.name}}</span>
-                        </div>
-                        <!--  -->
-                        }
-                    </div>
-                </mat-menu>
-            </div>
-            <!-- Closing Date -->
-            <div class="cell" (click)="openDatePicker(dateValue)">
-                <input #dateValue type="date" (blur)="closeDatePicker($event, deal.id)" [value]="deal.closingDate">
-            </div>
+    <!-- Table Content Rows -->
+    @if (dataManagement.deals.length > 0) { @for (deal of
+    this.dataManagement.deals; track $index; let i = $index) {
+    <div class="row content-row">
+      <div class="cell checkbox-cell">
+        <section class="example-section">
+          <mat-checkbox
+            [(ngModel)]="deal.checked"
+            class="example-margin"
+          ></mat-checkbox>
+        </section>
+      </div>
+      <div class="cell Contacts">
+        <input
+          type="text"
+          #nameValue
+          (input)="deal.name = getValue($event)"
+          (blur)="saveDealName($event, deal.id, 'text')"
+          (keyup)="saveDealWidthEnter($event, deal.id, nameValue, 'text')"
+          [value]="deal.name"
+        />
+      </div>
+      <!-- Deal Value -->
+      <div class="cell">
+        <input
+          type="number"
+          #priceValue
+          (blur)="saveDealName($event, deal.id, 'number')"
+          (keyup)="saveDealWidthEnter($event, deal.id, priceValue, 'number')"
+          [value]="deal.dealValue"
+        />
+      </div>
+      <!-- Phase Dropdown Menu -->
+      <div class="cell">
+        @if (this.dataManagement.activeContacts.length > 0 &&
+        deal.responsibleBadge.used) {
+        <div
+          class="badge"
+          [matMenuTriggerFor]="dropdown"
+          [ngStyle]="{ 'background-color': deal.responsibleBadge.color }"
+        >
+          {{ deal.responsibleBadge.name }}
         </div>
+        } @else {
+        <mat-icon class="arrow-drop-icon" [matMenuTriggerFor]="dropdown"
+          >arrow_drop_down</mat-icon
+        >
         }
-        }
-
-        <!-- Add New Contact Row -->
-        <div class="row content-row add-contact-row" (keydown)="this.addNewDeal($event)">
-            <div class="cell empty-field checkbox-cell"></div>
-            <div class="cell add-button contact-add second-cell">
-                <mat-icon (click)="this.addDealToCloud()">add_circle</mat-icon>
-                <input [(ngModel)]="this.newDealValue" type="text" placeholder="New Deal">
+        <mat-menu #dropdown="matMenu">
+          <div class="badge-menu">
+            <div
+              class="badge"
+              [ngStyle]="{ 'background-color': '#C0C0C0' }"
+              (click)="deleteBadge(deal.id, 'phase')"
+            >
+              <mat-icon>delete_forever</mat-icon>
+              <span>Delete</span>
             </div>
-            <div class="cell typ-cell"></div>
-            <div class="cell"></div>
-            @for (item of dataManagement.dealsColumns; track $index) {
-            @if (item.index > 2) {
-            <div class="cell"></div>
+            @for (contact of dataManagement.activeContacts; track $index; let i
+            = $index) {
+            <div
+              class="badge"
+              (click)="addBadge(contact, deal.id, 'phase')"
+              [ngStyle]="{ 'background-color': contact.color }"
+            >
+              <mat-icon>account_circle</mat-icon>
+              <span>{{ contact.name }}</span>
+            </div>
             }
-
-            }
-
+          </div>
+        </mat-menu>
+      </div>
+      <!-- Responsible Person -->
+      <div class="cell">
+        @if (this.dataManagement.activeContacts.length > 0 &&
+        deal.responsibleBadge.used) {
+        <div
+          class="badge"
+          [matMenuTriggerFor]="dropdown"
+          [ngStyle]="{ 'background-color': deal.responsibleBadge.color }"
+        >
+          {{ deal.responsibleBadge.name }}
         </div>
+        } @else {
+        <mat-icon class="arrow-drop-icon" [matMenuTriggerFor]="dropdown"
+          >arrow_drop_down</mat-icon
+        >
+        }
+        <mat-menu #dropdown="matMenu">
+          <div class="badge-menu">
+            <div
+              class="badge"
+              [ngStyle]="{ 'background-color': '#C0C0C0' }"
+              (click)="deleteBadge(deal.id, 'respo')"
+            >
+              <mat-icon>delete_forever</mat-icon>
+              <span>Delete</span>
+            </div>
+            @for (contact of dataManagement.activeContacts; track $index; let i
+            = $index) {
+            <div
+              class="badge"
+              (click)="addBadge(contact, deal.id, 'respo')"
+              [ngStyle]="{ 'background-color': contact.color }"
+            >
+              <mat-icon>account_circle</mat-icon>
+              <span>{{ contact.name }}</span>
+            </div>
+            }
+          </div>
+        </mat-menu>
+      </div>
+      <!-- Closing Date -->
+      <div class="cell" (click)="openDatePicker(dateValue)">
+        <input
+          #dateValue
+          type="date"
+          (blur)="closeDatePicker($event, deal.id)"
+          [value]="deal.closingDate"
+        />
+      </div>
     </div>
+    } }
+
+    <!-- Add New Contact Row -->
+    <div
+      class="row content-row add-contact-row"
+      (keydown)="this.addNewDeal($event)"
+    >
+      <div class="cell empty-field checkbox-cell"></div>
+      <div class="cell add-button contact-add second-cell">
+        <mat-icon (click)="this.addDealToCloud()">add_circle</mat-icon>
+        <input
+          [(ngModel)]="this.newDealValue"
+          type="text"
+          placeholder="New Deal"
+        />
+      </div>
+      <div class="cell typ-cell"></div>
+      <div class="cell"></div>
+      @for (item of dataManagement.dealsColumns; track $index) { @if (item.index
+      > 2) {
+      <div class="cell"></div>
+      } }
+    </div>
+  </div>
 </div>

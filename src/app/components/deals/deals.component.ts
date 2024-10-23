@@ -12,6 +12,7 @@ import { Deal } from '../../models/deal.class';
 import { Firestore } from '@angular/fire/firestore';
 import { ContactInterface } from '../../interfaces/contact-interface';
 import { Badge } from '../../models/badge.class';
+import { BadgeInterface } from '../../interfaces/badge-interface';
 
 @Component({
   selector: 'app-deals',
@@ -34,7 +35,7 @@ export class DealsComponent {
 
   firestore: Firestore = inject(Firestore);
 
-  constructor(public dataManagement: DataManagementService) { }
+  constructor(public dataManagement: DataManagementService) {}
 
   checkAllDeals() {
     if (!this.allChecked) {
@@ -49,7 +50,6 @@ export class DealsComponent {
       });
     }
     console.log(this.dataManagement.dealsColumns);
-
   }
 
   getValue(event: Event): string {
@@ -60,7 +60,7 @@ export class DealsComponent {
     let day = date.getDate();
     let month = date.getMonth() + 1;
     let year = date.getFullYear();
-    return `${day}.${month}.${year}`
+    return `${day}.${month}.${year}`;
   }
 
   openDatePicker(dateInput: HTMLInputElement) {
@@ -81,7 +81,12 @@ export class DealsComponent {
     }
   }
 
-  async saveDealWidthEnter(event: KeyboardEvent, id: string, inputEl: HTMLInputElement, type: string | number) {
+  async saveDealWidthEnter(
+    event: KeyboardEvent,
+    id: string,
+    inputEl: HTMLInputElement,
+    type: string | number
+  ) {
     let value = this.getValue(event);
     if (value.length > 0 && event.keyCode === 13) {
       this.updateName(value, id, type);
@@ -103,7 +108,7 @@ export class DealsComponent {
 
   async addNewDeal(event: KeyboardEvent) {
     if (event.keyCode === 13) {
-      await this.addDealToCloud()
+      await this.addDealToCloud();
     }
   }
 
@@ -112,7 +117,7 @@ export class DealsComponent {
     let user;
     user = new Deal({
       name: this.newDealValue,
-      timestamp: timestamp
+      timestamp: timestamp,
     });
     if (this.newDealValue.length > 0) {
       await addDoc(collection(this.firestore, 'deals'), user.toJson());
@@ -120,14 +125,28 @@ export class DealsComponent {
     }
   }
 
-  async addResponsibleToDeal(contact: ContactInterface, id: string) {
-    let badge = new Badge({ name: contact.name, color: contact.color, used: true });
-    await updateDoc(this.dataManagement.getSingleDocRef('deals', id), {
-      responsibleBadge: badge.toJson(),
+  async addBadge(contact: ContactInterface, id: string, type: string) {
+    let badge = new Badge({
+      name: contact.name,
+      color: contact.color,
+      used: true,
     });
+    if (type == 'respo') {
+      this.addRespoBadge(badge, id);
+    } else {
+      this.addPhaseBadge(badge, id);
+    }
   }
 
-  async deleteResponsible(id: string) {
+  async deleteBadge(id: string, type: string) {
+    if (type == 'respo') {
+      await this.deleteRespoBadge(id);
+    } else {
+      await this.deletePhaseBadge(id);
+    }
+  }
+
+  async deleteRespoBadge(id: string) {
     await updateDoc(this.dataManagement.getSingleDocRef('deals', id), {
       responsibleBadge: {
         name: '',
@@ -137,4 +156,25 @@ export class DealsComponent {
     });
   }
 
+  async deletePhaseBadge(id: string) {
+    await updateDoc(this.dataManagement.getSingleDocRef('deals', id), {
+      phaseBadge: {
+        name: '',
+        color: '',
+        used: false,
+      },
+    });
+  }
+
+  async addRespoBadge(badge: Badge, id: string) {
+    await updateDoc(this.dataManagement.getSingleDocRef('deals', id), {
+      responsibleBadge: badge.toJson(),
+    });
+  }
+
+  async addPhaseBadge(badge: Badge, id: string) {
+    await updateDoc(this.dataManagement.getSingleDocRef('deals', id), {
+      phaseBadge: badge.toJson(),
+    });
+  }
 }
