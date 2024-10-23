@@ -9,7 +9,7 @@
         <section class="example-section">
           <mat-checkbox
             (click)="checkAllDeals()"
-            class="example-margin"
+            class="example-margin" [(ngModel)]="this.allChecked"
           ></mat-checkbox>
         </section>
       </div>

@@ -25,7 +25,7 @@ export class Deal {
     this.name = obj.name ? obj.name : '';
     this.phaseBadge = obj.phaseBadge ? obj.phaseBadge : { name: '', color: '', used: false };
     this.dealValue = obj.dealValue ? obj.dealValue : 0;
-   // this.responsibleBadge = obj.responsibleBadge ? obj.responsibleBadge : { name: '', color: '', used: false };
+    this.responsibleBadge = obj.responsibleBadge ? obj.responsibleBadge : { name: '', color: '', used: false };
     this.closingDate = obj.closingDate ? obj.closingDate : '';
     this.timestamp = obj.timestamp ? obj.timestamp : 0;
   }
@@ -37,7 +37,7 @@ export class Deal {
       name: this.name,
       phaseBadge: this.phaseBadge,
       dealValue: this.dealValue,
-      responsible: this.responsibleBadge,
+      responsibleBadge: this.responsibleBadge,
       closingDate: this.closingDate,
       timestamp: this.timestamp,
     };

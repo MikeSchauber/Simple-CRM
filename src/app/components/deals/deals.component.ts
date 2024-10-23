@@ -38,14 +38,14 @@ import { Dropdown } from '../../interfaces/dropdown';
 })
 export class DealsComponent {
   allChecked: boolean = false;
-  newDealValue: string = '';
+  newDealValue: string = ''
 
   firestore: Firestore = inject(Firestore);
 
   constructor(public dataManagement: DataManagementService) {}
 
   checkAllDeals() {
-    if (!this.allChecked) {
+    if (this.allChecked) {
       this.allChecked = true;
       this.dataManagement.deals.forEach((e) => {
         e.checked = true;
@@ -67,6 +67,7 @@ export class DealsComponent {
         await deleteDoc(doc(this.firestore, 'deals', deal.id));
       }
     }
+    this.allChecked = false;
   }
 
   getValue(event: Event): string {
