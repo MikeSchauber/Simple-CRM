@@ -7,7 +7,13 @@ import { CommonModule } from '@angular/common';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatMenuModule } from '@angular/material/menu';
 import { DataManagementService } from '../../services/data-management.service';
-import { addDoc, collection, updateDoc } from 'firebase/firestore';
+import {
+  addDoc,
+  collection,
+  deleteDoc,
+  doc,
+  updateDoc,
+} from 'firebase/firestore';
 import { Deal } from '../../models/deal.class';
 import { Firestore } from '@angular/fire/firestore';
 import { ContactInterface } from '../../interfaces/contact-interface';
@@ -50,7 +56,17 @@ export class DealsComponent {
         e.checked = false;
       });
     }
-    console.log(this.dataManagement.dealsColumns);
+    this.dataManagement.deals.forEach((d) => {
+      console.log(d.checked);
+    });
+  }
+
+  async deleteAllDeals() {
+    for (const deal of this.dataManagement.deals) {
+      if (deal.checked) {
+        await deleteDoc(doc(this.firestore, 'deals', deal.id));
+      }
+    }
   }
 
   getValue(event: Event): string {
@@ -126,7 +142,11 @@ export class DealsComponent {
     }
   }
 
-  async addBadge(contact: ContactInterface | Dropdown, id: string, type: string) {
+  async addBadge(
+    contact: ContactInterface | Dropdown,
+    id: string,
+    type: string
+  ) {
     let badge = new Badge({
       name: contact.name,
       color: contact.color,

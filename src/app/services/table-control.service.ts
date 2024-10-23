@@ -107,7 +107,7 @@ export class TableControlService implements AfterViewInit {
 
   async handleActiveContacts(collection: string) {
     for (const contact of this.dataManagement.activeContacts) {
-      if (contact.checked === true) {
+      if (contact.checked) {
         await deleteDoc(doc(this.firestore, collection, contact.id));
       }
     }
@@ -115,7 +115,7 @@ export class TableControlService implements AfterViewInit {
 
   async handleInactiveContacts(collection: string) {
     for (const contact of this.dataManagement.inactiveContacts) {
-      if (contact.checked === true) {
+      if (contact.checked) {
         await deleteDoc(doc(this.firestore, collection, contact.id));
       }
     }
