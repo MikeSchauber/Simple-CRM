@@ -76,3 +76,10 @@
   padding: 16px 56px 16px 56px;
   padding-top: 82px;
 }
+
+@media (max-width: 1000px) {
+  .router-container {
+    padding: 16px 16px 16px 16px;
+    padding-top: 82px;
+  }
+}

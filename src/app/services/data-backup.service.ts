@@ -594,7 +594,7 @@ export class DataBackupService {
     {
       id: '1',
       checked: false,
-      name: 'Deal A',
+      name: 'CRM System für Müller GmbH',
       phaseBadge: {
         name: 'Lead',
         color: '#FFA500',
@@ -608,13 +608,13 @@ export class DataBackupService {
       },
       closingDate: '2024-10-31',
       euNormDate: '31.10.2024',
-      dateAsTimestamp: 1730332800000,  
+      dateAsTimestamp: 1730332800000,
       timestamp: 0,
     },
     {
       id: '2',
       checked: false,
-      name: 'Deal B',
+      name: 'E-Commerce Plattform für Schmidt & Co.',
       phaseBadge: {
         name: 'Check',
         color: '#1E90FF',
@@ -628,13 +628,13 @@ export class DataBackupService {
       },
       closingDate: '2024-11-10',
       euNormDate: '10.11.2024',
-      dateAsTimestamp: 1731033600000,  
+      dateAsTimestamp: 1731033600000,
       timestamp: 1,
     },
     {
       id: '3',
       checked: false,
-      name: 'Deal C',
+      name: 'Mobile App Entwicklung für GreenTech',
       phaseBadge: {
         name: 'Offer',
         color: '#9370DB',
@@ -648,13 +648,13 @@ export class DataBackupService {
       },
       closingDate: '2024-12-01',
       euNormDate: '01.12.2024',
-      dateAsTimestamp: 1732406400000,  
+      dateAsTimestamp: 1732406400000,
       timestamp: 2,
     },
     {
       id: '4',
       checked: false,
-      name: 'Deal D',
+      name: 'ERP Integration für Bauer Logistics',
       phaseBadge: {
         name: 'Close',
         color: '#FFD700',
@@ -668,13 +668,13 @@ export class DataBackupService {
       },
       closingDate: '2025-01-15',
       euNormDate: '15.01.2025',
-      dateAsTimestamp: 1736947200000,  
+      dateAsTimestamp: 1736947200000,
       timestamp: 3,
     },
     {
       id: '5',
       checked: false,
-      name: 'Deal E',
+      name: 'Cloud Migration für Startup InnovateX',
       phaseBadge: {
         name: 'Won',
         color: '#32CD32',
@@ -688,10 +688,11 @@ export class DataBackupService {
       },
       closingDate: '2025-02-28',
       euNormDate: '28.02.2025',
-      dateAsTimestamp: 1740748800000,  
+      dateAsTimestamp: 1740748800000,
       timestamp: 4,
     }
   ];
+  
   
 
   constructor(private dataManagement: DataManagementService) {

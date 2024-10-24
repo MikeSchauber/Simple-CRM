@@ -10,8 +10,6 @@ export class DealStatusPipe implements PipeTransform {
     const today = new Date();
     const diffInTime = deal.dateAsTimestamp - today.getTime();
     const diffInDays = Math.ceil(diffInTime / (1000 * 3600 * 24));
-    console.log(deal.name, diffInDays);
-    
     if (diffInDays > 0) {
       if (diffInDays <= 7) {
         return 'red';
