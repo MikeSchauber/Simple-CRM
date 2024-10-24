@@ -7,7 +7,7 @@ mat-card {
 }
 
 .card-container {
-  @include dFlex($g: 24px);
+  @include dFlex($g: 12px);
   gap: 20px;
   padding: 20px;
   max-width: 1000px;
@@ -28,7 +28,7 @@ a {
 }
 
 .deal-card:hover {
-  transform: translateY(-2px);
+  transform: translateY(-5px);
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
   background-color: rgba(209, 209, 209, 0.185);
   border-color: $darkcolorHover;
@@ -43,7 +43,6 @@ a {
   padding: 15px;
   color: white;
   border-radius: 10px 10px 0 0;
-  margin-bottom: 10px;
 }
 
 .deal-header h2 {
@@ -56,7 +55,7 @@ a {
   padding: 10px 0;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 4px;
 }
 
 .deal-detail {
@@ -64,8 +63,6 @@ a {
   color: $darkcolor;
   display: flex;
   justify-content: space-between;
-  border-bottom: 1px dotted rgba(211, 211, 211, 0.644);
-  padding-bottom: 8px;
 }
 
 .deal-detail strong {
@@ -86,18 +83,18 @@ a {
 
 .green {
   background-color: #4caf50;
-  border-bottom: 2px solid #4caf4f81;
+  border-bottom: 2px solid #0b740e;
 }
 
 .yellow {
-  background-color: #d4c007;
+  background-color: #e0cb0c;
   color: $darkcolor !important;
-  border-bottom: 2px #d4bf077e;
+  border-bottom: 2px solid #9b8d11;
 }
 
 .red {
   background-color: #f05120;
-  border-bottom: 2px #f0502083;
+  border-bottom: 2px solid #b33a15;
 }
 
 .badge {
