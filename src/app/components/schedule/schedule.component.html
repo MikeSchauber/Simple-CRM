@@ -3,8 +3,8 @@
   <mat-card appearance="outlined" class="deal-card">
     <a href="/deals">
       <mat-card-content>
-        
-        <div [ngClass]="deal | dealStatus">
+
+        <div class="deal-header" [ngClass]="deal | dealStatus">
           <h2>{{ deal.name }}</h2>
         </div>
 

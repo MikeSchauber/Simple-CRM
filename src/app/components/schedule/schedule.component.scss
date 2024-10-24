@@ -3,6 +3,7 @@
 mat-card {
   box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.308);
   width: 100%;
+  min-width: 235px;
 }
 
 .card-container {
@@ -10,6 +11,7 @@ mat-card {
   gap: 20px;
   padding: 20px;
   max-width: 1000px;
+
 }
 
 a {
@@ -41,7 +43,6 @@ a {
   padding: 15px;
   color: white;
   border-radius: 10px 10px 0 0;
-  box-shadow: 0px 5px 5px $darkcolor;
   margin-bottom: 10px;
 }
 
@@ -80,18 +81,18 @@ a {
   }
 }
 
-.deal-header .green {
+.green {
   background-color: #4caf50;
-    box-shadow: 0px 5px 5px #4caf50;
+  border-bottom: 2px solid #4caf4f81;
 }
 
-.deal-header .yellow {
+.yellow {
   background-color: #d4c007;
   color: $darkcolor !important;
-    box-shadow: 0px 5px 5px #d4c007;
+  border-bottom: 2px #d4bf077e;
 }
 
-.deal-header .red {
+.red {
   background-color: #f05120;
-    box-shadow: 0px 5px 5px #f05120;
+  border-bottom: 2px #f0502083;
 }
