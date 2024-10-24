@@ -81,14 +81,17 @@ a {
 }
 
 .green {
-    background-color: #4caf50; /* Grüne Farbe für Deals, die in mehr als 30 Tagen geschlossen werden */
-  }
-  
-  .yellow {
-    background-color: #d4c007; /* Gelbe Farbe für Deals, die in den nächsten 30 Tagen geschlossen werden */
-    color: $darkcolor !important;
-  }
-  
-  .red {
-    background-color: #f44336; /* Rote Farbe für Deals, die innerhalb der nächsten 7 Tage geschlossen werden */
-  }
+  background-color: #4caf50;
+    box-shadow: 0px 5px 5px #4caf50;
+}
+
+.yellow {
+  background-color: #d4c007;
+  color: $darkcolor !important;
+    box-shadow: 0px 5px 5px #d4c007;
+}
+
+.red {
+  background-color: #f05120;
+    box-shadow: 0px 5px 5px #f05120;
+}

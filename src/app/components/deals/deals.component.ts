@@ -85,10 +85,14 @@ export class DealsComponent {
   async closeDatePicker(event: FocusEvent, id: string) {
     let date = this.getValue(event);
     let normDate = this.returnPrettierDate(date);
+    let dateAsTimestamp = new Date(date).getTime();
     await updateDoc(this.dataManagement.getSingleDocRef('deals', id), {
       closingDate: date,
       euNormDate: normDate,
+      dateAsTimestamp: dateAsTimestamp,
     });
+    console.log(this.dataManagement.deals);
+    
   }
 
   async saveDealName(event: FocusEvent, id: string, type: string | number) {
