@@ -68,7 +68,7 @@ a:hover {
 
 .table-container {
   @include dFlex($g: 32px, $ai: flex-start);
-  max-width: 1220px;
+  width: 100%;
   color: $darkcolor;
 }
 
