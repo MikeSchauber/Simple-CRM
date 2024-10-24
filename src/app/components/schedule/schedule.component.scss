@@ -16,6 +16,7 @@ mat-card {
 
 a {
   text-decoration: none;
+  cursor:auto;
 }
 
 .deal-card {
@@ -71,7 +72,7 @@ a {
 }
 
 .deal-detail span {
-  color: #757575;
+  color: #fffdfd;
 }
 
 .badge {
@@ -95,4 +96,53 @@ a {
 .red {
   background-color: #f05120;
   border-bottom: 2px #f0502083;
+}
+
+.badge {
+  @include dFlex($fd: row, $jc: center, $g: 8px);
+  max-width: 250px;
+  padding: 8px 16px;
+  border-radius: 12px;
+  color: white;
+  font-weight: bold;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.125s ease-in-out;
+  cursor: pointer;
+  mat-icon {
+    background-color: transparent;
+    color: rgb(255, 255, 255);
+    padding: 0;
+    font-size: 24px;
+    &:hover {
+      background-color: transparent;
+    }
+  }
+  span {
+    text-align: start;
+  }
+}
+
+.badge::before {
+  content: "";
+  position: absolute;
+  top: -100%;
+  left: 0%;
+  width: 300%;
+  height: 100%;
+  background: linear-gradient(0deg, rgba(255, 255, 255, 0) 15%, rgba(255, 255, 255, 0.384) 50%, rgba(255, 255, 255, 0) 85%);
+  transform: rotate(-175deg);
+  transition: all 0.125s ease-in-out;
+  pointer-events: none;
+}
+
+.badge:hover::before {
+  top: 40%;
+}
+
+.badge:hover {
+  perspective: 500px;
+  transform: rotateX(20deg) skewX(-2deg) scale(1.05);
+  transform-origin: top;
 }

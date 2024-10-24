@@ -557,12 +557,11 @@ export class DataBackupService {
       used: true,
       activeDropdown: {},
       availableDropdowns: [
-        { name: 'Lead', color: '#FFA500', used: false },
-        { name: 'Check', color: '#1E90FF', used: false },
-        { name: 'Offer', color: '#9370DB', used: false },
-        { name: 'Close', color: '#FFD700', used: false },
-        { name: 'Won', color: '#32CD32', used: false },
-        { name: 'Lost', color: '#FF4500', used: false },
+        { name: 'Lead', color: '#48b9ff', used: false },
+        { name: 'Check', color: '#0676ff', used: false },
+        { name: 'Offer', color: '#48e060', used: false },
+        { name: 'Won', color: '#14a52c', used: false },
+        { name: 'Lost', color: '#ca0b0b', used: false },
       ],
     },
     {
@@ -696,7 +695,7 @@ export class DataBackupService {
   
 
   constructor(private dataManagement: DataManagementService) {
-    /* Run this addBackupData() Function in AppComponent.ts to set Backup Data */
+    /* Run addBackupData() Function in AppComponent.ts to set Backup Data */
   }
 
   async addBackupData() {
@@ -718,8 +717,8 @@ export class DataBackupService {
     // for (const deal of this.deals) {
     //   await addDoc(this.dataManagement.getDocRef('deals'), deal);
     // }
-    // for (const column of this.dealsColumns) {
-    //   await addDoc(this.dataManagement.getDocRef('dealsColumns'), column);
-    // }
+    for (const column of this.dealsColumns) {
+      await addDoc(this.dataManagement.getDocRef('dealsColumns'), column);
+    }
   }
 }

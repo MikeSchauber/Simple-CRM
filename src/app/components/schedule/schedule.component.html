@@ -3,7 +3,6 @@
   <mat-card appearance="outlined" class="deal-card">
     <a href="/deals">
       <mat-card-content>
-
         <div class="deal-header" [ngClass]="deal | dealStatus">
           <h2>{{ deal.name }}</h2>
         </div>
@@ -18,21 +17,22 @@
           </div>
           <div class="deal-detail">
             <strong>Responsible:</strong>
-            <span
+            <a
+              href="/contacts"
               class="badge"
-              [ngStyle]="{ color: deal.responsibleBadge.color }"
+              [ngStyle]="{ 'background-color': deal.responsibleBadge.color }"
             >
               {{ deal.responsibleBadge.name
-              }}<mat-icon>manage_accounts</mat-icon></span
+              }}<mat-icon>manage_accounts</mat-icon></a
             >
           </div>
           <div class="deal-detail">
             <strong>Phase:</strong>
-            <span class="badge">
-              {{ deal.phaseBadge.name
-              }}<mat-icon [ngStyle]="{ color: deal.phaseBadge.color }"
-                >analytics</mat-icon
-              ></span
+            <span
+              class="badge"
+              [ngStyle]="{ 'background-color': deal.phaseBadge.color }"
+            >
+              {{ deal.phaseBadge.name }}<mat-icon>analytics</mat-icon></span
             >
           </div>
         </div>
