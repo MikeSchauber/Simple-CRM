@@ -146,7 +146,7 @@
       <div class="cell" (click)="openDatePicker(dateValue)">
         <input
           #dateValue
-          type="date"
+          type="date" minDate="0" [min]="today"
           (blur)="closeDatePicker($event, deal.id)"
           [value]="deal.closingDate"
         />

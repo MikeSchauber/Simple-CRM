@@ -38,10 +38,16 @@ import { Dropdown } from '../../interfaces/dropdown';
 export class DealsComponent {
   allChecked: boolean = false;
   newDealValue: string = '';
-
+  today: string;
   firestore: Firestore = inject(Firestore);
 
-  constructor(public dataManagement: DataManagementService) {}
+  constructor(public dataManagement: DataManagementService) {
+    let today = new Date();
+    let day = today.getDate();
+    let month = today.getMonth();
+    let year = today.getFullYear();
+    this.today = `${year}-${month + 1}-${day}`;
+  }
 
   checkAllDeals() {
     if (this.allChecked) {
@@ -91,8 +97,6 @@ export class DealsComponent {
       euNormDate: normDate,
       dateAsTimestamp: dateAsTimestamp,
     });
-    console.log(this.dataManagement.deals);
-    
   }
 
   async saveDealName(event: FocusEvent, id: string, type: string | number) {

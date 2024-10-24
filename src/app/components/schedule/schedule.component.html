@@ -3,23 +3,11 @@
   <mat-card appearance="outlined" class="deal-card">
     <a href="/deals">
       <mat-card-content>
-        @if (this.checkDealStatus(deal) == "green") {
-        <div class="deal-header green">
+        
+        <div [ngClass]="deal | dealStatus">
           <h2>{{ deal.name }}</h2>
         </div>
-        } @else if (this.checkDealStatus(deal) == "yellow") {
-        <div class="deal-header yellow">
-          <h2>{{ deal.name }}</h2>
-        </div>
-        } @else if (this.checkDealStatus(deal) == "red") {
-        <div class="deal-header red">
-          <h2>{{ deal.name }}</h2>
-        </div>
-        } @else {
-        <div class="deal-header">
-          <h2>{{ deal.name }}</h2>
-        </div>
-        }
+
         <div class="deal-details">
           <div class="deal-detail">
             <strong>Value:</strong> {{ deal.dealValue }} €
