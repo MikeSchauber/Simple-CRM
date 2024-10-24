@@ -17,6 +17,8 @@ export class Deal {
     used: false,
   };
   closingDate: string = '';
+  euNormDate: string = '';
+  dateAsTimestamp: number = 0;
   timestamp: number = 0;
 
   constructor(obj: Partial<DealInterface>) {
@@ -27,6 +29,8 @@ export class Deal {
     this.dealValue = obj.dealValue ? obj.dealValue : 0;
     this.responsibleBadge = obj.responsibleBadge ? obj.responsibleBadge : { name: '', color: '', used: false };
     this.closingDate = obj.closingDate ? obj.closingDate : '';
+    this.euNormDate = obj.euNormDate ? obj.euNormDate : '';
+    this.dateAsTimestamp = obj.dateAsTimestamp ? obj.dateAsTimestamp : 0;
     this.timestamp = obj.timestamp ? obj.timestamp : 0;
   }
 
@@ -39,6 +43,8 @@ export class Deal {
       dealValue: this.dealValue,
       responsibleBadge: this.responsibleBadge,
       closingDate: this.closingDate,
+      euNormDate: this.euNormDate,
+      dateAsTimestamp: this.dateAsTimestamp,
       timestamp: this.timestamp,
     };
   }

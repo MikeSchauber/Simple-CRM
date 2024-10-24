@@ -1,6 +1,8 @@
 <div class="table-container">
   <div class="button-container">
-    <button mat-button (click)="deleteAllDeals();"><mat-icon>delete</mat-icon>Trash</button>
+    <button mat-button (click)="deleteAllDeals()">
+      <mat-icon>delete</mat-icon>Trash
+    </button>
   </div>
   <div id="customers" class="table">
     <!-- Table Header -->
@@ -9,7 +11,8 @@
         <section class="example-section">
           <mat-checkbox
             (click)="checkAllDeals()"
-            class="example-margin" [(ngModel)]="this.allChecked"
+            class="example-margin"
+            [(ngModel)]="this.allChecked"
           ></mat-checkbox>
         </section>
       </div>
@@ -50,12 +53,14 @@
       <!-- Deal Value -->
       <div class="cell">
         <input
+          class="input-price"
           type="number"
           #priceValue
           (blur)="saveDealName($event, deal.id, 'number')"
           (keyup)="saveDealWidthEnter($event, deal.id, priceValue, 'number')"
           [value]="deal.dealValue"
         />
+        <span>€</span>
       </div>
       <!-- Phase Dropdown Menu -->
       <div class="cell">
@@ -63,17 +68,17 @@
         deal.phaseBadge.used) {
         <div
           class="badge"
-          [matMenuTriggerFor]="dropdown"
+          [matMenuTriggerFor]="dropdownPhase"
           [ngStyle]="{ 'background-color': deal.phaseBadge.color }"
         >
           {{ deal.phaseBadge.name }}
         </div>
         } @else {
-        <mat-icon class="arrow-drop-icon" [matMenuTriggerFor]="dropdown"
+        <mat-icon class="arrow-drop-icon" [matMenuTriggerFor]="dropdownPhase"
           >arrow_drop_down</mat-icon
         >
         }
-        <mat-menu #dropdown="matMenu">
+        <mat-menu #dropdownPhase="matMenu">
           <div class="badge-menu">
             <div
               class="badge"
@@ -103,17 +108,17 @@
         deal.responsibleBadge.used) {
         <div
           class="badge"
-          [matMenuTriggerFor]="dropdown"
+          [matMenuTriggerFor]="dropdownRespo"
           [ngStyle]="{ 'background-color': deal.responsibleBadge.color }"
         >
           {{ deal.responsibleBadge.name }}
         </div>
         } @else {
-        <mat-icon class="arrow-drop-icon" [matMenuTriggerFor]="dropdown"
+        <mat-icon class="arrow-drop-icon" [matMenuTriggerFor]="dropdownRespo"
           >arrow_drop_down</mat-icon
         >
         }
-        <mat-menu #dropdown="matMenu">
+        <mat-menu #dropdownRespo="matMenu">
           <div class="badge-menu">
             <div
               class="badge"

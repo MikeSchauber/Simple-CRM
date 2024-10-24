@@ -18,7 +18,6 @@ import { Deal } from '../../models/deal.class';
 import { Firestore } from '@angular/fire/firestore';
 import { ContactInterface } from '../../interfaces/contact-interface';
 import { Badge } from '../../models/badge.class';
-import { BadgeInterface } from '../../interfaces/badge-interface';
 import { Dropdown } from '../../interfaces/dropdown';
 
 @Component({
@@ -38,7 +37,7 @@ import { Dropdown } from '../../interfaces/dropdown';
 })
 export class DealsComponent {
   allChecked: boolean = false;
-  newDealValue: string = ''
+  newDealValue: string = '';
 
   firestore: Firestore = inject(Firestore);
 
@@ -74,21 +73,21 @@ export class DealsComponent {
     return (event.target as HTMLInputElement).value;
   }
 
-  returnPrettierDate(date: Date) {
-    let day = date.getDate();
-    let month = date.getMonth() + 1;
-    let year = date.getFullYear();
-    return `${day}.${month}.${year}`;
-  }
-
   openDatePicker(dateInput: HTMLInputElement) {
     dateInput.showPicker();
   }
 
+  returnPrettierDate(date: string) {
+    let array = date.split('-');
+    return `${array[2]}.${array[1]}.${array[0]}`;
+  }
+
   async closeDatePicker(event: FocusEvent, id: string) {
-    let value = this.getValue(event);
+    let date = this.getValue(event);
+    let normDate = this.returnPrettierDate(date);
     await updateDoc(this.dataManagement.getSingleDocRef('deals', id), {
-      closingDate: value,
+      closingDate: date,
+      euNormDate: normDate,
     });
   }
 

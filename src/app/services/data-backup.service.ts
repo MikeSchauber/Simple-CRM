@@ -212,7 +212,7 @@ export class DataBackupService {
         name: '',
         color: '',
         used: false,
-      }
+      },
     },
     {
       id: '',
@@ -242,7 +242,7 @@ export class DataBackupService {
         name: '',
         color: '',
         used: false,
-      }
+      },
     },
     {
       id: '',
@@ -272,8 +272,8 @@ export class DataBackupService {
         name: '',
         color: '',
         used: false,
-      }
-    }
+      },
+    },
   ];
 
   inactiveContacts: ContactInterface[] = [
@@ -305,7 +305,7 @@ export class DataBackupService {
         name: '',
         color: '',
         used: false,
-      }
+      },
     },
     {
       id: '',
@@ -335,7 +335,7 @@ export class DataBackupService {
         name: '',
         color: '',
         used: false,
-      }
+      },
     },
     {
       id: '',
@@ -365,7 +365,7 @@ export class DataBackupService {
         name: '',
         color: '',
         used: false,
-      }
+      },
     },
   ];
 
@@ -405,12 +405,12 @@ export class DataBackupService {
       used: true,
       activeDropdown: {},
       availableDropdowns: [
-        { "name": "Lead", "color": "#8B4513", "used": false },
-        { "name": "Check", "color": "#4682B4", "used": false },
-        { "name": "Offer", "color": "#6A5ACD", "used": false },
-        { "name": "Close", "color": "#2E8B57", "used": false },
-        { "name": "Won", "color": "#4B0082", "used": false },
-        { "name": "Lost", "color": "#B22222", "used": false }
+        { name: 'Lead', color: '#8B4513', used: false },
+        { name: 'Check', color: '#4682B4', used: false },
+        { name: 'Offer', color: '#6A5ACD', used: false },
+        { name: 'Close', color: '#2E8B57', used: false },
+        { name: 'Won', color: '#4B0082', used: false },
+        { name: 'Lost', color: '#B22222', used: false },
       ],
     },
     {
@@ -456,7 +456,9 @@ export class DataBackupService {
         used: false,
       },
       closingDate: '2024-10-31',
-      timestamp: 1,
+      euNormDate: '31.10.2024',
+      dateAsTimestamp: 1730332800,
+      timestamp: 0,
     },
     {
       id: '',
@@ -474,6 +476,8 @@ export class DataBackupService {
         used: false,
       },
       closingDate: '2024-11-15',
+      euNormDate: '15.11.2024',
+      dateAsTimestamp: 1731628800,
       timestamp: 1,
     },
     {
@@ -492,6 +496,8 @@ export class DataBackupService {
         used: false,
       },
       closingDate: '2024-12-22',
+      euNormDate: '22.12.2024',
+      dateAsTimestamp: 1734825600 ,
       timestamp: 2,
     },
   ];
@@ -501,12 +507,12 @@ export class DataBackupService {
   }
 
   async addBackupData() {
-    for (const contact of this.activeContacts) {
-      await addDoc(this.dataManagement.getDocRef('activeContacts'), contact);
-    }
-    for (const contact of this.inactiveContacts) {
-      await addDoc(this.dataManagement.getDocRef('inactiveContacts'), contact);
-    }
+    // for (const contact of this.activeContacts) {
+    //   await addDoc(this.dataManagement.getDocRef('activeContacts'), contact);
+    // }
+    // for (const contact of this.inactiveContacts) {
+    //   await addDoc(this.dataManagement.getDocRef('inactiveContacts'), contact);
+    // }
     // for (const column of this.activeTableColumns) {
     //   await addDoc(this.dataManagement.getDocRef('activeTableColumns'), column);
     // }
@@ -516,9 +522,9 @@ export class DataBackupService {
     //     column
     //   );
     // }
-    // for (const deal of this.deals) {
-    //   await addDoc(this.dataManagement.getDocRef('deals'), deal);
-    // }
+    for (const deal of this.deals) {
+      await addDoc(this.dataManagement.getDocRef('deals'), deal);
+    }
     // for (const column of this.dealsColumns) {
     //   await addDoc(this.dataManagement.getDocRef('dealsColumns'), column);
     // }

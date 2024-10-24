@@ -9,5 +9,7 @@ export interface DealInterface {
     dealValue: number;
     responsibleBadge: BadgeInterface;
     closingDate: string;
+    euNormDate: string;
+    dateAsTimestamp: number
     timestamp: number;
 }

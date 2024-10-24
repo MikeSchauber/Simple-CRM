@@ -23,6 +23,7 @@ export class DataManagementService implements OnDestroy {
   unsubInactiveTableColumns;
   unsubDeals;
   unsubDealsColumns;
+  subOrderDeals;
 
   activeContacts: ContactInterface[] = [];
   inactiveContacts: ContactInterface[] = [];
@@ -30,6 +31,7 @@ export class DataManagementService implements OnDestroy {
   inactiveTableColumns: ColumnInterface[] = [];
   deals: DealInterface[] = [];
   dealsColumns: ColumnInterface[] = [];
+  orderedDeals: DealInterface[] = [];
 
   activeCheck: boolean = false;
   inactiveCheck: boolean = false;
@@ -41,6 +43,7 @@ export class DataManagementService implements OnDestroy {
     this.unsubInactiveTableColumns = this.subList('inactiveTableColumns');
     this.unsubDealsColumns = this.subList('dealsColumns');
     this.unsubDeals = this.subList('deals');
+    this.subOrderDeals = this.subList('orderDeals');
   }
 
   ngOnDestroy(): void {
@@ -50,6 +53,7 @@ export class DataManagementService implements OnDestroy {
     this.unsubInactiveTableColumns();
     this.unsubDeals();
     this.unsubDealsColumns();
+    this.subOrderDeals();
   }
 
   subList(list: string) {
@@ -67,6 +71,8 @@ export class DataManagementService implements OnDestroy {
         this.deals = this.pushIntoEachArray(querySnapshot);
       } else if (list === 'dealsColumns') {
         this.dealsColumns = this.pushIntoEachArray(querySnapshot);
+      } else if (list === 'orderDeals') {
+        this.orderedDeals = this.pushIntoEachArray(querySnapshot);
       }
       this.checkUsedColumns();
     });
@@ -77,7 +83,6 @@ export class DataManagementService implements OnDestroy {
     this.inactiveCheck = this.inactiveTableColumns.every(
       (c) => c.used === true
     );
-
   }
 
   querySortedDocRef(list: string) {
@@ -89,11 +94,11 @@ export class DataManagementService implements OnDestroy {
       return query(this.getDocRef(list), orderBy('timestamp'));
     } else if (list === 'dealsColumns') {
       return query(this.getDocRef(list), orderBy('index'));
+    } else if (list === 'orderDeals') {
+      return query(this.getDocRef(list), orderBy('dateAsTimestamp'));
     } else {
       return this.getDocRef(list);
     }
-
-
   }
 
   pushIntoEachArray(querySnapshot: QuerySnapshot) {

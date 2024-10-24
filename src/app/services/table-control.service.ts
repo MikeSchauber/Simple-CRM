@@ -93,8 +93,6 @@ export class TableControlService implements AfterViewInit {
     } else {
       contact.checked = false;
     }
-    console.log(contact.checked);
-
   }
 
   async deleteContacts(collection: string) {

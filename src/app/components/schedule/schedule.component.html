@@ -1,0 +1,55 @@
+<div class="card-container">
+  @for(deal of this.dataManagement.orderedDeals; track $index) {
+  <mat-card appearance="outlined" class="deal-card">
+    <a href="/deals">
+      <mat-card-content>
+        @if (this.checkDealStatus(deal) == "green") {
+        <div class="deal-header green">
+          <h2>{{ deal.name }}</h2>
+        </div>
+        } @else if (this.checkDealStatus(deal) == "yellow") {
+        <div class="deal-header yellow">
+          <h2>{{ deal.name }}</h2>
+        </div>
+        } @else if (this.checkDealStatus(deal) == "red") {
+        <div class="deal-header red">
+          <h2>{{ deal.name }}</h2>
+        </div>
+        } @else {
+        <div class="deal-header">
+          <h2>{{ deal.name }}</h2>
+        </div>
+        }
+        <div class="deal-details">
+          <div class="deal-detail">
+            <strong>Value:</strong> {{ deal.dealValue }} €
+          </div>
+          <div class="deal-detail">
+            <strong>Closing Date:</strong>
+            {{ deal.euNormDate }}
+          </div>
+          <div class="deal-detail">
+            <strong>Responsible:</strong>
+            <span
+              class="badge"
+              [ngStyle]="{ color: deal.responsibleBadge.color }"
+            >
+              {{ deal.responsibleBadge.name
+              }}<mat-icon>manage_accounts</mat-icon></span
+            >
+          </div>
+          <div class="deal-detail">
+            <strong>Phase:</strong>
+            <span class="badge">
+              {{ deal.phaseBadge.name
+              }}<mat-icon [ngStyle]="{ color: deal.phaseBadge.color }"
+                >analytics</mat-icon
+              ></span
+            >
+          </div>
+        </div>
+      </mat-card-content>
+    </a>
+  </mat-card>
+  }
+</div>
