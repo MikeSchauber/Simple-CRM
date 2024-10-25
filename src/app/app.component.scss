@@ -28,8 +28,7 @@
   padding: 0px 16px;
   height: 64px;
   border-bottom: 1px solid rgb(197, 197, 197);
-
-  @include dFlex($jc: flex-start, $fd: row, $g: 16px);
+  @include dFlex($jc: space-between, $fd: row, $g: 16px);
   > img {
     width: auto;
     height: 42px;
@@ -42,6 +41,9 @@
   > span {
     font-family: "Khand";
     font-size: 24px;
+  }
+  > button {
+    display: none;
   }
 }
 
@@ -72,6 +74,11 @@
   }
 }
 
+.backbutton-icon {
+  font-size: 22px;
+  @include dFlex($fd: row, $jc: flex-end);
+}
+
 .router-container {
   padding: 16px 56px 16px 56px;
   padding-top: 82px;
@@ -81,5 +88,11 @@
   .router-container {
     padding: 16px 16px 16px 16px;
     padding-top: 82px;
+  }
+}
+
+@media (max-width: 430px) {
+  .show-mobile {
+    display: flex !important;
   }
 }

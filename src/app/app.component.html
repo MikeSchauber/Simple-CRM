@@ -6,6 +6,14 @@
   <mat-drawer #drawer class="sidenav" mode="side" [opened]="true">
     <div class="logo-container">
       <img [routerLink]="['']" src="assets/icons/beziehung.png" alt="" />
+      <button
+        mat-icon-button
+        class="menu-button show-mobile"
+        aria-label="Example icon-button with menu icon"
+        (click)="drawer.toggle()"
+      >
+        <mat-icon>undo</mat-icon>
+      </button>
     </div>
     <ul class="menu">
       <li [routerLink]="['']"><mat-icon>space_dashboard</mat-icon>Dashboard</li>
