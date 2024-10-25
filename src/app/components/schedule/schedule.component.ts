@@ -3,21 +3,25 @@ import { MatCardModule } from '@angular/material/card';
 import { DataManagementService } from '../../services/data-management.service';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
-import { DealInterface } from '../../interfaces/deal-interface';
 import { DealStatusPipe } from '../../pipes/deal-status-pipe.pipe';
+import { RouterModule, RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-schedule',
   standalone: true,
-  imports: [MatCardModule, CommonModule, MatIconModule, DealStatusPipe],
+  imports: [
+    MatCardModule,
+    CommonModule,
+    MatIconModule,
+    DealStatusPipe,
+    RouterOutlet,
+    RouterModule,
+  ],
   templateUrl: './schedule.component.html',
   styleUrl: './schedule.component.scss',
 })
 export class ScheduleComponent {
-
-  constructor(public dataManagement: DataManagementService) {
-
-  }
+  constructor(public dataManagement: DataManagementService) {}
 
   checkDealStatus(deal: any): string {
     const today = new Date();
