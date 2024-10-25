@@ -1,0 +1,117 @@
+@import "../../../mixins.scss";
+
+main {
+    overflow: hidden;
+}
+
+.upper-row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(250px, 1fr));
+  gap: 2rem;
+  padding: 1rem;
+}
+
+mat-card-content {
+  padding: 24px 24px;
+}
+
+.card {
+    width: 100%;
+    height: 100%; 
+    color: #fff;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transition: all 0.150s ease;
+  }
+  
+  .card {
+    width: 100%;
+    height: 100%;
+    color: #fff;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+    transition: all 0.125s ease-in-out;
+  }
+  
+  .card:hover {
+    transform: scale(1.05); 
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3); 
+    background-color: #fff; 
+  }
+  
+  .active-contacts:hover {
+    background-color: #388e3c; /* Dunkleres Grün für bessere Lesbarkeit */
+  }
+  
+  .customers:hover {
+    background-color: #1976d2; /* Dunkleres Blau */
+  }
+  
+  .deals:hover {
+    background-color: #7b1fa2; /* Dunkleres Lila */
+  }
+  
+  .next-deal:hover {
+    background-color: #e65100; /* Dunkleres Orange */
+  }
+  
+
+.card-content {
+  display: flex;
+  flex-direction: column;
+  align-items: space-between;
+  height: 100%;
+}
+
+.card-title {
+  font-size: 1.2rem;
+  font-weight: bold;
+  min-width: max-content;
+}
+
+.card-info {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 0.5rem;
+}
+
+.card-number {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-right: 0.5rem;
+  padding: 4px;
+}
+
+.active-contacts {
+  background-color: #4caf50;
+}
+
+.customers {
+  background-color: #2196f3;
+}
+
+.deals {
+  background-color: #9c27b0;
+}
+
+.next-deal {
+  background-color: #ff9800;
+}
+
+mat-icon {
+  color: white;
+}
+
+ @media (max-width: 980px) {
+    .upper-row {
+      grid-template-columns: 1fr; 
+      gap: 1rem;
+    }
+
+  }
