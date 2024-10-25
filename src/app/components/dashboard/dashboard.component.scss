@@ -4,6 +4,11 @@ main {
     overflow: hidden;
 }
 
+a {
+  color: white;
+  text-decoration: none;
+}
+
 .upper-row {
   display: grid;
   grid-template-columns: repeat(2, minmax(250px, 1fr));
@@ -77,8 +82,9 @@ mat-card-content {
 .card-info {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   margin-top: 0.5rem;
+  gap: 12px;
 }
 
 .card-number {

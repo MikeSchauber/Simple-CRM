@@ -2,24 +2,24 @@
   <div class="upper-row">
     <mat-card class="card active-contacts">
       <mat-card-content>
-        <div class="card-content">
+        <a href="/contacts" class="card-content">
           <span class="card-title">Active Contacts</span>
           <div class="card-info">
-            <span class="card-number">250</span>
+            <span class="card-number">{{ this.dataManagement.activeContacts | dashboardContacts}}</span>
             <mat-icon>group</mat-icon>
           </div>
-        </div>
+        </a>
       </mat-card-content>
     </mat-card>
     <mat-card class="card customers">
       <mat-card-content>
-        <div class="card-content">
+        <a href="/contacts" class="card-content">
           <span class="card-title">Total Customers</span>
           <div class="card-info">
             <span class="card-number">150</span>
             <mat-icon>business</mat-icon>
           </div>
-        </div>
+        </a>
       </mat-card-content>
     </mat-card>
     <mat-card class="card deals">
