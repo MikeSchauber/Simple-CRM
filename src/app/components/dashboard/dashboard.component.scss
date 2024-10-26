@@ -1,7 +1,7 @@
 @import "../../../mixins.scss";
 
 main {
-    overflow: hidden;
+  overflow: hidden;
 }
 
 a {
@@ -19,77 +19,74 @@ a {
 mat-card-content {
   padding: 24px 24px;
   height: 100%;
-
 }
-  
-  .card {
-    width: 100%;
-    height: 100%;
-    min-height: 120px;
-    color: #fff;
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    transition: all 0.125s ease-in-out;
-  }
-  
-  .card:hover {
-    transform: scale(1.05); 
-    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3); 
-    background-color: #fff; 
-  }
 
-  .active-contacts {
-    background-color: #2196f3;
-  }
-  
-  .customers {
-    background-color: #2196f3;
-  }
-  
-  .deals {
-    background-color: #4caf50;
-  }
-  
-  .next-deal {
-    background-color: #da0000;
-  }
-  
-  .deal-size {
-    background-color: #4caf50;
-  }
-  
-  .deals-won {
-    background-color: #4caf50;
-  }
-  
-  .active-contacts:hover {
-    background-color: #1976d2;
-  }
-  
-  .customers:hover {
-    background-color: #1976d2;
-  }
-  
-  .deals:hover {
-    background-color: #388e3c;
-  }
-  
-  .next-deal:hover {
-    background-color: #b91c00;
-  }
-  
-  .deal-size:hover {
-    background-color: #388e3c;
-  }
-  
-  .deals-won:hover {
-    background-color: #388e3c;
-  }
-  
-  
+.card {
+  width: 100%;
+  height: 100%;
+  min-height: 120px;
+  color: #fff;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.125s ease-in-out;
+}
+
+.card:hover {
+  transform: scale(1.05);
+  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3);
+  background-color: #fff;
+}
+
+.active-contacts {
+  background-color: #2196f3;
+}
+
+.customers {
+  background-color: #2196f3;
+}
+
+.deals {
+  background-color: #4caf50;
+}
+
+.next-deal {
+  background-color: #da0000;
+}
+
+.deal-size {
+  background-color: #4caf50;
+}
+
+.deals-won {
+  background-color: #4caf50;
+}
+
+.active-contacts:hover {
+  background-color: #1976d2;
+}
+
+.customers:hover {
+  background-color: #1976d2;
+}
+
+.deals:hover {
+  background-color: #388e3c;
+}
+
+.next-deal:hover {
+  background-color: #b91c00;
+}
+
+.deal-size:hover {
+  background-color: #388e3c;
+}
+
+.deals-won:hover {
+  background-color: #388e3c;
+}
 
 .card-content {
   display: flex;
@@ -120,16 +117,52 @@ mat-card-content {
   padding: 4px;
 }
 
-
-
 mat-icon {
   color: white;
 }
 
- @media (max-width: 980px) {
-    .upper-row {
-      grid-template-columns: 1fr; 
-      gap: 1rem;
-    }
+// @media (max-width: 1320px) {
+//   .upper-row {
+//     grid-template-columns: repeat(2, minmax(250px, 1fr));
+//     gap: 1rem;
+//   }
+// }
 
+@media (max-width: 980px) {
+  .upper-row {
+    grid-template-columns: repeat(3, minmax(150px, 1fr));
+    gap: 1rem;
   }
+
+  .card {
+    max-height: 50px;
+  }
+
+  .card-title {
+    font-size: 1rem;
+  }
+
+  .title-subtext {
+    font-size: 0.7rem;
+    min-width: max-content;
+  }
+
+  .card-number {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-right: 0rem;
+    padding: 4px;
+    min-width: max-content;
+  }
+}
+
+@media (max-width: 550px) {
+  .upper-row {
+    grid-template-columns: repeat(2, minmax(120px, 1fr));
+    gap: 1rem;
+  }
+
+  .card-title {
+    font-size: 0.9rem;
+  }
+}
