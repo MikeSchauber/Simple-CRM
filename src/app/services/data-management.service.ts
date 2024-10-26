@@ -34,13 +34,17 @@ export class DataManagementService implements OnDestroy {
   activeCheck: boolean = false;
   inactiveCheck: boolean = false;
 
+  loading: boolean = false;
+
   constructor() {
+
     this.unsubActiveContacts = this.subList('activeContacts');
     this.unsubInactiveContacts = this.subList('inactiveContacts');
     this.unsubActiveTableColumns = this.subList('activeTableColumns');
     this.unsubInactiveTableColumns = this.subList('inactiveTableColumns');
     this.unsubDealsColumns = this.subList('dealsColumns');
     this.unsubDeals = this.subList('deals');
+ 
   }
 
   ngOnDestroy(): void {
@@ -53,6 +57,7 @@ export class DataManagementService implements OnDestroy {
   }
 
   subList(list: string) {
+    this.loading = true;
     let q = this.querySortedDocRef(list);
     return onSnapshot(q, (querySnapshot) => {
       if (list === 'activeContacts') {
@@ -69,6 +74,7 @@ export class DataManagementService implements OnDestroy {
         this.dealsColumns = this.pushIntoEachArray(querySnapshot);
       }
       this.checkUsedColumns();
+      this.loading = false;
     });
   }
 

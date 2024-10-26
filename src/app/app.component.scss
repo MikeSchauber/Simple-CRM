@@ -84,6 +84,24 @@
   padding-top: 82px;
 }
 
+.dialog-container {
+  width: 100vw;
+  height: 100vh;
+  z-index: 999;
+  background-color: rgba(255, 255, 255, 0.205);
+  @include dFlex();
+  position: absolute;
+  top: 0;
+  left: 0;
+  backdrop-filter: blur(1px);
+}
+
+mat-spinner {
+  height: 50px;
+  width: 50px;
+  filter: drop-shadow(3px 3px 5px rgb(119, 109, 109));
+}
+
 @media (max-width: 1000px) {
   .router-container {
     padding: 16px 16px 16px 16px;

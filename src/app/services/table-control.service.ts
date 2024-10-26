@@ -1,4 +1,11 @@
-import { AfterViewInit, ChangeDetectorRef, ElementRef, inject, Injectable, ViewChild } from '@angular/core';
+import {
+  AfterViewInit,
+  ChangeDetectorRef,
+  ElementRef,
+  inject,
+  Injectable,
+  ViewChild,
+} from '@angular/core';
 import { Contact } from '../models/contact.class';
 import { Firestore } from '@angular/fire/firestore';
 import { DataManagementService } from './data-management.service';
@@ -39,16 +46,14 @@ export class TableControlService implements AfterViewInit {
     '#FF4500',
     '#6A5ACD',
     '#CD5C5C',
-    '#FF8C00'
+    '#FF8C00',
   ];
 
   firestore: Firestore = inject(Firestore);
 
-  constructor(private dataManagement: DataManagementService) {
+  constructor(private dataManagement: DataManagementService) {}
 
-  }
-
-  ngAfterViewInit() { }
+  ngAfterViewInit() {}
 
   preventDefault(event: MouseEvent) {
     event.stopPropagation();
@@ -67,7 +72,7 @@ export class TableControlService implements AfterViewInit {
   }
 
   handleAllCheckboxes(contactArray: ContactInterface[], checkbox: boolean) {
-    contactArray.forEach(c => {
+    contactArray.forEach((c) => {
       if (!checkbox) {
         c.checked = false;
       } else {
@@ -78,16 +83,21 @@ export class TableControlService implements AfterViewInit {
 
   activateAllCheckboxes(checkbox: boolean, status: string) {
     if (!checkbox) {
-      status == 'activeContacts' ? this.allCheckedActive = false : this.allCheckedInactive = false;
+      status == 'activeContacts'
+        ? (this.allCheckedActive = false)
+        : (this.allCheckedInactive = false);
     } else {
-      status == 'activeContacts' ? this.allCheckedActive = true : this.allCheckedInactive = true;
+      status == 'activeContacts'
+        ? (this.allCheckedActive = true)
+        : (this.allCheckedInactive = true);
     }
   }
 
   checkContact(status: string, i: number) {
     let contact: ContactInterface;
-    status === 'active' ? contact = this.dataManagement.activeContacts[i] :
-      contact = this.dataManagement.inactiveContacts[i];
+    status === 'active'
+      ? (contact = this.dataManagement.activeContacts[i])
+      : (contact = this.dataManagement.inactiveContacts[i]);
     if (!contact.checked) {
       contact.checked = true;
     } else {
@@ -106,7 +116,11 @@ export class TableControlService implements AfterViewInit {
   async handleActiveContacts(collection: string) {
     for (const contact of this.dataManagement.activeContacts) {
       if (contact.checked) {
-        await deleteDoc(doc(this.firestore, collection, contact.id));
+        try {
+          await deleteDoc(doc(this.firestore, collection, contact.id));
+        } catch {
+          return;
+        }
       }
     }
   }
@@ -114,7 +128,11 @@ export class TableControlService implements AfterViewInit {
   async handleInactiveContacts(collection: string) {
     for (const contact of this.dataManagement.inactiveContacts) {
       if (contact.checked) {
-        await deleteDoc(doc(this.firestore, collection, contact.id));
+        try {
+          await deleteDoc(doc(this.firestore, collection, contact.id));
+        } catch {
+          return;
+        }
       }
     }
   }
@@ -123,8 +141,6 @@ export class TableControlService implements AfterViewInit {
     const randomIndex = Math.floor(Math.random() * this.colorArray.length);
     return this.colorArray[randomIndex];
   }
-
-
 
   async keyboardAddContact(event: KeyboardEvent, coll: string) {
     let user = this.returnContactObject(coll);
@@ -137,7 +153,6 @@ export class TableControlService implements AfterViewInit {
   async mouseAddContact(coll: string) {
     let user = this.returnContactObject(coll);
     if (user.name.length != 0) {
-
       await addDoc(collection(this.firestore, coll), user.toJson());
       this.clearAllInputs();
     }
@@ -177,7 +192,7 @@ export class TableControlService implements AfterViewInit {
       await updateDoc(this.dataManagement.getSingleDocRef(coll, id), {
         name: nameToUpdate,
       });
-      const inputElement = (event.target as HTMLInputElement);
+      const inputElement = event.target as HTMLInputElement;
       inputElement.blur();
     }
   }
@@ -189,7 +204,6 @@ export class TableControlService implements AfterViewInit {
       await updateDoc(this.dataManagement.getSingleDocRef(coll, id), {
         name: nameToUpdate,
       });
-
     }
   }
 
@@ -216,8 +230,6 @@ export class TableControlService implements AfterViewInit {
     }
   }
 
-  // Hier noch eine Löschefuntion für die Badgefelder der Kontakte implementieren
-
   async deleteColumn(tableCollection: string, columnId: string) {
     await updateDoc(
       this.dataManagement.getSingleDocRef(tableCollection, columnId),
@@ -243,16 +255,16 @@ export class TableControlService implements AfterViewInit {
 
   async closeAllEdits() {
     const batch = writeBatch(this.firestore);
-    (await getDocs(
-      this.dataManagement.getDocRef('activeContacts')
-    )).forEach((doc) => {
-      batch.update(doc.ref, { telEdit: false, emailEdit: false });
-    });
-    (await getDocs(
-      this.dataManagement.getDocRef('inactiveContacts')
-    )).forEach((doc) => {
-      batch.update(doc.ref, { telEdit: false, emailEdit: false });
-    });
+    (await getDocs(this.dataManagement.getDocRef('activeContacts'))).forEach(
+      (doc) => {
+        batch.update(doc.ref, { telEdit: false, emailEdit: false });
+      }
+    );
+    (await getDocs(this.dataManagement.getDocRef('inactiveContacts'))).forEach(
+      (doc) => {
+        batch.update(doc.ref, { telEdit: false, emailEdit: false });
+      }
+    );
     await batch.commit();
     this.editOpen = false;
   }
@@ -358,35 +370,38 @@ export class TableControlService implements AfterViewInit {
     collection: string
   ) {
     let badgeData = this.returnBadgeObject(cell.name, dropdown);
-    await updateDoc(this.dataManagement.getSingleDocRef(collection, contact.id), badgeData);
+    await updateDoc(
+      this.dataManagement.getSingleDocRef(collection, contact.id),
+      badgeData
+    );
   }
 
   returnBadgeObject(category: string, dropdown: Dropdown) {
     let badgeData;
-    if (category == "User Roles") {
+    if (category == 'User Roles') {
       badgeData = {
         roleBadge: {
           name: dropdown.name,
           color: dropdown.color,
           used: true,
-        }
-      }
-    } else if (category == "Standing") {
+        },
+      };
+    } else if (category == 'Standing') {
       badgeData = {
         statusBadge: {
           name: dropdown.name,
           color: dropdown.color,
           used: true,
         },
-      }
-    } else if (category == "Priority") {
+      };
+    } else if (category == 'Priority') {
       badgeData = {
         priorityBadge: {
           name: dropdown.name,
           color: dropdown.color,
           used: true,
-        }
-      }
+        },
+      };
     } else {
       badgeData = {
         priorityBadge: {
@@ -403,16 +418,24 @@ export class TableControlService implements AfterViewInit {
           name: '',
           color: '',
           used: false,
-        }
-      }
+        },
+      };
     }
-    return badgeData
+    return badgeData;
   }
 
   async moveContacts(collection: string) {
     collection == 'activeContacts'
-      ? await this.moveActiveContacts('active', { name: 'Inactive', color: '#f44336', used: true })
-      : await this.moveInactiveContacts('inactive', { name: 'Active', color: '#4caf50', used: true });
+      ? await this.moveActiveContacts('active', {
+          name: 'Inactive',
+          color: '#f44336',
+          used: true,
+        })
+      : await this.moveInactiveContacts('inactive', {
+          name: 'Active',
+          color: '#4caf50',
+          used: true,
+        });
     this.allCheckedActive = false;
     this.allCheckedInactive = false;
   }
@@ -433,8 +456,11 @@ export class TableControlService implements AfterViewInit {
     }
   }
 
-  async contactStatusRedirection(status: string, contact: ContactInterface, dropdown: Dropdown) {
-    let id = contact.id;
+  async contactStatusRedirection(
+    status: string,
+    contact: ContactInterface,
+    dropdown: Dropdown
+  ) {
     let addCollection;
     let deleteCollection;
     let newContact = new Contact(contact);
@@ -451,9 +477,19 @@ export class TableControlService implements AfterViewInit {
       name: dropdown.name,
       color: dropdown.color,
       used: true,
-    }
+    };
     newContact.checked = false;
-    await addDoc(collection(this.firestore, addCollection), newContact.toJson());
-    await deleteDoc(doc(this.firestore, deleteCollection, id));
+    this.dataManagement.loading = true;
+    await addDoc(
+      collection(this.firestore, addCollection),
+      newContact.toJson()
+    );
+    try {
+      await deleteDoc(doc(this.firestore, deleteCollection, contact.id));
+    } catch (error) {
+      return;
+    }
+
+    this.dataManagement.loading = false;
   }
 }

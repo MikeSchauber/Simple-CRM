@@ -44,3 +44,9 @@
     </div>
   </div>
 </mat-drawer-container>
+
+@if (this.dataManagement.loading) {
+  <div class="dialog-container" >
+    <mat-spinner></mat-spinner>
+  </div>
+}
