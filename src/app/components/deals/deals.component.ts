@@ -99,7 +99,7 @@ export class DealsComponent {
     });
   }
 
-  async saveDealName(event: FocusEvent, id: string, type: string | number) {
+  async saveDealInput(event: FocusEvent, id: string, type: string) {
     let value = this.getValue(event);
     if (value.length > 0 && event.type == 'blur') {
       this.updateName(value, id, type);
@@ -110,7 +110,7 @@ export class DealsComponent {
     event: KeyboardEvent,
     id: string,
     inputEl: HTMLInputElement,
-    type: string | number
+    type: string
   ) {
     let value = this.getValue(event);
     if (value.length > 0 && event.keyCode === 13) {
@@ -119,14 +119,15 @@ export class DealsComponent {
     }
   }
 
-  async updateName(value: string | number, id: string, type?: string | number) {
+  async updateName(value: string, id: string, type: string) {
     if (type == 'text') {
       await updateDoc(this.dataManagement.getSingleDocRef('deals', id), {
         name: value,
       });
     } else {
+      let valueAsNumber = parseInt(value);
       await updateDoc(this.dataManagement.getSingleDocRef('deals', id), {
-        dealValue: value,
+        dealValue: valueAsNumber,
       });
     }
   }

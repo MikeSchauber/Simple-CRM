@@ -45,7 +45,7 @@
           type="text"
           #nameValue
           (input)="deal.name = getValue($event)"
-          (blur)="saveDealName($event, deal.id, 'text')"
+          (blur)="saveDealInput($event, deal.id, 'text')"
           (keyup)="saveDealWidthEnter($event, deal.id, nameValue, 'text')"
           [value]="deal.name"
         />
@@ -54,9 +54,9 @@
       <div class="cell">
         <input
           class="input-price"
-          type="number"
+          type="text"
           #priceValue
-          (blur)="saveDealName($event, deal.id, 'number')"
+          (blur)="saveDealInput($event, deal.id, 'number')"
           (keyup)="saveDealWidthEnter($event, deal.id, priceValue, 'number')"
           [value]="deal.dealValue"
         />

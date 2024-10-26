@@ -2,6 +2,7 @@
 
 main {
   overflow: hidden;
+  margin-top: 60px;
 }
 
 a {
@@ -9,9 +10,26 @@ a {
   text-decoration: none;
 }
 
+header {
+  @include dFlex($fd: row, $g: 24px, $jc: flex-start);
+  width: 100%;
+  margin-bottom: 44px;
+  h1 {
+    border-right: 5px solid $darkcolor;
+    margin: 0;
+    padding-right: 24px;
+    padding-left: 16px;
+    min-width: max-content;
+    font-weight: bolder;
+  }
+  h3 {
+    min-width: max-content;
+  }
+}
+
 .upper-row {
   display: grid;
-  grid-template-columns: repeat(3, minmax(250px, 1fr));
+  grid-template-columns: repeat(2, minmax(250px, 1fr));
   gap: 1.5rem;
   padding: 1rem;
 }
@@ -48,8 +66,8 @@ mat-card-content {
   background-color: #2196f3;
 }
 
-.deals {
-  background-color: #4caf50;
+.deals-check {
+  background-color: #ff9d0b;
 }
 
 .next-deal {
@@ -72,8 +90,8 @@ mat-card-content {
   background-color: #1976d2;
 }
 
-.deals:hover {
-  background-color: #388e3c;
+.deals-check:hover {
+  background-color: #ff7708;
 }
 
 .next-deal:hover {
@@ -121,13 +139,6 @@ mat-icon {
   color: white;
 }
 
-// @media (max-width: 1320px) {
-//   .upper-row {
-//     grid-template-columns: repeat(2, minmax(250px, 1fr));
-//     gap: 1rem;
-//   }
-// }
-
 @media (max-width: 980px) {
   .upper-row {
     grid-template-columns: repeat(3, minmax(150px, 1fr));
@@ -153,6 +164,27 @@ mat-icon {
     margin-right: 0rem;
     padding: 4px;
     min-width: max-content;
+  }
+}
+
+@media (max-width: 890px) {
+  header {
+    @include dFlex($fd: column, $g: 24px, $ai: flex-start);
+    width: 100%;
+    margin-bottom: 44px;
+    padding-left: 16px;
+    h1 {
+      border-right: 0;
+      border-bottom: 4px solid $darkcolor;
+      margin: 0;
+      padding-right: 0px;
+      padding-left: 0px;
+      padding-bottom: 24px;
+      min-width: max-content;
+    }
+    h3 {
+      min-width: max-content;
+    }
   }
 }
 

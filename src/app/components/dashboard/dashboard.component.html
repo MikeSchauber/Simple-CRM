@@ -1,11 +1,17 @@
 <main>
+  <header>
+    <h1>Simple CRM</h1>
+    <span>Customer Management at a Glance</span>
+  </header>
   <div class="upper-row">
     <mat-card class="card active-contacts">
       <mat-card-content>
         <a href="/contacts" class="card-content">
           <span class="card-title">Active Contacts</span>
           <div class="card-info">
-            <span class="card-number">{{ this.dataManagement.activeContacts | dashboardContacts}}</span>
+            <span class="card-number">{{
+              this.dataManagement.activeContacts | dashboardContacts
+            }}</span>
             <mat-icon>group</mat-icon>
           </div>
         </a>
@@ -16,18 +22,22 @@
         <a href="/contacts" class="card-content">
           <span class="card-title">Total Costumers</span>
           <div class="card-info">
-            <span class="card-number">150</span>
+            <span class="card-number">{{
+              this.dataManagement.activeContacts | customers
+            }}</span>
             <mat-icon>business</mat-icon>
           </div>
         </a>
       </mat-card-content>
     </mat-card>
-    <mat-card class="card deals">
+    <mat-card class="card deals-check">
       <mat-card-content>
         <div class="card-content">
-          <span class="card-title">Deals Closed</span>
+          <span class="card-title">Deals to Check</span>
           <div class="card-info">
-            <span class="card-number">300</span>
+            <span class="card-number">{{
+              this.dataManagement.deals | dealsCheck
+            }}</span>
             <mat-icon>check_circle</mat-icon>
           </div>
         </div>
@@ -36,37 +46,43 @@
     <mat-card class="card next-deal">
       <mat-card-content>
         <div class="card-content">
-          <span class="card-title">Upcoming Deal</span>
+          <span class="card-title">Upcoming Deals</span>
           <span class="title-subtext">In the next 7 Days</span>
           <div class="card-info">
-            <span class="card-number">1</span>
+            <span class="card-number">{{
+              this.dataManagement.deals | upcomingDeal
+            }}</span>
             <mat-icon>local_fire_department</mat-icon>
           </div>
         </div>
       </mat-card-content>
     </mat-card>
     <mat-card class="card deal-size">
-        <mat-card-content>
-          <div class="card-content">
-            <span class="card-title">Deal Size</span>
-            <div class="card-info">
-              <span class="card-number">1 €</span>
-              <mat-icon>account_balance_wallet</mat-icon>
-            </div>
+      <mat-card-content>
+        <div class="card-content">
+          <span class="card-title">Deal Size</span>
+          <div class="card-info">
+            <span class="card-number">{{
+              this.dataManagement.deals | dealSize
+            }}</span>
+            <mat-icon>euro</mat-icon>
           </div>
-        </mat-card-content>
-      </mat-card>
-      <mat-card class="card deals-won">
-        <mat-card-content>
-          <div class="card-content">
-            <span class="card-title">Deals Won</span>
-            <div class="card-info">
-              <span class="card-number">1</span>
-              <mat-icon>emoji_events</mat-icon>
-            </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+    <mat-card class="card deals-won">
+      <mat-card-content>
+        <div class="card-content">
+          <span class="card-title">Deals Won</span>
+          <div class="card-info">
+            <span class="card-number">{{
+                this.dataManagement.deals | dealWon
+              }}</span>
+            <mat-icon>emoji_events</mat-icon>
           </div>
-        </mat-card-content>
-      </mat-card>
+        </div>
+      </mat-card-content>
+    </mat-card>
   </div>
   <div class="diagram-container">
     <!-- Diagram placeholder -->
