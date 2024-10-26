@@ -452,8 +452,6 @@ export class TableControlService implements AfterViewInit {
       color: dropdown.color,
       used: true,
     }
-    console.log(newContact);
-    
     newContact.checked = false;
     await addDoc(collection(this.firestore, addCollection), newContact.toJson());
     await deleteDoc(doc(this.firestore, deleteCollection, id));
