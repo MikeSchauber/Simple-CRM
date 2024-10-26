@@ -411,8 +411,8 @@ export class TableControlService implements AfterViewInit {
 
   async moveContacts(collection: string) {
     collection == 'activeContacts'
-      ? await this.moveActiveContacts('active', { name: 'Active', color: '#4caf50', used: false })
-      : await this.moveInactiveContacts('inactive', { name: 'Inactive', color: '#f44336', used: false });
+      ? await this.moveActiveContacts('active', { name: 'Inactive', color: '#f44336', used: true })
+      : await this.moveInactiveContacts('inactive', { name: 'Active', color: '#4caf50', used: true });
     this.allCheckedActive = false;
     this.allCheckedInactive = false;
   }
@@ -452,6 +452,8 @@ export class TableControlService implements AfterViewInit {
       color: dropdown.color,
       used: true,
     }
+    console.log(newContact);
+    
     newContact.checked = false;
     await addDoc(collection(this.firestore, addCollection), newContact.toJson());
     await deleteDoc(doc(this.firestore, deleteCollection, id));

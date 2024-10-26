@@ -8,6 +8,7 @@ import { DealSizePipe } from '../../pipes/deal-size.pipe';
 import { DealWonPipe } from '../../pipes/deal-won.pipe';
 import { UpcomingDealPipe } from '../../pipes/upcoming-deal.pipe';
 import { DealsCheckPipe } from '../../pipes/deals-check.pipe';
+import { RouterModule, RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard',
@@ -21,6 +22,8 @@ import { DealsCheckPipe } from '../../pipes/deals-check.pipe';
     DealSizePipe,
     DealWonPipe,
     UpcomingDealPipe,
+    RouterOutlet,
+    RouterModule,
   ],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss',

@@ -21,7 +21,7 @@ mat-card {
 a {
   text-decoration: none;
   cursor: auto;
-  padding: 0px ;
+  padding: 0px;
 }
 
 .deal-card {
@@ -31,6 +31,7 @@ a {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.329);
   transition: all 0.125s ease-in-out;
   overflow: hidden;
+  cursor: pointer;
 }
 
 .deal-card:hover {
@@ -69,7 +70,7 @@ a {
   color: $darkcolor;
   display: flex;
   justify-content: space-between;
-  >a {
+  > a {
     padding: 8px 16px !important;
   }
 }

@@ -1,43 +1,41 @@
 <div class="card-container">
   @for(deal of this.dataManagement.deals; track $index) {
   <mat-card appearance="outlined" class="deal-card">
-    <a href="/deals">
-      <mat-card-content>
-        <div class="deal-header" [ngClass]="deal | dealStatus">
-          <h2>{{ deal.name }}</h2>
-        </div>
+    <mat-card-content [routerLink]="['/deals']">
+      <div class="deal-header" [ngClass]="deal | dealStatus">
+        <h2>{{ deal.name }}</h2>
+      </div>
 
-        <div class="deal-details">
-          <div class="deal-detail">
-            <strong>Value:</strong> {{ deal.dealValue }} €
-          </div>
-          <div class="deal-detail">
-            <strong>Closing Date:</strong>
-            {{ deal.euNormDate }}
-          </div>
-          <div class="deal-detail">
-            <strong>Responsible:</strong>
-            <a
-              href="/contacts"
-              class="badge"
-              [ngStyle]="{ 'background-color': deal.responsibleBadge.color }"
-            >
-              {{ deal.responsibleBadge.name
-              }}<mat-icon>manage_accounts</mat-icon></a
-            >
-          </div>
-          <div class="deal-detail">
-            <strong>Phase:</strong>
-            <span
-              class="badge"
-              [ngStyle]="{ 'background-color': deal.phaseBadge.color }"
-            >
-              {{ deal.phaseBadge.name }}<mat-icon>analytics</mat-icon></span
-            >
-          </div>
+      <div class="deal-details">
+        <div class="deal-detail">
+          <strong>Value:</strong> {{ deal.dealValue }} €
         </div>
-      </mat-card-content>
-    </a>
+        <div class="deal-detail">
+          <strong>Closing Date:</strong>
+          {{ deal.euNormDate }}
+        </div>
+        <div class="deal-detail">
+          <strong>Responsible:</strong>
+          <a
+            [routerLink]="['/contacts']"
+            class="badge"
+            [ngStyle]="{ 'background-color': deal.responsibleBadge.color }"
+          >
+            {{ deal.responsibleBadge.name
+            }}<mat-icon>manage_accounts</mat-icon></a
+          >
+        </div>
+        <div class="deal-detail">
+          <strong>Phase:</strong>
+          <span
+            class="badge"
+            [ngStyle]="{ 'background-color': deal.phaseBadge.color }"
+          >
+            {{ deal.phaseBadge.name }}<mat-icon>analytics</mat-icon></span
+          >
+        </div>
+      </div>
+    </mat-card-content>
   </mat-card>
   }
 </div>

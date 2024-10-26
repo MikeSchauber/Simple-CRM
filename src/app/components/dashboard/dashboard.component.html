@@ -4,9 +4,9 @@
     <span>Customer Management at a Glance</span>
   </header>
   <div class="upper-row">
-    <mat-card class="card active-contacts">
-      <mat-card-content>
-        <a href="/contacts" class="card-content">
+    <mat-card class="card active-contacts" [routerLink]="['contacts']">
+      <mat-card-content >
+        <div class="card-content">
           <span class="card-title">Active Contacts</span>
           <div class="card-info">
             <span class="card-number">{{
@@ -14,12 +14,12 @@
             }}</span>
             <mat-icon>group</mat-icon>
           </div>
-        </a>
+        </div>
       </mat-card-content>
     </mat-card>
-    <mat-card class="card customers">
-      <mat-card-content>
-        <a href="/contacts" class="card-content">
+    <mat-card class="card customers" [routerLink]="['contacts']">
+      <mat-card-content >
+        <div class="card-content">
           <span class="card-title">Total Costumers</span>
           <div class="card-info">
             <span class="card-number">{{
@@ -27,11 +27,11 @@
             }}</span>
             <mat-icon>business</mat-icon>
           </div>
-        </a>
+        </div>
       </mat-card-content>
     </mat-card>
-    <mat-card class="card deals-check">
-      <mat-card-content>
+    <mat-card class="card deals-check" [routerLink]="['deals']">
+      <mat-card-content >
         <div class="card-content">
           <span class="card-title">Deals to Check</span>
           <div class="card-info">
@@ -43,8 +43,8 @@
         </div>
       </mat-card-content>
     </mat-card>
-    <mat-card class="card next-deal">
-      <mat-card-content>
+    <mat-card class="card next-deal" [routerLink]="['schedule']">
+      <mat-card-content >
         <div class="card-content">
           <span class="card-title">Upcoming Deals</span>
           <span class="title-subtext">In the next 7 Days</span>
@@ -57,8 +57,8 @@
         </div>
       </mat-card-content>
     </mat-card>
-    <mat-card class="card deal-size">
-      <mat-card-content>
+    <mat-card class="card deal-size" [routerLink]="['deals']">
+      <mat-card-content >
         <div class="card-content">
           <span class="card-title">Deal Size</span>
           <div class="card-info">
@@ -70,14 +70,14 @@
         </div>
       </mat-card-content>
     </mat-card>
-    <mat-card class="card deals-won">
-      <mat-card-content>
+    <mat-card class="card deals-won" [routerLink]="['deals']">
+      <mat-card-content >
         <div class="card-content">
           <span class="card-title">Deals Won</span>
           <div class="card-info">
             <span class="card-number">{{
-                this.dataManagement.deals | dealWon
-              }}</span>
+              this.dataManagement.deals | dealWon
+            }}</span>
             <mat-icon>emoji_events</mat-icon>
           </div>
         </div>
