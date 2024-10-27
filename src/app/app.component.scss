@@ -80,7 +80,7 @@
 }
 
 .router-container {
-  padding: 16px 56px 16px 56px;
+  padding: 16px 00px 16px 56px;
   padding-top: 82px;
 }
 
@@ -103,13 +103,7 @@ mat-spinner {
 
 @media (max-width: 1000px) {
   .router-container {
-    padding: 16px 16px 16px 16px;
+    padding: 16px 0px 16px 16px;
     padding-top: 82px;
-  }
-}
-
-@media (max-width: 430px) {
-  .show-mobile {
-    display: flex !important;
   }
 }
