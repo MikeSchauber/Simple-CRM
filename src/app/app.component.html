@@ -15,11 +15,26 @@
         <mat-icon>undo</mat-icon>
       </button>
     </div>
-    <ul class="menu">
+    <ul class="menu hide-mobile">
       <li [routerLink]="['']"><mat-icon>space_dashboard</mat-icon>Dashboard</li>
       <li [routerLink]="['contacts']"><mat-icon>group</mat-icon>Contacts</li>
       <li [routerLink]="['deals']"><mat-icon>paid</mat-icon>Deals</li>
       <li [routerLink]="['schedule']">
+        <mat-icon>date_range</mat-icon>Schedule
+      </li>
+    </ul>
+
+    <ul class="menu show-mobile">
+      <li (click)="drawer.toggle()" [routerLink]="['']">
+        <mat-icon>space_dashboard</mat-icon>Dashboard
+      </li>
+      <li (click)="drawer.toggle()" [routerLink]="['contacts']">
+        <mat-icon>group</mat-icon>Contacts
+      </li>
+      <li (click)="drawer.toggle()" [routerLink]="['deals']">
+        <mat-icon>paid</mat-icon>Deals
+      </li>
+      <li (click)="drawer.toggle()" [routerLink]="['schedule']">
         <mat-icon>date_range</mat-icon>Schedule
       </li>
     </ul>

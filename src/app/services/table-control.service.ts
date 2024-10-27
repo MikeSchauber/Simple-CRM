@@ -480,13 +480,13 @@ export class TableControlService implements AfterViewInit {
     };
     newContact.checked = false;
     this.dataManagement.loading = true;
-    await addDoc(
-      collection(this.firestore, addCollection),
-      newContact.toJson()
-    );
     try {
+      await addDoc(
+        collection(this.firestore, addCollection),
+        newContact.toJson()
+      );
       await deleteDoc(doc(this.firestore, deleteCollection, contact.id));
-    } catch (error) {
+    } catch {
       return;
     }
 

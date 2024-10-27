@@ -17,6 +17,14 @@ body {
   color: rgb(255, 255, 255);
 }
 
+.hide-mobile {
+  display: block;
+}
+
+.show-mobile {
+  display: none;
+}
+
 ::-webkit-scrollbar {
   width: 8px;
   height: 10px;
@@ -134,4 +142,14 @@ a:hover {
   font-family: "Khand";
   font-weight: 700;
   font-style: normal;
+}
+
+@media (max-width: 1000px) {
+  .hide-mobile {
+    display: none;
+  }
+  
+  .show-mobile {
+    display: block;
+  }
 }
