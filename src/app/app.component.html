@@ -46,7 +46,8 @@
 </mat-drawer-container>
 
 @if (this.dataManagement.loading) {
-  <div class="dialog-container" >
-    <mat-spinner></mat-spinner>
-  </div>
+<div class="dialog-container">
+  <!-- <mat-spinner></mat-spinner> -->
+  <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+</div>
 }
