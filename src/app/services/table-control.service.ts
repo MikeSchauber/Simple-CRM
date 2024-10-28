@@ -25,7 +25,7 @@ import { ColumnInterface } from '../interfaces/column-interface';
 @Injectable({
   providedIn: 'root',
 })
-export class TableControlService implements AfterViewInit {
+export class TableControlService {
   allCheckedActive: boolean = false;
   allCheckedInactive: boolean = false;
   dialogPositionY: string = '';
@@ -52,8 +52,6 @@ export class TableControlService implements AfterViewInit {
   firestore: Firestore = inject(Firestore);
 
   constructor(private dataManagement: DataManagementService) {}
-
-  ngAfterViewInit() {}
 
   preventDefault(event: MouseEvent) {
     event.stopPropagation();

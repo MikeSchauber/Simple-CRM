@@ -1,9 +1,9 @@
 <div class="table-container">
   <div class="button-container">
-    <button class="head-button-container" mat-button (click)="tableControl.moveContacts('activeContacts')">
+    <button class="head-button-container" [disabled]="dataManagement.loading" mat-button (click)="tableControl.moveContacts('activeContacts')">
       <mat-icon>archive</mat-icon>
       <span>Inactive</span></button>
-    <button class="head-button-container" mat-button (click)="tableControl.deleteContacts('activeContacts')">
+    <button class="head-button-container" [disabled]="dataManagement.loading" mat-button (click)="tableControl.deleteContacts('activeContacts')">
       <mat-icon>delete</mat-icon><span>Delete</span>
     </button>
   </div>
@@ -23,7 +23,7 @@
           [matMenuTriggerFor]="erase" matTooltip="Delete Column"
           [ngClass]="{'d-none': !columnHovered[i]}">more_vert</mat-icon>
         <mat-menu #erase="matMenu">
-          <button (click)="tableControl.deleteColumn('activeTableColumns', item.id)" class="matMenu-button"
+          <button (click)="tableControl.deleteColumn('activeTableColumns', item.id)" class="matMenu-button" [disabled]="dataManagement.loading"
             mat-menu-item> Delete Column
             <mat-icon style="color: rgb(0, 118, 145);" class="type column-icon">delete</mat-icon>
           </button>
