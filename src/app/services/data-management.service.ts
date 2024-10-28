@@ -37,7 +37,7 @@ export class DataManagementService implements OnDestroy {
   loading: boolean = false;
 
   constructor() {
-
+    this.loading = true;
     this.unsubActiveContacts = this.subList('activeContacts');
     this.unsubInactiveContacts = this.subList('inactiveContacts');
     this.unsubActiveTableColumns = this.subList('activeTableColumns');
@@ -57,7 +57,6 @@ export class DataManagementService implements OnDestroy {
   }
 
   subList(list: string) {
-    this.loading = true;
     let q = this.querySortedDocRef(list);
     return onSnapshot(q, (querySnapshot) => {
       if (list === 'activeContacts') {

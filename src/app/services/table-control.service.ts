@@ -425,17 +425,19 @@ export class TableControlService implements AfterViewInit {
   }
 
   async moveContacts(collection: string) {
-    collection == 'activeContacts'
-      ? await this.moveActiveContacts('active', {
-          name: 'Inactive',
-          color: '#f44336',
-          used: true,
-        })
-      : await this.moveInactiveContacts('inactive', {
-          name: 'Active',
-          color: '#4caf50',
-          used: true,
-        });
+    if (collection === 'activeContacts') {
+      await this.moveActiveContacts('active', {
+        name: 'Inactive',
+        color: '#f44336',
+        used: true,
+      });
+    } else {
+      await this.moveInactiveContacts('inactive', {
+        name: 'Active',
+        color: '#4caf50',
+        used: true,
+      });
+    }
     this.allCheckedActive = false;
     this.allCheckedInactive = false;
   }
@@ -443,6 +445,7 @@ export class TableControlService implements AfterViewInit {
   async moveActiveContacts(status: string, dropdown: Dropdown) {
     for (const contact of this.dataManagement.activeContacts) {
       if (contact.checked === true) {
+        this.dataManagement.loading = true;
         await this.contactStatusRedirection(status, contact, dropdown);
       }
     }
@@ -451,6 +454,7 @@ export class TableControlService implements AfterViewInit {
   async moveInactiveContacts(status: string, dropdown: Dropdown) {
     for (const contact of this.dataManagement.inactiveContacts) {
       if (contact.checked === true) {
+        this.dataManagement.loading = true;
         await this.contactStatusRedirection(status, contact, dropdown);
       }
     }
@@ -461,6 +465,7 @@ export class TableControlService implements AfterViewInit {
     contact: ContactInterface,
     dropdown: Dropdown
   ) {
+    let idIsThrown = false;
     let addCollection;
     let deleteCollection;
     let newContact = new Contact(contact);
@@ -479,17 +484,18 @@ export class TableControlService implements AfterViewInit {
       used: true,
     };
     newContact.checked = false;
-    this.dataManagement.loading = true;
+    await addDoc(
+      collection(this.firestore, addCollection),
+      newContact.toJson()
+    );
     try {
-      await addDoc(
-        collection(this.firestore, addCollection),
-        newContact.toJson()
-      );
-      await deleteDoc(doc(this.firestore, deleteCollection, contact.id));
+      if (!idIsThrown) {
+        idIsThrown = true;
+        await deleteDoc(doc(this.firestore, deleteCollection, newContact.id));
+      }
     } catch {
       return;
     }
-
     this.dataManagement.loading = false;
   }
 }
