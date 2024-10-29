@@ -144,7 +144,7 @@
         <div class="badge-menu">
           @for (dropdown of cell.availableDropdowns; track $index; let i = $index) {
           @if (dropdown.name == 'Inactive') {
-          <div class="badge" (click)="tableControl.contactStatusRedirection(contact.status, contact, dropdown)"
+          <div class="badge" (click)="tableControl.addCheckedContactsToNewTable(contact.status, contact, dropdown)"
             [ngStyle]="{'background-color': dropdown.color}">{{dropdown.name}}</div>
           } @else {
           <div class="badge" (click)="tableControl.addBadgeToContact(dropdown, cell, contact, 'activeContacts')"

@@ -450,17 +450,16 @@ export class TableControlService {
   }
 
   async moveContacts(collection: string) {
-    console.log(this.idsToDelete);
     this.dataManagement.loading = true;
-    collection == 'activeContacts'
-      ? await this.moveActiveContacts(collection)
-      : await  this.moveInactiveContacts(collection);
+    if (collection === 'activeContacts') {
+      await this.moveActiveContacts(collection);
+    } else {
+      await this.moveInactiveContacts(collection);
+    }
     await this.deleteOldContacts(collection);
-    this.idsToDelete = [];
     this.allCheckedActive = false;
     this.allCheckedInactive = false;
     this.dataManagement.loading = false;
-    console.log(this.idsToDelete);
   }
 
   async moveActiveContacts(collection: string) {
@@ -484,21 +483,26 @@ export class TableControlService {
     };
     for (const contact of this.dataManagement.inactiveContacts) {
       if (contact.checked === true) {
-        this.dataManagement.loading = true;
         await this.addCheckedContactsToNewTable(collection, contact, dropdown);
       }
     }
   }
 
   async deleteOldContacts(collection: string) {
-    for (const id of this.idsToDelete) {
-      console.log(id);
-      try {
-        await deleteDoc(doc(this.firestore, collection, id));
-      } catch {
-        return;
+    let contacts =
+      collection == 'activeContacts'
+        ? this.dataManagement.activeContacts
+        : this.dataManagement.inactiveContacts;
+    for (const contact of contacts) {
+      for (const id of this.idsToDelete) {    
+        if (id === contact.id) {
+          console.log(id);
+          const docRef = doc(this.firestore, collection, contact.id);
+          await deleteDoc(docRef);
+        }
       }
     }
+    this.idsToDelete = [];
   }
 
   async addCheckedContactsToNewTable(
@@ -506,20 +510,19 @@ export class TableControlService {
     contact: ContactInterface,
     dropdown: Dropdown
   ) {
-    let newContact: Contact = this.createNewContact(coll, contact, dropdown);
+    let newContact = this.createNewContact(coll, contact, dropdown);
     newContact.checked = false;
-    let addCollection;
-    console.log(newContact);
-    this.idsToDelete.push(newContact.id);
-    coll == 'activeContacts'
-      ? (addCollection = 'inactiveContacts')
-      : (addCollection = 'activeContacts');
-    await addDoc(
-      collection(this.firestore, addCollection),
-      newContact.toJson()
-    );
-
-    this.dataManagement.loading = false;
+    let addCollection =
+      coll === 'activeContacts' ? 'inactiveContacts' : 'activeContacts';
+    try {
+      await addDoc(
+        collection(this.firestore, addCollection),
+        newContact.toJson()
+      );
+      this.idsToDelete.push(contact.id);
+    } catch {
+      return;
+    }
   }
 
   createNewContact(
