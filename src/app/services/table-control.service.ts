@@ -494,11 +494,15 @@ export class TableControlService {
         ? this.dataManagement.activeContacts
         : this.dataManagement.inactiveContacts;
     for (const contact of contacts) {
-      for (const id of this.idsToDelete) {    
+      for (const id of this.idsToDelete) {
         if (id === contact.id) {
           console.log(id);
           const docRef = doc(this.firestore, collection, contact.id);
-          await deleteDoc(docRef);
+          try {
+            await deleteDoc(docRef);
+          } catch {
+            return;
+          }
         }
       }
     }

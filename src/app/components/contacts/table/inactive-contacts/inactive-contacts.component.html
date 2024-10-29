@@ -1,9 +1,9 @@
 <div class="table-container">
   <div class="button-container">
-    <button class="head-button-container" [disabled]="dataManagement.loading" mat-button (click)="tableControl.moveContacts('inactiveContacts')">
+    <button class="head-button-container" [disabled]="this.dataManagement.loading" mat-button (click)="tableControl.moveContacts('inactiveContacts')">
       <mat-icon>unarchive</mat-icon>
       <span>Active</span></button>
-    <button class="head-button-container" [disabled]="dataManagement.loading" mat-button (click)="tableControl.deleteContacts('inactiveContacts')">
+    <button class="head-button-container" [disabled]="this.dataManagement.loading" mat-button (click)="tableControl.deleteContacts('inactiveContacts')">
       <mat-icon>delete</mat-icon><span>Delete</span>
     </button>
   </div>
