@@ -48,7 +48,7 @@ export class TableControlService {
     '#CD5C5C',
     '#FF8C00',
   ];
-
+  idsToDelete: string[] = [];
   firestore: Firestore = inject(Firestore);
 
   constructor(private dataManagement: DataManagementService) {}
@@ -104,11 +104,13 @@ export class TableControlService {
   }
 
   async deleteContacts(collection: string) {
+    this.dataManagement.loading = true;
     collection == 'activeContacts'
       ? await this.handleActiveContacts(collection)
       : await this.handleInactiveContacts(collection);
     this.allCheckedActive = false;
     this.allCheckedInactive = false;
+    this.dataManagement.loading = false;
   }
 
   async handleActiveContacts(collection: string) {
@@ -141,19 +143,23 @@ export class TableControlService {
   }
 
   async keyboardAddContact(event: KeyboardEvent, coll: string) {
+    this.dataManagement.loading = true;
     let user = this.returnContactObject(coll);
     if (event.keyCode === 13 && user.name.length != 0) {
       await addDoc(collection(this.firestore, coll), user.toJson());
       this.clearAllInputs();
     }
+    this.dataManagement.loading = false;
   }
 
   async mouseAddContact(coll: string) {
+    this.dataManagement.loading = true;
     let user = this.returnContactObject(coll);
     if (user.name.length != 0) {
       await addDoc(collection(this.firestore, coll), user.toJson());
       this.clearAllInputs();
     }
+    this.dataManagement.loading = false;
   }
 
   returnContactObject(coll: string) {
@@ -184,14 +190,17 @@ export class TableControlService {
     id: string,
     value: string
   ) {
+    this.dataManagement.loading = true;
     let nameToUpdate: string = '';
     nameToUpdate = value;
     if (event.keyCode === 13 && nameToUpdate.length != 0) {
+      this.dataManagement.loading = true;
       await updateDoc(this.dataManagement.getSingleDocRef(coll, id), {
         name: nameToUpdate,
       });
       const inputElement = event.target as HTMLInputElement;
       inputElement.blur();
+      this.dataManagement.loading = false;
     }
   }
 
@@ -199,10 +208,12 @@ export class TableControlService {
     const target = event.target as HTMLInputElement;
     const nameToUpdate: string = target.value;
     if (nameToUpdate.length != 0) {
+      this.dataManagement.loading = true;
       await updateDoc(this.dataManagement.getSingleDocRef(coll, id), {
         name: nameToUpdate,
       });
     }
+    this.dataManagement.loading = false;
   }
 
   clearAllInputs() {
@@ -217,38 +228,42 @@ export class TableControlService {
       this.dataManagement.activeContacts.length != 0 ||
       this.dataManagement.inactiveContacts.length != 0
     ) {
+      this.dataManagement.loading = true;
       await updateDoc(
         this.dataManagement.getSingleDocRef(tableCollection, columnId),
-        {
-          used: true,
-        }
+        { used: true }
       );
     } else {
       console.error('There are no Contacts to add a Column into');
     }
+    this.dataManagement.loading = false;
   }
 
   async deleteColumn(tableCollection: string, columnId: string) {
+    this.dataManagement.loading = true;
     await updateDoc(
       this.dataManagement.getSingleDocRef(tableCollection, columnId),
-      {
-        used: false,
-      }
+      { used: false }
     );
+    this.dataManagement.loading = false;
   }
 
   async deleteTel(id: string, collection: string) {
+    this.dataManagement.loading = true;
     await updateDoc(this.dataManagement.getSingleDocRef(collection, id), {
       tel: '',
     });
+    this.dataManagement.loading = false;
   }
 
   async openTelInput(collection: string, i: string, e: MouseEvent) {
+    this.dataManagement.loading = true;
     e.stopPropagation();
     await this.closeAllEdits();
     await updateDoc(this.dataManagement.getSingleDocRef(collection, i), {
       telEdit: true,
     });
+    this.dataManagement.loading = false;
   }
 
   async closeAllEdits() {
@@ -269,29 +284,35 @@ export class TableControlService {
 
   async saveTelData(event: any, id: string, collection: string) {
     if (event.keyCode === 13) {
+      this.dataManagement.loading = true;
       await updateDoc(this.dataManagement.getSingleDocRef(collection, id), {
         tel: event.target.value,
         telEdit: false,
       });
     }
+    this.dataManagement.loading = false;
   }
 
   async saveTelOnBlur(event: FocusEvent, coll: string, id: string) {
     const target = event.target as HTMLInputElement;
     const telToUpdate: string = target.value;
     if (telToUpdate.length != 0) {
+      this.dataManagement.loading = true;
       await updateDoc(this.dataManagement.getSingleDocRef(coll, id), {
         tel: telToUpdate,
         telEdit: false,
       });
     }
+    this.dataManagement.loading = false;
   }
 
   async deleteEmail(i: string, collection: string) {
+    this.dataManagement.loading = true;
     await updateDoc(this.dataManagement.getSingleDocRef(collection, i), {
       email: '',
       visibleEmail: '',
     });
+    this.dataManagement.loading = false;
   }
 
   async openEmailDialog(
@@ -300,6 +321,7 @@ export class TableControlService {
     i: string,
     e: MouseEvent
   ) {
+    this.dataManagement.loading = true;
     await this.closeAllEdits();
     e.stopPropagation();
     if (!this.editOpen) {
@@ -310,6 +332,7 @@ export class TableControlService {
         emailEdit: true,
       });
     }
+    this.dataManagement.loading = false;
   }
 
   async closeEmailDialog(collection: string, i: string) {
@@ -332,6 +355,7 @@ export class TableControlService {
     if (this.validateEmail(emailValue)) {
       this.noValidEmail = false;
       if (event.keyCode == 13) {
+        this.dataManagement.loading = true;
         if (event.target.id == 'visible') {
           await updateDoc(this.dataManagement.getSingleDocRef(coll, i), {
             email: emailValue,
@@ -346,6 +370,7 @@ export class TableControlService {
     } else {
       this.noValidEmail = true;
     }
+    this.dataManagement.loading = false;
   }
 
   async visibleEmail(event: any, i: string, emailValue: string, coll: string) {
@@ -367,11 +392,13 @@ export class TableControlService {
     contact: ContactInterface,
     collection: string
   ) {
+    this.dataManagement.loading = true;
     let badgeData = this.returnBadgeObject(cell.name, dropdown);
     await updateDoc(
       this.dataManagement.getSingleDocRef(collection, contact.id),
       badgeData
     );
+    this.dataManagement.loading = false;
   }
 
   returnBadgeObject(category: string, dropdown: Dropdown) {
@@ -423,77 +450,92 @@ export class TableControlService {
   }
 
   async moveContacts(collection: string) {
-    if (collection === 'activeContacts') {
-      await this.moveActiveContacts('active', {
-        name: 'Inactive',
-        color: '#f44336',
-        used: true,
-      });
-    } else {
-      await this.moveInactiveContacts('inactive', {
-        name: 'Active',
-        color: '#4caf50',
-        used: true,
-      });
-    }
+    console.log(this.idsToDelete);
+    this.dataManagement.loading = true;
+    collection == 'activeContacts'
+      ? await this.moveActiveContacts(collection)
+      : await  this.moveInactiveContacts(collection);
+    await this.deleteOldContacts(collection);
+    this.idsToDelete = [];
     this.allCheckedActive = false;
     this.allCheckedInactive = false;
+    this.dataManagement.loading = false;
+    console.log(this.idsToDelete);
   }
 
-  async moveActiveContacts(status: string, dropdown: Dropdown) {
+  async moveActiveContacts(collection: string) {
+    let dropdown = {
+      name: 'Inactive',
+      color: '#f44336',
+      used: true,
+    };
     for (const contact of this.dataManagement.activeContacts) {
       if (contact.checked === true) {
-        this.dataManagement.loading = true;
-        await this.contactStatusRedirection(status, contact, dropdown);
+        await this.addCheckedContactsToNewTable(collection, contact, dropdown);
       }
     }
   }
 
-  async moveInactiveContacts(status: string, dropdown: Dropdown) {
+  async moveInactiveContacts(collection: string) {
+    let dropdown = {
+      name: 'Active',
+      color: '#4caf50',
+      used: true,
+    };
     for (const contact of this.dataManagement.inactiveContacts) {
       if (contact.checked === true) {
         this.dataManagement.loading = true;
-        await this.contactStatusRedirection(status, contact, dropdown);
+        await this.addCheckedContactsToNewTable(collection, contact, dropdown);
       }
     }
   }
 
-  async contactStatusRedirection(
-    status: string,
+  async deleteOldContacts(collection: string) {
+    for (const id of this.idsToDelete) {
+      console.log(id);
+      try {
+        await deleteDoc(doc(this.firestore, collection, id));
+      } catch {
+        return;
+      }
+    }
+  }
+
+  async addCheckedContactsToNewTable(
+    coll: string,
     contact: ContactInterface,
     dropdown: Dropdown
   ) {
-    let idIsThrown = false;
+    let newContact: Contact = this.createNewContact(coll, contact, dropdown);
+    newContact.checked = false;
     let addCollection;
-    let deleteCollection;
+    console.log(newContact);
+    this.idsToDelete.push(newContact.id);
+    coll == 'activeContacts'
+      ? (addCollection = 'inactiveContacts')
+      : (addCollection = 'activeContacts');
+    await addDoc(
+      collection(this.firestore, addCollection),
+      newContact.toJson()
+    );
+
+    this.dataManagement.loading = false;
+  }
+
+  createNewContact(
+    coll: string,
+    contact: ContactInterface,
+    dropdown: Dropdown
+  ) {
     let newContact = new Contact(contact);
-    if (status == 'active') {
-      addCollection = 'inactiveContacts';
-      deleteCollection = 'activeContacts';
-      newContact.status = 'inactive';
-    } else {
-      addCollection = 'activeContacts';
-      deleteCollection = 'inactiveContacts';
-      newContact.status = 'active';
-    }
+    coll == 'activeContacts'
+      ? (newContact.status = 'inactive')
+      : (newContact.status = 'active');
     newContact.statusBadge = {
       name: dropdown.name,
       color: dropdown.color,
       used: true,
     };
-    newContact.checked = false;
-    await addDoc(
-      collection(this.firestore, addCollection),
-      newContact.toJson()
-    );
-    try {
-      if (!idIsThrown) {
-        idIsThrown = true;
-        await deleteDoc(doc(this.firestore, deleteCollection, newContact.id));
-      }
-    } catch {
-      return;
-    }
-    this.dataManagement.loading = false;
+    return newContact;
   }
 }
