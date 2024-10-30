@@ -67,12 +67,14 @@ export class DealsComponent {
   }
 
   async deleteAllDeals() {
+    this.dataManagement.loading = true;
     for (const deal of this.dataManagement.deals) {
       if (deal.checked) {
         await deleteDoc(doc(this.firestore, 'deals', deal.id));
       }
     }
     this.allChecked = false;
+    this.dataManagement.loading = false;
   }
 
   getValue(event: Event): string {
@@ -89,6 +91,7 @@ export class DealsComponent {
   }
 
   async closeDatePicker(event: FocusEvent, id: string) {
+    this.dataManagement.loading = true;
     let date = this.getValue(event);
     let normDate = this.returnPrettierDate(date);
     let dateAsTimestamp = new Date(date).getTime();
@@ -97,6 +100,7 @@ export class DealsComponent {
       euNormDate: normDate,
       dateAsTimestamp: dateAsTimestamp,
     });
+    this.dataManagement.loading = false;
   }
 
   async saveDealInput(event: FocusEvent, id: string, type: string) {
@@ -120,6 +124,7 @@ export class DealsComponent {
   }
 
   async updateName(value: string, id: string, type: string) {
+    this.dataManagement.loading = true;
     if (type == 'text') {
       await updateDoc(this.dataManagement.getSingleDocRef('deals', id), {
         name: value,
@@ -130,6 +135,7 @@ export class DealsComponent {
         dealValue: valueAsNumber,
       });
     }
+    this.dataManagement.loading = false;
   }
 
   async addNewDeal(event: KeyboardEvent) {
@@ -139,6 +145,7 @@ export class DealsComponent {
   }
 
   async addDealToCloud() {
+    this.dataManagement.loading = true;
     let timestamp = new Date().getTime();
     let user;
     user = new Deal({
@@ -149,6 +156,7 @@ export class DealsComponent {
       await addDoc(collection(this.firestore, 'deals'), user.toJson());
       this.newDealValue = '';
     }
+    this.dataManagement.loading = false;
   }
 
   async addBadge(
@@ -156,6 +164,7 @@ export class DealsComponent {
     id: string,
     type: string
   ) {
+    this.dataManagement.loading = true;
     let badge = new Badge({
       name: contact.name,
       color: contact.color,
@@ -166,14 +175,29 @@ export class DealsComponent {
     } else {
       this.addPhaseBadge(badge, id);
     }
+    this.dataManagement.loading = false;
+  }
+
+  async addRespoBadge(badge: Badge, id: string) {
+    await updateDoc(this.dataManagement.getSingleDocRef('deals', id), {
+      responsibleBadge: badge.toJson(),
+    });
+  }
+
+  async addPhaseBadge(badge: Badge, id: string) {
+    await updateDoc(this.dataManagement.getSingleDocRef('deals', id), {
+      phaseBadge: badge.toJson(),
+    });
   }
 
   async deleteBadge(id: string, type: string) {
+    this.dataManagement.loading = true;
     if (type == 'respo') {
       await this.deleteRespoBadge(id);
     } else {
       await this.deletePhaseBadge(id);
     }
+    this.dataManagement.loading = false;
   }
 
   async deleteRespoBadge(id: string) {
@@ -193,18 +217,6 @@ export class DealsComponent {
         color: '',
         used: false,
       },
-    });
-  }
-
-  async addRespoBadge(badge: Badge, id: string) {
-    await updateDoc(this.dataManagement.getSingleDocRef('deals', id), {
-      responsibleBadge: badge.toJson(),
-    });
-  }
-
-  async addPhaseBadge(badge: Badge, id: string) {
-    await updateDoc(this.dataManagement.getSingleDocRef('deals', id), {
-      phaseBadge: badge.toJson(),
     });
   }
 }

@@ -3,8 +3,6 @@
 * {
   margin: 0;
   box-sizing: border-box;
-  font-family: "segoe UI";
-  font-weight: 600;
 }
 
 html {
@@ -15,6 +13,8 @@ html {
 body {
   height: 100vh;
   color: rgb(255, 255, 255);
+  font-family: "segoe UI";
+  font-weight: 600;
 }
 
 .hide-mobile {

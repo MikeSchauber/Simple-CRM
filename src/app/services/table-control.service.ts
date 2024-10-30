@@ -496,7 +496,6 @@ export class TableControlService {
     for (const contact of contacts) {
       for (const id of this.idsToDelete) {
         if (id === contact.id) {
-          console.log(id);
           const docRef = doc(this.firestore, collection, contact.id);
           try {
             await deleteDoc(docRef);
