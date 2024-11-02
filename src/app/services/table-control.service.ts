@@ -456,7 +456,6 @@ export class TableControlService {
     } else {
       await this.moveInactiveContacts(collection);
     }
-    await this.deleteOldContacts(collection);
     this.allCheckedActive = false;
     this.allCheckedInactive = false;
     this.dataManagement.loading = false;
@@ -509,14 +508,17 @@ export class TableControlService {
   }
 
   async addCheckedContactsToNewTable(
-    coll: string,
+    status: string,
     contact: ContactInterface,
     dropdown: Dropdown
   ) {
-    let newContact = this.createNewContact(coll, contact, dropdown);
+    let newContact = this.createNewContact(status, contact, dropdown);
     newContact.checked = false;
+    console.log(status);
     let addCollection =
-      coll === 'activeContacts' ? 'inactiveContacts' : 'activeContacts';
+      status === 'active' ? 'inactiveContacts' : 'activeContacts';
+    let deleteCollection =
+      status === 'active' ? 'activeContacts' : 'inactiveContacts';
     try {
       await addDoc(
         collection(this.firestore, addCollection),
@@ -526,15 +528,16 @@ export class TableControlService {
     } catch {
       return;
     }
+    await this.deleteOldContacts(deleteCollection);
   }
 
   createNewContact(
-    coll: string,
+    status: string,
     contact: ContactInterface,
     dropdown: Dropdown
   ) {
     let newContact = new Contact(contact);
-    coll == 'activeContacts'
+    status == 'active'
       ? (newContact.status = 'inactive')
       : (newContact.status = 'active');
     newContact.statusBadge = {
